@@ -1,22 +1,23 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "inferno";
   home.homeDirectory = "/home/inferno";
 
- programs.git = {
+  programs.git = {
     enable = true;
-    userName  = "Lampros Pitsillos";
+    userName = "Lampros Pitsillos";
     userEmail = "hauahx@gmail.com";
     aliases = {
-        lg = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative";
+      lg = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative";
     };
     extraConfig = {
-        credential.helper = "store";
-        merge.conflictstyle = "diff3";
-
+      credential.helper = "store";
+      merge.conflictstyle = "diff3";
     };
   };
   # This value determines the Home Manager release that your configuration is
