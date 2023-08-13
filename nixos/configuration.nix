@@ -8,6 +8,12 @@
   lib,
   ...
 }: {
+# File system browsing deps
+services.gvfs.enable = true;
+services.tumbler.enable=true;
+
+virtualisation.waydroid.enable = true;
+
   services.kanata = {
     enable = true;
     keyboards = {
@@ -166,14 +172,25 @@
       nix-prefetch-git
       nix-prefetch
       home-manager
+# Screenshot
+grim
+slurp
+swappy
+
+# Desktop UX
+tofi
 
       # Networking
-
-      shellcheck
+bluez
       iw
+
+# System Info
+      acpi
+
       discord
       brightnessctl
       hyprpaper
+hyprpicker
       jq
       socat
       wl-clipboard
@@ -191,16 +208,22 @@
         '';
       })
       libsForQt5.qtstyleplugins
+    libsForQt5.qt5.qtwayland
       ripdrag
+# File System Managment
       xfce.thunar
+xfce.thunar-volman
+
+      bc
       nsxiv
+      vimiv-qt
       tectonic
       texlab
       lxappearance
       nil
       qutebrowser
       tldr
-      neofetch
+      fastfetch
       exa
       rofi
       wofi
@@ -213,11 +236,8 @@
       nodePackages_latest.vscode-langservers-extracted
       # Programming Utils
       hyperfine
+      shellcheck
     ];
-  };
-  qt = {
-    enable = true;
-    platformTheme = "qt5ct";
   };
   xdg.mime = {
     enable = true;
@@ -235,7 +255,6 @@
     vimix-gtk-themes
     vimix-icon-theme
     ripgrep
-    hyprland
     qt5ct
     fzf
     ripdrag
