@@ -11,7 +11,7 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
-  hardware.bluetooth.enable = true; 
+  hardware.bluetooth.enable = true;
 
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usb_storage" "sd_mod" "sr_mod" "rtsx_pci_sdmmc"];
   boot.initrd.kernelModules = [];

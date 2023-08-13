@@ -8,11 +8,11 @@
   lib,
   ...
 }: {
-# File system browsing deps
-services.gvfs.enable = true;
-services.tumbler.enable=true;
+  # File system browsing deps
+  services.gvfs.enable = true;
+  services.tumbler.enable = true;
 
-virtualisation.waydroid.enable = true;
+  virtualisation.waydroid.enable = true;
 
   services.kanata = {
     enable = true;
@@ -172,25 +172,25 @@ virtualisation.waydroid.enable = true;
       nix-prefetch-git
       nix-prefetch
       home-manager
-# Screenshot
-grim
-slurp
-swappy
+      # Screenshot
+      grim
+      slurp
+      swappy
 
-# Desktop UX
-tofi
+      # Desktop UX
+      tofi
 
       # Networking
-bluez
+      bluez
       iw
 
-# System Info
+      # System Info
       acpi
 
       discord
       brightnessctl
       hyprpaper
-hyprpicker
+      hyprpicker
       jq
       socat
       wl-clipboard
@@ -208,11 +208,11 @@ hyprpicker
         '';
       })
       libsForQt5.qtstyleplugins
-    libsForQt5.qt5.qtwayland
+      libsForQt5.qt5.qtwayland
       ripdrag
-# File System Managment
+      # File System Managment
       xfce.thunar
-xfce.thunar-volman
+      xfce.thunar-volman
 
       bc
       nsxiv
