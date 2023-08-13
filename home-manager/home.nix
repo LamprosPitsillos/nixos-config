@@ -26,7 +26,7 @@
     enableNvidiaPatches = true;
     xwayland.enable = true;
 
-    enable = true;
+    enable = false;
     settings = {
       monitor = [
         "eDP-1,1920x1080,0x0 ,1"
@@ -45,7 +45,7 @@
         follow_mouse = 1;
 
         touchpad = {
-          natural_scroll = "yes";
+          natural_scroll = true;
         };
 
         sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
@@ -73,18 +73,18 @@
         # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
         rounding = 0;
-        blur = "yes";
+        blur = true;
         blur_size = 3;
         blur_passes = 1;
         blur_new_optimizations = "on";
-        drop_shadow = "yes";
+        drop_shadow = true;
         shadow_range = 4;
         shadow_render_power = 3;
         "col.shadow" = "rgba(1a1a1aee)";
       };
 
       animations = {
-        enabled = "yes";
+        enabled = true;
 
         # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
 
@@ -101,18 +101,19 @@
 
       dwindle = {
         # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-        pseudotile = "yes"; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-        preserve_split = "yes"; # you probably want this
+        pseudotile = true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+        preserve_split = true; # you probably want this
       };
 
       master = {
         # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-        new_is_master = "true";
+        new_is_master = true;
       };
 
       gestures = {
         # See https://wiki.hyprland.org/Configuring/Variables/ for more
-        workspace_swipe = "off";
+        workspace_swipe = false;
+workspace_swipe_cancel_ratio = 0;	
       };
 
       "device:epic mouse V1" = {

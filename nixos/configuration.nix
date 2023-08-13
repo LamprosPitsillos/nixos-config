@@ -11,6 +11,7 @@
   # File system browsing deps
   services.gvfs.enable = true;
   services.tumbler.enable = true;
+security.pam.services.gtklock = {};
 
   virtualisation.waydroid.enable = true;
 
@@ -119,6 +120,8 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
     MANPAGER = "nvim +Man!";
+    STARSHIP_CONFIG="$HOME/.config/starship/starship.toml";
+ 
   };
 
   # Configure keymap in X11
@@ -168,6 +171,7 @@
     initialPassword = "1234";
 
     packages = with pkgs; [
+gtklock
       # Nix
       nix-prefetch-git
       nix-prefetch
@@ -187,7 +191,13 @@
       # System Info
       acpi
 
+# Media Fetch
+yt-dlp
+
+# Communication
       discord
+
+
       brightnessctl
       hyprpaper
       hyprpicker
@@ -201,10 +211,10 @@
       (writeShellApplication {
         name = "dmenu";
 
-        runtimeInputs = [rofi];
+        runtimeInputs = [tofi];
 
         text = ''
-          rofi -dmenu -i "$@"
+          tofi -i "$@"
         '';
       })
       libsForQt5.qtstyleplugins
@@ -230,6 +240,8 @@
       fd
       zathura
       dash
+# Secrets
+      pass-wayland
       # LSPs
       clang-tools_16
       nodePackages_latest.bash-language-server
@@ -237,6 +249,13 @@
       # Programming Utils
       hyperfine
       shellcheck
+## Build Tools
+      pkg-config
+      meson
+      cmake
+## Libs
+      glib
+
     ];
   };
   xdg.mime = {
