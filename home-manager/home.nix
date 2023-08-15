@@ -1,4 +1,5 @@
 {
+    lib,
   config,
   pkgs,
   ...
@@ -123,7 +124,7 @@ workspace_swipe_cancel_ratio = 0;
       "$Mod" = "SUPER";
 
       bind = [
-        '',Print, exec, ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - ''
+        '',Print, exec, ${lib.getExe pkgs.grim} -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - ''
 
         # ",XF86AudioPlay,exec,"
         # ",XF86AudioPause,exec,"
@@ -262,9 +263,42 @@ workspace_swipe_cancel_ratio = 0;
       name = "Vimix";
     };
   };
+  programs.mpv= {
+      enable=true;
+      scripts = with pkgs.mpvScripts; [
+              thumbfast
+              sponsorblock
+              uosc
+                quality-menu
+                visualizer
+                webtorrent-mpv-hook
+      ];
+defaultProfiles = [
+"gpu-hq"
+];
+config = {
+ hwdec = "auto";
+ sub-auto = "fuzzy";
+        sub-codepage = "gbk";
+        osc = "no";
+        osd-bar = "no";
+        border = "no";
+        ytdl-format="bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best";
+        cache-default = 4000000;
+};
+  };
   programs.zsh = {
     enable = false;
     dotDir = config.xdg.configHome/zsh;
+    syntaxHighlighting={
+        enable=true;
+        package = pkgs.zsh-fast-syntax-highlighting;
+
+    };
+    enableCompletion = true;
+    # enableAutosuggestions = true;
+
+
     history = {
       ignoreDups = true;
       ignoreSpace = true;
@@ -281,7 +315,6 @@ workspace_swipe_cancel_ratio = 0;
       gtp = "cd ~/pics/";
       gtdo = "cd ~/docs/";
       gtu = "cd ~/UoC/4ο\ Εξαμηνο";
-      hs = ''echo -n $(history 1 | fzf --tac | sed -e 's/^.[0-9]\+  //') | xsel --clipboard --input'';
       ls = "ls --sort time --color=auto -h";
       la = "exa --icons --long --accessed --all";
       lar = "exa --icons --long --accessed --all --tree --level ";

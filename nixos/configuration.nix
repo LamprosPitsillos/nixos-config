@@ -15,6 +15,13 @@ security.pam.services.gtklock = {};
 
   virtualisation.waydroid.enable = true;
 
+
+programs.neovim = {
+defaultEditor = true;
+viAlias =true;
+vimAlias =true;
+};
+
   services.kanata = {
     enable = true;
     keyboards = {
@@ -121,6 +128,7 @@ security.pam.services.gtklock = {};
     VISUAL = "nvim";
     MANPAGER = "nvim +Man!";
     STARSHIP_CONFIG="$HOME/.config/starship/starship.toml";
+    TERMINAL = "kitty";
  
   };
 
@@ -171,6 +179,8 @@ security.pam.services.gtklock = {};
     initialPassword = "1234";
 
     packages = with pkgs; [
+
+    neovide
 gtklock
       # Nix
       nix-prefetch-git
@@ -236,7 +246,6 @@ yt-dlp
       fastfetch
       exa
       rofi
-      wofi
       fd
       zathura
       dash
@@ -270,7 +279,6 @@ yt-dlp
     bottom
     swaynotificationcenter
     libnotify
-    mpv
     vimix-gtk-themes
     vimix-icon-theme
     ripgrep
@@ -279,6 +287,7 @@ yt-dlp
     ripdrag
     xcb-util-cursor
     neovim
+
     gnumake
     xdg-user-dirs
     git
