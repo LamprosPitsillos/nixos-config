@@ -8,6 +8,7 @@
   lib,
   ...
 }: {
+  environment.pathsToLink = ["/share/zsh"];
   # File system browsing deps
   services.gvfs.enable = true;
   services.tumbler.enable = true;
