@@ -11,16 +11,15 @@
   # File system browsing deps
   services.gvfs.enable = true;
   services.tumbler.enable = true;
-security.pam.services.gtklock = {};
+  security.pam.services.gtklock = {};
 
   virtualisation.waydroid.enable = true;
 
-
-programs.neovim = {
-defaultEditor = true;
-viAlias =true;
-vimAlias =true;
-};
+  programs.neovim = {
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+  };
 
   services.kanata = {
     enable = true;
@@ -127,9 +126,8 @@ vimAlias =true;
     EDITOR = "nvim";
     VISUAL = "nvim";
     MANPAGER = "nvim +Man!";
-    STARSHIP_CONFIG="$HOME/.config/starship/starship.toml";
+    STARSHIP_CONFIG = "$HOME/.config/starship/starship.toml";
     TERMINAL = "kitty";
- 
   };
 
   # Configure keymap in X11
@@ -179,9 +177,8 @@ vimAlias =true;
     initialPassword = "1234";
 
     packages = with pkgs; [
-
-    neovide
-gtklock
+      neovide
+      gtklock
       # Nix
       nix-prefetch-git
       nix-prefetch
@@ -201,12 +198,11 @@ gtklock
       # System Info
       acpi
 
-# Media Fetch
-yt-dlp
+      # Media Fetch
+      yt-dlp
 
-# Communication
+      # Communication
       discord
-
 
       brightnessctl
       hyprpaper
@@ -249,7 +245,7 @@ yt-dlp
       fd
       zathura
       dash
-# Secrets
+      # Secrets
       pass-wayland
       # LSPs
       clang-tools_16
@@ -258,13 +254,12 @@ yt-dlp
       # Programming Utils
       hyperfine
       shellcheck
-## Build Tools
+      ## Build Tools
       pkg-config
       meson
       cmake
-## Libs
+      ## Libs
       glib
-
     ];
   };
   xdg.mime = {

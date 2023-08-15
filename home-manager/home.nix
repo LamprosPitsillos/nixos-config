@@ -1,5 +1,5 @@
 {
-    lib,
+  lib,
   config,
   pkgs,
   ...
@@ -114,7 +114,7 @@
       gestures = {
         # See https://wiki.hyprland.org/Configuring/Variables/ for more
         workspace_swipe = false;
-workspace_swipe_cancel_ratio = 0;	
+        workspace_swipe_cancel_ratio = 0;
       };
 
       "device:epic mouse V1" = {
@@ -263,41 +263,39 @@ workspace_swipe_cancel_ratio = 0;
       name = "Vimix";
     };
   };
-  programs.mpv= {
-      enable=true;
-      scripts = with pkgs.mpvScripts; [
-              thumbfast
-              sponsorblock
-              uosc
-                quality-menu
-                visualizer
-                webtorrent-mpv-hook
-      ];
-defaultProfiles = [
-"gpu-hq"
-];
-config = {
- hwdec = "auto";
- sub-auto = "fuzzy";
-        sub-codepage = "gbk";
-        osc = "no";
-        osd-bar = "no";
-        border = "no";
-        ytdl-format="bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best";
-        cache-default = 4000000;
-};
+  programs.mpv = {
+    enable = true;
+    scripts = with pkgs.mpvScripts; [
+      thumbfast
+      sponsorblock
+      uosc
+      quality-menu
+      visualizer
+      webtorrent-mpv-hook
+    ];
+    defaultProfiles = [
+      "gpu-hq"
+    ];
+    config = {
+      hwdec = "auto";
+      sub-auto = "fuzzy";
+      sub-codepage = "gbk";
+      osc = "no";
+      osd-bar = "no";
+      border = "no";
+      ytdl-format = "bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best";
+      cache-default = 4000000;
+    };
   };
   programs.zsh = {
     enable = false;
     dotDir = config.xdg.configHome/zsh;
-    syntaxHighlighting={
-        enable=true;
-        package = pkgs.zsh-fast-syntax-highlighting;
-
+    syntaxHighlighting = {
+      enable = true;
+      package = pkgs.zsh-fast-syntax-highlighting;
     };
     enableCompletion = true;
     # enableAutosuggestions = true;
-
 
     history = {
       ignoreDups = true;
