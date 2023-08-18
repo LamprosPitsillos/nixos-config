@@ -137,7 +137,7 @@
   # services.xserver.displayManager.lightdm.greeters.gtk.enable =true;
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.displayManager.sddm.autoNumlock = true;
-services.xserver.displayManager.sddm.theme = "chili";
+  services.xserver.displayManager.sddm.theme = "chili";
   services.xserver.xkbOptions = "caps:escape";
   services.xserver.windowManager.qtile.enable = true;
 
@@ -163,36 +163,35 @@ services.xserver.displayManager.sddm.theme = "chili";
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
   };
-  
- nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
   };
 
   hardware = {
- nvidia = {
-
-    # Modesetting is needed for most Wayland compositors
-    modesetting.enable = true;
-    #
-    # # Use the open source version of the kernel module
-    # # Only available on driver 515.43.04+
-    # open = false;
-    #
-    # # Enable the nvidia settings menu
-    # nvidiaSettings = true;
-  };
-     opengl = {
-          enable = true;
-          driSupport32Bit = true;
-          driSupport = true;
-          extraPackages = with pkgs; [
-            intel-media-driver
-            vaapiIntel
-            vaapiVdpau
-            libvdpau-va-gl
-            nvidia-vaapi-driver
-          ];
-        };
+    nvidia = {
+      # Modesetting is needed for most Wayland compositors
+      modesetting.enable = true;
+      #
+      # # Use the open source version of the kernel module
+      # # Only available on driver 515.43.04+
+      # open = false;
+      #
+      # # Enable the nvidia settings menu
+      # nvidiaSettings = true;
+    };
+    opengl = {
+      enable = true;
+      driSupport32Bit = true;
+      driSupport = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+        vaapiIntel
+        vaapiVdpau
+        libvdpau-va-gl
+        nvidia-vaapi-driver
+      ];
+    };
   };
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
@@ -206,10 +205,9 @@ services.xserver.displayManager.sddm.theme = "chili";
     initialPassword = "1234";
 
     packages = with pkgs; [
-
       neovide
       gtklock
-# Displays
+      # Displays
       nwg-displays
 
       # Nix
@@ -268,8 +266,8 @@ services.xserver.displayManager.sddm.theme = "chili";
       xfce.thunar
       xfce.thunar-volman
 
-    swaynotificationcenter
-    sddm-chili-theme
+      swaynotificationcenter
+      sddm-chili-theme
       bc
       nsxiv
       vimiv-qt
@@ -284,11 +282,11 @@ services.xserver.displayManager.sddm.theme = "chili";
       fd
       zathura
       dash
-gimp-with-plugins
+      gimp-with-plugins
       # Secrets
       pass-wayland
       # LSPs
-lua-language-server
+      lua-language-server
       clang-tools_16
       nodePackages_latest.bash-language-server
       nodePackages_latest.vscode-langservers-extracted
@@ -351,8 +349,8 @@ lua-language-server
 
   fonts = {
     packages = with pkgs; [
-    fira-code-nerdfont
-jetbrains-mono
+      fira-code-nerdfont
+      jetbrains-mono
     ];
   };
   programs.zsh.enable = true;
