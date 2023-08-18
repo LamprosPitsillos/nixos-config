@@ -133,9 +133,11 @@
 
   # Configure keymap in X11
   services.xserver.layout = "us";
+  # services.xserver.videoDrivers = ["nvidia"];
   # services.xserver.displayManager.lightdm.greeters.gtk.enable =true;
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.displayManager.sddm.autoNumlock = true;
+services.xserver.displayManager.sddm.theme = "chili";
   services.xserver.xkbOptions = "caps:escape";
   services.xserver.windowManager.qtile.enable = true;
 
@@ -161,10 +163,36 @@
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
   };
+  
+ nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  };
 
   hardware = {
-    opengl.enable = true;
-    nvidia.modesetting.enable = true;
+ nvidia = {
+
+    # Modesetting is needed for most Wayland compositors
+    modesetting.enable = true;
+    #
+    # # Use the open source version of the kernel module
+    # # Only available on driver 515.43.04+
+    # open = false;
+    #
+    # # Enable the nvidia settings menu
+    # nvidiaSettings = true;
+  };
+     opengl = {
+          enable = true;
+          driSupport32Bit = true;
+          driSupport = true;
+          extraPackages = with pkgs; [
+            intel-media-driver
+            vaapiIntel
+            vaapiVdpau
+            libvdpau-va-gl
+            nvidia-vaapi-driver
+          ];
+        };
   };
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
@@ -178,16 +206,21 @@
     initialPassword = "1234";
 
     packages = with pkgs; [
+
       neovide
       gtklock
+# Displays
+      nwg-displays
+
       # Nix
       nix-prefetch-git
       nix-prefetch
       home-manager
-      # Screenshot
+      # Screenshot - Screenrecord
       grim
       slurp
       swappy
+      wl-screenrec
 
       # Desktop UX
       tofi
@@ -195,9 +228,13 @@
       # Networking
       bluez
       iw
+      networkmanagerapplet
 
       # System Info
       acpi
+      fastfetch
+      libva-utils
+      pciutils
 
       # Media Fetch
       yt-dlp
@@ -221,7 +258,7 @@
         runtimeInputs = [tofi];
 
         text = ''
-          tofi -i "$@"
+          tofi "$@"
         '';
       })
       libsForQt5.qtstyleplugins
@@ -231,6 +268,8 @@
       xfce.thunar
       xfce.thunar-volman
 
+    swaynotificationcenter
+    sddm-chili-theme
       bc
       nsxiv
       vimiv-qt
@@ -240,15 +279,16 @@
       nil
       qutebrowser
       tldr
-      fastfetch
       exa
       rofi
       fd
       zathura
       dash
+gimp-with-plugins
       # Secrets
       pass-wayland
       # LSPs
+lua-language-server
       clang-tools_16
       nodePackages_latest.bash-language-server
       nodePackages_latest.vscode-langservers-extracted
@@ -273,7 +313,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     bottom
-    swaynotificationcenter
     libnotify
     vimix-gtk-themes
     vimix-icon-theme
@@ -312,7 +351,8 @@
 
   fonts = {
     packages = with pkgs; [
-      (nerdfonts.override {fonts = ["FiraCode"];})
+    fira-code-nerdfont
+jetbrains-mono
     ];
   };
   programs.zsh.enable = true;
