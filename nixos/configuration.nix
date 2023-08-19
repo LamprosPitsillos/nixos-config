@@ -65,6 +65,7 @@
     };
   };
   nixpkgs.config.allowUnfree = true;
+
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -133,7 +134,7 @@
 
   # Configure keymap in X11
   services.xserver.layout = "us";
-  # services.xserver.videoDrivers = ["nvidia"];
+
   # services.xserver.displayManager.lightdm.greeters.gtk.enable =true;
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.displayManager.sddm.autoNumlock = true;
@@ -168,18 +169,26 @@
     vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
   };
 
+  # services.xserver.videoDrivers = ["nvidia"];
   hardware = {
-    nvidia = {
-      # Modesetting is needed for most Wayland compositors
-      modesetting.enable = true;
-      #
-      # # Use the open source version of the kernel module
-      # # Only available on driver 515.43.04+
-      # open = false;
-      #
-      # # Enable the nvidia settings menu
-      # nvidiaSettings = true;
-    };
+      nvidia = {
+# Modesetting is needed for most Wayland compositors
+          modesetting.enable = true;
+          # # Use the open source version of the kernel module
+          # # Only available on driver 515.43.04+
+          # open = false;
+          #
+          # # Enable the nvidia settings menu
+          # nvidiaSettings = true;
+          # prime = {
+          #     offload = {
+          #         enable = true;
+          #         enableOffloadCmd = true;
+          #     };
+          #     intelBusId = "PCI:0:2:0";
+          #     nvidiaBusId = "PCI:1:0:0";
+          # };
+      };
     opengl = {
       enable = true;
       driSupport32Bit = true;
@@ -240,6 +249,121 @@
       # Communication
       discord
 
+# Uni Notes Utils
+## Math
+# mathpix-snipping-tool
+# (   pkgs.python311Packages.buildPythonPackage {
+#       pname = "pix2tex";
+#       version = "0.1.2";
+#       src = fetchFromGitHub {
+#         owner = "lukas-blecher";
+#         repo = "LaTeX-OCR";
+#         rev = "e30a5e0ed5c6457bfc112f3979047b30d25f2ebf";
+#         sha256 = "05zx6iwz277lhx2i61dfldb02klbxzyqsw6jf57nm2gsf04sqfhc";
+#       };
+#   propagatedBuildInputs = with pkgs.python311Packages; [
+#         numpy
+#         requests
+#         tqdm
+#         munch
+#         torch
+#         opencv
+#         requests
+#         einops
+#         (
+#          buildPythonPackage {
+#          pname = "x-transformers";
+#          version = "1.18.0";
+#          src = fetchPypi {
+#          pname = "x-transformers";
+#          version = "1.18.0";
+#          sha256 = "c06011a4c5ad92d0b126d4c082f41e86d230709f2bf6889e0be66eb8a57ab08e";
+#          };
+#
+#          propagatedBuildInputs = [
+# packaging
+#          (
+# buildPythonPackage rec {
+# pname = "einops";
+#   version = "0.6.1";
+#   format = "pyproject";
+#   src = fetchFromGitHub {
+#     owner = "arogozhnikov";
+#     repo = pname;
+#     rev = "refs/tags/v${version}";
+#     sha256 ="1h8p39kd7ylg99mh620xr20hg7v78x1jnj6vxwk31rlw2dmv2dpr";
+#   };
+# nativeBuildInputs = [ hatchling ];
+#  disabledTests = [
+#     # Tests are failing as mxnet is not pulled-in
+#     # https://github.com/NixOS/nixpkgs/issues/174872
+#     "test_all_notebooks"
+#     "test_dl_notebook_with_all_backends"
+#     "test_backends_installed"
+#   ];
+#  disabledTestPaths = [
+#     "tests/test_layers.py"
+#   ];
+# }
+#                  )
+#           torch];
+#          }
+#
+#         )
+#         tokenizers
+#         pillow
+#         pyyaml
+#         pandas
+#         timm
+#
+# (buildPythonPackage rec {
+#   pname = "albumentations";
+#   version = "1.3.1";
+#   format = "setuptools";
+#
+#   disabled = pythonOlder "3.7";
+#
+#   src = fetchPypi {
+#     inherit pname version;
+#     hash = "sha256-pqODiP5UbFaAcejIL0FEmOhsntA8CLWOeoizHPeiRMY=";
+#   };
+#
+#   nativeBuildInputs = [
+#     pythonRelaxDepsHook
+#   ];
+#
+#   pythonRemoveDeps = [
+#     "opencv-python"
+#   ];
+#
+#   propagatedBuildInputs = [
+#     numpy
+#     opencv4
+#     pyyaml
+#     qudida
+#     scikit-image
+#     scipy
+#   ];
+#
+#   nativeCheckInputs = [
+#     pytestCheckHook
+#   ];
+#
+#
+#  disabledTestPaths = [
+#     "tests/test_serialization.py"
+#   ];
+#
+#   disabledTests = [
+#     # this test hangs up
+#     "test_transforms"
+#   ];
+#
+#   pythonImportsCheck = [ "albumentations" ];
+# })
+#       ];
+#     }
+# )
       brightnessctl
       hyprpaper
       hyprpicker

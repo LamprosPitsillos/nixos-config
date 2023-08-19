@@ -390,7 +390,7 @@
             # https://github.com/NotAShelf/nyx/blob/6db9e9ff81376831beaf5324c6e6f60739c1b907/homes/notashelf/terminal/shell/zsh.nix#L204
             stty stop undef
 
-
+            zmodload zsh/zprof
             zmodload zsh/zle
             zmodload zsh/zpty
             zmodload zsh/complist
@@ -456,6 +456,8 @@
       function cwd () { echo -ne "\"$(pwd)\"" | wl-copy }
 
       eval "$(starship init zsh )"
+
+            # zprof
     '';
   };
 
