@@ -17,6 +17,12 @@
       "cd"
     ];
   };
+ programs.direnv = {
+      enable = true;
+      enableZshIntegration = true; # see note on other shells below
+      nix-direnv.enable = true;
+    };
+
   programs.git = {
     enable = true;
     userName = "Lampros Pitsillos";
@@ -386,7 +392,7 @@
          compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
          _comp_options+=(globdots)
     '';
-    initExtra = ''
+    initExtra = /* zsh */ ''
             # https://github.com/NotAShelf/nyx/blob/6db9e9ff81376831beaf5324c6e6f60739c1b907/homes/notashelf/terminal/shell/zsh.nix#L204
             stty stop undef
 

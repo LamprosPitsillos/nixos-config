@@ -9,9 +9,7 @@
   ...
 }: {
   environment.pathsToLink = ["/share/zsh"];
-  # File system browsing deps
-  services.gvfs.enable = true;
-  services.tumbler.enable = true;
+
   security.pam.services.gtklock = {};
 
   virtualisation.waydroid.enable = true;
@@ -39,7 +37,7 @@
 
           (defalias
            num   (layer-while-held nums) ;; Bind 'num' to numpad Layer
-           esc_ctrl   (tap-hold 150 150 esc lctl);; Bind esc to Ctrl when holding
+           esc_ctrl   (tap-hold 200 200 esc lctl);; Bind esc to Ctrl when holding
           )
 
           (deflayer qwerty
@@ -208,14 +206,17 @@
     (final: prev: {qutebrowser = prev.qutebrowser.override {enableWideVine = true;};})
   ];
   # Define a user account. Don't forget to set a password with ‘passwd’.
+
   users.users.inferno = {
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager"]; # Enable ‘sudo’ for the user.
     initialPassword = "1234";
 
     packages = with pkgs; [
+        tesseract
       neovide
       gtklock
+      figlet
       # Displays
       nwg-displays
 
@@ -252,118 +253,7 @@
 # Uni Notes Utils
 ## Math
 # mathpix-snipping-tool
-# (   pkgs.python311Packages.buildPythonPackage {
-#       pname = "pix2tex";
-#       version = "0.1.2";
-#       src = fetchFromGitHub {
-#         owner = "lukas-blecher";
-#         repo = "LaTeX-OCR";
-#         rev = "e30a5e0ed5c6457bfc112f3979047b30d25f2ebf";
-#         sha256 = "05zx6iwz277lhx2i61dfldb02klbxzyqsw6jf57nm2gsf04sqfhc";
-#       };
-#   propagatedBuildInputs = with pkgs.python311Packages; [
-#         numpy
-#         requests
-#         tqdm
-#         munch
-#         torch
-#         opencv
-#         requests
-#         einops
-#         (
-#          buildPythonPackage {
-#          pname = "x-transformers";
-#          version = "1.18.0";
-#          src = fetchPypi {
-#          pname = "x-transformers";
-#          version = "1.18.0";
-#          sha256 = "c06011a4c5ad92d0b126d4c082f41e86d230709f2bf6889e0be66eb8a57ab08e";
-#          };
-#
-#          propagatedBuildInputs = [
-# packaging
-#          (
-# buildPythonPackage rec {
-# pname = "einops";
-#   version = "0.6.1";
-#   format = "pyproject";
-#   src = fetchFromGitHub {
-#     owner = "arogozhnikov";
-#     repo = pname;
-#     rev = "refs/tags/v${version}";
-#     sha256 ="1h8p39kd7ylg99mh620xr20hg7v78x1jnj6vxwk31rlw2dmv2dpr";
-#   };
-# nativeBuildInputs = [ hatchling ];
-#  disabledTests = [
-#     # Tests are failing as mxnet is not pulled-in
-#     # https://github.com/NixOS/nixpkgs/issues/174872
-#     "test_all_notebooks"
-#     "test_dl_notebook_with_all_backends"
-#     "test_backends_installed"
-#   ];
-#  disabledTestPaths = [
-#     "tests/test_layers.py"
-#   ];
-# }
-#                  )
-#           torch];
-#          }
-#
-#         )
-#         tokenizers
-#         pillow
-#         pyyaml
-#         pandas
-#         timm
-#
-# (buildPythonPackage rec {
-#   pname = "albumentations";
-#   version = "1.3.1";
-#   format = "setuptools";
-#
-#   disabled = pythonOlder "3.7";
-#
-#   src = fetchPypi {
-#     inherit pname version;
-#     hash = "sha256-pqODiP5UbFaAcejIL0FEmOhsntA8CLWOeoizHPeiRMY=";
-#   };
-#
-#   nativeBuildInputs = [
-#     pythonRelaxDepsHook
-#   ];
-#
-#   pythonRemoveDeps = [
-#     "opencv-python"
-#   ];
-#
-#   propagatedBuildInputs = [
-#     numpy
-#     opencv4
-#     pyyaml
-#     qudida
-#     scikit-image
-#     scipy
-#   ];
-#
-#   nativeCheckInputs = [
-#     pytestCheckHook
-#   ];
-#
-#
-#  disabledTestPaths = [
-#     "tests/test_serialization.py"
-#   ];
-#
-#   disabledTests = [
-#     # this test hangs up
-#     "test_transforms"
-#   ];
-#
-#   pythonImportsCheck = [ "albumentations" ];
-# })
-#       ];
-#     }
-# )
+      python311Packages.art
       brightnessctl
       hyprpaper
       hyprpicker
@@ -373,6 +263,9 @@
       libreoffice
       thunderbird
       eww-wayland
+      darktable
+# File Space 
+      ncdu
 
       (writeShellApplication {
         name = "dmenu";
@@ -393,14 +286,18 @@
       swaynotificationcenter
       sddm-chili-theme
       bc
-      nsxiv
       vimiv-qt
       tectonic
       texlab
       lxappearance
       nil
       qutebrowser
-      tldr
+      tealdeer
+
+
+      exfat
+      usbutils
+
       exa
       rofi
       fd
@@ -425,6 +322,14 @@
       glib
     ];
   };
+
+
+  # File system browsing deps
+  services.gvfs.enable = true;
+  services.tumbler.enable = true;
+
+
+
   xdg.mime = {
     enable = true;
     defaultApplications = {
