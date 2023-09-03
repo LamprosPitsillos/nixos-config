@@ -1,0 +1,14 @@
+#! /bin/sh
+case "$1" in
+    next) echo 'playlist-next' | socat - /tmp/mpvsocket && notify-send MPV "Next song 󰙡" -i "mpv"
+        ;;
+    prev) echo 'playlist-prev' | socat - /tmp/mpvsocket && notify-send MPV "Prev song 󰙣" -i "mpv"
+        ;;
+    toggle) echo 'cycle pause' | socat - /tmp/mpvsocket && notify-send MPV "Toggle pause 󰏤" -i "mpv"
+        ;;
+    *) notify-send Error "\"$1\" is not a valid command"
+        ;;
+esac
+
+
+

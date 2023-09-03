@@ -6,10 +6,17 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+ neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+ hyprland.url = "github:hyprwm/Hyprland";
+
   };
   outputs = {
     nixpkgs,
     home-manager,
+    hyprland,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -32,7 +39,13 @@
     homeConfigurations = {
       "inferno" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
+
+        extraSpecialArgs = {
+          inherit inputs;
+        };
         modules = [
+
+       hyprland.homeManagerModules.default
           ./home-manager/home.nix
         ];
       };

@@ -14,12 +14,9 @@
 
   virtualisation.waydroid.enable = true;
 
-  programs.neovim = {
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-  };
-
+services.syncthing = {
+enable=true;
+};
   services.kanata = {
     enable = true;
     keyboards = {
@@ -128,6 +125,7 @@
     MANPAGER = "nvim +Man!";
     STARSHIP_CONFIG = "$HOME/.config/starship/starship.toml";
     TERMINAL = "kitty";
+    SCRIPTS = "$HOME/.scripts/scripts";
   };
 
   # Configure keymap in X11
@@ -138,11 +136,13 @@
   services.xserver.displayManager.sddm.autoNumlock = true;
   services.xserver.displayManager.sddm.theme = "chili";
   services.xserver.xkbOptions = "caps:escape";
-  services.xserver.windowManager.qtile.enable = true;
+  security.polkit.enable =true;
+  # services.xserver.windowManager.qtile.enable = true;
 
   programs.hyprland = {
     enable = true;
-    nvidiaPatches = true;
+    package=inputs.hyprland.packages.${pkgs.system}.hyprland;
+    enableNvidiaPatches = true;
     xwayland.enable = true;
   };
 
@@ -167,25 +167,26 @@
     vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
   };
 
-  # services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = ["nvidia"];
   hardware = {
       nvidia = {
 # Modesetting is needed for most Wayland compositors
           modesetting.enable = true;
           # # Use the open source version of the kernel module
           # # Only available on driver 515.43.04+
-          # open = false;
+          open = false;
           #
+          powerManagement.enable = true;
           # # Enable the nvidia settings menu
-          # nvidiaSettings = true;
-          # prime = {
-          #     offload = {
-          #         enable = true;
-          #         enableOffloadCmd = true;
-          #     };
-          #     intelBusId = "PCI:0:2:0";
-          #     nvidiaBusId = "PCI:1:0:0";
-          # };
+          nvidiaSettings = true;
+          prime = {
+              offload = {
+                  enable = true;
+                  enableOffloadCmd = true;
+              };
+              intelBusId = "PCI:0:2:0";
+              nvidiaBusId = "PCI:1:0:0";
+          };
       };
     opengl = {
       enable = true;
@@ -204,7 +205,11 @@
   services.xserver.libinput.enable = true;
   nixpkgs.overlays = [
     (final: prev: {qutebrowser = prev.qutebrowser.override {enableWideVine = true;};})
+    (final: prev: {nwg-displays = prev.nwg-displays.override {hyprlandSupport = true;};})
   ];
+
+    
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
   users.users.inferno = {
@@ -213,13 +218,16 @@
     initialPassword = "1234";
 
     packages = with pkgs; [
+ueberzugpp
+ sddm-chili-theme
+transmission-gtk
+    ffmpeg
         tesseract
       neovide
       gtklock
       figlet
       # Displays
       nwg-displays
-
       # Nix
       nix-prefetch-git
       nix-prefetch
@@ -228,6 +236,7 @@
       grim
       slurp
       swappy
+      wf-recorder
       wl-screenrec
 
       # Desktop UX
@@ -276,6 +285,21 @@
           tofi "$@"
         '';
       })
+    (writeShellApplication {
+     name = "screenshot_sh";
+
+     runtimeInputs = [hyprpicker tofi grim slurp swappy];
+     text = /* sh */ ''
+     name=$(echo | tofi --prompt-text="Name: " --require-match=false --height=8% | tr " " "_")
+     [ -z "$name" ] && exit
+     grim -g "$(slurp)" - | swappy -f - -o "$HOME/pics/Screenshot/$(date +'%Y-%m-%d_%H-%M-%S')_$name".png
+     '';
+     }
+      )
+    parallel
+    file
+    trashy
+    xplr
       libsForQt5.qtstyleplugins
       libsForQt5.qt5.qtwayland
       ripdrag
@@ -283,8 +307,7 @@
       xfce.thunar
       xfce.thunar-volman
 
-      swaynotificationcenter
-      sddm-chili-theme
+      # swaynotificationcenter
       bc
       vimiv-qt
       tectonic
@@ -307,6 +330,9 @@
       # Secrets
       pass-wayland
       # LSPs
+      python311Packages.python-lsp-ruff
+      python311Packages.python-lsp-server
+      python311Packages.pylsp-rope
       lua-language-server
       clang-tools_16
       nodePackages_latest.bash-language-server
@@ -327,14 +353,24 @@
   # File system browsing deps
   services.gvfs.enable = true;
   services.tumbler.enable = true;
+  services.udisks2.enable=true;
 
 
 
-  xdg.mime = {
+xdg = {
+portal.enable=true;
+portal.extraPortals = [
+pkgs.xdg-desktop-portal-gtk
+
+];
+  mime = {
+
     enable = true;
     defaultApplications = {
     };
   };
+};
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -353,7 +389,6 @@
     gnumake
     xdg-user-dirs
     git
-    qtile
     kitty
     vifm
     zoxide
@@ -363,6 +398,21 @@
     starship
   ];
 
+systemd = {
+  user.services.polkit-gnome-authentication-agent-1 = {
+    description = "polkit-gnome-authentication-agent-1";
+    wantedBy = [ "graphical-session.target" ];
+    wants = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
+  };
+};
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.mtr.enable = true;
