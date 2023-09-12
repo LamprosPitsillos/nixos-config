@@ -119,7 +119,7 @@ programs.neovim = {
     package=inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
     vimAlias=true;
     viAlias=true;
-    extraPackages = with pkgs;[gcc ripgrep fd];
+    extraPackages = with pkgs;[gcc ripgrep fd nodejs_18 ];
 };
  programs.direnv = {
       enable = true;
@@ -145,6 +145,12 @@ programs.neovim = {
     xwayland.enable = true;
 
     enable = true;
+    # settings = rec {
+    #     MOD = "SUPER";
+    #
+    #
+    #
+    #     };
     extraConfig = ''
 #
 # Please note not all available settings / options are set here.
@@ -163,8 +169,11 @@ monitor=,preferred,auto,1
 # Source a file (multi-file configs)
 # source = ~/.config/hypr/myColors.conf
 
+
 # Some default env vars.
 env = XCURSOR_SIZE,20
+
+source = ~/.config/hypr/monitors.conf
 
 exec-once =  hyprpaper &
 exec-once =  dunst &
@@ -215,7 +224,7 @@ general {
 decoration {
     # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
-    rounding = 0
+    rounding = 4
 
     drop_shadow = true
     shadow_range = 6
@@ -276,7 +285,7 @@ windowrulev2 = noinitialfocus,class:^(com-eteks-sweethome3d-SweetHome3DBootstrap
 windowrulev2 = nofocus,class:^(com-eteks-sweethome3d-SweetHome3DBootstrap)$,title:^(win1)$
 
 # Example windowrule v2
-windowrulev2 = float,class:^(Waydroid)$
+windowrulev2 = fullscreen,class:^(Waydroid)$
 windowrulev2 = float,class:nm-connection-editor
 # windowrulev2 = dimaround,fullscreen:1
 # windowrulev2 = bordersize 8,fullscreen:1
@@ -290,11 +299,12 @@ $hyprscripts= ~/.config/hypr/scripts
 $scripts= $SCRIPTS
 
 # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-bind = $mainMod,return, exec, kitty
+bind = $mainMod,return, exec, kitty -1
 #bind = $mainMod, period , exec,[workspace special:terminal] kitty
 bind = $mainMod, period , exec, $hyprscripts/scratchpads terminal
 bind =,Menu ,exec, hyprctl switchxkblayout kanata next
-bind =,Print ,exec, screenshot_sh
+bind =,Print ,exec, $scripts/screenshot-sh full
+bind =SHIFT,Print ,exec, $scripts/screenshot-sh 
 bind =$mainMod,Print ,exec,$scripts/screen-rec.sh
 bind =$mainMod SHIFT,Print ,exec,$scripts/screen-rec.sh area
 bind =$mainMod,B ,exec,$scripts/qute_search.sh
@@ -362,7 +372,7 @@ bind = $mainMod, mouse_up, workspace, e-1
 bind=$mainMod,o,submap,open
 
 submap=open
-bind=,Q,exec,qutebrowser
+bind=,Q,exec,$scripts/qute_search.sh
 bind=,Q,submap,reset
 bind=,escape,submap,reset 
 submap=reset
@@ -431,7 +441,7 @@ bindm = $mainMod SHIFT, mouse:272, resizewindow
     # bb10bright, bb10dark, cde, cleanlooks,
     # gtk2, motif, plastique
 
-    style.package = pkgs.adwaita-qt;
+    style.package = pkgs.adwaita-qt6;
   };
 
   gtk = {
@@ -457,18 +467,17 @@ bindm = $mainMod SHIFT, mouse:272, resizewindow
       sponsorblock
       uosc
       quality-menu
-      # visualizer
       webtorrent-mpv-hook
     ];
     defaultProfiles = [
       "gpu-hq"
     ];
-bindings={
-"Ctrl+Alt+d" = ''run "${pkgs.trashy}/bin/trash" "''${path}"'';
-p="playlist-prev";
-n="playlist-next";
-l=''cycle-values loop-playlist "inf" "no" '';
-};
+    bindings={
+        "Ctrl+Alt+d" = ''run "${pkgs.trashy}/bin/trash" "''${path}"'';
+        p="playlist-prev";
+        n="playlist-next";
+        l=''cycle-values loop-playlist "inf" "no" '';
+    };
     config = {
       hwdec = "auto-safe";
       hwdec-codecs="all";
@@ -483,6 +492,14 @@ l=''cycle-values loop-playlist "inf" "no" '';
       gpu-context = "wayland";
     };
   };
+
+    programs.tmux= {
+        enable=true;
+        baseIndex=1;
+        keyMode="vi";
+        prefix="C-q";
+        terminal="screen-256color";
+    };
 
   programs.fzf = {
     enable = true;
@@ -551,9 +568,9 @@ l=''cycle-values loop-playlist "inf" "no" '';
       ip = "ip -color=auto";
       # gtu = "cd ~/UoC/4ο\ Εξαμηνο";
       ls = "ls --sort time --color=auto -h";
-      la = "exa --icons --long --accessed --all";
-      lar = "exa --icons --long --accessed --all --tree --level ";
-      tree = "exa --icons --tree --accessed";
+      la = "eza --icons --long --accessed --all";
+      lar = "eza --icons --long --accessed --all --tree --level ";
+      tree = "eza --icons --tree --accessed";
       nv = "nvim";
       q = "exit";
       fm = "vifm .";
@@ -575,6 +592,7 @@ l=''cycle-values loop-playlist "inf" "no" '';
         autoload -U compinit
          zstyle ':completion:*' menu select
          zmodload zsh/complist
+         fpath=( $ZDOTDIR/completions $fpath )
          compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
          # _comp_options+=(globdots)
     '';
@@ -637,7 +655,7 @@ l=''cycle-values loop-playlist "inf" "no" '';
             setopt AUTO_LIST AUTO_LIST AUTO_MENU \
             AUTO_PARAM_SLASH AUTO_PUSHD APPEND_HISTORY \
             ALWAYS_TO_END COMPLETE_IN_WORD CORRECT EXTENDED_HISTORY \
-            HIST_FCNTL_LOCK HIST_IGNORE_DUPS HIST_IGNORE_SPACE \
+            HIST_FCNTL_LOCK \
             HIST_REDUCE_BLANKS HIST_VERIFY INC_APPEND_HISTORY \
             INTERACTIVE_COMMENTS MENU_COMPLETE NO_NOMATCH PUSHD_IGNORE_DUPS \
             PUSHD_TO_HOME PUSHD_SILENT SHARE_HISTORY
@@ -890,18 +908,18 @@ l=''cycle-values loop-playlist "inf" "no" '';
 # SCRIPTS 
 
 
-home.file= {
-"./hello".source = 
-(pkgs.writeShellApplication {
-     name = "simple-script-sh";
-
-     text = /* sh */ ''
-     echo hello
-     '';
-     }
-      );
-
-};
+# home.file= {
+# "./hello".source = 
+# (pkgs.writeShellApplication {
+#      name = "simple-script-sh";
+#
+#      text = /* sh */ ''
+#      echo hello
+#      '';
+#      }
+#       );
+#
+# };
 
   # You can also manage environment variables but you will have to manually
   # source

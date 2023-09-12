@@ -52,7 +52,7 @@ enable=true;
            _   _    _    -    =    _    _    [    ]    \    _    _    _    _
            _   1    2    3    4    5    6    7    8    9    0   _    _
            _   _    _    _    _    _    _    _    _    _    _    _       _
-           _    _ bspc           ret            _ _  _        _ _ _
+           _    _  bspc                 ret              _ _  _        _ _ _
 
           )
         '';
@@ -67,7 +67,12 @@ enable=true;
   ];
   # programs.home-manager.enable = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
-  documentation.man.generateCaches = true;
+  documentation = {
+      dev.enable=true;     
+      man = {
+          generateCaches = true;
+      };
+  };
   # Use the GRUB 2 boot loader.
   boot.loader.grub = {
     enable = true;
@@ -110,34 +115,40 @@ enable=true;
   #   useXkbConfig = true; # use xkbOptions in tty.
   # };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
 
   environment.sessionVariables = {
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_CONFIG_HOME = "$HOME/.config";
     XDG_DATA_HOME = "$HOME/.local/share";
     XDG_STATE_HOME = "$HOME/.local/state";
-    ZDOTDIR = "$HOME/.config/zsh";
-    HISTFILE = "$HOME/.config/zsh/.zsh_history";
+    ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
+    HISTFILE = "$XDG_CONFIG_HOME/zsh/.zsh_history";
+    STARSHIP_CONFIG = "$XDG_CONFIG_HOME/starship/starship.toml";
+    FLAKE_PATH = "$HOME/.nixos-config";
+    SCRIPTS = "$FLAKE_PATH/scripts";
+
+    GDK_BACKEND="wayland";
     EDITOR = "nvim";
     VISUAL = "nvim";
     MANPAGER = "nvim +Man!";
-    STARSHIP_CONFIG = "$HOME/.config/starship/starship.toml";
     TERMINAL = "kitty";
-    SCRIPTS = "$HOME/.scripts/scripts";
   };
 
-  # Configure keymap in X11
-  services.xserver.layout = "us";
-
-  # services.xserver.displayManager.lightdm.greeters.gtk.enable =true;
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.sddm.autoNumlock = true;
-  services.xserver.displayManager.sddm.theme = "chili";
-  services.xserver.xkbOptions = "caps:escape";
+services.xserver= {
+    enable = true;
+    layout = "us";
+    xkbOptions = "caps:escape";
+    displayManager = {
+        sddm = {
+            enable = true;
+            autoNumlock = true;
+            theme = "chili";
+        };
+    };
+};
   security.polkit.enable =true;
   # services.xserver.windowManager.qtile.enable = true;
+
 
   programs.hyprland = {
     enable = true;
@@ -162,6 +173,17 @@ enable=true;
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
   };
+environment.etc = {
+    "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = 
+    /* lua */ ''
+        bluez_monitor.properties = {
+            ["bluez5.enable-sbc-xq"] = true,
+            ["bluez5.enable-msbc"] = true,
+            ["bluez5.enable-hw-volume"] = true,
+            ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+        }
+    '';
+};
 
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
@@ -218,6 +240,9 @@ enable=true;
     initialPassword = "1234";
 
     packages = with pkgs; [
+p7zip
+linuxKernel.packages.linux_6_4.perf
+    inkscape
 ueberzugpp
  sddm-chili-theme
 transmission-gtk
@@ -229,6 +254,8 @@ transmission-gtk
       # Displays
       nwg-displays
       # Nix
+
+      prefetch-npm-deps
       nix-prefetch-git
       nix-prefetch
       home-manager
@@ -315,13 +342,14 @@ transmission-gtk
       lxappearance
       nil
       qutebrowser
+      firefox
       tealdeer
 
 
       exfat
       usbutils
 
-      exa
+      eza
       rofi
       fd
       zathura
@@ -329,11 +357,13 @@ transmission-gtk
       gimp-with-plugins
       # Secrets
       pass-wayland
+
       # LSPs
       python311Packages.python-lsp-ruff
       python311Packages.python-lsp-server
       python311Packages.pylsp-rope
       lua-language-server
+      ruff-lsp
       clang-tools_16
       nodePackages_latest.bash-language-server
       nodePackages_latest.vscode-langservers-extracted
@@ -344,6 +374,8 @@ transmission-gtk
       pkg-config
       meson
       cmake
+      gdb
+      gf
       ## Libs
       glib
     ];
@@ -390,6 +422,7 @@ pkgs.xdg-desktop-portal-gtk
     xdg-user-dirs
     git
     kitty
+    wezterm
     vifm
     zoxide
     kanata
@@ -398,21 +431,21 @@ pkgs.xdg-desktop-portal-gtk
     starship
   ];
 
-systemd = {
-  user.services.polkit-gnome-authentication-agent-1 = {
-    description = "polkit-gnome-authentication-agent-1";
-    wantedBy = [ "graphical-session.target" ];
-    wants = [ "graphical-session.target" ];
-    after = [ "graphical-session.target" ];
-    serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
-  };
-};
+# systemd = {
+#   user.services.polkit-gnome-authentication-agent-1 = {
+#     description = "polkit-gnome-authentication-agent-1";
+#     wantedBy = [ "graphical-session.target" ];
+#     wants = [ "graphical-session.target" ];
+#     after = [ "graphical-session.target" ];
+#     serviceConfig = {
+#         Type = "simple";
+#         ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+#         Restart = "on-failure";
+#         RestartSec = 1;
+#         TimeoutStopSec = 10;
+#       };
+#   };
+# };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.mtr.enable = true;
