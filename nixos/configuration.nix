@@ -240,6 +240,7 @@ environment.etc = {
     initialPassword = "1234";
 
     packages = with pkgs; [
+
 p7zip
 linuxKernel.packages.linux_6_4.perf
     inkscape
@@ -255,6 +256,7 @@ transmission-gtk
       nwg-displays
       # Nix
 
+      nix-index
       prefetch-npm-deps
       nix-prefetch-git
       nix-prefetch
@@ -333,7 +335,6 @@ transmission-gtk
       # File System Managment
       xfce.thunar
       xfce.thunar-volman
-
       # swaynotificationcenter
       bc
       vimiv-qt
@@ -359,6 +360,7 @@ transmission-gtk
       pass-wayland
 
       # LSPs
+      cmake-language-server
       python311Packages.python-lsp-ruff
       python311Packages.python-lsp-server
       python311Packages.pylsp-rope
@@ -367,6 +369,9 @@ transmission-gtk
       clang-tools_16
       nodePackages_latest.bash-language-server
       nodePackages_latest.vscode-langservers-extracted
+      nodePackages_latest.typescript-language-server
+      typescript
+      quick-lint-js
       # Programming Utils
       hyperfine
       shellcheck
@@ -461,8 +466,7 @@ pkgs.xdg-desktop-portal-gtk
 
   fonts = {
     packages = with pkgs; [
-      fira-code-nerdfont
-      jetbrains-mono
+    nerdfonts
     ];
   };
   programs.zsh.enable = true;
