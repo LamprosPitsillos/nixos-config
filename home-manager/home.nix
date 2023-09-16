@@ -908,18 +908,6 @@ bindm = $mainMod SHIFT, mouse:272, resizewindow
 # SCRIPTS 
 
 
-# home.file= {
-# "./hello".source = 
-# (pkgs.writeShellApplication {
-#      name = "simple-script-sh";
-#
-#      text = /* sh */ ''
-#      echo hello
-#      '';
-#      }
-#       );
-#
-# };
 programs.kitty = {
     enable=true;
     font ={
@@ -936,18 +924,10 @@ programs.kitty = {
 modify_font underline_position 2
 modify_font underline_thickness 200%
 
-font_family      Fira Code Retina
-bold_font        Fira Code SemiBold
-italic_font      JetBrains Mono Light Italic
-bold_italic_font JetBrains Mono ExtraBold Italic
-
+modify_font cell_width 100%
+modify_font cell_height -1px
             '';
 settings={
-# font_family      Fira Code Retina
-# bold_font        Fira Code SemiBold
-# italic_font      JetBrains Mono Light Italic
-# bold_italic_font JetBrains Mono ExtraBold Italic
-# font_size 12.0
 disable_ligatures="cursor";
 # scrollback_pager = ''
 # bash -c "exec nvim 63<&0 0</dev/null -u NONE -c 'map <silent> q :qa!<CR>' -c 'map <silent> i :qa!<CR>' -c 'set shell=bash scrollback=100000 termguicolors laststatus=0 cmdheight=0 noruler noshowmode noshowcmd clipboard+=unnamed' -c 'autocmd TermEnter * stopinsert' -c 'autocmd TermClose * call cursor(max([0,INPUT_LINE_NUMBER-1])+CURSOR_LINE, CURSOR_COLUMN)' -c 'terminal sed </dev/fd/63 -e \"s/'$'\x1b'']8;;file:[^\]*[\]//g\" && sleep 0.01 && printf \"'$'\x1b'']2;\"'"
