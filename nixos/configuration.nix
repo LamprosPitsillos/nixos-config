@@ -14,9 +14,9 @@
 
   virtualisation.waydroid.enable = true;
 
-services.syncthing = {
-enable=true;
-};
+  services.syncthing = {
+    enable = true;
+  };
   services.kanata = {
     enable = true;
     keyboards = {
@@ -68,10 +68,10 @@ enable=true;
   # programs.home-manager.enable = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
   documentation = {
-      dev.enable=true;     
-      man = {
-          generateCaches = true;
-      };
+    dev.enable = true;
+    man = {
+      generateCaches = true;
+    };
   };
   # Use the GRUB 2 boot loader.
   boot.loader.grub = {
@@ -115,7 +115,6 @@ enable=true;
   #   useXkbConfig = true; # use xkbOptions in tty.
   # };
 
-
   environment.sessionVariables = {
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_CONFIG_HOME = "$HOME/.config";
@@ -127,32 +126,31 @@ enable=true;
     FLAKE_PATH = "$HOME/.nixos-config";
     SCRIPTS = "$FLAKE_PATH/scripts";
 
-    GDK_BACKEND="wayland";
+    GDK_BACKEND = "wayland";
     EDITOR = "nvim";
     VISUAL = "nvim";
     MANPAGER = "nvim +Man!";
     TERMINAL = "kitty";
   };
 
-services.xserver= {
+  services.xserver = {
     enable = true;
     layout = "us";
     xkbOptions = "caps:escape";
     displayManager = {
-        sddm = {
-            enable = true;
-            autoNumlock = true;
-            theme = "chili";
-        };
+      sddm = {
+        enable = true;
+        autoNumlock = true;
+        theme = "chili";
+      };
     };
-};
-  security.polkit.enable =true;
+  };
+  security.polkit.enable = true;
   # services.xserver.windowManager.qtile.enable = true;
-
 
   programs.hyprland = {
     enable = true;
-    package=inputs.hyprland.packages.${pkgs.system}.hyprland;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     enableNvidiaPatches = true;
     xwayland.enable = true;
   };
@@ -173,17 +171,20 @@ services.xserver= {
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
   };
-environment.etc = {
-    "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = 
-    /* lua */ ''
+  environment.etc = {
+    "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text =
+      /*
+      lua
+      */
+      ''
         bluez_monitor.properties = {
             ["bluez5.enable-sbc-xq"] = true,
             ["bluez5.enable-msbc"] = true,
             ["bluez5.enable-hw-volume"] = true,
             ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
         }
-    '';
-};
+      '';
+  };
 
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
@@ -191,25 +192,25 @@ environment.etc = {
 
   services.xserver.videoDrivers = ["nvidia"];
   hardware = {
-      nvidia = {
-# Modesetting is needed for most Wayland compositors
-          modesetting.enable = true;
-          # # Use the open source version of the kernel module
-          # # Only available on driver 515.43.04+
-          open = false;
-          #
-          powerManagement.enable = true;
-          # # Enable the nvidia settings menu
-          nvidiaSettings = true;
-          prime = {
-              offload = {
-                  enable = true;
-                  enableOffloadCmd = true;
-              };
-              intelBusId = "PCI:0:2:0";
-              nvidiaBusId = "PCI:1:0:0";
-          };
+    nvidia = {
+      # Modesetting is needed for most Wayland compositors
+      modesetting.enable = true;
+      # # Use the open source version of the kernel module
+      # # Only available on driver 515.43.04+
+      open = false;
+      #
+      powerManagement.enable = true;
+      # # Enable the nvidia settings menu
+      nvidiaSettings = true;
+      prime = {
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
       };
+    };
     opengl = {
       enable = true;
       driSupport32Bit = true;
@@ -230,8 +231,6 @@ environment.etc = {
     (final: prev: {nwg-displays = prev.nwg-displays.override {hyprlandSupport = true;};})
   ];
 
-    
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
   users.users.inferno = {
@@ -240,15 +239,14 @@ environment.etc = {
     initialPassword = "1234";
 
     packages = with pkgs; [
-
-p7zip
-linuxKernel.packages.linux_6_4.perf
-    inkscape
-ueberzugpp
- sddm-chili-theme
-transmission-gtk
-    ffmpeg
-        tesseract
+      p7zip
+      linuxKernel.packages.linux_6_4.perf
+      inkscape
+      ueberzugpp
+      sddm-chili-theme
+      transmission-gtk
+      ffmpeg
+      tesseract
       neovide
       gtklock
       figlet
@@ -288,9 +286,9 @@ transmission-gtk
       # Communication
       discord
 
-# Uni Notes Utils
-## Math
-# mathpix-snipping-tool
+      # Uni Notes Utils
+      ## Math
+      # mathpix-snipping-tool
       python311Packages.art
       brightnessctl
       hyprpaper
@@ -302,7 +300,7 @@ transmission-gtk
       thunderbird
       eww-wayland
       darktable
-# File Space 
+      # File Space
       ncdu
 
       (writeShellApplication {
@@ -314,21 +312,26 @@ transmission-gtk
           tofi "$@"
         '';
       })
-    (writeShellApplication {
-     name = "screenshot_sh";
+      (
+        writeShellApplication {
+          name = "screenshot_sh";
 
-     runtimeInputs = [hyprpicker tofi grim slurp swappy];
-     text = /* sh */ ''
-     name=$(echo | tofi --prompt-text="Name: " --require-match=false --height=8% | tr " " "_")
-     [ -z "$name" ] && exit
-     grim -g "$(slurp)" - | swappy -f - -o "$HOME/pics/Screenshot/$(date +'%Y-%m-%d_%H-%M-%S')_$name".png
-     '';
-     }
+          runtimeInputs = [hyprpicker tofi grim slurp swappy];
+          text =
+            /*
+            sh
+            */
+            ''
+              name=$(echo | tofi --prompt-text="Name: " --require-match=false --height=8% | tr " " "_")
+              [ -z "$name" ] && exit
+              grim -g "$(slurp)" - | swappy -f - -o "$HOME/pics/Screenshot/$(date +'%Y-%m-%d_%H-%M-%S')_$name".png
+            '';
+        }
       )
-    parallel
-    file
-    trashy
-    xplr
+      parallel
+      file
+      trashy
+      xplr
       libsForQt5.qtstyleplugins
       libsForQt5.qt5.qtwayland
       ripdrag
@@ -345,7 +348,6 @@ transmission-gtk
       qutebrowser
       firefox
       tealdeer
-
 
       exfat
       usbutils
@@ -386,28 +388,22 @@ transmission-gtk
     ];
   };
 
-
   # File system browsing deps
   services.gvfs.enable = true;
   services.tumbler.enable = true;
-  services.udisks2.enable=true;
+  services.udisks2.enable = true;
 
-
-
-xdg = {
-portal.enable=true;
-portal.extraPortals = [
-pkgs.xdg-desktop-portal-gtk
-
-];
-  mime = {
-
-    enable = true;
-    defaultApplications = {
+  xdg = {
+    portal.enable = true;
+    portal.extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    mime = {
+      enable = true;
+      defaultApplications = {
+      };
     };
   };
-};
-
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -436,21 +432,21 @@ pkgs.xdg-desktop-portal-gtk
     starship
   ];
 
-# systemd = {
-#   user.services.polkit-gnome-authentication-agent-1 = {
-#     description = "polkit-gnome-authentication-agent-1";
-#     wantedBy = [ "graphical-session.target" ];
-#     wants = [ "graphical-session.target" ];
-#     after = [ "graphical-session.target" ];
-#     serviceConfig = {
-#         Type = "simple";
-#         ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-#         Restart = "on-failure";
-#         RestartSec = 1;
-#         TimeoutStopSec = 10;
-#       };
-#   };
-# };
+  # systemd = {
+  #   user.services.polkit-gnome-authentication-agent-1 = {
+  #     description = "polkit-gnome-authentication-agent-1";
+  #     wantedBy = [ "graphical-session.target" ];
+  #     wants = [ "graphical-session.target" ];
+  #     after = [ "graphical-session.target" ];
+  #     serviceConfig = {
+  #         Type = "simple";
+  #         ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+  #         Restart = "on-failure";
+  #         RestartSec = 1;
+  #         TimeoutStopSec = 10;
+  #       };
+  #   };
+  # };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.mtr.enable = true;
@@ -466,7 +462,7 @@ pkgs.xdg-desktop-portal-gtk
 
   fonts = {
     packages = with pkgs; [
-    nerdfonts
+      nerdfonts
     ];
   };
   programs.zsh.enable = true;

@@ -6,12 +6,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
- neovim-nightly-overlay = {
+    neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
- hyprland.url = "github:hyprwm/Hyprland";
-
+    hyprland.url = "github:hyprwm/Hyprland";
   };
   outputs = {
     nixpkgs,
@@ -44,8 +43,7 @@
           inherit inputs;
         };
         modules = [
-
-       hyprland.homeManagerModules.default
+          hyprland.homeManagerModules.default
           ./home-manager/home.nix
         ];
       };
