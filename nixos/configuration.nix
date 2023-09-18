@@ -15,7 +15,7 @@
   virtualisation.waydroid.enable = true;
 
   services.syncthing = {
-    enable = true;
+    enable = false;
   };
   services.kanata = {
     enable = true;
