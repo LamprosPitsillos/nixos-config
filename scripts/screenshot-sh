@@ -1,0 +1,10 @@
+#!/usr/bin/env dash
+
+name=$(echo | tofi --prompt-text="Name: " --require-match=false --height=8% | tr " " "_")
+[ -z "$name" ] && exit
+if [ "$1" = "full" ];then 
+    sleep 0.2
+    grim - | swappy -f - -o "$HOME/pics/Screenshot/$(date +'%Y-%m-%d_%H-%M-%S')_$name".png
+elif [ -z "$1"  ];then
+    grim -g "$(slurp)" - | swappy -f - -o "$HOME/pics/Screenshot/$(date +'%Y-%m-%d_%H-%M-%S')_$name".png
+fi
