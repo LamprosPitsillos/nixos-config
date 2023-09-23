@@ -16,7 +16,6 @@
     ./programs/dunst/dunst.nix
     ./programs/zathura/zathura.nix
     ./programs/kitty/kitty.nix
-
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -33,7 +32,6 @@
     ];
   };
 
-  
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -60,8 +58,6 @@
       merge.conflictstyle = "diff3";
     };
   };
-
-  
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -138,7 +134,6 @@
       name = "Vimix";
     };
   };
-  
 
   programs.tmux = {
     enable = true;

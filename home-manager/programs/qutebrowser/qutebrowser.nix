@@ -1,5 +1,5 @@
-{...}:{
-programs.qutebrowser = {
+{...}: {
+  programs.qutebrowser = {
     enable = false;
     aliases = {
       w = "session-save";
@@ -232,4 +232,4 @@ programs.qutebrowser = {
       };
     };
   };
-    }
+}

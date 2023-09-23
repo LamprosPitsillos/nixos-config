@@ -1,5 +1,5 @@
-{...}:{
-programs.zathura = {
+{...}: {
+  programs.zathura = {
     enable = true;
     mappings = {
     };
@@ -53,4 +53,4 @@ programs.zathura = {
       first-page-column = "1:1";
     };
   };
-    }
+}

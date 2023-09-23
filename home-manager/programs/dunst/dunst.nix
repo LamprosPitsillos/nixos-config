@@ -1,5 +1,5 @@
-{ ...}: {
-services.dunst = {
+{...}: {
+  services.dunst = {
     enable = true;
     settings = {
       # See dunst(5) for all configuration options

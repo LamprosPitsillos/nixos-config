@@ -1,5 +1,10 @@
-{pkgs,config,lib,...}:{
-programs.zsh = {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
+  programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
     # syntaxHighlighting = {
@@ -76,7 +81,9 @@ programs.zsh = {
        # _comp_options+=(globdots)
     '';
     initExtra =
-      /* zsh */
+      /*
+      zsh
+      */
       ''
               # https://github.com/NotAShelf/nyx/blob/6db9e9ff81376831beaf5324c6e6f60739c1b907/homes/notashelf/terminal/shell/zsh.nix#L204
               stty stop undef
@@ -148,5 +155,4 @@ programs.zsh = {
 
       '';
   };
-
-    }
+}

@@ -1,5 +1,5 @@
-{pkgs,...}:{
-programs.kitty = {
+{pkgs, ...}: {
+  programs.kitty = {
     enable = true;
     font = {
       package = pkgs.nerdfonts;
@@ -34,4 +34,4 @@ programs.kitty = {
     shellIntegration.enableZshIntegration = true;
     theme = "One Half Dark";
   };
-    }
+}

@@ -1,5 +1,5 @@
-{ ...}: {
-wayland.windowManager.hyprland = {
+{...}: {
+  wayland.windowManager.hyprland = {
     enableNvidiaPatches = true;
     xwayland.enable = true;
 
