@@ -16,8 +16,9 @@
     ./programs/dunst/dunst.nix
     ./programs/zathura/zathura.nix
     ./programs/kitty/kitty.nix
+    ./programs/nvim/nvim.nix
+    
   ];
-
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "inferno";
@@ -32,14 +33,6 @@
     ];
   };
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
-    vimAlias = true;
-    viAlias = true;
-    extraPackages = with pkgs; [gcc ripgrep fd nodejs_18];
-  };
   programs.direnv = {
     enable = true;
     enableZshIntegration = true; # see note on other shells below

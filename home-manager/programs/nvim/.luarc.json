@@ -1,0 +1,38 @@
+{
+    "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+    "Lua.diagnostics.globals": [
+        "vim",
+        "map",
+        "MiniBufremove"
+    ],
+    "workspace.library": [
+        "/tmp/lua-language-server.4ws8/meta/5b5c0e4a",
+        "/tmp/lua-language-server.V42B/meta/5b5c0e4a",
+        "/tmp/lua-language-server.5Hy9/meta/5b5c0e4a",
+        "/tmp/lua-language-server.kpWi/meta/5b5c0e4a",
+        "/tmp/lua-language-server.epc8/meta/5b5c0e4a",
+        "/tmp/lua-language-server.SUK3/meta/5b5c0e4a",
+        "/tmp/lua-language-server.NQ2Q/meta/5b5c0e4a",
+        "/tmp/lua-language-server.9IXs/meta/5b5c0e4a",
+        "/tmp/lua-language-server.mAMp/meta/5b5c0e4a",
+        "/tmp/lua-language-server.yrDW/meta/5b5c0e4a",
+        "/tmp/lua-language-server.3eJ2/meta/5b5c0e4a",
+        "/tmp/lua-language-server.Wo2l/meta/5b5c0e4a",
+        "/tmp/lua-language-server.Dqkp/meta/5b5c0e4a",
+        "/tmp/lua-language-server.sZL3/meta/5b5c0e4a",
+        "/tmp/lua-language-server.STV4/meta/5b5c0e4a",
+        "/tmp/lua-language-server.1j9i/meta/5b5c0e4a",
+        "/tmp/lua-language-server.y6Bq/meta/5b5c0e4a",
+        "/tmp/lua-language-server.mBTW/meta/5b5c0e4a",
+        "/tmp/lua-language-server.gbhA/meta/5b5c0e4a",
+        "/tmp/lua-language-server.dLRA/meta/5b5c0e4a",
+        "/tmp/lua-language-server.ci3Q/meta/5b5c0e4a",
+        "/tmp/lua-language-server.8q3l/meta/5b5c0e4a",
+        "/tmp/lua-language-server.XUWj/meta/5b5c0e4a",
+        "/tmp/lua-language-server.MNPa/meta/5b5c0e4a",
+        "/tmp/lua-language-server.fC0r/meta/5b5c0e4a",
+        "/tmp/lua-language-server.eu2M/meta/5b5c0e4a",
+        "/tmp/lua-language-server.tFBL/meta/5b5c0e4a",
+        "/tmp/lua-language-server.lmXX/meta/5b5c0e4a"
+    ]
+}
