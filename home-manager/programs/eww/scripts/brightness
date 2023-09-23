@@ -1,0 +1,12 @@
+#!/usr/bin/env dash
+
+if [ "$1" = "up" ];then
+    brightnessctl set 10+ -q
+elif [ "$1" = "down" ];then
+    brightnessctl set 10- -q
+elif [ "$1" = "set" ];then
+brightnessctl set "${2}"% -q
+elif [ "$1" = "get" ];then
+  brightnessctl -m | cut -f 4 -d , | tr -d % 
+fi
+

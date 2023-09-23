@@ -86,13 +86,13 @@ config.xdg.configFile."tofi/config".text = ''
 	# input-color = #FFFFFF
 	input-background = #00000000
 	input-background-padding = 0
-	input-background-corner-radius = 0
+	input-background-corner-radius = 10 
 
 	# Default result text theme
 	# default-result-color = #FFFFFF
 	default-result-background = #00000000
 	default-result-background-padding = 0
-	default-result-background-corner-radius = 0
+	default-result-background-corner-radius = 10
 
 	# Alternate (even-numbered) result text theme
 	#

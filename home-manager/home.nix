@@ -6,7 +6,7 @@
   ...
 }: {
     imports = [
-    ./programs/tofi.nix
+        ./programs/tofi/tofi.nix
         ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -14,6 +14,11 @@
   home.username = "inferno";
   home.homeDirectory = "/home/inferno";
 
+  programs.eww = {
+      package =   pkgs.eww-wayland;
+      enable = true;
+      configDir = ./programs/eww;
+  };
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
@@ -311,7 +316,7 @@
       bind =SHIFT,Print ,exec, $scripts/screenshot-sh
       bind =$mainMod,Print ,exec,$scripts/screen-rec.sh
       bind =$mainMod SHIFT,Print ,exec,$scripts/screen-rec.sh area
-      bind =$mainMod,B ,exec,$scripts/qute_search.sh
+      bind =$mainMod,B ,exec,eww open --toggle bar
 
       #grim -g "$(slurp)" - | swappy -f - -o $HOME/pics/Screenshot/"$(date +'%Y-%m-%d_%H-%M-%S')_$(echo | tofi --prompt-text="Name: " --require-match=false --height=8% | tr " " "_")"
       bind = $mainMod, W, killactive,
@@ -585,6 +590,13 @@
       ".." = "cd ..";
       "..." = "cd ../../";
       "...." = "cd ../../../";
+
+      # GIT
+      gco= "git checkout";
+      gcl= "git clone";
+      gdf = "git diff";
+      gst = "git status";
+
     };
     shellGlobalAliases = {
       CP = " ${pkgs.wl-clipboard}/bin/wl-copy ";
