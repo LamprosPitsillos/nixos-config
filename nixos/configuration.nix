@@ -14,10 +14,10 @@
 
   virtualisation.waydroid.enable = true;
 
-services.mysql ={
-enable=true;
-package= pkgs.mariadb ;
-    };
+  services.mysql = {
+    enable = true;
+    package = pkgs.mariadb;
+  };
 
   services.syncthing = {
     enable = false;
@@ -244,8 +244,7 @@ package= pkgs.mariadb ;
     initialPassword = "1234";
 
     packages = with pkgs; [
-
-     typst
+      typst
       p7zip
       linuxKernel.packages.linux_6_4.perf
       inkscape
@@ -369,9 +368,9 @@ package= pkgs.mariadb ;
       pass-wayland
 
       # LSPs
-typstfmt
-typst-lsp
-typst-live
+      typstfmt
+      typst-lsp
+      typst-live
       cmake-language-server
       python311Packages.python-lsp-ruff
       python311Packages.python-lsp-server
