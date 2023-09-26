@@ -244,6 +244,7 @@
     initialPassword = "1234";
 
     packages = with pkgs; [
+    ledger
       typst
       p7zip
       linuxKernel.packages.linux_6_4.perf
@@ -344,7 +345,7 @@
       # File System Managment
       xfce.thunar
       xfce.thunar-volman
-      # swaynotificationcenter
+      swaynotificationcenter
       bc
       vimiv-qt
       tectonic
@@ -417,6 +418,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+
     bottom
     libnotify
     vimix-gtk-themes

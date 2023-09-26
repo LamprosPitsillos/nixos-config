@@ -1,4 +1,4 @@
-{...}: {
+{lib,...}: {
   programs.qutebrowser = {
     enable = false;
     aliases = {
@@ -17,6 +17,67 @@
       st = "https://stackoverflow.com/search?q={}";
       CPP = "https://duckduckgo.com/?sites=cppreference.com&q={}";
     };
+
+extraConfig = ''
+completion.height = "35%"
+confirm_quit = ["always"]
+content.javascript.clipboard = "access-paste"
+content.blocking.method = "both"
+editor.command = ["kitty", "nvim" ,"{}"]
+fonts.tabs.selected = "default_size Fira Code Bold"
+fonts.completion.entry = "default_size Fira Code Bold"
+fonts.tabs.unselected = "default_size Fira Code Bold"
+leader = ","
+scrolling.smooth = true
+spellcheck.languages = ["el-GR" ,"en-US"]
+statusbar.show = "always"
+tabs.title.format = "{index}: {current_title} {audio}{private}"
+tabs.show = "multiple"
+tabs.background = true
+zoom.mouse_divider = 10
+'';
+
+            keyBindings   = {
+                 normal = {
+        ",D"="open -t https://www.dictionary.com/browse/{primary}";
+        ",M"="spawn --detach --verbose mpv --ytdl --force-window=immediate {url}";
+        ",P"="open -p";
+        ",T"="open -t https://translate.google.com/?sl=en&tl=el&text={primary}%0A&op=translate";
+        ",c"="spawn --userscript credentials.sh";
+        ",dM"= ''spawn --verbose yt-dlp -x {url} --embed-thumbnail --embed-metadata --audio-format mp3 --audio-quality 0 -o "$HOME/music/%(artist)s/%(title)s.%(ext)s "'';
+        ",dV"="spawn --verbose yt-dlp {url} --embed-thumbnail -o ~/vids/%(title)s.%(ext)s  ";
+        ",dm"=''hint links spawn --verbose yt-dlp -x {hint-url} --embed-thumbnail --embed-metadata --audio-format mp3 --audio-quality 0 -o "$HOME/music/%(artist)s/%(title)s.%(ext)s" '';
+        ",dp"="spawn git clone {url} ~/docs/Packages/";
+        ",dv"="hint links spawn --verbose yt-dlp {hint-url} --embed-thumbnail -o ~/vids/%(title)s.%(ext)s";
+        ",m"="hint links spawn --detach mpv --ytdl --force-window=immediate {hint-url}";
+        ",p"="hint links run open -p {hint-url}";
+        ",y"="open -t -- y {primary}";
+        "<Alt+j>"= "tab-prev";
+        "<Alt+k>"= "tab-next";
+        "<Ctrl+o>f"= "open -t www.facebook.com/messages/";
+        "<Ctrl+o>g"= "open -t www.github.com";
+        "<Ctrl+o>y"= "open -t www.youtube.com";
+        "'?'"= "search {primary}";
+        "I"= "hint inputs";
+        "PY"= "open -t -- y {primary}";
+        "W"= "hint all window";
+        "cb"= "set colors.webpage.bg white";
+        "d"= "null";
+        "dd"= "tab-close";
+        "ec"= "config-edit";
+        "es"= "spawn kitty nvim /tmp/qute_sel -c 'norm p'";
+        "eu"= "edit-url";
+        "py"= "open -- y {primary}";
+        "sp"= "set-cmd-text :print --pdf ~/downs/";
+        "yY"= "yank";
+        "yy"= "yank -s";
+               };
+            };
+
+
+
+
+
     settings = let
       background = "#1c1c1c";
       background-alt = "#161616";

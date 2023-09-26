@@ -13,7 +13,8 @@
     ./programs/wm/hyprland.nix
     ./programs/mpv/mpv.nix
     ./programs/qutebrowser/qutebrowser.nix
-    ./programs/dunst/dunst.nix
+    # ./programs/dunst/dunst.nix
+
     ./programs/zathura/zathura.nix
     ./programs/kitty/kitty.nix
     ./programs/nvim/nvim.nix

@@ -167,7 +167,7 @@ return {
                 require("telescope").extensions.file_browser.file_browser(
                     {
                         prompt_title = "NEOVIM",
-                        path = "/home/inferno/.config/nvim/lua/plugins",
+                        path = "/home/inferno/.nixos-config/home-manager/programs/nvim/lua/plugins",
                         hidden = true,
                         -- hide_parent_dir = true
                     }

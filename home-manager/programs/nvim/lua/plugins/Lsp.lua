@@ -198,13 +198,9 @@ return {
             })
         end
     },
-    {
-
-        -- "pmizio/typescript-tools.nvim",
-        dir="~/docs/Programming/Projects/CONTRIBUTE/typescript-tools.nvim",
-        dev=true,
-        dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-        opts = {},
-        enabled = true
-    },
+{
+  "pmizio/typescript-tools.nvim",
+  dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  opts = {},
+}
 }

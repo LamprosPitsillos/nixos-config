@@ -16,6 +16,15 @@
 
       modify_font cell_width 100%
       modify_font cell_height -1px
+
+      # kitty-scrollback.nvim Kitten alias
+      action_alias kitty_scrollback_nvim kitten /home/inferno/.local/share/nvim/lazy/kitty-scrollback.nvim/python/kitty_scrollback_nvim.py --cwd /home/inferno/.local/share/nvim/lazy/kitty-scrollback.nvim/lua/kitty-scrollback/configs
+      # Browse scrollback buffer in nvim
+      map ctrl+shift+h kitty_scrollback_nvim
+      # Browse output of the last shell command in nvim
+      map ctrl+shift+g kitty_scrollback_nvim --config-file get_text_last_cmd_output.lua
+      # Show clicked command output in nvim
+      mouse_map ctrl+shift+right press ungrabbed combine : mouse_select_command_output : kitty_scrollback_nvim --config-file get_text_last_visited_cmd_output.lua
     '';
     settings = {
       disable_ligatures = "cursor";
@@ -28,7 +37,9 @@
       bell_on_tab = false;
       window_margin_width = 0;
       background_opacity = 1;
-      allow_remote_control = true;
+
+      allow_remote_control = "socket-only";
+      listen_on= "unix:/tmp/kitty";
     };
 
     shellIntegration.enableZshIntegration = true;
