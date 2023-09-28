@@ -35,7 +35,7 @@
       source = ~/.config/hypr/monitors.conf
 
       exec-once =  hyprpaper &
-      exec-once =  dunst &
+      exec-once =  swaync &
       exec-once = eww open bar & # hyprpaper & firefox
       exec-once = hyprctl setcursor "Bibata-Modern-Ice" 8
 

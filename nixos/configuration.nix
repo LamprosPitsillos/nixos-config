@@ -13,6 +13,11 @@
   security.pam.services.gtklock = {};
 
   virtualisation.waydroid.enable = true;
+  virtualisation.docker={
+      enable=true;
+  };
+virtualisation.oci-containers.backend= "docker";
+    
 
   services.mysql = {
     enable = true;
@@ -240,10 +245,12 @@
 
   users.users.inferno = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager"]; # Enable ‘sudo’ for the user.
+    extraGroups = ["docker" "wheel" "networkmanager"]; # Enable ‘sudo’ for the user.
     initialPassword = "1234";
 
     packages = with pkgs; [
+wallust
+distrobox
     ledger
       typst
       p7zip

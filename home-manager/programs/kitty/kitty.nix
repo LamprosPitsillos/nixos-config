@@ -43,6 +43,7 @@
     };
 
     shellIntegration.enableZshIntegration = true;
+   shellIntegration.mode = "enabled";
     theme = "One Half Dark";
   };
 }
