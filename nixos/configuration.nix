@@ -16,7 +16,10 @@
   virtualisation.docker={
       enable=true;
   };
-virtualisation.oci-containers.backend= "docker";
+  virtualisation.podman={
+      enable=true;
+  };
+  virtualisation.oci-containers.backend= "docker";
     
 
   services.mysql = {
@@ -237,8 +240,9 @@ virtualisation.oci-containers.backend= "docker";
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
   nixpkgs.overlays = [
-    (final: prev: {qutebrowser = prev.qutebrowser.override {enableWideVine = true;};})
-    (final: prev: {nwg-displays = prev.nwg-displays.override {hyprlandSupport = true;};})
+      (final: prev: {nerdfonts = prev.nerdfonts.override { fonts = [ "JetBrainsMono" ];};})
+          (final: prev: {qutebrowser = prev.qutebrowser.override {enableWideVine = true;};})
+          (final: prev: {nwg-displays = prev.nwg-displays.override {hyprlandSupport = true;};})
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -249,6 +253,7 @@ virtualisation.oci-containers.backend= "docker";
     initialPassword = "1234";
 
     packages = with pkgs; [
+    qemu
 wallust
 distrobox
     ledger
@@ -480,7 +485,7 @@ distrobox
 
   fonts = {
     packages = with pkgs; [
-      nerdfonts
+     pkgs.nerdfonts
     ];
   };
   programs.zsh.enable = true;
