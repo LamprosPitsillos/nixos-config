@@ -39,11 +39,11 @@
       background_opacity = 1;
 
       allow_remote_control = "socket-only";
-      listen_on= "unix:/tmp/kitty";
+      listen_on = "unix:/tmp/kitty";
     };
 
     shellIntegration.enableZshIntegration = true;
-   shellIntegration.mode = "enabled";
+    shellIntegration.mode = "enabled";
     theme = "One Half Dark";
   };
 }

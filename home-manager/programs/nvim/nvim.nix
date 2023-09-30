@@ -1,9 +1,12 @@
-{inputs,pkgs,...}:{
-
-    xdg.configFile."nvim" = {
-      source = ./.;
-      recursive = true;
-    };
+{
+  inputs,
+  pkgs,
+  ...
+}: {
+  xdg.configFile."nvim" = {
+    source = ./.;
+    recursive = true;
+  };
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -12,4 +15,4 @@
     viAlias = true;
     extraPackages = with pkgs; [gcc ripgrep fd nodejs_18];
   };
-    }
+}
