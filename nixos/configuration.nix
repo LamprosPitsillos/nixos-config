@@ -79,6 +79,7 @@
   ];
   # programs.home-manager.enable = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
+    nix.settings.auto-optimise-store = true;
   documentation = {
     dev.enable = true;
     man = {
@@ -252,6 +253,8 @@
     initialPassword = "1234";
 
     packages = with pkgs; [
+
+    brave
       qemu
       wallust
       distrobox
@@ -302,6 +305,7 @@
       yt-dlp
 
       # Communication
+      skypeforlinux
       discord
 
       # Uni Notes Utils

@@ -77,8 +77,8 @@
         "${leader}p" = "hint links run open -p {hint-url}";
         "${leader}v" = "hint links spawn --detach mpv --ytdl --force-window=immediate {hint-url}";
         "${leader}y" = "open -t -- y {primary}";
-        "<Alt+j>" = "tab-prev";
-        "<Alt+k>" = "tab-next";
+        "<Alt+h>" = "tab-prev";
+        "<Alt+l>" = "tab-next";
         "<Ctrl+o>f" = "open -t www.facebook.com/messages/";
         "<Ctrl+o>g" = "open -t www.github.com";
         "<Ctrl+o>y" = "open -t www.youtube.com";
