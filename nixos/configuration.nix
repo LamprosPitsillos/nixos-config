@@ -144,6 +144,8 @@
     VISUAL = "nvim";
     MANPAGER = "nvim +Man!";
     TERMINAL = "kitty";
+
+    NIXOS_CONFIG_PATH = "$HOME/.nixos-config";
   };
 
   services.xserver = {
@@ -254,6 +256,7 @@
 
     packages = with pkgs; [
 
+godot_4
     brave
       qemu
       wallust
@@ -397,6 +400,7 @@
       nodePackages_latest.bash-language-server
       nodePackages_latest.vscode-langservers-extracted
       nodePackages_latest.typescript-language-server
+      nodePackages_latest."@tailwindcss/language-server"
       typescript
       quick-lint-js
       # Programming Utils

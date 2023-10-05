@@ -10,4 +10,9 @@ if not vim.loop.fs_stat(lazypath) then
     })
 end
 vim.opt.rtp:prepend(lazypath)
-require("lazy").setup("plugins")
+require("lazy").setup(
+    {
+        spec = {import = "plugins"},
+        lockfile = vim.env.NIXOS_CONFIG_PATH and vim.env.NIXOS_CONFIG_PATH .. "/home-manager/programs/nvim/lazy-lock.json" or nil,
+    }
+)

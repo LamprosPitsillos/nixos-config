@@ -108,6 +108,7 @@ return {
                 nil_ls = {},
                 sqlls = {},
                 clangd = {},
+                tailwindcss = {},
                 texlab = {},
                 lua_ls = {
                     settings = {

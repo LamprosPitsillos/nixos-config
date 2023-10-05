@@ -22,7 +22,12 @@
     pkgs = import nixpkgs {inherit system;};
   in {
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-
+ templates = {
+     kickstart = {
+        path = ./templates/kickstart.nix;
+        description = "A very basic starter flake";
+      };
+ };
     nixosConfigurations = {
       "infernoPC" = nixpkgs.lib.nixosSystem {
         specialArgs = {

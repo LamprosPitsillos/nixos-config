@@ -19,9 +19,7 @@
     };
 
     extraConfig =
-      /*
-      python
-      */
+      /* python */
       ''
         c.completion.height = "35%"
         c.confirm_quit = ["always"]
