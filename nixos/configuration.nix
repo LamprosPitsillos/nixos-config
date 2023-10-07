@@ -27,7 +27,7 @@
   };
 
   services.syncthing = {
-    enable = false;
+    enable = true;
   };
   services.kanata = {
     enable = true;
@@ -255,7 +255,8 @@
     initialPassword = "1234";
 
     packages = with pkgs; [
-
+ast-grep
+graphviz
 godot_4
     brave
       qemu
