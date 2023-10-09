@@ -1,8 +1,8 @@
-M = {}
+local M = {}
 
 M.map       = vim.keymap.set
 
- function M.nmap(before, after, opts)
+function M.nmap(before, after, opts)
     opts.noremap = true
     M.map("n", before, after, opts)
 end
@@ -150,7 +150,7 @@ M.vmap("<leader>rf", toCursor([["ry:%s/\(<c-r>r\)/{}/g]]), { desc = "replace sel
 -- Replace <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 -- Search >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-M.nmap("<leader>ss", "/", {desc="search basic"})
+M.nmap("<leader>sn", "/", {desc="search basic"})
 M.nmap("<leader>sy", [[/<c-r>"]], {desc="search yank"})
 M.nmap("<leader>se", toCursor([[/\<{}\>]]), {desc="search exact"})
 -- Search <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -166,8 +166,8 @@ M.nmap("zl", "zL", {})
 M.imap("<C-c>", "<esc>cgn", { desc = "change next" })
 M.nmap("<C-u>", "<C-u>zz", { desc = "scroll up" })
 M.nmap("<C-d>", "<C-d>zz", { desc = "scroll down" })
-M.cmap("<C-j>", "<Down>", { desc = "Down history" })
-M.cmap("<C-k>", "<Up>", { desc = "Up history" })
+-- M.cmap("<A-j>", "<Down>", { desc = "Down history" })
+-- M.cmap("<A-k>", "<Up>", { desc = "Up history" })
 M.cmap("<C-h>", "<Left>", { desc = "Left" })
 M.cmap("<C-l>", "<Right>", { desc = "Right" })
 

@@ -1,7 +1,7 @@
 return {
     {
         "lewis6991/gitsigns.nvim",
-        event = { "BufReadPre", "BufNewFile" },
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         opts = {
             signs                        = {
                 add          = { hl = "GitSignsAdd", text = "", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
@@ -168,6 +168,8 @@ return {
     }
 }, {
     "NeogitOrg/neogit",
+        cmd= "Neogit",
+    event={ "BufReadPost", "BufNewFile", "BufWritePre" },
  dependencies = {
     "nvim-lua/plenary.nvim",         -- required
     "nvim-telescope/telescope.nvim", -- optional

@@ -12,8 +12,12 @@ return {
  {
         "cshuaimin/ssr.nvim",
         lazy =true,
-        config = function()
-            require("ssr").setup {
+
+
+        keys = {
+            {mode = { "n", "x" }, "<leader>rs", function() require("ssr").open() end}
+        },
+        opts = {
                 min_width = 50,
                 min_height = 5,
                 max_width = 120,
@@ -25,8 +29,6 @@ return {
                     replace_confirm = "<cr>",
                     replace_all = "<leader><cr>",
                 },
-                vim.keymap.set({ "n", "x" }, "<leader>rs", function() require("ssr").open() end)
             }
-        end,
     },
 }

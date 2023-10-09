@@ -1,23 +1,25 @@
 return {
     {
         "kevinhwang91/nvim-ufo",
+        lazy=true,
+        event = "BufReadPost",
         enabled=true,
         dependencies = { "kevinhwang91/promise-async", {
-          "luukvbaal/statuscol.nvim",
-          config = function(_,opts)
+            "luukvbaal/statuscol.nvim",
+            config = function(_,opts)
 
-            local builtin = require("statuscol.builtin")
-            require("statuscol").setup(
-              {
-                relculright = true,
-                segments = {
-                  {text = {builtin.foldfunc}, click = "v:lua.ScFa"},
-                  {text = {"%s"}, click = "v:lua.ScSa"},
-                  {text = {builtin.lnumfunc, " "}, click = "v:lua.ScLa"}
-                }
-              }
-            )
-          end
+                local builtin = require("statuscol.builtin")
+                require("statuscol").setup(
+                    {
+                        relculright = true,
+                        segments = {
+                            {text = {builtin.foldfunc}, click = "v:lua.ScFa"},
+                            {text = {"%s"}, click = "v:lua.ScSa"},
+                            {text = {builtin.lnumfunc, " "}, click = "v:lua.ScLa"}
+                        }
+                    }
+                )
+            end
 
         } },
         config = function(_, opts)
@@ -30,44 +32,41 @@ return {
             vim.keymap.set("n", "zR", require("ufo").openAllFolds)
             vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
 
-
-local handler = function(virtText, lnum, endLnum, width, truncate)
-    local newVirtText = {}
-    local suffix = (' 󰦸 %d '):format(endLnum - lnum)
-    local sufWidth = vim.fn.strdisplaywidth(suffix)
-    local targetWidth = width - sufWidth
-    local curWidth = 0
-    for _, chunk in ipairs(virtText) do
-        local chunkText = chunk[1]
-        local chunkWidth = vim.fn.strdisplaywidth(chunkText)
-        if targetWidth > curWidth + chunkWidth then
-            table.insert(newVirtText, chunk)
-        else
-            chunkText = truncate(chunkText, targetWidth - curWidth)
-            local hlGroup = chunk[2]
-            table.insert(newVirtText, {chunkText, hlGroup})
-            chunkWidth = vim.fn.strdisplaywidth(chunkText)
-            -- str width returned from truncate() may less than 2nd argument, need padding
-            if curWidth + chunkWidth < targetWidth then
-                suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+            local handler = function(virtText, lnum, endLnum, width, truncate)
+                local newVirtText = {}
+                local suffix = (' 󰦸 %d '):format(endLnum - lnum)
+                local sufWidth = vim.fn.strdisplaywidth(suffix)
+                local targetWidth = width - sufWidth
+                local curWidth = 0
+                for _, chunk in ipairs(virtText) do
+                    local chunkText = chunk[1]
+                    local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+                    if targetWidth > curWidth + chunkWidth then
+                        table.insert(newVirtText, chunk)
+                    else
+                        chunkText = truncate(chunkText, targetWidth - curWidth)
+                        local hlGroup = chunk[2]
+                        table.insert(newVirtText, {chunkText, hlGroup})
+                        chunkWidth = vim.fn.strdisplaywidth(chunkText)
+                        -- str width returned from truncate() may less than 2nd argument, need padding
+                        if curWidth + chunkWidth < targetWidth then
+                            suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+                        end
+                        break
+                    end
+                    curWidth = curWidth + chunkWidth
+                end
+                table.insert(newVirtText, {suffix, 'MoreMsg'})
+                return newVirtText
             end
-            break
-        end
-        curWidth = curWidth + chunkWidth
-    end
-    table.insert(newVirtText, {suffix, 'MoreMsg'})
-    return newVirtText
-end
 
--- global handler
--- `handler` is the 2nd parameter of `setFoldVirtTextHandler`,
--- check out `./lua/ufo.lua` and search `setFoldVirtTextHandler` for detail.
-require('ufo').setup({
-    fold_virt_text_handler = handler
-})
+            -- global handler
+            -- `handler` is the 2nd parameter of `setFoldVirtTextHandler`,
+            -- check out `./lua/ufo.lua` and search `setFoldVirtTextHandler` for detail.
+            require('ufo').setup({
+                fold_virt_text_handler = handler
+            })
         end
     }
 
 }
-
-

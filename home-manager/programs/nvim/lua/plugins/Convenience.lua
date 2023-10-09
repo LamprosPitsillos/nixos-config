@@ -46,6 +46,7 @@ return {
         end,
     },
     {
+
         "echasnovski/mini.bufremove",
         version = "*",
         keys = {
@@ -53,7 +54,13 @@ return {
             { "<leader>bD", function() require("mini.bufremove").delete(0, true) end,  desc = "Delete Buffer (Force)" },
         },
     },
-    { "s1n7ax/nvim-comment-frame", dependencies = { "nvim-treesitter" } },
+    { "s1n7ax/nvim-comment-frame",
+        keys= {
+            { "gcl", ":lua require('nvim-comment-frame').add_comment()<CR>",desc="[c]omment [l]ine" },
+            { "gcf", ":lua require('nvim-comment-frame').add_multiline_comment()<CR>",desc="[c]omment [f]rame" }
+        },
+        dependencies = { "nvim-treesitter" }
+    },
     { "numToStr/Comment.nvim",     config = true },
     {
         "monaqa/dial.nvim",

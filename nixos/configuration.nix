@@ -354,6 +354,8 @@ godot_4
             '';
         }
       )
+
+      unzip
       parallel
       file
       trashy

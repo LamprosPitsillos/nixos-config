@@ -2,9 +2,22 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        event = { "BufReadPost", "BufNewFile" },
+        version = false,
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" , "VeryLazy" },
         dependencies = {
             "windwp/nvim-ts-autotag",
+{ "luckasRanarison/tree-sitter-hypr",
+        config=function (_,opts)
+        local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+        parser_config.hypr = {
+            install_info = {
+                url = "https://github.com/luckasRanarison/tree-sitter-hypr",
+                files = { "src/parser.c" },
+                branch = "master",
+            },
+            filetype = "hypr",
+        }
+    end },
             -- "https://gitlab.com/HiPhish/nvim-ts-rainbow2",
             "nvim-treesitter/nvim-treesitter-textobjects",
         },
@@ -122,6 +135,7 @@ return {
                 "cpp",
                 "go",
                 "javascript",
+                "html",
                 "jsdoc",
                 "json",
                 "lua",
@@ -146,7 +160,7 @@ return {
             query_linter = {
                 enable = true,
                 use_virtual_text = true,
-                lint_events = { "BufWrite", "CursorHold" },
+                lint_vents = { "BufWrite", "CursorHold" },
             },
             autotag = {
                 enable = true
@@ -158,6 +172,7 @@ return {
     }
     , {
     "nvim-treesitter/nvim-treesitter-context",
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" , "VeryLazy" },
     dependencies = "nvim-treesitter",
     opts = {
         enable = true,            -- Enable this plugin (Can be enabled/disabled later via commands)
@@ -199,15 +214,4 @@ return {
         separator = nil,     -- Separator between context and content. Should be a single character string, like '-'.
     }
 },
-    { "luckasRanarison/tree-sitter-hypr",dependencies="nvim-treesitter/nvim-treesitter",config=function (_,opts)
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-parser_config.hypr = {
-  install_info = {
-    url = "https://github.com/luckasRanarison/tree-sitter-hypr",
-    files = { "src/parser.c" },
-    branch = "master",
-  },
-  filetype = "hypr",
-}
-    end }
 }

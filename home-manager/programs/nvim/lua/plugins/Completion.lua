@@ -15,15 +15,13 @@ return {
             "hrsh7th/cmp-path",
             "f3fora/cmp-spell",
             "saadparwaiz1/cmp_luasnip",
-            "tamago324/cmp-zsh",
+            {
+                "roobert/tailwindcss-colorizer-cmp.nvim",
+                opts = { color_square_width = 2 }
+            },
             "onsails/lspkind-nvim",
         },
         config = function()
-            require("cmp_zsh").setup({
-                zshrc = true,                        -- Source the zshrc (adding all custom completions). default: false
-                filetypes = { "bash", "sh", "zsh" }, -- Filetypes to enable cmp_zsh source. default: {"*"}
-            })
-
             -- local types = require("cmp.types")
             -- local str = require("cmp.utils.str")
             local cmp = require("cmp")
@@ -68,9 +66,9 @@ return {
                     ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
                 },
 
-    experimental = {
-      ghost_text = false -- this feature conflict with copilot.vim's preview.
-    },
+                experimental = {
+                    ghost_text = false -- this feature conflict with copilot.vim's preview.
+                },
                 sources = cmp.config.sources({
                     { name = 'nvim_lua' },
                         { name = "nvim_lsp" },
@@ -101,14 +99,6 @@ return {
                     })
             })
 
-            -- Set configuration for specific filetype.
-            cmp.setup.filetype("zsh", {
-                sources = cmp.config.sources({
-                    { name = "zsh" }, -- You can specify the `cmp_git` source if you were installed it.
-                }, {
-                    { name = "buffer" },
-                })
-            })
             cmp.setup.filetype("norg", {
                 sources = cmp.config.sources({
                     { name = "neorg" }, -- You can specify the `cmp_git` source if you were installed it.
@@ -122,12 +112,12 @@ return {
                 completion = {
                     autocomplete = { require('cmp.types').cmp.TriggerEvent.TextChanged },
                 },
-                mapping = cmp.mapping.preset.cmdline({
+                mapping = {
 
-                    ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-                    ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+                    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),{"c"}),
+                    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),{"c"}),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
-                }),
+                },
                 sources = {
                     { name = "buffer" },
                 },
@@ -135,11 +125,11 @@ return {
 
             -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
             cmp.setup.cmdline(":", {
-                mapping = cmp.mapping.preset.cmdline({
-                    ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-                    ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+                mapping = {
+                    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),{"c"}),
+                    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),{"c"}),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
-                }),
+                },
                 sources = cmp.config.sources({
                     { name = "path" },
                 }, {
@@ -150,14 +140,5 @@ return {
         end
     },
 
-    {
-        "roobert/tailwindcss-colorizer-cmp.nvim",
-        -- optionally, override the default options:
-        config = function()
-            require("tailwindcss-colorizer-cmp").setup({
-                color_square_width = 2,
-            })
-        end
-    },
 
 }

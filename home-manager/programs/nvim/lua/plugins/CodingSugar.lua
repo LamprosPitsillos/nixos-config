@@ -216,6 +216,7 @@ return {
 { "uga-rosa/ccc.nvim",lazy=false},
 {
   "luckasRanarison/nvim-devdocs",
+        lazy=true,
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope.nvim",

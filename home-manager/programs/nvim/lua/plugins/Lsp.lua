@@ -1,11 +1,13 @@
 return {
     {
         "neovim/nvim-lspconfig",
+
+        event={ "BufReadPost", "BufNewFile", "BufWritePre" },
         dependencies = {
             { "folke/neodev.nvim", opts = {} },
+            { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {}, },
             "hrsh7th/cmp-nvim-lsp"
         },
-        event = { "BufReadPre", "BufNewFile" },
         config = function()
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.foldingRange = {
@@ -199,9 +201,4 @@ return {
             })
         end
     },
-{
-  "pmizio/typescript-tools.nvim",
-  dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  opts = {},
-}
 }
