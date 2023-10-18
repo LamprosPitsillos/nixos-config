@@ -25,6 +25,7 @@
     templates = {
         default = {
             path = ./templates/default;
+
             description = "A very basic starter flake";
         };
     };

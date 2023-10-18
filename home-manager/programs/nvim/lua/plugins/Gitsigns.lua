@@ -203,7 +203,8 @@ return {
             hunk = { "", "" },
         },
         integrations = {
-            diffview = true
+            diffview = true,
+            telescope = true
         },
         -- Setting any section to `false` will make the section not render at all
         sections = {

@@ -265,7 +265,7 @@ godot_4
       ledger
       typst
       p7zip
-      linuxKernel.packages.linux_6_4.perf
+      # linuxKernel.packages.linux_6_4.perf
       inkscape
       ueberzugpp
       sddm-chili-theme
@@ -410,13 +410,8 @@ godot_4
       hyperfine
       shellcheck
       ## Build Tools
-      pkg-config
-      meson
-      cmake
       gdb
       gf
-      ## Libs
-      glib
     ];
   };
 

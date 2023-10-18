@@ -10,13 +10,27 @@ return {
 
                 local builtin = require("statuscol.builtin")
                 require("statuscol").setup(
+
                     {
                         relculright = true,
                         segments = {
-                            {text = {builtin.foldfunc}, click = "v:lua.ScFa"},
-                            {text = {"%s"}, click = "v:lua.ScSa"},
-                            {text = {builtin.lnumfunc, " "}, click = "v:lua.ScLa"}
+                            {
+                                sign = { name = { "Dap*" }, maxwidth = 1, colwidth = 2, auto = true, fillchars = "" },
+                                click = "v:lua.ScSa",
+                            },
+                            {
+                                sign = { name = { "Diagnostic" }, maxwidth = 2, auto = true },
+                                click = "v:lua.ScSa"
+                            },
+
+                            {
+                                sign = { namespace = { "gitsigns" }, colwidth = 1, wrap = true },
+                                click = "v:lua.ScSa"
+                            },
+                            -- {text = { builtin.foldfunc }, click = "v:lua.ScFa"},
+                            {text = {builtin.lnumfunc, " "}, click = "v:lua.ScLa"},
                         }
+
                     }
                 )
             end

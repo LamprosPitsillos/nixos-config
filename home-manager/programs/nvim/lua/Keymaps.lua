@@ -36,13 +36,21 @@ local function toCursor(input)
     return result
 end
 
-local function hide_bars()
+local function zen()
     if vim.opt.cmdheight:get() == 0 and vim.opt.laststatus:get() == 0 then
         vim.opt.cmdheight = 1
         vim.opt.laststatus = 3
+        vim.opt.relativenumber = true
+        vim.opt.number = true
+        vim.opt.signcolumn = "auto"
+        vim.opt.foldcolumn = "auto"
     else
         vim.opt.cmdheight = 0
         vim.opt.laststatus = 0
+        vim.opt.relativenumber = false
+        vim.opt.number = false
+        vim.opt.signcolumn = "no"
+        vim.opt.foldcolumn = "0"
     end
 end
 
@@ -194,7 +202,7 @@ M.nmap("<leader>gg", "<cmd>Neogit<cr>", { desc = "Up history" })
 
 
 
-M.nmap("<leader>vz",hide_bars,{})
+M.nmap("<leader>vz",zen,{})
 vim.keymap.set("n", "<F11>", function()
     vim.opt.spell = not vim.opt.spell:get()
 end, { desc = "enable spelling" })

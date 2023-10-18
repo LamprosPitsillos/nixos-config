@@ -133,6 +133,8 @@ return {
                 "c",
                 "cmake",
                 "cpp",
+                "css",
+                "scss",
                 "go",
                 "javascript",
                 "html",

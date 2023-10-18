@@ -13,6 +13,7 @@
 (defpoll notification_icon_p :interval "1s" "scripts/notification icon" )
 
 (defpoll volume_json  :interval "1s" "scripts/volume"  )
+;; (defvar volume_json  "{icon : \"x\" , volume : 100 }"  )
 
 (defpoll time_json	:interval "1s"	"date +'{\"hour\": \"%I\", \"minute\": \"%M\"}'")
 

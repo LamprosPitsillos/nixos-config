@@ -102,13 +102,21 @@
     };
   };
 
-  programs.tmux = {
-    enable = true;
-    baseIndex = 1;
-    keyMode = "vi";
-    prefix = "C-q";
-    terminal = "screen-256color";
-  };
+  # programs.tmux = {
+  #   enable = true;
+  #   baseIndex = 1;
+  #   keyMode = "vi";
+  #   prefix = "C-q";
+  #   terminal = "screen-256color";
+  # };
+
+       programs.zellij = {
+
+enable=true;
+enableZshIntegration = false;
+settings ={};
+
+           };
 
   programs.fzf = {
     enable = true;

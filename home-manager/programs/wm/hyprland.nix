@@ -233,6 +233,9 @@
       submap=open
       bind=,Q,exec,$scripts/qute_search.sh
       bind=,Q,submap,reset
+      bind=,S,exec,/home/inferno/UoC/9ο\ Εξαμηνο/scedule.sh
+      bind=,S,submap,reset
+
       bind=,escape,submap,reset
       submap=reset
 
