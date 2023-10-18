@@ -135,6 +135,7 @@ return {
                 "cpp",
                 "css",
                 "scss",
+                "sql",
                 "go",
                 "javascript",
                 "html",
