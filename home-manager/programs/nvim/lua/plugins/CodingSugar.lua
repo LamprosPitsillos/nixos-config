@@ -213,7 +213,7 @@ return {
         }
     } },
 { "echasnovski/mini.trailspace", version = "*"},
-{ "uga-rosa/ccc.nvim",lazy=false},
+{ "uga-rosa/ccc.nvim", event = { "BufReadPost", "BufNewFile", "BufWritePre" , "VeryLazy" },lazy=true},
 {
   "luckasRanarison/nvim-devdocs",
         lazy=true,

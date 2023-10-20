@@ -202,7 +202,7 @@ M.nmap("<leader>gg", "<cmd>Neogit<cr>", { desc = "Up history" })
 
 
 
-M.nmap("<leader>vz",zen,{})
+M.nmap("<leader>vz",zen,{desc= "[v]isual [z]en"})
 vim.keymap.set("n", "<F11>", function()
     vim.opt.spell = not vim.opt.spell:get()
 end, { desc = "enable spelling" })

@@ -99,7 +99,7 @@ return {
                 quick_lint_js = {},
                 prismals = {
                     cmd = {
-                        "/home/inferno/docs/Packages/prisma-lsp/node_modules/@prisma/language-server/dist/src/bin.js",
+                        "prisma-language-server" ,
                         "--stdio" },
                         {
                           prisma = {
@@ -110,7 +110,9 @@ return {
                 nil_ls = {},
                 sqlls = {},
                 clangd = {},
-                tailwindcss = {},
+                tailwindcss = {
+                    filetypes= {"javascriptreact","typescriptreact"}
+                },
                 texlab = {},
                 lua_ls = {
                     settings = {

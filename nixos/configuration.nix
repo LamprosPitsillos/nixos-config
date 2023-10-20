@@ -278,7 +278,6 @@ godot_4
       # Displays
       nwg-displays
       # Nix
-
       nix-index
       prefetch-npm-deps
       nix-prefetch-git
@@ -404,9 +403,11 @@ godot_4
       nodePackages_latest.vscode-langservers-extracted
       nodePackages_latest.typescript-language-server
       nodePackages_latest."@tailwindcss/language-server"
+      nodePackages_latest."@prisma/language-server"
       typescript
       quick-lint-js
       # Programming Utils
+      rlwrap
       hyperfine
       shellcheck
       ## Build Tools

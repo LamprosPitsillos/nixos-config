@@ -4,9 +4,10 @@ return {
             shading_factor = 0,
             hide_numbers = true,
         },
-        cmd="Terminal",
+        cmd="ToggleTerm",
         keys={
-            { "<A-t>", function() vim.cmd(vim.v.count .. "ToggleTerm ") end, desc = "terminal",mode={"t","n"} }
+            { "<A-t>", "<cmd>"..vim.v.count.."ToggleTerm<cr>", desc = "terminal",mode={"i","n"} },
+            { "<A-T>", "<cmd>"..vim.v.count.."ToggleTerm direction=vertical <cr>", desc = "terminal",mode={"i","n"} }
         },
         config = function(_,opts)
         local function set_terminal_keymaps()
@@ -19,10 +20,10 @@ return {
             map(0, "t", "<A-j>", [[<C-\><C-n><C-W>j]], map_opts)
             map(0, "t", "<A-k>", [[<C-\><C-n><C-W>k]], map_opts)
             map(0, "t", "<A-l>", [[<C-\><C-n><C-W>l]], map_opts)
-            map(0, "t", "<A-Right>", [[<C-\><C-n><C-W>2>]], map_opts)
-            map(0, "t", "<A-Up>", [[<C-\><C-n><C-W>2+]], map_opts)
-            map(0, "t", "<A-Down>", [[<C-\><C-n><C-W>2-]], map_opts)
-            map(0, "t", "<A-Left>", [[<C-\><C-n><C-W>2<]], map_opts)
+            map(0, "t", "<A-Right>", [[<cmd>wincmd 2> <cr>]], map_opts)
+            map(0, "t", "<A-Up>", [[<cmd>wincmd 2+ <cr>]], map_opts)
+            map(0, "t", "<A-Down>", [[<cmd>wincmd 2- <cr>]], map_opts)
+            map(0, "t", "<A-Left>", [[<cmd>wincmd 2< <cr>]], map_opts)
             map(0, "n", "<Tab>", "<Nop>", map_opts)
             map(0, "n", "<S-Tab>", "<Nop>", map_opts)
         end

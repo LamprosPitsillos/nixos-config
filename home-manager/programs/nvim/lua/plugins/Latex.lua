@@ -1,6 +1,6 @@
 return {
     "lervag/vimtex",
-    enabled=true,
+    enabled=false,
     config = function()
         vim.g.vimtex_view_method = "zathura"
         vim.g.vimtex_compiler_method = "tectonic"

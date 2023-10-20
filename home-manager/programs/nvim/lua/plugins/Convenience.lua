@@ -64,6 +64,7 @@ return {
     { "numToStr/Comment.nvim",     config = true },
     {
         "monaqa/dial.nvim",
+        event = { "BufReadPost", "BufNewFile", "BufWritePre"  },
         config = function()
             local dial_map = require("dial.map")
             vim.api.nvim_set_keymap("n", "<C-a>", dial_map.inc_normal(), { noremap = true })

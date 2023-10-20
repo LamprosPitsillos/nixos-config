@@ -9,6 +9,7 @@
     keybindings = {
       "kitty_mod+s" = "paste_from_clipboard";
       "kitty_mod+v" = "paste_from_selection";
+      "alt+shift+enter"="clone-in-kitty --type=os-window";
     };
     extraConfig = ''
       modify_font underline_position 2

@@ -1,38 +1,26 @@
 return {
-    {
-        "ellisonleao/gruvbox.nvim",
-        opts = {
-            overrides = {
-                texTabularChar = { link = "GruvboxYellow" }
-            }
-        }
-    },
-    { "sainnhe/gruvbox-material" },
-    { "rebelot/kanagawa.nvim" },
+    -- {
+    --     "ellisonleao/gruvbox.nvim",
+    --     opts = {
+    --         overrides = {
+    --             texTabularChar = { link = "GruvboxYellow" }
+    --         }
+    --     }
+    -- },
+    -- { "sainnhe/gruvbox-material" },
+    -- { "rebelot/kanagawa.nvim" },
 {
   "folke/tokyonight.nvim",
   lazy = false,
   priority = 998,
   opts = {},
 },
-    -- {
-    --     "omega-nvim/omega-themes",
-    -- lazy = false,
-    -- priority = 100,
-    -- config = function()
-    --     local colorscheme_path = vim.fn.stdpath("cache") .. "/omega/highlights"
-    --     if not vim.uv.fs_stat(colorscheme_path) then
-    --         require("omega.colors").compile_theme("onedark")
-    --     end
-    --     loadfile(colorscheme_path)()
-    -- end
-    -- } ,
-    { "catppuccin/nvim", name = "catppuccin", priority = 997 },
+    -- { "catppuccin/nvim", name = "catppuccin", priority = 997 },
     {
         "navarasu/onedark.nvim",
         enabled = true,
         lazy = false,
-        priority = 999,
+        priority = 1000,
         opts = {
             style = "warmer",                      -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
             transparent = false,                   -- Show/hide background
@@ -64,11 +52,25 @@ return {
                 undercurl = true, -- use undercurl instead of underline for diagnostics
                 background = true, -- use background color for virtual text
             },
+            config = function(_,opts)
+
+            function ToggleTheme()
+                if vim.o.background == "dark" then
+                    vim.cmd.colorscheme("onelight")
+                else
+                    vim.cmd.colorscheme("onedark")
+                end
+            end
+
+            vim.keymap.set("n", "<leader>nt", ToggleTheme, { desc = "Toggle Theme" })
+                require("onedark").setup(opts)
+            end
         }
     },
     {
         "olimorris/onedarkpro.nvim",
         lazy = false,
+        enabled=false,
         priority = 1000,
         opts = {
             colors = {

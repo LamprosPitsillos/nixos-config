@@ -24,6 +24,12 @@
   home.username = "inferno";
   home.homeDirectory = "/home/inferno";
 
+  programs.bat = {
+      enable = true;
+      config = {
+          theme = "OneHalfDark";
+      };
+  };
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;

@@ -31,7 +31,7 @@
       ignoreDups = true;
       ignoreSpace = true;
       path = "${config.xdg.dataHome}/zsh/zsh_history";
-      share = true;
+      # share = true;
       size = 9999999;
     };
     defaultKeymap = "emacs";
@@ -81,10 +81,7 @@
        # _comp_options+=(globdots)
     '';
     initExtra =
-      /*
-      zsh
-      */
-      ''
+      /* sh */ ''
               # https://github.com/NotAShelf/nyx/blob/6db9e9ff81376831beaf5324c6e6f60739c1b907/homes/notashelf/terminal/shell/zsh.nix#L204
               stty stop undef
 
@@ -125,10 +122,10 @@
                  # Autosuggest
                     ZSH_AUTOSUGGEST_USE_ASYNC="true"
 
-        autoload -U up-line-or-beginning-search
-        autoload -U down-line-or-beginning-search
-        zle -N up-line-or-beginning-search
-        zle -N down-line-or-beginning-search
+              autoload -U up-line-or-beginning-search
+              autoload -U down-line-or-beginning-search
+              zle -N up-line-or-beginning-search
+              zle -N down-line-or-beginning-search
 
               bindkey '^[k' history-substring-search-up
               bindkey '^[j' history-substring-search-down
@@ -139,14 +136,13 @@
               bindkey -M menuselect '^h' vi-backward-char
               bindkey -M menuselect '^l' vi-forward-char
 
+              setopt APPEND_HISTORY EXTENDED_HISTORY HIST_FCNTL_LOCK HIST_REDUCE_BLANKS INC_APPEND_HISTORY SHARE_HISTORY HIST_VERIFY
 
               setopt AUTO_LIST AUTO_LIST AUTO_MENU \
-              AUTO_PARAM_SLASH AUTO_PUSHD APPEND_HISTORY \
-              ALWAYS_TO_END COMPLETE_IN_WORD CORRECT EXTENDED_HISTORY \
-              HIST_FCNTL_LOCK \
-              HIST_REDUCE_BLANKS HIST_VERIFY INC_APPEND_HISTORY \
+              AUTO_PARAM_SLASH AUTO_PUSHD  \
+              ALWAYS_TO_END COMPLETE_IN_WORD CORRECT \
               INTERACTIVE_COMMENTS MENU_COMPLETE NO_NOMATCH PUSHD_IGNORE_DUPS \
-              PUSHD_TO_HOME PUSHD_SILENT SHARE_HISTORY
+              PUSHD_TO_HOME PUSHD_SILENT 
               unsetopt CORRECT_ALL HIST_BEEP MENU_COMPLETE
 
         function uzip() {unzip "$1" -d "$1%.*" }
