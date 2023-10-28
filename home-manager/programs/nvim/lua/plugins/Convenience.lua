@@ -38,17 +38,18 @@ return {
             { "<leader>bD", function() require("mini.bufremove").delete(0, true) end,  desc = "Delete Buffer (Force)" },
         },
     },
-    { "s1n7ax/nvim-comment-frame",
-        keys= {
-            { "gcl", ":lua require('nvim-comment-frame').add_comment()<CR>",desc="[c]omment [l]ine" },
-            { "gcf", ":lua require('nvim-comment-frame').add_multiline_comment()<CR>",desc="[c]omment [f]rame" }
+    {
+        "s1n7ax/nvim-comment-frame",
+        keys = {
+            { "gcl", ":lua require('nvim-comment-frame').add_comment()<CR>",           desc = "[c]omment [l]ine" },
+            { "gcf", ":lua require('nvim-comment-frame').add_multiline_comment()<CR>", desc = "[c]omment [f]rame" }
         },
         dependencies = { "nvim-treesitter" }
     },
-    { "numToStr/Comment.nvim",     config = true },
+    { "numToStr/Comment.nvim",                                                   config = true },
     {
         "monaqa/dial.nvim",
-        event = { "BufReadPost", "BufNewFile", "BufWritePre"  },
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         config = function()
             local dial_map = require("dial.map")
             vim.api.nvim_set_keymap("n", "<C-a>", dial_map.inc_normal(), { noremap = true })
@@ -93,6 +94,6 @@ return {
             }
         end
     },
-    { dir ="/home/inferno/docs/Programming/Projects/NEOVIM_PLUGS/ouroboros.nvim"},
+    { dir = "/home/inferno/docs/Programming/Projects/NEOVIM_PLUGS/ouroboros.nvim" },
     "mcauley-penney/tidy.nvim"
 }

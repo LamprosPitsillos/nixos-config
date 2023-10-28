@@ -1,13 +1,12 @@
 return {
     {
         "kevinhwang91/nvim-ufo",
-        lazy=true,
+        lazy = true,
         event = "BufReadPost",
-        enabled=true,
+        enabled = true,
         dependencies = { "kevinhwang91/promise-async", {
             "luukvbaal/statuscol.nvim",
-            config = function(_,opts)
-
+            config = function(_, opts)
                 local builtin = require("statuscol.builtin")
                 require("statuscol").setup(
 
@@ -28,7 +27,7 @@ return {
                                 click = "v:lua.ScSa"
                             },
                             -- {text = { builtin.foldfunc }, click = "v:lua.ScFa"},
-                            {text = {builtin.lnumfunc, " "}, click = "v:lua.ScLa"},
+                            { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
                         }
 
                     }
@@ -38,7 +37,7 @@ return {
         } },
         config = function(_, opts)
             vim.o.foldcolumn = "1" -- '0' is not bad
-            vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+            vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
             vim.o.foldlevelstart = 99
             vim.o.foldenable = true
             vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
@@ -60,7 +59,7 @@ return {
                     else
                         chunkText = truncate(chunkText, targetWidth - curWidth)
                         local hlGroup = chunk[2]
-                        table.insert(newVirtText, {chunkText, hlGroup})
+                        table.insert(newVirtText, { chunkText, hlGroup })
                         chunkWidth = vim.fn.strdisplaywidth(chunkText)
                         -- str width returned from truncate() may less than 2nd argument, need padding
                         if curWidth + chunkWidth < targetWidth then
@@ -70,7 +69,7 @@ return {
                     end
                     curWidth = curWidth + chunkWidth
                 end
-                table.insert(newVirtText, {suffix, 'MoreMsg'})
+                table.insert(newVirtText, { suffix, 'MoreMsg' })
                 return newVirtText
             end
 

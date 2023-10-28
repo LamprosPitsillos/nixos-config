@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   services.dunst = {
     enable = true;
     settings = {
@@ -59,7 +59,7 @@
         mouse_middle_click = "do_action, close_current";
         mouse_right_click = "close_all";
       };
-      experimental = {per_monitor_dpi = "false";};
+      experimental = { per_monitor_dpi = "false"; };
       urgency_low = {
         background = "#222222";
         foreground = "#888888";
@@ -77,20 +77,20 @@
         frame_color = "#ff0000";
         timeout = 0;
       };
-      transient_disable = {};
-      transient_history_ignore = {};
-      fullscreen_delay_everything = {};
-      fullscreen_show_critical = {};
-      espeak = {};
-      script-test = {};
-      ignore = {};
-      history-ignore = {};
-      skip-display = {};
-      signed_on = {};
-      signed_off = {};
-      says = {};
-      twitter = {};
-      stack-volumes = {};
+      transient_disable = { };
+      transient_history_ignore = { };
+      fullscreen_delay_everything = { };
+      fullscreen_show_critical = { };
+      espeak = { };
+      script-test = { };
+      ignore = { };
+      history-ignore = { };
+      skip-display = { };
+      signed_on = { };
+      signed_off = { };
+      says = { };
+      twitter = { };
+      stack-volumes = { };
     };
   };
 }

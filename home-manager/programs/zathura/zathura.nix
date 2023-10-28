@@ -1,8 +1,7 @@
-{...}: {
+{ ... }: {
   programs.zathura = {
     enable = true;
-    mappings = {
-    };
+    mappings = { };
     options = {
       notification-error-bg = "#ff5555"; # Red
       notification-error-fg = "#f8f8f2"; # Foreground

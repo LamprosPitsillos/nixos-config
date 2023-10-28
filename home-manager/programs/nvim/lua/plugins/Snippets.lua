@@ -52,7 +52,7 @@ return {
             end,
             mode = "i"
         }
-            ,{
+        , {
             "<C-k>",
             function()
                 if require("luasnip").choice_active() then

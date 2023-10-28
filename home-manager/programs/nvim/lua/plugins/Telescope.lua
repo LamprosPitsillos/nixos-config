@@ -12,7 +12,7 @@ return {
             { "benfowler/telescope-luasnip.nvim" },
             { "nvim-telescope/telescope-symbols.nvim" },
             { "nvim-telescope/telescope-fzf-native.nvim",                             build = "make" },
-            {"Marskey/telescope-sg"}
+            { "Marskey/telescope-sg" }
 
         },
         config = function()
@@ -76,9 +76,9 @@ return {
                         command = {
                             "ast-grep",
                             "--json=stream",
-                        }, -- must have --json=stream
+                        },                      -- must have --json=stream
                         grep_open_files = true, -- search in opened files
-                        lang = nil, -- string value, specify language for ast-grep `nil` for default
+                        lang = nil,             -- string value, specify language for ast-grep `nil` for default
                     },
                     zoxide = {
                         mappings = {
@@ -182,28 +182,44 @@ return {
                 )
             end, { desc = "Config" })
 
-            map_utils.nmap('<leader>ss', "<cmd>Telescope ast_grep grep_open_files=true<cr>", { desc = "[s]earch [s]tructural buffers" })
-            map_utils.nmap('<leader>sS', "<cmd>Telescope ast_grep grep_open_files=false<cr>", { desc = "[s]earch [S]tructural project" })
+            map_utils.nmap('<leader>ss', "<cmd>Telescope ast_grep grep_open_files=true<cr>",
+                { desc = "[s]earch [s]tructural buffers" })
+            map_utils.nmap('<leader>sS', "<cmd>Telescope ast_grep grep_open_files=false<cr>",
+                { desc = "[s]earch [S]tructural project" })
 
             map_utils.nmap('<leader>"', "<cmd>Telescope registers theme=cursor<CR>", { desc = "[\"] registers" })
             -- map_utils.imap("<C-s>", telescope.symbols, { desc = "symbols" })
             map_utils.nmap("z=", telescope.spell_suggest, { desc = "spell" })
             map_utils.nmap("<leader>bs", telescope.buffers, { desc = "[b]uffer [s]elect" })
-            map_utils.nmap("<leader>sf", function() telescope.current_buffer_fuzzy_find({ skip_empty_lines = true }) end, { desc = "[s]earch [f]uzzy" })
+            map_utils.nmap("<leader>sf", function() telescope.current_buffer_fuzzy_find({ skip_empty_lines = true }) end,
+                { desc = "[s]earch [f]uzzy" })
             map_utils.imap("<C-r>", "<cmd>Telescope registers theme=cursor<CR>", { desc = "registers" })
-            map_utils.nmap("<leader>lr", function() telescope.lsp_references({ trim_text = true }) end, { desc = "[l]SP [r]eferences" })
+            map_utils.nmap("<leader>lr", function() telescope.lsp_references({ trim_text = true }) end,
+                { desc = "[l]SP [r]eferences" })
             map_utils.nmap("<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", { desc = "[l]SP [s]ymbols" })
             map_utils.nmap("<leader>le", telescope.diagnostics, { desc = "[l]SP [e]rrors" })
-            map_utils.nmap("<leader>ld", "<cmd>Telescope lsp_definitions theme=cursor<CR>", { desc = "[l]SP [d]efinition" })
-            map_utils.nmap("<leader>vld", "<cmd>vsplit | Telescope lsp_definitions theme=cursor<CR>", { desc = "[v]split [l]SP [d]efinition" })
+            map_utils.nmap("<leader>ld", "<cmd>Telescope lsp_definitions theme=cursor<CR>",
+                { desc = "[l]SP [d]efinition" })
+            map_utils.nmap("<leader>vld", "<cmd>vsplit | Telescope lsp_definitions theme=cursor<CR>",
+                { desc = "[v]split [l]SP [d]efinition" })
             map_utils.nmap("<leader>hn", telescope.help_tags, { desc = "[h]elp [n]eovim" })
             map_utils.nmap("<leader>hm", function() telescope.man_pages({ sections = { "ALL" } }) end,
                 { desc = "[h]elp [m]an pages" })
-            map_utils.nmap("<leader>sl", function() telescope.live_grep({ cwd = vim.lsp.buf.list_workspace_folders()[1], glob_pattern = "!ThirdParty" }) end, { desc = "[s]earch [l]ive" })
-            map_utils.nmap("<leader>sw", function() telescope.grep_string({ cwd = vim.lsp.buf.list_workspace_folders()[1] }) end, { desc = "[s]earch [w]ord under cursor" })
+            map_utils.nmap("<leader>sl",
+                function() telescope.live_grep({ cwd = vim.lsp.buf.list_workspace_folders()[1],
+                        glob_pattern = "!ThirdParty" }) end, { desc = "[s]earch [l]ive" })
+            map_utils.nmap("<leader>sw",
+                function() telescope.grep_string({ cwd = vim.lsp.buf.list_workspace_folders()[1] }) end,
+                { desc = "[s]earch [w]ord under cursor" })
             map_utils.nmap("<leader>fz", require("telescope").extensions.zoxide.list, { desc = "[f]ile [z]oxide" })
-            map_utils.nmap("<leader>ff", function() telescope.find_files({ hidden = false, cwd = vim.lsp.buf.list_workspace_folders()[1] }) end, { desc = "[f]iles [f]ind" })
-            map_utils.nmap("<leader>fb", function() require("telescope").extensions.file_browser.file_browser({ cwd = require "telescope.utils".buffer_dir() }) end , { desc = "[f]iles [b]rowser" })
+            map_utils.nmap("<leader>ff",
+                function() telescope.find_files({ hidden = false, cwd = vim.lsp.buf.list_workspace_folders()[1] }) end,
+                { desc = "[f]iles [f]ind" })
+            map_utils.nmap("<leader>fb",
+                function() require("telescope").extensions.file_browser.file_browser({
+                        cwd = require "telescope.utils".buffer_dir() }) end, { desc = "[f]iles [b]rowser" })
             map_utils.nmap("<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "[f]iles [r]ecent" })
             map_utils.nmap("<space>to", "<cmd>Telescope builtin include_extensions=true<cr>", { desc = "Telescope Open" })
-            map_utils.cmap("<C-f>","<cmd>Telescope command_history<cr>",{}) end } }
+            map_utils.cmap("<C-f>", "<cmd>Telescope command_history<cr>", {})
+        end
+    } }

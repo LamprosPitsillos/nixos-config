@@ -2,7 +2,7 @@ return {
     {
         "hrsh7th/nvim-cmp",
         -- load cmp on InsertEnter
-        event = { "InsertEnter" ,"CmdlineEnter"},
+        event = { "InsertEnter", "CmdlineEnter" },
         -- these dependencies will only be loaded when cmp loads
         -- dependencies are always lazy-loaded unless specified otherwise
         dependencies = {
@@ -70,7 +70,7 @@ return {
                     ghost_text = false -- this feature conflict with copilot.vim's preview.
                 },
                 sources = cmp.config.sources({
-                    { name = 'nvim_lua' },
+                        { name = 'nvim_lua' },
                         { name = "nvim_lsp" },
                         { name = "luasnip" }, -- For luasnip users.
                         { name = "nvim_lsp_signature_help" },
@@ -85,7 +85,7 @@ return {
                             },
                         },
 
-                        { name = "path",max_item_count = 10 },
+                        { name = "path", max_item_count = 10 },
                     },
                     {
                         {
@@ -114,8 +114,8 @@ return {
                 },
                 mapping = {
 
-                    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),{"c"}),
-                    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),{"c"}),
+                    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { "c" }),
+                    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { "c" }),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
                 },
                 sources = {
@@ -126,8 +126,8 @@ return {
             -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
             cmp.setup.cmdline(":", {
                 mapping = {
-                    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),{"c"}),
-                    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),{"c"}),
+                    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { "c" }),
+                    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { "c" }),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
                 },
                 sources = cmp.config.sources({

@@ -1,7 +1,8 @@
 return {
-    { "akinsho/bufferline.nvim",
+    {
+        "akinsho/bufferline.nvim",
         event = "VeryLazy",
-        enabled= false,
+        enabled = false,
         dependencies = { "nvim-tree/nvim-web-devicons" },
         lazy = false,
         opts = {
@@ -10,10 +11,10 @@ return {
                 numbers = "none",
                 --- @deprecated, please specify numbers as a function to customize the styling
                 -- number_style = "superscript" | "subscript" | "" | { "none", "subscript" }, -- buffer_id at index 1, ordinal at index 2
-                close_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
+                close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
                 right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
-                left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
-                middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
+                left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
+                middle_mouse_command = nil,          -- can be a string | function, see "Mouse actions"
                 indicator = {
                     -- icon = "┃",
                     -- icon = '█',

@@ -1,6 +1,6 @@
 local M = {}
 
-M.map       = vim.keymap.set
+M.map   = vim.keymap.set
 
 function M.nmap(before, after, opts)
     opts.noremap = true
@@ -12,12 +12,12 @@ function M.imap(before, after, opts)
     M.map("i", before, after, opts)
 end
 
- function M.cmap(before, after, opts)
+function M.cmap(before, after, opts)
     opts.noremap = true
     M.map("c", before, after, opts)
 end
 
- function M.vmap(before, after, opts)
+function M.vmap(before, after, opts)
     opts.noremap = true
     M.map("v", before, after, opts)
 end
@@ -28,11 +28,11 @@ function M.tmap(before, after, opts)
 end
 
 local function toCursor(input)
-    local result = ""
+    local result  = ""
     local pattern = "(.*)%{%}(.*)"
-    local lhs,rhs  = input:match(pattern)
-    local count = #rhs
-    result = lhs .. rhs .. string.rep("<Left>", count)
+    local lhs, rhs = input:match(pattern)
+    local count   = #rhs
+    result        = lhs .. rhs .. string.rep("<Left>", count)
     return result
 end
 
@@ -67,23 +67,23 @@ M.map("", "<Space>", "<Nop>", { noremap = true, silent = true, })
 --
 
 M.nmap("<leader>fn", function()
-    vim.ui.input({ prompt = "New file's name: " }, function(input)
-        if (input ~= nil) then vim.cmd("e " .. input) end
-    end)
-end,
+        vim.ui.input({ prompt = "New file's name: " }, function(input)
+            if (input ~= nil) then vim.cmd("e " .. input) end
+        end)
+    end,
     { desc = "New File" })
 
 M.nmap("<leader>ft", function()
-    vim.ui.input({ prompt = "New /tmp file's name: " }, function(input)
-        if (input ~= nil) then vim.cmd("e /tmp/" .. input) end
-    end)
-end,
+        vim.ui.input({ prompt = "New /tmp file's name: " }, function(input)
+            if (input ~= nil) then vim.cmd("e /tmp/" .. input) end
+        end)
+    end,
     { desc = "New Temp File" })
 
 
 M.nmap("<C-S-t>", function()
-    vim.fn.jobstart({"kitty",vim.cmd.pwd()})
-end,
+        vim.fn.jobstart({ "kitty", vim.cmd.pwd() })
+    end,
     { desc = "New File" })
 
 -- Windows>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -102,7 +102,8 @@ M.nmap("<leader>wd", "<cmd>wincmd d<cr>", { desc = "split window and jump to def
 M.nmap("<leader>wf", "<cmd>wincmd f<cr>", { desc = "split window and edit file name under the cursor" })
 M.nmap("<leader>wF", "<cmd>wincmd F<cr>",
     { desc = "split window and edit file name under the cursor and jump to the line number following the file name." })
-M.nmap("<leader>wi", "<cmd>wincmd i<cr>", { desc = "split window and jump to declaration of identifier under the cursor" })
+M.nmap("<leader>wi", "<cmd>wincmd i<cr>",
+    { desc = "split window and jump to declaration of identifier under the cursor" })
 M.nmap("<leader>wn", "<cmd>wincmd n<cr>", { desc = "open new window, N lines high" })
 M.nmap("<leader>wo", "<cmd>wincmd o<cr>", { desc = "close all but current window (like |:only|)" })
 M.nmap("<leader>wp", "<cmd>wincmd p<cr>", { desc = "go to previous (last accessed) window" })
@@ -158,9 +159,9 @@ M.vmap("<leader>rf", toCursor([["ry:%s/\(<c-r>r\)/{}/g]]), { desc = "replace sel
 -- Replace <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 -- Search >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-M.nmap("<leader>sn", "/", {desc="search basic"})
-M.nmap("<leader>sy", [[/<c-r>"]], {desc="search yank"})
-M.nmap("<leader>se", toCursor([[/\<{}\>]]), {desc="search exact"})
+M.nmap("<leader>sn", "/", { desc = "search basic" })
+M.nmap("<leader>sy", [[/<c-r>"]], { desc = "search yank" })
+M.nmap("<leader>se", toCursor([[/\<{}\>]]), { desc = "search exact" })
 -- Search <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
@@ -187,11 +188,11 @@ M.nmap("X", '"_dd', {})
 M.nmap("gP", "<cmd>pu! *<cr>", {})
 M.nmap("gp", "<cmd>pu *<cr>", {})
 M.nmap("n", "nzz", {})
-M.nmap("x", '"_x', {desc="remove text"})
+M.nmap("x", '"_x', { desc = "remove text" })
 M.nmap("yY", "^y$", {})
 M.nmap("dD", "^d$", {})
-M.vmap("<C-k>", ":m '<-2<CR>gv=gv", {desc="move line up"})
-M.vmap("<C-j>", ":m '>+1<CR>gv=gv", {desc="move line down"})
+M.vmap("<C-k>", ":m '<-2<CR>gv=gv", { desc = "move line up" })
+M.vmap("<C-j>", ":m '>+1<CR>gv=gv", { desc = "move line down" })
 M.vmap(">", ">gv", { desc = "indent right" })
 M.vmap("<", "<gv", { desc = "indent left" })
 -- Quality of Life <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -202,7 +203,7 @@ M.nmap("<leader>gg", "<cmd>Neogit<cr>", { desc = "Up history" })
 
 
 
-M.nmap("<leader>vz",zen,{desc= "[v]isual [z]en"})
+M.nmap("<leader>vz", zen, { desc = "[v]isual [z]en" })
 vim.keymap.set("n", "<F11>", function()
     vim.opt.spell = not vim.opt.spell:get()
 end, { desc = "enable spelling" })

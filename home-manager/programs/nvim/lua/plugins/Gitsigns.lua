@@ -5,16 +5,32 @@ return {
         opts = {
             signs                        = {
                 add          = { hl = "GitSignsAdd", text = "", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
-                change       = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr",
-                    linehl = "GitSignsChangeLn" },
-                delete       = { hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr",
-                    linehl = "GitSignsDeleteLn" },
-                topdelete    = { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr",
-                    linehl = "GitSignsDeleteLn" },
-                changedelete = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr",
-                    linehl = "GitSignsChangeLn" },
+                change       = {
+                    hl = "GitSignsChange",
+                    text = "│",
+                    numhl = "GitSignsChangeNr",
+                    linehl = "GitSignsChangeLn"
+                },
+                delete       = {
+                    hl = "GitSignsDelete",
+                    text = "_",
+                    numhl = "GitSignsDeleteNr",
+                    linehl = "GitSignsDeleteLn"
+                },
+                topdelete    = {
+                    hl = "GitSignsDelete",
+                    text = "‾",
+                    numhl = "GitSignsDeleteNr",
+                    linehl = "GitSignsDeleteLn"
+                },
+                changedelete = {
+                    hl = "GitSignsChange",
+                    text = "~",
+                    numhl = "GitSignsChangeNr",
+                    linehl = "GitSignsChangeLn"
+                },
             },
-            signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
+            signcolumn                   = true,  -- Toggle with `:Gitsigns toggle_signs`
             numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
             linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
             word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
@@ -91,14 +107,14 @@ return {
     lazy = true,
     cmd = "DiffviewOpen",
     opts = {
-        diff_binaries = false, -- Show diffs for binaries
+        diff_binaries = false,   -- Show diffs for binaries
         enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
-        git_cmd = { "git" }, -- The git executable followed by default args.
-        use_icons = true,    -- Requires nvim-web-devicons
-        show_help_hints = true, -- Show hints for how to open the help panel
-        watch_index = true,  -- Update views and index buffers when the git index changes.
+        git_cmd = { "git" },     -- The git executable followed by default args.
+        use_icons = true,        -- Requires nvim-web-devicons
+        show_help_hints = true,  -- Show hints for how to open the help panel
+        watch_index = true,      -- Update views and index buffers when the git index changes.
         icons = {
-                             -- Only applies when use_icons is true.
+            -- Only applies when use_icons is true.
             folder_closed = "",
             folder_open = "",
         },
@@ -133,14 +149,14 @@ return {
             },
         },
         file_panel = {
-            listing_style = "tree",          -- One of 'list' or 'tree'
+            listing_style = "tree", -- One of 'list' or 'tree'
             tree_options = {
-                                             -- Only applies when listing_style is 'tree'
-                flatten_dirs = true,         -- Flatten dirs that only contain one single dir
+                -- Only applies when listing_style is 'tree'
+                flatten_dirs = true,             -- Flatten dirs that only contain one single dir
                 folder_statuses = "only_folded", -- One of 'never', 'only_folded' or 'always'.
             },
             win_config = {
-                                             -- See ':h diffview-config-win_config'
+                -- See ':h diffview-config-win_config'
                 position = "left",
                 width = 35,
                 win_opts = {}
@@ -148,7 +164,7 @@ return {
         },
         file_history_panel = {
             win_config = {
-                       -- See ':h diffview-config-win_config'
+                -- See ':h diffview-config-win_config'
                 position = "bottom",
                 height = 16,
                 win_opts = {}
@@ -160,7 +176,7 @@ return {
             }
         },
         default_args = {
-                     -- Default args prepended to the arg-list for the listed commands
+            -- Default args prepended to the arg-list for the listed commands
             DiffviewOpen = {},
             DiffviewFileHistory = {},
         },
@@ -168,13 +184,13 @@ return {
     }
 }, {
     "NeogitOrg/neogit",
-        cmd= "Neogit",
-    event={ "BufReadPost", "BufNewFile", "BufWritePre" },
- dependencies = {
-    "nvim-lua/plenary.nvim",         -- required
-    "nvim-telescope/telescope.nvim", -- optional
-    "sindrets/diffview.nvim",        -- optional
-  },
+    cmd = "Neogit",
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+    dependencies = {
+        "nvim-lua/plenary.nvim",     -- required
+        "nvim-telescope/telescope.nvim", -- optional
+        "sindrets/diffview.nvim",    -- optional
+    },
     opts = {
         disable_signs = false,
         disable_hint = false,
@@ -222,11 +238,11 @@ return {
             },
             unpulled = {
                 folded = true,
-                    hidden = false
+                hidden = false
             },
             unmerged = {
                 folded = false,
-                    hidden=false
+                hidden = false
             },
             recent = {
                 folded = true

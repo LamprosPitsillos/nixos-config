@@ -3,21 +3,23 @@ return {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         version = false,
-        event = { "BufReadPost", "BufNewFile", "BufWritePre" , "VeryLazy" },
+        event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
         dependencies = {
             "windwp/nvim-ts-autotag",
-{ "luckasRanarison/tree-sitter-hypr",
-        config=function (_,opts)
-        local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-        parser_config.hypr = {
-            install_info = {
-                url = "https://github.com/luckasRanarison/tree-sitter-hypr",
-                files = { "src/parser.c" },
-                branch = "master",
+            {
+                "luckasRanarison/tree-sitter-hypr",
+                config = function(_, opts)
+                    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+                    parser_config.hypr = {
+                        install_info = {
+                            url = "https://github.com/luckasRanarison/tree-sitter-hypr",
+                            files = { "src/parser.c" },
+                            branch = "master",
+                        },
+                        filetype = "hypr",
+                    }
+                end
             },
-            filetype = "hypr",
-        }
-    end },
             -- "https://gitlab.com/HiPhish/nvim-ts-rainbow2",
             "nvim-treesitter/nvim-treesitter-textobjects",
         },
@@ -115,7 +117,7 @@ return {
                 query = 'rainbow-parens',
                 -- Highlight the entire buffer all at once
                 -- strategy = require 'ts-rainbow.strategy.global',
-              },
+            },
             incremental_selection = {
                 enable = true,
                 keymaps = {
@@ -154,7 +156,7 @@ return {
                 "yuck",
                 "vim",
                 "regex"
-            },       -- one of "all", "maintained" (parsers with maintainers), and a list of languages
+            },                              -- one of "all", "maintained" (parsers with maintainers), and a list of languages
             ignore_install = { "comment" }, -- List of parsers to ignore installing
             highlight = {
                 enable = true,
@@ -177,14 +179,14 @@ return {
     }
     , {
     "nvim-treesitter/nvim-treesitter-context",
-        event = { "BufReadPost", "BufNewFile", "BufWritePre" , "VeryLazy" },
+    event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
     dependencies = "nvim-treesitter",
     opts = {
-        enable = true,            -- Enable this plugin (Can be enabled/disabled later via commands)
-        max_lines = 0,            -- How many lines the window should span. Values <= 0 mean no limit.
-        trim_scope = "outer",     -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+        enable = true,        -- Enable this plugin (Can be enabled/disabled later via commands)
+        max_lines = 0,        -- How many lines the window should span. Values <= 0 mean no limit.
+        trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
         patterns = {
-                                  -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+            -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
             -- For all filetypes
             -- Note that setting an entry here replaces all other patterns for this entry.
             -- By setting the 'default' entry below, you can control which nodes you want to
@@ -193,7 +195,7 @@ return {
                 "class",
                 "function",
                 "method",
-                "for",     -- These won't appear in the context
+                "for", -- These won't appear in the context
                 "while",
                 "if",
                 -- 'switch',
@@ -214,9 +216,9 @@ return {
         -- [!] The options below are exposed but shouldn't require your attention,
         --     you can safely ignore them.
 
-        zindex = 20,         -- The Z-index of the context window
-        mode = "cursor",     -- Line used to calculate context. Choices: 'cursor', 'topline'
-        separator = nil,     -- Separator between context and content. Should be a single character string, like '-'.
+        zindex = 20,     -- The Z-index of the context window
+        mode = "cursor", -- Line used to calculate context. Choices: 'cursor', 'topline'
+        separator = nil, -- Separator between context and content. Should be a single character string, like '-'.
     }
 },
 }

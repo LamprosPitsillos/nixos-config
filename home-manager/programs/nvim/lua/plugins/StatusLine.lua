@@ -3,7 +3,7 @@
 -- Credit: glepnir
 return { {
     "nvim-lualine/lualine.nvim",
-event = "VeryLazy",
+    event = "VeryLazy",
     opts = function()
         local conditions = {
             buffer_not_empty = function()
@@ -81,7 +81,7 @@ event = "VeryLazy",
 
         ins_left { "location" }
 
-        ins_left { "progress"}
+        ins_left { "progress" }
 
         ins_left {
             "diagnostics",
@@ -119,7 +119,7 @@ event = "VeryLazy",
 
         -- Add components to right sections
         ins_right {
-            "o:encoding", -- option component same as &encoding in viml
+            "o:encoding",       -- option component same as &encoding in viml
             fmt = string.upper, -- I'm not sure why it's upper case either ;)
             cond = conditions.hide_in_width,
         }

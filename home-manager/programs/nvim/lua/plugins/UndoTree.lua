@@ -1,4 +1,4 @@
-return{
-'mbbill/undotree'
+return {
+    'mbbill/undotree'
 
 }

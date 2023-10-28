@@ -30,21 +30,20 @@ function M.Make()
                 efm = vim.api.nvim_buf_get_option(bufnr, "errorformat")
             })
             vim.api.nvim_exec_autocmds("QuickFixCmdPost")
-
         end
     end
 
     local job_id =
-    vim.fn.jobstart(
-        cmd,
-        {
-            on_stderr = on_event,
-            on_stdout = on_event,
-            on_exit = on_event,
-            stdout_buffered = true,
-            stderr_buffered = true,
-        }
-    )
+        vim.fn.jobstart(
+            cmd,
+            {
+                on_stderr = on_event,
+                on_stdout = on_event,
+                on_exit = on_event,
+                stdout_buffered = true,
+                stderr_buffered = true,
+            }
+        )
 end
 
 return M

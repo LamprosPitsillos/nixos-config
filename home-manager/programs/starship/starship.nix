@@ -1,10 +1,10 @@
-{lib, ...}: {
+{ lib, ... }: {
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
     settings = {
       add_newline = true;
-      format = lib.concatStrings ["$all"];
+      format = lib.concatStrings [ "$all" ];
       right_format = "";
       scan_timeout = 30;
       command_timeout = 500;
@@ -71,8 +71,8 @@
         symbol = "△ ";
         style = "bold blue";
         disabled = false;
-        detect_extensions = [];
-        detect_files = ["CMakeLists.txt" "CMakeCache.txt"];
+        detect_extensions = [ ];
+        detect_files = [ "CMakeLists.txt" "CMakeCache.txt" ];
       };
 
       cmd_duration = {
@@ -107,14 +107,14 @@
         format = "via [$symbol$context]($style) ";
         only_with_files = true;
         disabled = false;
-        detect_extensions = [];
+        detect_extensions = [ ];
         detect_files = [
           "docker-compose.yml"
           "docker-compose.yaml"
           "Dockerfile"
         ];
       };
-      detect_folders = [];
+      detect_folders = [ ];
 
       fill = {
         style = "bold black";
@@ -130,7 +130,7 @@
         truncation_symbol = "…";
         only_attached = false;
         always_show_remote = false;
-        ignore_branches = [];
+        ignore_branches = [ ];
         disabled = false;
       };
 
@@ -224,9 +224,9 @@
         style = "bold blue";
         lua_binary = "lua";
         disabled = false;
-        detect_extensions = ["lua"];
-        detect_files = [".lua-version"];
-        detect_folders = ["lua"];
+        detect_extensions = [ "lua" ];
+        detect_files = [ ".lua-version" ];
+        detect_folders = [ "lua" ];
       };
 
       memory_usage = {
@@ -264,9 +264,9 @@
         style = "bold green";
         disabled = false;
         not_capable_style = "bold red";
-        detect_extensions = ["js" "mjs" "cjs" "ts" "mts" "cts"];
-        detect_files = ["package.json" ".node-version" ".nvmrc"];
-        detect_folders = ["node_modules"];
+        detect_extensions = [ "js" "mjs" "cjs" "ts" "mts" "cts" ];
+        detect_files = [ "package.json" ".node-version" ".nvmrc" ];
+        detect_folders = [ "node_modules" ];
       };
 
       os = {
@@ -291,15 +291,15 @@
       python = {
         pyenv_version_name = false;
         pyenv_prefix = "pyenv ";
-        python_binary = ["python" "python3" "python2"];
+        python_binary = [ "python" "python3" "python2" ];
         format = "via [\${symbol}\${pyenv_prefix}(\${version} )(\($virtualenv\) )]($style)";
         version_format = "v\${raw}";
         style = "yellow bold";
         symbol = "🐍 ";
         disabled = false;
-        detect_extensions = ["py"];
-        detect_files = ["requirements.txt" ".python-version" "pyproject.toml" "Pipfile" "tox.ini" "setup.py" "__init__.py"];
-        detect_folders = [];
+        detect_extensions = [ "py" ];
+        detect_files = [ "requirements.txt" ".python-version" "pyproject.toml" "Pipfile" "tox.ini" "setup.py" "__init__.py" ];
+        detect_folders = [ ];
       };
 
       rust = {
@@ -308,9 +308,9 @@
         symbol = "🦀 ";
         style = "bold red";
         disabled = false;
-        detect_extensions = ["rs"];
-        detect_files = ["Cargo.toml"];
-        detect_folders = [];
+        detect_extensions = [ "rs" ];
+        detect_files = [ "Cargo.toml" ];
+        detect_folders = [ ];
       };
 
       sudo = {

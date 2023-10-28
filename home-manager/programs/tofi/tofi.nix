@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   config.xdg.configFile."tofi/config".text = ''
     # Default config for tofi
     #

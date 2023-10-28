@@ -24,7 +24,7 @@ vim.opt.smartcase = true
 vim.opt.smartindent = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-vim.opt.splitkeep="screen"
+vim.opt.splitkeep = "screen"
 vim.opt.swapfile = false
 vim.opt.termguicolors = true
 vim.opt.undodir = "/home/inferno/.cache/nvim/undodir"
@@ -38,10 +38,10 @@ vim.opt.linebreak = true
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 
-vim.cmd.iabbr({args={"cosnt","const"}})
-vim.cmd.iabbr({args={"csnt","const"}})
-vim.cmd.iabbr({args={"costn","const"}})
-vim.cmd.iabbr({args={"youre","you are"}})
+vim.cmd.iabbr({ args = { "cosnt", "const" } })
+vim.cmd.iabbr({ args = { "csnt", "const" } })
+vim.cmd.iabbr({ args = { "costn", "const" } })
+vim.cmd.iabbr({ args = { "youre", "you are" } })
 
 
 -- vim.o.foldenable = true
@@ -49,10 +49,10 @@ vim.cmd.iabbr({args={"youre","you are"}})
 -- vim.o.statuscolumn = "%=%r%s%C"
 
 vim.opt.langmap = {
-	"ΑA", "ΒB", "ΨC", "ΔD", "ΕE", "ΦF", "ΓG", "ΗH", "ΙI", "ΞJ", "ΚK", "ΛL", "ΜM", "ΝN",
-	"ΟO", "ΠP", "QQ", "ΡR", "ΣS", "ΤT", "ΘU", "ΩV", "WW", "ΧX", "ΥY", "ΖZ",
-	"αa", "βb", "ψc", "δd", "εe", "φf", "γg", "ηh", "ιi", "ξj", "κk", "λl", "μm", "νn",
-	"οo", "πp", "qq", "ρr", "σs", "τt", "θu", "ωv", "ςw", "χx", "υy", "ζz",
+    "ΑA", "ΒB", "ΨC", "ΔD", "ΕE", "ΦF", "ΓG", "ΗH", "ΙI", "ΞJ", "ΚK", "ΛL", "ΜM", "ΝN",
+    "ΟO", "ΠP", "QQ", "ΡR", "ΣS", "ΤT", "ΘU", "ΩV", "WW", "ΧX", "ΥY", "ΖZ",
+    "αa", "βb", "ψc", "δd", "εe", "φf", "γg", "ηh", "ιi", "ξj", "κk", "λl", "μm", "νn",
+    "οo", "πp", "qq", "ρr", "σs", "τt", "θu", "ωv", "ςw", "χx", "υy", "ζz",
 }
 vim.opt.spelllang = { 'en_us', 'el' }
 
@@ -72,17 +72,17 @@ vim.g.gui_font_size = vim.g.gui_font_default_size
 vim.g.gui_font_face = "Fira Code"
 
 RefreshGuiFont = function()
-	vim.opt.guifont = string.format("%s:h%s", vim.g.gui_font_face, vim.g.gui_font_size)
+    vim.opt.guifont = string.format("%s:h%s", vim.g.gui_font_face, vim.g.gui_font_size)
 end
 
 ResizeGuiFont = function(delta)
-	vim.g.gui_font_size = vim.g.gui_font_size + delta
-	RefreshGuiFont()
+    vim.g.gui_font_size = vim.g.gui_font_size + delta
+    RefreshGuiFont()
 end
 
 ResetGuiFont = function()
-	vim.g.gui_font_size = vim.g.gui_font_default_size
-	RefreshGuiFont()
+    vim.g.gui_font_size = vim.g.gui_font_default_size
+    RefreshGuiFont()
 end
 
 -- Call function on startup to set default value

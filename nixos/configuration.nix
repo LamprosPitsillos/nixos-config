@@ -1,16 +1,15 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
-{
-  config,
-  pkgs,
-  inputs,
-  lib,
-  ...
+{ config
+, pkgs
+, inputs
+, lib
+, ...
 }: {
-  environment.pathsToLink = ["/share/zsh"];
+  environment.pathsToLink = [ "/share/zsh" ];
 
-  security.pam.services.gtklock = {};
+  security.pam.services.gtklock = { };
 
   virtualisation.waydroid.enable = true;
   virtualisation.docker = {
@@ -33,7 +32,7 @@
     enable = true;
     keyboards = {
       "homerow" = {
-        devices = [];
+        devices = [ ];
         config = ''
           (defsrc
            esc     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12 prnt slck del home pgup pgdn end
@@ -78,8 +77,8 @@
     ./hardware-configuration.nix
   ];
   # programs.home-manager.enable = true;
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-    nix.settings.auto-optimise-store = true;
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.auto-optimise-store = true;
   documentation = {
     dev.enable = true;
     man = {
@@ -202,10 +201,10 @@
   };
 
   nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware = {
     nvidia = {
       # Modesetting is needed for most Wayland compositors
@@ -242,25 +241,25 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
   nixpkgs.overlays = [
-    (final: prev: {nerdfonts = prev.nerdfonts.override {fonts = ["JetBrainsMono"];};})
-    (final: prev: {qutebrowser = prev.qutebrowser.override {enableWideVine = true;};})
-    (final: prev: {nwg-displays = prev.nwg-displays.override {hyprlandSupport = true;};})
+    (final: prev: { nerdfonts = prev.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }; })
+    (final: prev: { qutebrowser = prev.qutebrowser.override { enableWideVine = true; }; })
+    (final: prev: { nwg-displays = prev.nwg-displays.override { hyprlandSupport = true; }; })
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
   users.users.inferno = {
     isNormalUser = true;
-    extraGroups = ["docker" "wheel" "networkmanager"]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "docker" "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
     initialPassword = "1234";
 
     packages = with pkgs; [
-calibre
-easyeffects
-ast-grep
-graphviz
-godot_4
-    brave
+      calibre
+      easyeffects
+      ast-grep
+      graphviz
+      godot_4
+      brave
       qemu
       wallust
       distrobox
@@ -335,7 +334,7 @@ godot_4
       (writeShellApplication {
         name = "dmenu";
 
-        runtimeInputs = [tofi];
+        runtimeInputs = [ tofi ];
 
         text = ''
           tofi "$@"
@@ -345,7 +344,7 @@ godot_4
         writeShellApplication {
           name = "screenshot_sh";
 
-          runtimeInputs = [hyprpicker tofi grim slurp swappy];
+          runtimeInputs = [ hyprpicker tofi grim slurp swappy ];
           text =
             /*
             sh
@@ -436,8 +435,7 @@ godot_4
     ];
     mime = {
       enable = true;
-      defaultApplications = {
-      };
+      defaultApplications = { };
     };
   };
 

@@ -12,47 +12,51 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
   };
-  outputs = {
-    nixpkgs,
-    home-manager,
-    hyprland,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {inherit system;};
-  in {
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-    templates = {
+  outputs =
+    { nixpkgs
+    , home-manager
+    , hyprland
+    , ...
+    } @ inputs:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
+    in
+    {
+      # formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+      formatter."${system}" = pkgs.nixpkgs-fmt;
+
+      templates = {
         default = {
-            path = ./templates/default;
+          path = ./templates/default;
 
-            description = "A very basic starter flake";
+          description = "A very basic starter flake";
         };
-    };
-    nixosConfigurations = {
-      "infernoPC" = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit system;
-          inherit inputs;
+      };
+      nixosConfigurations = {
+        "infernoPC" = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit system;
+            inherit inputs;
+          };
+          modules = [
+            ./nixos/configuration.nix
+          ];
         };
-        modules = [
-          ./nixos/configuration.nix
-        ];
+      };
+
+      homeConfigurations = {
+        "inferno" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            hyprland.homeManagerModules.default
+            ./home-manager/home.nix
+          ];
+        };
       };
     };
-
-    homeConfigurations = {
-      "inferno" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          hyprland.homeManagerModules.default
-          ./home-manager/home.nix
-        ];
-      };
-    };
-  };
 }

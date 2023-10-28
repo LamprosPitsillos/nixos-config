@@ -3,7 +3,7 @@ local function insert_text_around_selection(text, symbol, width)
     local s_line = vim.fn.getpos("v")[2]
     local e_line = vim.fn.getpos(".")[2]
     if e_line < s_line then
-        s_line,e_line = e_line,s_line
+        s_line, e_line = e_line, s_line
     end
 
     vim.api.nvim_buf_set_lines(0, s_line - 1, s_line - 1, false, { text .. string.rep(symbol[1], width) })
@@ -15,10 +15,10 @@ vim.keymap.set({ "v" }, "<leader>s", function()
     -- Prompt the user for input
     --
     local style = {
-        sin  = { "⠁⠂⠄⠄⠂⠁" },        -- ⠁⠂⠄⠄⠂⠁⠁⠂⠄⠂⠁⠁⠂⠄⠄⠂⠁⠁⠂⠄|⠄⠂⠁⠁⠂⠄⠄⠂⠁⠁⠂⠄⠂⠁⠁⠂⠄⠄⠂⠁⠁
-        line1  = { "= " },          -- ====================|=====================
-        line2  = { "-" },           -- --------------------|---------------------
-        arrow1 = { ">", "<" },      -- >>>>>>>>>>>>>>>>>>>>|<<<<<<<<<<<<<<<<<<<<<
+        sin    = { "⠁⠂⠄⠄⠂⠁" }, -- ⠁⠂⠄⠄⠂⠁⠁⠂⠄⠂⠁⠁⠂⠄⠄⠂⠁⠁⠂⠄|⠄⠂⠁⠁⠂⠄⠄⠂⠁⠁⠂⠄⠂⠁⠁⠂⠄⠄⠂⠁⠁
+        line1  = { "= " }, -- ====================|=====================
+        line2  = { "-" }, -- --------------------|---------------------
+        arrow1 = { ">", "<" }, -- >>>>>>>>>>>>>>>>>>>>|<<<<<<<<<<<<<<<<<<<<<
     }
     local user_input = vim.fn.input("Enter some text (including comment symbol): ")
     insert_text_around_selection(user_input, style.arrow1, 80)

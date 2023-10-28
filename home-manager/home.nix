@@ -1,9 +1,8 @@
-{
-  lib,
-  config,
-  pkgs,
-  inputs,
-  ...
+{ lib
+, config
+, pkgs
+, inputs
+, ...
 }: {
   imports = [
     ./programs/tofi/tofi.nix
@@ -25,10 +24,10 @@
   home.homeDirectory = "/home/inferno";
 
   programs.bat = {
-      enable = true;
-      config = {
-          theme = "OneHalfDark";
-      };
+    enable = true;
+    config = {
+      theme = "OneHalfDark";
+    };
   };
   programs.zoxide = {
     enable = true;
@@ -74,8 +73,7 @@
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
-  home.file = {
-  };
+  home.file = { };
 
   qt = {
     platformTheme = "gtk";
@@ -116,13 +114,13 @@
   #   terminal = "screen-256color";
   # };
 
-       programs.zellij = {
+  programs.zellij = {
 
-enable=true;
-enableZshIntegration = false;
-settings ={};
+    enable = true;
+    enableZshIntegration = false;
+    settings = { };
 
-           };
+  };
 
   programs.fzf = {
     enable = true;
