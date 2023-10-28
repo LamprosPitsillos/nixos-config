@@ -1,4 +1,4 @@
-{...}: {
+{pkgs,...}: {
   wayland.windowManager.hyprland = {
     enableNvidiaPatches = true;
     xwayland.enable = true;
@@ -10,26 +10,17 @@
     #
     #
     #     };
-    extraConfig = ''
-      #
-      # Please note not all available settings / options are set here.
-      # For a full list, see the wiki
-      #
+    extraConfig = 
+    /* hypr */
+    ''
+#--------------------------------------------------------------------#
+#                                Docs                                #
+#               https://wiki.hyprland.org/Configuring                #
+#--------------------------------------------------------------------#
 
-      # See https://wiki.hyprland.org/Configuring/Monitors/
       monitor=eDP-1,1920x1080,0x0 ,1
       monitor=,preferred,auto,1
 
-
-      # See https://wiki.hyprland.org/Configuring/Keywords/ for more
-
-      # Execute your favorite apps at launch
-
-      # Source a file (multi-file configs)
-      # source = ~/.config/hypr/myColors.conf
-
-
-      # Some default env vars.
       env = XCURSOR_SIZE,20
 
       source = ~/.config/hypr/monitors.conf
@@ -46,9 +37,7 @@
       enable_swallow=true
       animate_manual_resizes=false
       swallow_regex=^(kitty)$
-      # swallow_regex="(vifm|zathura|mpv)"
       }
-
       # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
       input {
           kb_layout = us,gr
@@ -233,7 +222,7 @@
       submap=open
       bind=,Q,exec,$scripts/qute_search.sh
       bind=,Q,submap,reset
-      bind=,S,exec,/home/inferno/UoC/9ο\ Εξαμηνο/scedule.sh
+      bind=,S,exec,${pkgs.zathura}/bin/zathura /home/inferno/UoC/9ο\ Εξαμηνο/possible_courses.pdf
       bind=,S,submap,reset
 
       bind=,escape,submap,reset

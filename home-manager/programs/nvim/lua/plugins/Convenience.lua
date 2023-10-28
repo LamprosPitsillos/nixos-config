@@ -9,22 +9,6 @@ return {
         }
     },
     {
-        "windwp/nvim-autopairs",
-        enabled=false,
-        opts = {
-            disable_in_visualblock = true,
-            enable_moveright = true
-        }
-    },
-{
-    'altermo/ultimate-autopair.nvim',
-    event={'InsertEnter','CmdlineEnter'},
-    opts={
-        --Config goes here
-    },
-}
-,
-    {
         "echasnovski/mini.indentscope",
         version = false,
         event = { "BufReadPre", "BufNewFile" },

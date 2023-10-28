@@ -95,6 +95,7 @@ return {
         end
 
     },
+{ "uga-rosa/ccc.nvim", event = { "BufReadPost", "BufNewFile", "BufWritePre" },lazy=true},
  {
     "stevearc/dressing.nvim",
     lazy = true,

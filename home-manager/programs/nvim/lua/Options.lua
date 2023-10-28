@@ -32,6 +32,7 @@ vim.opt.undofile = true
 vim.opt.wrap = false
 vim.opt.diffopt:append("linematch:60")
 vim.opt.virtualedit = "onemore"
+vim.opt.linebreak = true
 
 -- vim.o.foldcolumn = '1'
 vim.o.foldlevel = 99

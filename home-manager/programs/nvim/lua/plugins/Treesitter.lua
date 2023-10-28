@@ -152,6 +152,8 @@ return {
                 "tsx",
                 "typescript",
                 "yuck",
+                "vim",
+                "regex"
             },       -- one of "all", "maintained" (parsers with maintainers), and a list of languages
             ignore_install = { "comment" }, -- List of parsers to ignore installing
             highlight = {

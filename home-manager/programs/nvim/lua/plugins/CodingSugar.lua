@@ -40,6 +40,7 @@ return {
   end,
 },
     { "echasnovski/mini.align",
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         opts = {
             -- Module mappings. Use `''` (empty string) to disable one.
             mappings = {
@@ -213,7 +214,6 @@ return {
         }
     } },
 { "echasnovski/mini.trailspace", version = "*"},
-{ "uga-rosa/ccc.nvim", event = { "BufReadPost", "BufNewFile", "BufWritePre" , "VeryLazy" },lazy=true},
 {
   "luckasRanarison/nvim-devdocs",
         lazy=true,

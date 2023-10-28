@@ -2,9 +2,9 @@ return {
     {
         "neovim/nvim-lspconfig",
 
-        event={ "BufReadPost", "BufNewFile", "BufWritePre" },
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         dependencies = {
-            { "folke/neodev.nvim", opts = {} },
+            { "folke/neodev.nvim",            opts = {} },
             { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {}, },
             "hrsh7th/cmp-nvim-lsp"
         },
@@ -89,7 +89,7 @@ return {
                 },
                 cmake = {},
                 html = {},
-                typst_lsp={
+                typst_lsp = {
                     settings = {
                         exportPdf = "onType" -- Choose onType, onSave or never.
                         -- serverPath = "" -- Normally, there is no need to uncomment it.
@@ -99,21 +99,24 @@ return {
                 quick_lint_js = {},
                 prismals = {
                     cmd = {
-                        "prisma-language-server" ,
+                        "prisma-language-server",
                         "--stdio" },
-                        {
-                          prisma = {
-                            prismaFmtBinPath = "/nix/store/hmxi33qpcc3w2lk3z8n5v69pb3bcqd3i-prisma-engines-4.13.0/bin/prisma-fmt"
-                          }
+                    {
+                        prisma = {
+                            prismaFmtBinPath =
+                            "/nix/store/hmxi33qpcc3w2lk3z8n5v69pb3bcqd3i-prisma-engines-4.13.0/bin/prisma-fmt"
                         }
+                    }
                 },
                 nil_ls = {},
                 sqlls = {},
                 clangd = {},
                 tailwindcss = {
-                    filetypes= {"javascriptreact","typescriptreact"}
+                    filetypes = { "javascriptreact", "typescriptreact" }
                 },
                 texlab = {},
+                svelte = {},
+                marksman = {},
                 lua_ls = {
                     settings = {
                         Lua = {
@@ -136,7 +139,7 @@ return {
             end
             require("typescript-tools").setup {
                 on_attach = on_attach,
-                capabilities=capabilities,
+                capabilities = capabilities,
                 settings = {
                     -- spawn additional tsserver instance to calculate diagnostics on it
                     separate_diagnostic_server = true,

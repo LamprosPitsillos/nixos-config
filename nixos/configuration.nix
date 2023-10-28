@@ -255,6 +255,8 @@
     initialPassword = "1234";
 
     packages = with pkgs; [
+calibre
+easyeffects
 ast-grep
 graphviz
 godot_4
@@ -278,6 +280,7 @@ godot_4
       # Displays
       nwg-displays
       # Nix
+      nix-info
       nix-index
       prefetch-npm-deps
       nix-prefetch-git
@@ -325,6 +328,7 @@ godot_4
       thunderbird
       eww-wayland
       darktable
+      yazi
       # File Space
       ncdu
 
@@ -389,6 +393,8 @@ godot_4
       pass-wayland
 
       # LSPs
+
+      marksman
       typstfmt
       typst-lsp
       typst-live
@@ -404,8 +410,10 @@ godot_4
       nodePackages_latest.typescript-language-server
       nodePackages_latest."@tailwindcss/language-server"
       nodePackages_latest."@prisma/language-server"
+      nodePackages_latest.svelte-language-server
       typescript
       quick-lint-js
+
       # Programming Utils
       rlwrap
       hyperfine

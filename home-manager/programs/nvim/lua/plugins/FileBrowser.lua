@@ -1,6 +1,7 @@
 return {
     {
         "stevearc/oil.nvim",
+        cmd = "Oil",
         opts = {
             -- Id is automatically added at the beginning, and name at the end
             -- See :help oil-columns
