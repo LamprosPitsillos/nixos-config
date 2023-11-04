@@ -147,7 +147,6 @@ return {
                 "markdown",
                 "markdown_inline",
                 "nix",
-                "norg",
                 "prisma",
                 "python",
                 "rust",

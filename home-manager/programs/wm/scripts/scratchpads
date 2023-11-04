@@ -1,9 +1,9 @@
 #!/usr/bin/env dash
 
 # Inferno LP 2023-08-28
-_TERMINAL="kitty"
-_MUSIC_PLAYER="$_TERMINAL $SCRIPTS/music-player/mpv-music-sh"
-_FILE_MANAGER="$_TERMINAL --class vifm vifm"
+# _TERMINAL="kitty"
+# _MUSIC_PLAYER="$_TERMINAL $SCRIPTS/music-player/mpv-music-sh"
+# _FILE_MANAGER="$_TERMINAL --class vifm vifm"
 
 windows_in(){
 hyprctl clients -j | jq ".[] | select(.workspace.name == \"special:$1\" )"
@@ -21,10 +21,11 @@ toggle_scratchpad(){
     fi
 }
 
-if [ "$1" = "terminal" ];then
-    toggle_scratchpad "terminal" "$_TERMINAL"
-elif [ "$1" = "music_player" ];then
-    toggle_scratchpad "music_player" "$_MUSIC_PLAYER"
-elif [ "$1" = "file_manager" ];then
-    toggle_scratchpad "file_manager" "$_FILE_MANAGER"
-fi
+# if [ "$1" = "terminal" ];then
+#     toggle_scratchpad "terminal" "$_TERMINAL"
+# elif [ "$1" = "music_player" ];then
+#     toggle_scratchpad "music_player" "$_MUSIC_PLAYER"
+# elif [ "$1" = "file_manager" ];then
+#     toggle_scratchpad "file_manager" "$_FILE_MANAGER"
+# fi
+toggle_scratchpad "$1" "$2"

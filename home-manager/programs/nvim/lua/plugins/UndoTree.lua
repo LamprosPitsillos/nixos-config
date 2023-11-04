@@ -1,4 +1,6 @@
 return {
-    'mbbill/undotree'
-
+    {
+        'mbbill/undotree',
+        enable = false,
+    }
 }

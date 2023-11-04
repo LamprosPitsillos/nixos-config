@@ -143,13 +143,13 @@
 
               # See https://wiki.hyprland.org/Configuring/Keywords/ for more
               $mainMod = SUPER
-              $hyprscripts= ~/.config/hypr/scripts
+              $hyprscripts= ${./scripts}
               $scripts= $SCRIPTS
 
               # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
               bind = $mainMod,return, exec, kitty -1
               #bind = $mainMod, period , exec,[workspace special:terminal] kitty
-              bind = $mainMod, period , exec, $hyprscripts/scratchpads terminal
+              bind = $mainMod, period , exec, $hyprscripts/scratchpads terminal kitty
               bind =,Menu ,exec, hyprctl switchxkblayout kanata next
               bind =,Print ,exec, $scripts/screenshot-sh full
               bind =SHIFT,Print ,exec, $scripts/screenshot-sh
@@ -158,14 +158,14 @@
               bind =$mainMod,B ,exec,eww open --toggle bar
 
               #grim -g "$(slurp)" - | swappy -f - -o $HOME/pics/Screenshot/"$(date +'%Y-%m-%d_%H-%M-%S')_$(echo | tofi --prompt-text="Name: " --require-match=false --height=8% | tr " " "_")"
-              bind = $mainMod, W, killactive,
+              bind = $mainMod, W, killactive, 
               bind = $mainMod ALT, X, exec , eww open --toggle bar && eww open --toggle powermenu
-              bind = $mainMod SHIFT, q, exit,
+              bind = $mainMod SHIFT, q, exit, 
               bind = $mainMod, E, exec, thunar
               # bind = $mainMod, comma , exec,[stayfocused;dimaround;float;size 50% 40%;center(1) ] kitty vifm
-              bind = $mainMod, comma , exec, $hyprscripts/scratchpads file_manager
-              bind = $mainMod, M , exec, $hyprscripts/scratchpads music_player
-              bind = $mainMod, T, togglefloating,
+              bind = $mainMod, comma , exec, $hyprscripts/scratchpads file_manager "kitty --class file_manager ${pkgs.yazi}/bin/yazi" 
+              bind = $mainMod, M , exec, $hyprscripts/scratchpads music_player "kitty $SCRIPTS/music-player/mpv-music-sh"
+              bind = $mainMod, T, togglefloating, 
               bind = $mainMod, F , fullscreen,0
               bind = $mainMod, space, exec, $( tofi-drun )
               bind = $mainMod, P, pseudo, # dwindle

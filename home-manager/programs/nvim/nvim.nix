@@ -9,7 +9,8 @@
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
+    # package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
+    package = pkgs.neovim;
     vimAlias = true;
     viAlias = true;
     extraPackages = with pkgs; [ gcc ripgrep fd nodejs_18 ];

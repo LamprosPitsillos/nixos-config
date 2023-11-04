@@ -64,6 +64,8 @@
       gcl = "git clone";
       gdf = "git diff";
       gst = "git status";
+      # Network
+      nmqr = "nmcli dev wifi show-password";
     };
     shellGlobalAliases = {
       CP = " ${pkgs.wl-clipboard}/bin/wl-copy ";

@@ -11,7 +11,7 @@
 
   security.pam.services.gtklock = { };
 
-  virtualisation.waydroid.enable = true;
+  virtualisation.waydroid.enable = false;
   virtualisation.docker = {
     enable = true;
   };
@@ -356,7 +356,7 @@
             '';
         }
       )
-
+    localsend
       unzip
       parallel
       file

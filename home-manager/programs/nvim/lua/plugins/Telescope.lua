@@ -12,7 +12,8 @@ return {
             { "benfowler/telescope-luasnip.nvim" },
             { "nvim-telescope/telescope-symbols.nvim" },
             { "nvim-telescope/telescope-fzf-native.nvim",                             build = "make" },
-            { "Marskey/telescope-sg" }
+            { "Marskey/telescope-sg" },
+            { "debugloop/telescope-undo.nvim", }
 
         },
         config = function()
@@ -72,6 +73,30 @@ return {
                     -- buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
                 },
                 extensions = {
+                    undo = {
+                        use_delta = true,
+                        use_custom_command = nil, -- setting this implies `use_delta = false`. Accepted format is: { "bash", "-c", "echo '$DIFF' | delta" }
+                        side_by_side = true,
+                        layout_strategy = "vertical",
+                        layout_config = {
+                            preview_height = 0.8,
+                        },
+                        diff_context_lines = vim.o.scrolloff,
+                        entry_format = "state #$ID, $STAT, $TIME",
+                        time_format = "",
+                        mappings = {
+                            i = {
+                                -- IMPORTANT: Note that telescope-undo must be available when telescope is configured if
+                                -- you want to replicate these defaults and use the following actions. This means
+                                -- installing as a dependency of telescope in it's `requirements` and loading this
+                                -- extension from there instead of having the separate plugin definition as outlined
+                                -- above.
+                                ["<cr>"] = require("telescope-undo.actions").yank_additions,
+                                ["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
+                                ["<C-cr>"] = require("telescope-undo.actions").restore,
+                            },
+                        },
+                    },
                     ast_grep = {
                         command = {
                             "ast-grep",
@@ -152,6 +177,7 @@ return {
             require("telescope").load_extension("file_browser")
             require("telescope").load_extension("zoxide")
             require("telescope").load_extension("luasnip")
+            require("telescope").load_extension("undo")
             -- require("telescope._extensions.zoxide.config").setup({
             --     mappings = {
             --         default = {
@@ -206,8 +232,12 @@ return {
             map_utils.nmap("<leader>hm", function() telescope.man_pages({ sections = { "ALL" } }) end,
                 { desc = "[h]elp [m]an pages" })
             map_utils.nmap("<leader>sl",
-                function() telescope.live_grep({ cwd = vim.lsp.buf.list_workspace_folders()[1],
-                        glob_pattern = "!ThirdParty" }) end, { desc = "[s]earch [l]ive" })
+                function()
+                    telescope.live_grep({
+                        cwd = vim.lsp.buf.list_workspace_folders()[1],
+                        glob_pattern = "!ThirdParty"
+                    })
+                end, { desc = "[s]earch [l]ive" })
             map_utils.nmap("<leader>sw",
                 function() telescope.grep_string({ cwd = vim.lsp.buf.list_workspace_folders()[1] }) end,
                 { desc = "[s]earch [w]ord under cursor" })
@@ -216,8 +246,10 @@ return {
                 function() telescope.find_files({ hidden = false, cwd = vim.lsp.buf.list_workspace_folders()[1] }) end,
                 { desc = "[f]iles [f]ind" })
             map_utils.nmap("<leader>fb",
-                function() require("telescope").extensions.file_browser.file_browser({
-                        cwd = require "telescope.utils".buffer_dir() }) end, { desc = "[f]iles [b]rowser" })
+                function()
+                    require("telescope").extensions.file_browser.file_browser({
+                        cwd = require "telescope.utils".buffer_dir() })
+                end, { desc = "[f]iles [b]rowser" })
             map_utils.nmap("<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "[f]iles [r]ecent" })
             map_utils.nmap("<space>to", "<cmd>Telescope builtin include_extensions=true<cr>", { desc = "Telescope Open" })
             map_utils.cmap("<C-f>", "<cmd>Telescope command_history<cr>", {})
