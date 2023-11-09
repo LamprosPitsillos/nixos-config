@@ -254,12 +254,12 @@
     initialPassword = "1234";
 
     packages = with pkgs; [
+
       calibre
       easyeffects
       ast-grep
       graphviz
       godot_4
-      brave
       qemu
       wallust
       distrobox
@@ -296,6 +296,7 @@
       tofi
 
       # Networking
+      bluetuith
       bluez
       iw
       networkmanagerapplet
@@ -310,7 +311,6 @@
       yt-dlp
 
       # Communication
-      skypeforlinux
       discord
 
       # Uni Notes Utils
@@ -383,7 +383,6 @@
       usbutils
 
       eza
-      rofi
       fd
       zathura
       dash

@@ -21,6 +21,7 @@ return {
             local layout = require("telescope.actions.layout")
             local previewers = require("telescope.previewers")
             local sorters = require("telescope.sorters")
+            local actions = require( "telescope.actions" ) ;
 
             require("telescope").setup({
                 defaults = {
@@ -169,6 +170,18 @@ return {
                             "*cache*"
                         },
                     },
+                    command_history = {
+                    mappings = {
+                        i = {
+                            ["<cr>"] =  actions.edit_command_line
+                        },
+                        n = {
+                            ["<cr>"] =  actions.edit_command_line
+                        },
+                    }
+
+                    }
+
                 },
             })
 
@@ -252,6 +265,6 @@ return {
                 end, { desc = "[f]iles [b]rowser" })
             map_utils.nmap("<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "[f]iles [r]ecent" })
             map_utils.nmap("<space>to", "<cmd>Telescope builtin include_extensions=true<cr>", { desc = "Telescope Open" })
-            map_utils.cmap("<C-f>", "<cmd>Telescope command_history<cr>", {})
+            -- map_utils.cmap("<C-f>", "<cmd>Telescope command_history<cr>", {})
         end
     } }
