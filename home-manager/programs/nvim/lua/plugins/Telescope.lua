@@ -75,9 +75,9 @@ return {
                 },
                 extensions = {
                     undo = {
-                        use_delta = true,
+                        use_delta = false,
                         use_custom_command = nil, -- setting this implies `use_delta = false`. Accepted format is: { "bash", "-c", "echo '$DIFF' | delta" }
-                        side_by_side = true,
+                        side_by_side = false,
                         layout_strategy = "vertical",
                         layout_config = {
                             preview_height = 0.8,

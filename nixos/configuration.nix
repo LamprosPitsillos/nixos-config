@@ -254,7 +254,8 @@
     initialPassword = "1234";
 
     packages = with pkgs; [
-
+    delta
+        docker-compose
       calibre
       easyeffects
       ast-grep
