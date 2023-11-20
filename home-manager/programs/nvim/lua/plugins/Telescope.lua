@@ -6,7 +6,7 @@ return {
         lazy = true,
         event = "VeryLazy",
         dependencies = {
-            { "nvim-telescope/telescope-ui-select.nvim" },
+            -- { "nvim-telescope/telescope-ui-select.nvim" },
             { "jvgrootveld/telescope-zoxide" },
             { "nvim-telescope/telescope-file-browser.nvim" --[[ branch="feat/tree" ]] },
             { "benfowler/telescope-luasnip.nvim" },
@@ -21,7 +21,7 @@ return {
             local layout = require("telescope.actions.layout")
             local previewers = require("telescope.previewers")
             local sorters = require("telescope.sorters")
-            local actions = require( "telescope.actions" ) ;
+            local actions = require("telescope.actions");
 
             require("telescope").setup({
                 defaults = {
@@ -121,9 +121,9 @@ return {
                             },
                         }
                     },
-                    ["ui-select"] = {
-                        require("telescope.themes").get_dropdown(),
-                    },
+                    -- ["ui-select"] = {
+                    --     require("telescope.themes").get_dropdown(),
+                    -- },
                     file_browser = {
                         hijack_netrw = true,
                         mappings = {
@@ -171,21 +171,21 @@ return {
                         },
                     },
                     command_history = {
-                    mappings = {
-                        i = {
-                            ["<cr>"] =  actions.edit_command_line
-                        },
-                        n = {
-                            ["<cr>"] =  actions.edit_command_line
-                        },
-                    }
+                        mappings = {
+                            i = {
+                                ["<cr>"] = actions.edit_command_line
+                            },
+                            n = {
+                                ["<cr>"] = actions.edit_command_line
+                            },
+                        }
 
                     }
 
                 },
             })
 
-            require("telescope").load_extension("ui-select")
+            -- require("telescope").load_extension("ui-select")
             require("telescope").load_extension("fzf")
             require("telescope").load_extension("file_browser")
             require("telescope").load_extension("zoxide")

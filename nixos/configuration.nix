@@ -138,6 +138,7 @@
     FLAKE_PATH = "$HOME/.nixos-config";
     SCRIPTS = "$FLAKE_PATH/scripts";
 
+    MOZ_ENABLE_WAYLAND="1";
     GDK_BACKEND = "wayland";
     EDITOR = "nvim";
     VISUAL = "nvim";
@@ -280,6 +281,8 @@
       # Displays
       nwg-displays
       # Nix
+      nix-tree
+      nix-du
       nix-info
       nix-index
       prefetch-npm-deps

@@ -18,6 +18,9 @@
     ./programs/nvim/nvim.nix
   ];
 
+  nixpkgs.overlays = [
+    (final: prev: { nerdfonts = prev.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }; })
+    ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "inferno";
@@ -46,6 +49,7 @@
 
   programs.git = {
     enable = true;
+    delta.enable = true;
     userName = "Lampros Pitsillos";
     userEmail = "hauahx@gmail.com";
     aliases = {
@@ -106,21 +110,52 @@
     };
   };
 
-  # programs.tmux = {
-  #   enable = true;
-  #   baseIndex = 1;
-  #   keyMode = "vi";
-  #   prefix = "C-q";
-  #   terminal = "screen-256color";
-  # };
-
-  programs.zellij = {
-
+  programs.tmux = {
     enable = true;
-    enableZshIntegration = false;
-    settings = { };
+    baseIndex = 1;
+    keyMode = "vi";
+    prefix = "C-q";
+    terminal = "screen-256color";
+escapeTime=0;
+historyLimit=100000;
+mouse=true;
 
+extraConfig=''
+set-option -g terminal-overrides ',xterm-256color:RGB'
+set-option -g focus-events on # TODO: learn how this works
+
+set -g detach-on-destroy off # don't exit from tmux when closing a session
+set -g renumber-windows on   # renumber all windows when any window is closed
+set -g set-clipboard on      # use system clipboard
+set -g status-interval 3     # update the status bar every 3 seconds
+set -g status-left "#[fg=blue,bold,bg=#1e1e2e]  #S  "
+set -g status-right "#[fg=#b4befe,bold,bg=#1e1e2e]%a %Y-%m-%d 󱑒 %l:%M %p"
+set -ga status-right "#($HOME/.config/tmux/scripts/cal.sh)"
+set -g status-justify left
+set -g status-left-length 200    # increase length (from 10)
+set -g status-right-length 200    # increase length (from 10)
+set -g status-position top       # macOS / darwin style
+set -g status-style 'bg=#1e1e2e' # transparent
+set -g window-status-current-format '#[fg=magenta,bg=#1e1e2e]*#I #W#{?window_zoomed_flag,(),} '
+set -g window-status-format '#[fg=gray,bg=#1e1e2e] #I #W'
+set -g window-status-last-style 'fg=white,bg=black'
+set -g default-terminal "''${TERM}"
+set -g message-command-style bg=default,fg=yellow
+set -g message-style bg=default,fg=yellow
+set -g mode-style bg=default,fg=yellow
+set -g pane-active-border-style 'fg=magenta,bg=default'
+set -g pane-border-style 'fg=brightblack,bg=default'
+'';
   };
+
+
+  # programs.zellij = {
+  #
+  #   enable = true;
+  #   enableZshIntegration = false;
+  #   settings = { };
+  #
+  # };
 
   programs.fzf = {
     enable = true;

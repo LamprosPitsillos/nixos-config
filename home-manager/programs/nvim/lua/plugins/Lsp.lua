@@ -4,8 +4,8 @@ return {
 
         event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         dependencies = {
-            { "folke/neodev.nvim",            opts = {} },
-            { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {}, },
+            { "folke/neodev.nvim", opts = {} },
+            { dev = true,          "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {}, },
             "hrsh7th/cmp-nvim-lsp"
         },
         config = function()
@@ -20,7 +20,7 @@ return {
             capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
             vim.lsp.set_log_level('debug')
-            -- local util = require "lspconfig.util"
+            -- localutil = require "lspconfig.util"
             require("neodev").setup({})
             require("typescript-tools").setup {
                 on_attach = on_attach,
@@ -210,7 +210,8 @@ return {
                     map("n", "K", lsp_b.hover, { desc = "hover", buffer = ev.buf })
                     map("n", "<space>=", function() lsp_b.format({ async = true }) end,
                         { desc = "formatting", buffer = ev.buf })
-                    map("n", "<leader>lI", function() lsp_b.inlay_hint(0) end,
+                    map("n", "<leader>lI",
+                        function() vim.lsp.inlay_hint.enable(ev.buf, not vim.lsp.inlay_hint.is_enabled(ev.buf)) end,
                         { desc = "Toggle inlay hints", buffer = ev.buf }
 
                     )

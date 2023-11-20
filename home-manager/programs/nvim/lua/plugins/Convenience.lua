@@ -9,27 +9,6 @@ return {
         }
     },
     {
-        "echasnovski/mini.indentscope",
-        version = false,
-        event = { "BufReadPre", "BufNewFile" },
-        opts = {
-            -- symbol = "▏",
-            symbol = "│",
-            options = { try_as_border = true },
-        },
-        init = function()
-            vim.api.nvim_create_autocmd("FileType", {
-                pattern = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
-                callback = function()
-                    vim.b.miniindentscope_disable = true
-                end,
-            })
-        end,
-        config = function(_, opts)
-            require("mini.indentscope").setup(opts)
-        end,
-    },
-    {
 
         "echasnovski/mini.bufremove",
         version = "*",
@@ -38,15 +17,6 @@ return {
             { "<leader>bD", function() require("mini.bufremove").delete(0, true) end,  desc = "Delete Buffer (Force)" },
         },
     },
-    {
-        "s1n7ax/nvim-comment-frame",
-        keys = {
-            { "gcl", ":lua require('nvim-comment-frame').add_comment()<CR>",           desc = "[c]omment [l]ine" },
-            { "gcf", ":lua require('nvim-comment-frame').add_multiline_comment()<CR>", desc = "[c]omment [f]rame" }
-        },
-        dependencies = { "nvim-treesitter" }
-    },
-    { "numToStr/Comment.nvim",                                                   config = true },
     {
         "monaqa/dial.nvim",
         event = { "BufReadPost", "BufNewFile", "BufWritePre" },
@@ -94,6 +64,9 @@ return {
             }
         end
     },
-    { dir = "/home/inferno/docs/Programming/Projects/NEOVIM_PLUGS/ouroboros.nvim" },
-    "mcauley-penney/tidy.nvim"
+    -- { dir = "/home/inferno/docs/Programming/Projects/NEOVIM_PLUGS/ouroboros.nvim" },
+    {
+        "mcauley-penney/tidy.nvim",
+        config = true,
+    }
 }

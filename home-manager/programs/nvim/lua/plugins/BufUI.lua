@@ -1,32 +1,5 @@
 return {
-    {
-        "lewis6991/hover.nvim",
-        enabled = false,
-        config = function()
-            require("hover").setup {
-                init = function()
-                    -- Require providers
-                    require("hover.providers.lsp")
-                    -- require('hover.providers.gh')
-                    -- require('hover.providers.gh_user')
-                    -- require('hover.providers.jira')
-                    -- require('hover.providers.man')
-                    -- require('hover.providers.dictionary')
-                end,
-                preview_opts = {
-                    border = nil
-                },
-                -- Whether the contents of a currently open hover window should be moved
-                -- to a :h preview-window when pressing the hover keymap.
-                preview_window = false,
-                title = true
-            }
-
-            -- Setup keymaps
-            vim.keymap.set("n", "K", require("hover").hover, { desc = "hover.nvim" })
-            vim.keymap.set("n", "gK", require("hover").hover_select, { desc = "hover.nvim (select)" })
-        end
-    },
+    { "uga-rosa/ccc.nvim", event = { "BufReadPost", "BufNewFile", "BufWritePre" }, lazy = true },
     {
         "utilyre/sentiment.nvim",
         version = "*",
@@ -93,25 +66,33 @@ return {
             require("mini.align").setup(opts)
         end
     },
-    -- { "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    -- {
+    --     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    --     enabled = true,
     --     config = function()
     --         require("lsp_lines").setup()
     --         vim.keymap.set(
     --             "n",
-    --             "<Leader>lt",
-    --             require("lsp_lines").toggle,
+    --             "<leader>lt",
+    --             function()
+    --                 vim.diagnostic.config({ virtual_text = false })
+    --                 vim.diagnostic.config({ virtual_lines = { highlight_whole_line = false } })
+    --                 require("lsp_lines").toggle()
+    --             end,
     --             { desc = "Toggle lsp_lines" }
     --         )
-    --     end, },
-    --
-    {
-        'laytan/tailwind-sorter.nvim',
-        enabled = false,
-        ft = { "javascriptreact" },
-        dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim' },
-        build = 'cd formatter && npm i && npm run build',
-        config = function() require('tailwind-sorter').setup() end,
-    },
+    --     end,
+    -- },
+
+    -- {
+    --     'laytan/tailwind-sorter.nvim',
+    --     enabled = true,
+    --     dev = true,
+    --     ft = { "javascriptreact", "typescriptreact" },
+    --     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim' },
+    --     -- build = 'cd formatter && npm i && npm run build',
+    --     config = true,
+    -- },
     {
         "echasnovski/mini.indentscope",
         version = false, -- wait till new 0.7.0 release to put it back on semver
@@ -217,7 +198,14 @@ return {
             }
         }
     },
-    { "echasnovski/mini.trailspace", version = "*" },
+    {
+        "echasnovski/mini.trailspace",
+        event = { "BufReadPost" },
+        version = "*",
+        config = function()
+            require('mini.trailspace').setup()
+        end
+    },
     {
         "luckasRanarison/nvim-devdocs",
         lazy = true,
@@ -233,9 +221,3 @@ return {
     }
 
 }
--- vim.opt.list = true
--- vim.opt.listchars:append "space:⋅"
--- vim.opt.listchars:append "eol:↴"
--- table.insert(vim.g.indent_blankline_filetype_exclude,"txt")
--- C/C++ Ouroboros
--- vim.keymap.set("n", "<leader>lh", "<cmd>Ouroboros<cr>", {})
