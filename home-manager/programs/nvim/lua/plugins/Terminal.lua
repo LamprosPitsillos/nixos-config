@@ -7,9 +7,14 @@ return {
         },
         cmd = "ToggleTerm",
         keys = {
-            { "<A-t>", "<cmd>" .. vim.v.count .. "ToggleTerm<cr>",                 desc = "terminal", mode = { "i", "n" } },
-            { "<A-T>", "<cmd>" .. vim.v.count .. "ToggleTerm direction=vertical <cr>", desc = "terminal", mode = { "i",
-                "n" } }
+            { "<A-t>", "<cmd>" .. vim.v.count .. "ToggleTerm<cr>", desc = "terminal", mode = { "i", "n" } },
+            {
+                "<A-T>",
+                "<cmd>" .. vim.v.count .. "ToggleTerm direction=vertical <cr>",
+                desc = "terminal",
+                mode = { "i",
+                    "n" }
+            }
         },
         config = function(_, opts)
             local function set_terminal_keymaps()
@@ -32,7 +37,33 @@ return {
             vim.api.nvim_create_autocmd("TermOpen", { pattern = "term://*", callback = set_terminal_keymaps })
             require("toggleterm").setup(opts)
         end
+    },
+    {
+        "alexghergh/nvim-tmux-navigation",
+        event = "VeryLazy",
+        keys = {
+            { "<A-h>",     "<cmd>NvimTmuxNavigateLeft<cr>",       desc = "Tmux Left",  mode = { "i", "n" } },
+            { "<A-j>",     "<cmd>NvimTmuxNavigateDown<cr>",       desc = "Tmux Down",  mode = { "i", "n" } },
+            { "<A-k>",     "<cmd>NvimTmuxNavigateUp<cr>",         desc = "Tmux Up",    mode = { "i", "n" } },
+            { "<A-l>",     "<cmd>NvimTmuxNavigateRight<cr>",      desc = "Tmux Right", mode = { "i", "n" } },
+            { "<A-\\>",    "<cmd>NvimTmuxNavigateLastActive<cr>", desc = "Tmux Last",  mode = { "i", "n" } },
+            { "<A-Space>", "<cmd>NvimTmuxNavigateNext<cr>",       desc = "Next",       mode = { "i", "n" } }
+        },
+        opts = {
+            disable_when_zoomed = true, -- defaults to false
+            keybindings = {
+                left = "<A-h>",
+                down = "<A-j>",
+                up = "<A-k>",
+                right = "<A-l>",
+                last_active = "<A-\\>",
+                next = "<A-Space>",
+            },
+        },
+        lazy = true,
+        config = true
     }
+
     --   , {
     --   'mikesmithgh/kitty-scrollback.nvim',
     --   enabled = true,
