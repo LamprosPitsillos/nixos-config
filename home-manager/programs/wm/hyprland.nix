@@ -1,6 +1,5 @@
 { pkgs, ... }: {
   wayland.windowManager.hyprland = {
-    enableNvidiaPatches = true;
     xwayland.enable = true;
 
     enable = true;
@@ -107,7 +106,7 @@
               dwindle {
                   # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
                   pseudotile = true # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-                  preserve_split = false # you probably want this
+                  preserve_split = true # you probably want this
               }
 
               master {

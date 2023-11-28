@@ -60,38 +60,34 @@ vim.g.no_man_maps = 1
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
+if vim.g.neovide then
+    vim.o.guifont = "JetBrainsMono NF Regular:h14"
 
-vim.g.neovide_window_floating_blur = 0.3
-vim.g.neovide_floating_opacity = 0.3
-vim.g.neovide_floating_blur_amount_x = 2.0
-vim.g.neovide_floating_blur_amount_y = 2.0
-vim.g.neovide_font_hinting = 'none'
-vim.g.neovide_font_edging = 'subpixelantialias'
-vim.g.gui_font_default_size = 8
-vim.g.gui_font_size = vim.g.gui_font_default_size
-vim.g.gui_font_face = "Fira Code"
+    vim.g.neovide_scale_factor = 1.0
 
-RefreshGuiFont = function()
-    vim.opt.guifont = string.format("%s:h%s", vim.g.gui_font_face, vim.g.gui_font_size)
+    local function change_scale_factor(delta)
+        vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
+    end
+
+    vim.keymap.set("n", "<C-+>", function() change_scale_factor(1.25) end)
+    vim.keymap.set("n", "<C-_>", function() change_scale_factor(1 / 1.25) end)
+
+    local function alpha()
+        return string.format("%x", math.floor(255 * (vim.g.neovide_transparency_point or 0.8)))
+    end
+    -- Set transparency and background color (title bar color)
+    vim.g.neovide_transparency = 1.0
+    vim.g.neovide_transparency_point = 0.8
+    vim.g.neovide_background_color = "#0f1117" .. alpha()
+    -- Add keybinds to change transparency
+    local function change_transparency(delta)
+        vim.g.neovide_transparency_point = vim.g.neovide_transparency_point + delta
+        vim.g.neovide_background_color = "#0f1117" .. alpha()
+    end
+    vim.keymap.set({ "n", "v", "o" }, "<C-}>", function()
+        change_transparency(0.01)
+    end)
+    vim.keymap.set({ "n", "v", "o" }, "<C-{>", function()
+        change_transparency(-0.01)
+    end)
 end
-
-ResizeGuiFont = function(delta)
-    vim.g.gui_font_size = vim.g.gui_font_size + delta
-    RefreshGuiFont()
-end
-
-ResetGuiFont = function()
-    vim.g.gui_font_size = vim.g.gui_font_default_size
-    RefreshGuiFont()
-end
-
--- Call function on startup to set default value
-ResetGuiFont()
-
--- Keymaps
-
-local opts = { noremap = true, silent = true }
-
-vim.keymap.set({ 'n', 'i' }, "<C-+>", function() ResizeGuiFont(1) end, opts)
-vim.keymap.set({ 'n', 'i' }, "<C-->", function() ResizeGuiFont(-1) end, opts)
-vim.keymap.set({ 'n', 'i' }, "<C-BS>", function() ResetGuiFont() end, opts)

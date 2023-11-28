@@ -129,16 +129,17 @@ set -g detach-on-destroy off # don't exit from tmux when closing a session
 set -g renumber-windows on   # renumber all windows when any window is closed
 set -g set-clipboard on      # use system clipboard
 set -g status-interval 3     # update the status bar every 3 seconds
-set -g status-left "#[fg=blue,bold,bg=#1e1e2e]  #S   "
-set -g status-right "#[fg=#b4befe,bold,bg=#1e1e2e]%a %Y-%m-%d 󱑒 %l:%M %p"
-set -ga status-right "#($HOME/.config/tmux/scripts/cal.sh)"
+set -g status-left "#[fg=blue,bold,bg=#1e1e2e]#{?client_prefix,#[reverse]  #[noreverse],  }  #S  "
+set -g status-right "#[fg=white,bold,bg=#1e1e2e] #[fg=#b4befe,bold,bg=#1e1e2e]%a %Y-%m-%d #[fg=white,bold,bg=#1e1e2e]󱑒 #[fg=#b4befe,bold,bg=#1e1e2e]%l:%M %p"
+# set -ga status-right "#($HOME/.config/tmux/scripts/cal.sh)"
 set -g status-justify left
 set -g status-left-length 200    # increase length (from 10)
 set -g status-right-length 200    # increase length (from 10)
 set -g status-position top       # macOS / darwin style
 set -g status-style 'bg=#1e1e2e' # transparent
-set -g window-status-current-format '#[fg=magenta,bg=#1e1e2e]#I #W#{?window_zoomed_flag,(),} '
-set -g window-status-format '#[fg=gray,bg=#1e1e2e] #I #W'
+# set -g window-status-current-format '#[fg=magenta,bg=#1e1e2e]#I #W#{?window_zoomed_flag,(),} '
+set -g window-status-current-format '#[fg=magenta,bg=#1e1e2e] #I:#W#{?window_zoomed_flag,( ),} '
+set -g window-status-format '#[fg=gray,bg=#1e1e2e] #I:#W '
 set -g window-status-last-style 'fg=white,bg=black'
 set -g default-terminal "''${TERM}"
 set -g message-command-style bg=default,fg=yellow
@@ -150,18 +151,26 @@ set -g pane-border-style 'fg=brightblack,bg=default'
 #--------------------------------------------------------------------#
 #                              Keymaps                               #
 #--------------------------------------------------------------------#
+unbind S
+bind S source-file "$XDG_CONFIG_HOME/tmux/tmux.conf" \; display "Reloaded tmux conf"
 
 unbind v
-unbind h
+unbind x
 
 unbind % # Split vertically
 unbind '"' # Split horizontally
 
 bind v split-window -h -c "#{pane_current_path}"
-bind h split-window -v -c "#{pane_current_path}"
+bind x split-window -v -c "#{pane_current_path}"
 
 unbind r
 bind r command-prompt "rename-window '%%'"
+
+unbind k
+unbind &
+bind k kill-pane
+bind K kill-window
+
 
 #--------------------------------------------------------------------#
 #                                nvim                                #
@@ -190,6 +199,13 @@ bind-key -T copy-mode-vi 'M-k' select-pane -U
 bind-key -T copy-mode-vi 'M-l' select-pane -R
 bind-key -T copy-mode-vi 'M-\' select-pane -l
 bind-key -T copy-mode-vi 'M-Space' select-pane -t:.+
+
+unbind h
+unbind [
+bind h copy-mode
+
+bind -T copy-mode-vi v send-keys -X begin-selection
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "${pkgs.wl-clipboard}/bin/wl-copy --primary"
 '';
   };
 
@@ -210,6 +226,21 @@ bind-key -T copy-mode-vi 'M-Space' select-pane -t:.+
       "--height 40%"
       "--border"
     ];
+  };
+
+  xdg.configFile."neovide/config.toml" = {
+      enable=true;
+      text = /* toml */ ''
+          wsl = false
+          no-multigrid = false
+          vsync = true
+          maximized = false
+          srgb = false
+          idle = true
+          neovim-bin = "/usr/bin/env nvim" # in reality found dynamically on $PATH if unset
+          frame = "Full"
+          '';
+
   };
   xdg.configFile."newt/newt_colors" = {
     enable = true;

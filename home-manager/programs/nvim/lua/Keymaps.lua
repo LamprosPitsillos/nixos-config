@@ -142,7 +142,7 @@ M.nmap("<leader>wq", "<cmd>wincmd q<cr>", { desc = "quit" })
 
 
 
-M.nmap("<A-s>", ":source %<cr>", { desc = "source file" })
+-- M.nmap("<A-s>", ":source %<cr>", { desc = "source file" })
 M.nmap("<S-Tab>", "<cmd>bprev<cr>", {})
 M.nmap("<Tab>", "<cmd>bnext<cr>", {})
 M.nmap("<leader>pu", "<cmd>Lazy update<cr>", { desc = "update" })
@@ -156,6 +156,7 @@ M.nmap("<leader>rl", toCursor([[:s/\v({})]]), { desc = "replace in line" })
 M.vmap("<leader>rl", toCursor([["ry:s/\(<c-r>r\)/{}/g]]), { desc = "replace selection in line" })
 M.nmap("<leader>rf", toCursor([[:%s/\v({})]]), { desc = "replace everywhere" })
 M.vmap("<leader>rf", toCursor([["ry:%s/\(<c-r>r\)/{}/g]]), { desc = "replace selection everywhere" })
+M.vmap("<leader>re", toCursor([["ry:.,$s/\<<c-r>r\>/{}/gc]]), { desc = "search exact" })
 -- Replace <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 -- Search >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
