@@ -20,7 +20,7 @@
 
   nixpkgs.overlays = [
     (final: prev: { nerdfonts = prev.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }; })
-    ];
+  ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "inferno";
@@ -116,97 +116,97 @@
     keyMode = "vi";
     prefix = "C-q";
     terminal = "screen-256color";
-escapeTime=0;
-historyLimit=100000;
-mouse=true;
+    escapeTime = 0;
+    historyLimit = 100000;
+    mouse = true;
 
-extraConfig=/* sh */
-''
-set-option -g terminal-overrides ',xterm-256color:RGB'
-set-option -g focus-events on # TODO: learn how this works
+    extraConfig = /* sh */
+      ''
+        set-option -g terminal-overrides ',xterm-256color:RGB'
+        set-option -g focus-events on # TODO: learn how this works
 
-set -g detach-on-destroy off # don't exit from tmux when closing a session
-set -g renumber-windows on   # renumber all windows when any window is closed
-set -g set-clipboard on      # use system clipboard
-set -g status-interval 3     # update the status bar every 3 seconds
-set -g status-left "#[fg=blue,bold,bg=#1e1e2e]#{?client_prefix,#[reverse]  #[noreverse],  }  #S  "
-set -g status-right "#[fg=white,bold,bg=#1e1e2e] #[fg=#b4befe,bold,bg=#1e1e2e]%a %Y-%m-%d #[fg=white,bold,bg=#1e1e2e]󱑒 #[fg=#b4befe,bold,bg=#1e1e2e]%l:%M %p"
-# set -ga status-right "#($HOME/.config/tmux/scripts/cal.sh)"
-set -g status-justify left
-set -g status-left-length 200    # increase length (from 10)
-set -g status-right-length 200    # increase length (from 10)
-set -g status-position top       # macOS / darwin style
-set -g status-style 'bg=#1e1e2e' # transparent
-# set -g window-status-current-format '#[fg=magenta,bg=#1e1e2e]#I #W#{?window_zoomed_flag,(),} '
-set -g window-status-current-format '#[fg=magenta,bg=#1e1e2e] #I:#W#{?window_zoomed_flag,( ),} '
-set -g window-status-format '#[fg=gray,bg=#1e1e2e] #I:#W '
-set -g window-status-last-style 'fg=white,bg=black'
-set -g default-terminal "''${TERM}"
-set -g message-command-style bg=default,fg=yellow
-set -g message-style bg=default,fg=yellow
-set -g mode-style bg=default,fg=yellow
-set -g pane-active-border-style 'fg=magenta,bg=default'
-set -g pane-border-style 'fg=brightblack,bg=default'
+        set -g detach-on-destroy off # don't exit from tmux when closing a session
+        set -g renumber-windows on   # renumber all windows when any window is closed
+        set -g set-clipboard on      # use system clipboard
+        set -g status-interval 3     # update the status bar every 3 seconds
+        set -g status-left "#[fg=blue,bold,bg=#1e1e2e]#{?client_prefix,#[reverse]  #[noreverse],  }  #S  "
+        set -g status-right "#[fg=white,bold,bg=#1e1e2e] #[fg=#b4befe,bold,bg=#1e1e2e]%a %Y-%m-%d #[fg=white,bold,bg=#1e1e2e]󱑒 #[fg=#b4befe,bold,bg=#1e1e2e]%l:%M %p"
+        # set -ga status-right "#($HOME/.config/tmux/scripts/cal.sh)"
+        set -g status-justify left
+        set -g status-left-length 200    # increase length (from 10)
+        set -g status-right-length 200    # increase length (from 10)
+        set -g status-position top       # macOS / darwin style
+        set -g status-style 'bg=#1e1e2e' # transparent
+        # set -g window-status-current-format '#[fg=magenta,bg=#1e1e2e]#I #W#{?window_zoomed_flag,(),} '
+        set -g window-status-current-format '#[fg=magenta,bg=#1e1e2e] #I:#W#{?window_zoomed_flag,( ),} '
+        set -g window-status-format '#[fg=gray,bg=#1e1e2e] #I:#W '
+        set -g window-status-last-style 'fg=white,bg=black'
+        set -g default-terminal "''${TERM}"
+        set -g message-command-style bg=default,fg=yellow
+        set -g message-style bg=default,fg=yellow
+        set -g mode-style bg=default,fg=yellow
+        set -g pane-active-border-style 'fg=magenta,bg=default'
+        set -g pane-border-style 'fg=brightblack,bg=default'
 
-#--------------------------------------------------------------------#
-#                              Keymaps                               #
-#--------------------------------------------------------------------#
-unbind S
-bind S source-file "$XDG_CONFIG_HOME/tmux/tmux.conf" \; display "Reloaded tmux conf"
+        #--------------------------------------------------------------------#
+        #                              Keymaps                               #
+        #--------------------------------------------------------------------#
+        unbind S
+        bind S source-file "$XDG_CONFIG_HOME/tmux/tmux.conf" \; display "Reloaded tmux conf"
 
-unbind v
-unbind x
+        unbind v
+        unbind x
 
-unbind % # Split vertically
-unbind '"' # Split horizontally
+        unbind % # Split vertically
+        unbind '"' # Split horizontally
 
-bind v split-window -h -c "#{pane_current_path}"
-bind x split-window -v -c "#{pane_current_path}"
+        bind v split-window -h -c "#{pane_current_path}"
+        bind x split-window -v -c "#{pane_current_path}"
 
-unbind r
-bind r command-prompt "rename-window '%%'"
+        unbind r
+        bind r command-prompt "rename-window '%%'"
 
-unbind k
-unbind &
-bind k kill-pane
-bind K kill-window
+        unbind k
+        unbind &
+        bind k kill-pane
+        bind K kill-window
 
 
-#--------------------------------------------------------------------#
-#                                nvim                                #
-#--------------------------------------------------------------------#
+        #--------------------------------------------------------------------#
+        #                                nvim                                #
+        #--------------------------------------------------------------------#
 
-is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
-    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+        is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
+            | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
 
-bind-key -n 'M-h' if-shell "$is_vim" 'send-keys M-h' 'select-pane -L'
-bind-key -n 'M-j' if-shell "$is_vim" 'send-keys M-j' 'select-pane -D'
-bind-key -n 'M-k' if-shell "$is_vim" 'send-keys M-k' 'select-pane -U'
-bind-key -n 'M-l' if-shell "$is_vim" 'send-keys M-l' 'select-pane -R'
+        bind-key -n 'M-h' if-shell "$is_vim" 'send-keys M-h' 'select-pane -L'
+        bind-key -n 'M-j' if-shell "$is_vim" 'send-keys M-j' 'select-pane -D'
+        bind-key -n 'M-k' if-shell "$is_vim" 'send-keys M-k' 'select-pane -U'
+        bind-key -n 'M-l' if-shell "$is_vim" 'send-keys M-l' 'select-pane -R'
 
-tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
+        tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
 
-if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
-    "bind-key -n 'M-\\' if-shell \"$is_vim\" 'send-keys M-\\'  'select-pane -l'"
-if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
-    "bind-key -n 'M-\\' if-shell \"$is_vim\" 'send-keys M-\\\\'  'select-pane -l'"
+        if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
+            "bind-key -n 'M-\\' if-shell \"$is_vim\" 'send-keys M-\\'  'select-pane -l'"
+        if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
+            "bind-key -n 'M-\\' if-shell \"$is_vim\" 'send-keys M-\\\\'  'select-pane -l'"
 
-bind-key -n 'M-Space' if-shell "$is_vim" 'send-keys M-Space' 'select-pane -t:.+'
+        bind-key -n 'M-Space' if-shell "$is_vim" 'send-keys M-Space' 'select-pane -t:.+'
 
-bind-key -T copy-mode-vi 'M-h' select-pane -L
-bind-key -T copy-mode-vi 'M-j' select-pane -D
-bind-key -T copy-mode-vi 'M-k' select-pane -U
-bind-key -T copy-mode-vi 'M-l' select-pane -R
-bind-key -T copy-mode-vi 'M-\' select-pane -l
-bind-key -T copy-mode-vi 'M-Space' select-pane -t:.+
+        bind-key -T copy-mode-vi 'M-h' select-pane -L
+        bind-key -T copy-mode-vi 'M-j' select-pane -D
+        bind-key -T copy-mode-vi 'M-k' select-pane -U
+        bind-key -T copy-mode-vi 'M-l' select-pane -R
+        bind-key -T copy-mode-vi 'M-\' select-pane -l
+        bind-key -T copy-mode-vi 'M-Space' select-pane -t:.+
 
-unbind h
-unbind [
-bind h copy-mode
+        unbind h
+        unbind [
+        bind h copy-mode
 
-bind -T copy-mode-vi v send-keys -X begin-selection
-bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "${pkgs.wl-clipboard}/bin/wl-copy --primary"
-'';
+        bind -T copy-mode-vi v send-keys -X begin-selection
+        bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "${pkgs.wl-clipboard}/bin/wl-copy --primary"
+      '';
   };
 
 
@@ -229,17 +229,17 @@ bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "${pkgs.wl-clipboard}/b
   };
 
   xdg.configFile."neovide/config.toml" = {
-      enable=true;
-      text = /* toml */ ''
-          wsl = false
-          no-multigrid = false
-          vsync = true
-          maximized = false
-          srgb = false
-          idle = true
-          neovim-bin = "/usr/bin/env nvim" # in reality found dynamically on $PATH if unset
-          frame = "Full"
-          '';
+    enable = true;
+    text = /* toml */ ''
+      wsl = false
+      no-multigrid = false
+      vsync = true
+      maximized = false
+      srgb = false
+      idle = true
+      neovim-bin = "/usr/bin/env nvim" # in reality found dynamically on $PATH if unset
+      frame = "Full"
+    '';
 
   };
   xdg.configFile."newt/newt_colors" = {

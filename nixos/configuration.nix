@@ -138,7 +138,7 @@
     FLAKE_PATH = "$HOME/.nixos-config";
     SCRIPTS = "$FLAKE_PATH/scripts";
 
-    MOZ_ENABLE_WAYLAND="1";
+    MOZ_ENABLE_WAYLAND = "1";
     GDK_BACKEND = "wayland";
     EDITOR = "nvim";
     VISUAL = "nvim";
@@ -254,8 +254,8 @@
     initialPassword = "1234";
 
     packages = with pkgs; [
-    delta
-        docker-compose
+      delta
+      docker-compose
       calibre
       easyeffects
       ast-grep
@@ -359,7 +359,7 @@
             '';
         }
       )
-    localsend
+      localsend
       unzip
       parallel
       file

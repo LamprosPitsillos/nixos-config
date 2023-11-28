@@ -40,10 +40,10 @@
             inherit inputs;
           };
           modules = [
-          {
+            {
               nix.registry.nixpkgs.flake = nixpkgs;
-              nix.nixPath = ["nixpkgs=flake:nixpkgs"];
-          }
+              nix.nixPath = [ "nixpkgs=flake:nixpkgs" ];
+            }
             ./nixos/configuration.nix
           ];
         };
@@ -57,10 +57,10 @@
             inherit inputs;
           };
           modules = [
-          {
+            {
               nix.registry.nixpkgs.flake = nixpkgs;
               home.sessionVariables.NIX_PATH = "nixpkgs=flake:nixpkgs$\{NIX_PATH:+:$NIX_PATH}";
-          }
+            }
             hyprland.homeManagerModules.default
             ./home-manager/home.nix
           ];
