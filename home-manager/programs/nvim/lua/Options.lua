@@ -55,7 +55,7 @@ end
 -- TEST: just an experiment
 rabbr("w", [[(\S+)]])
 rabbr("W", [[\S+]])
-rabbr("or", [[(|)]])
+-- rabbr("or", [[(|)]])
 
 -- vim.o.foldenable = true
 -- vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
