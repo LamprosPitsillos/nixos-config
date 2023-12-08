@@ -8,7 +8,8 @@
     ./programs/tofi/tofi.nix
     ./programs/starship/starship.nix
     ./programs/eww/eww.nix
-    ./programs/zsh/zsh.nix
+    ./programs/shell/zsh.nix
+    ./programs/shell/fish.nix
     ./programs/wm/hyprland.nix
     ./programs/mpv/mpv.nix
     ./programs/qutebrowser/qutebrowser.nix
@@ -25,6 +26,41 @@
   # manage.
   home.username = "inferno";
   home.homeDirectory = "/home/inferno";
+  home.shellAliases= {
+      nup = "sudo nixos-rebuild switch --flake /home/inferno/.nixos-config";
+      nupb = "sudo nixos-rebuild boot --flake /home/inferno/.nixos-config";
+      hup = "home-manager switch -b backup --flake /home/inferno/.nixos-config\#inferno";
+      nconf = "nv /home/inferno/.nixos-config/nixos/configuration.nix";
+      hconf = "nv /home/inferno/.nixos-config/home-manager/home.nix";
+
+      btd = "bluetoothctl power off";
+      btc = "bluetoothctl power on && bluetoothctl connect $(bluetoothctl devices | fzf --tac --reverse --height=30% --border | cut -d ' ' -f2)";
+      ip = "ip -color=auto";
+      # gtu = "cd ~/UoC/4ο\ Εξαμηνο";
+      ls = "ls --sort time --color=auto -h";
+      la = "eza --icons --long --accessed --all";
+      lar = "eza --icons --long --accessed --all --tree --level ";
+      tree = "eza --icons --tree --accessed";
+      nv = "nvim";
+      q = "exit";
+      fm = "vifm .";
+      se = "sudoedit";
+      ytmp3 = ''
+      ${lib.getExe pkgs.yt-dlp} -x --continue --add-metadata --embed-thumbnail --audio-format mp3 --audio-quality 0 --metadata-from-title="%(artist)s - %(title)s" --prefer-ffmpeg -o "%(title)s.%(ext)s"
+      '';
+      ".." = "cd ..";
+      "..." = "cd ../../";
+      "...." = "cd ../../../";
+
+      # GIT
+      gco = "git checkout";
+      gcl = "git clone";
+      gdf = "git diff";
+      gst = "git status";
+      # Network
+      nmqr = "nmcli dev wifi show-password";
+  };
+
 
   programs.bat = {
     enable = true;
@@ -32,6 +68,7 @@
       theme = "OneHalfDark";
     };
   };
+
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
@@ -120,8 +157,7 @@
     historyLimit = 100000;
     mouse = true;
 
-    extraConfig = /* sh */
-      ''
+    extraConfig = /* tmux */ ''
         set-option -g terminal-overrides ',xterm-256color:RGB'
         set-option -g focus-events on # TODO: learn how this works
 
@@ -221,11 +257,16 @@
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
-    defaultCommand = "fd --type f";
+    enableFishIntegration = true;
+    defaultCommand = "${pkgs.fd}/bin/fd --type f";
     defaultOptions = [
       "--height 40%"
       "--border"
     ];
+
+    changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type d --max-depth 2";
+    changeDirWidgetOptions = [ "--preview '${pkgs.eza}/bin/eza --icons --tree --accessed {} | head -200'" ];
+    tmux.enableShellIntegration=true;
   };
 
   xdg.configFile."neovide/config.toml" = {

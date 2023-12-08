@@ -43,6 +43,19 @@ vim.cmd.iabbr({ args = { "csnt", "const" } })
 vim.cmd.iabbr({ args = { "costn", "const" } })
 vim.cmd.iabbr({ args = { "youre", "you are" } })
 
+local cmd_regex_abbr_prefix = '@'
+
+---Abbreviations to use in substitude for lesser friction
+---@param lhs string
+---@param rhs string
+local function rabbr(lhs, rhs)
+    vim.cmd.cabbr({ args = { cmd_regex_abbr_prefix .. lhs, rhs } })
+end
+
+-- TEST: just an experiment
+rabbr("w", [[(\S+)]])
+rabbr("W", [[\S+]])
+rabbr("or", [[(|)]])
 
 -- vim.o.foldenable = true
 -- vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]

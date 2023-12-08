@@ -1,6 +1,6 @@
 
 (defwidget lhs []
-(box 
+(box
         :orientation "h"
         :class "lhs"
         :halign "start"
@@ -10,7 +10,7 @@
 )
 
 (defwidget rhs []
-(box 
+(box
         :orientation "h"
         :class "rhs"
         :space-evenly false
@@ -23,9 +23,9 @@
 
 
 (defwidget utils_dock []
-(box :class "utils_dock" 
-        :orientation "h" 
-        :space-evenly false 
+(box :class "utils_dock"
+        :orientation "h"
+        :space-evenly false
         :spacing 20
         :halign "end"
     (volum)
@@ -46,7 +46,7 @@
     ))
 
 (defwidget bar []
-(box 
+(box
         :orientation "h"
         :class "eww_bar"
 
@@ -57,7 +57,7 @@
 
 (defwidget window_name []
 (box
-    (label 
+    (label
             :limit-width 100
             :text "${window_l}"
         )
@@ -66,19 +66,19 @@
 
 
 (defwidget workspaces []
-(eventbox 
+(eventbox
         :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}"
         :class "works"
     (box :space-evenly false
-        (label 
-                :text "${workspaces_l}" 
+        (label
+                :text "${workspaces_l}"
                 :visible false
             )
         (for workspace in workspaces_l
-            (eventbox 
+            (eventbox
                     :onclick "hyprctl dispatch workspace ${workspace.id}"
-                (box 
-                        :class 
+                (box
+                        :class
                         "workspace-entry ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
                     (label :text "${workspace.id}")
                     )
@@ -90,77 +90,77 @@
 
 
 (defwidget wifi []
-    (box		
+    (box
         :space-evenly "false"
-        :orientation "h"  
+        :orientation "h"
         :tooltip "${ wifi_json.info }"
-        (button		
-            :onclick "scripts/popup wifi" 
+        (button
+            :onclick "scripts/popup wifi"
             :class "icon wifi-icon" "${ wifi_json.icon }")))
 
 (defwidget notification []
-    (box		
+    (box
         :space-evenly "false"
-        :orientation "h"  
+        :orientation "h"
         ;; :tooltip wifi-name
-        (button		
+        (button
             :onrightclick "scripts/notification dnd"
-            :onclick "scripts/notification open" 
+            :onclick "scripts/notification open"
             :class "icon notification-icon" notification_icon_p)))
 
 (defwidget bat []
-    (box	
+    (box
 
-        :orientation "h"	
+        :orientation "h"
         :space-evenly "false"
         :tooltip "${battery_json.info}"
-        (button	:class "icon battery-icon"		
+        (button	:class "icon battery-icon"
             "${battery_json.icon}"
             )))
 
 
 
 (defwidget volum []
-    (eventbox :onhover "${EWW_CMD} update volume_v=true" 		
+    (eventbox :onhover "${EWW_CMD} update volume_v=true"
         :onhoverlost "${EWW_CMD} update volume_v=false"
-        (box      :orientation "h" 	  
-            :space-evenly "false" 
-            (revealer :transition "slideleft" 
-                :reveal volume_v         
+        (box      :orientation "h"
+            :space-evenly "false"
+            (revealer :transition "slideleft"
+                :reveal volume_v
                 :duration "550ms"
-                (scale    :class "volbar" 	  
+                (scale    :class "volbar"
                     :value  "${volume_json.volume}"
-                    :orientation "h"      
-                    :flipped false 
-                    :tooltip "Volume: ${volume_json.volume}" 
-                    :max 101 
-                    :min 0 
+                    :orientation "h"
+                    :flipped false
+                    :tooltip "Volume: ${volume_json.volume}"
+                    :max 101
+                    :min 0
                     :onchange "scripts/volume set {}" )
             )
-        (button :onclick "scripts/volume mute"   
-                :class "icon volume-icon" 
+        (button :onclick "scripts/volume mute"
+                :class "icon volume-icon"
                  "${volume_json.icon}"
                  ))))
 
 
 (defwidget bright []
-(eventbox :onhover "${EWW_CMD} update bright_v=true"   
+(eventbox :onhover "${EWW_CMD} update bright_v=true"
         :onhoverlost "${EWW_CMD} update bright_v=false"
         ;; :onscroll "scripts/brightness {}"
-    (box    :orientation "h"  
-            :space-evenly "false"  
-        (revealer :transition "slideleft" 
-                :reveal bright_v   
+    (box    :orientation "h"
+            :space-evenly "false"
+        (revealer :transition "slideleft"
+                :reveal bright_v
                 :duration "550ms"
-            (scale :class "bribar" 
-                    :value brightness_p 
-                    :tooltip "Brightness: ${brightness_p}%" 
-                    :onchange "scripts/brightness set {}" 
-                    :orientation "h" 
-                    :flipped false 
-                    :max 101 
+            (scale :class "bribar"
+                    :value brightness_p
+                    :tooltip "Brightness: ${brightness_p}%"
+                    :onchange "scripts/brightness set {}"
+                    :orientation "h"
+                    :flipped false
+                    :max 101
                     :min 0))
-        (label :class "icon brightness-icon" 
+        (label :class "icon brightness-icon"
                 :text "󰃠"))))
 ;; (defwidget workspaces []
 ;;   (box :class "workspaces"
@@ -207,11 +207,11 @@
 
 
 (defwidget time []
-(eventbox	:orientation "h" 
-        :class "bar-time" 
+(eventbox	:orientation "h"
+        :class "bar-time"
         :halign "end"
         :onclick "scripts/popup calendar"
-    (box :orientation "h" 
+    (box :orientation "h"
         (label :class "time-hour" :text "${time_json.hour}")
         (label :text ":")
         (label	:class "time-min"  :text "${time_json.minute}")
@@ -221,27 +221,27 @@
 
 
 (defwidget cal []
-    (box :class "cal-box" 
+    (box :class "cal-box"
         :orientation "v"
         (box :class "cal-inner-box"
-            (calendar :class "cal" 
+            (calendar :class "cal"
                 :show-details true
-                :day "${calendar_json.day}" 
+                :day "${calendar_json.day}"
                 :month ( "${calendar_json.month}" - 1 )
                 :year "${calendar_json.year}"))))
 
 (defwindow calendar
     :monitor 0
-	:geometry (geometry :x "79%" 
-						:y "1%" 
-						:width "270px" 
+	:geometry (geometry :x "79%"
+						:y "1%"
+						:width "270px"
 						:height "60px")
     :namespace "calendar"
 (cal))
 
 (defwindow bar
     :monitor 0
-    :geometry (geometry 
+    :geometry (geometry
         :x "0%"
         :y "0%"
         :width "100%"
@@ -250,4 +250,3 @@
     :exclusive true
     :namespace "eww"
 (smooth_bar) )
-

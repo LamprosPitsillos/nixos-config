@@ -15,6 +15,7 @@ return {
             "hrsh7th/cmp-path",
             "f3fora/cmp-spell",
             "saadparwaiz1/cmp_luasnip",
+            "amarakon/nvim-cmp-buffer-lines",
             {
                 "roobert/tailwindcss-colorizer-cmp.nvim",
                 opts = { color_square_width = 2 }
@@ -96,6 +97,14 @@ return {
                                 end
                             }
                         },
+                        {
+                            name = "buffer-lines",
+                            option = {
+                                line_numbers = false,
+                                line_number_separator = ": ",
+                            },
+                            max_item_count = 3
+                        },
                     })
             })
 
@@ -114,8 +123,10 @@ return {
                 },
                 mapping = {
 
-                    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { "c" }),
-                    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { "c" }),
+                    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+                        { "c" }),
+                    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+                        { "c" }),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
                 },
                 sources = {
@@ -126,8 +137,10 @@ return {
             -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
             cmp.setup.cmdline(":", {
                 mapping = {
-                    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { "c" }),
-                    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { "c" }),
+                    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+                        { "c" }),
+                    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+                        { "c" }),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
                 },
                 sources = cmp.config.sources({

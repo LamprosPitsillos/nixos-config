@@ -36,6 +36,13 @@
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp4s0f1.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
+  networking.nftables.enable =true;
+
+  networking.firewall = {
+      enable = true;
+      allowedTCPPorts = [ 4200 4201 4202 80 443 ];
+      allowedUDPPorts = [ 4200 8088 ];
+  };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

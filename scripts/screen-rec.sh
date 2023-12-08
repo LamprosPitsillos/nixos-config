@@ -22,9 +22,8 @@ else
             *) wf-recorder -f "$path" -c h264_vaapi -d /dev/dri/renderD129
             ;;
         esac
-        
+
     else
         notify-send "Screen Recording" "Screen Rec Canceled"
     fi
 fi
-    

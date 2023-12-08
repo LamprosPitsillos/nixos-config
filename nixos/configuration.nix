@@ -254,6 +254,12 @@
     initialPassword = "1234";
 
     packages = with pkgs; [
+# Markup formats
+    pandoc
+    texliveMedium
+
+qrencode
+
       delta
       docker-compose
       calibre
@@ -437,7 +443,19 @@
     ];
     mime = {
       enable = true;
-      defaultApplications = { };
+      defaultApplications = {
+        "inode/directory" = "thunar.desktop";
+        # wtf zathura registers itself to open archives
+        "application/zip" = "thunar.desktop";
+        "application/vnd.rar" = "thunar.desktop";
+        "application/x-7z-compressed" = "thunar.desktop";
+
+          "image/jpeg" = "vimiv.desktop";
+          "image/gif" = "vimiv.desktop";
+          "image/webp" = "vimiv.desktop";
+          "image/png" = "vimiv.desktop";
+          "application/pdf" = "org.pwmt.zathura.desktop";
+      };
     };
   };
 

@@ -149,7 +149,7 @@ M.nmap("<leader>pu", "<cmd>Lazy update<cr>", { desc = "update" })
 M.nmap("<leader>pp", "<cmd>Lazy profile<cr>", { desc = "profile" })
 
 -- Replace >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-M.vmap("rb", [[:s/\%V\v]], { desc = "replace in block" })
+M.vmap("<leader>ri", [[:s/\%V\v]], { desc = "[r]eplace [i]n selection" })
 M.nmap("<leader>ra", "zz" .. toCursor([[:.,$s/\({}\)/gc]]), { desc = "replace from here" })
 M.vmap("<leader>ra", "zz" .. toCursor([["ry:.,$s/\(<c-r>r\)/{}/gc]]), { desc = "replace selection from here" })
 M.nmap("<leader>rl", toCursor([[:s/\v({})]]), { desc = "replace in line" })

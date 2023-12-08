@@ -35,7 +35,7 @@ get_icon() {
         fi
 
     else
-            
+
         if [ "$per" -gt "90" ]; then
             icon="󰁹"
         elif [ "$per" -gt "80" ]; then
@@ -54,10 +54,8 @@ get_icon() {
             icon="󰁼"
         elif [ "$per" -gt "10" ]; then
             icon="󰁼"
-            notify-send -u critical "Battery Low" "Connect Charger"
         elif [ "$per" -gt "0" ]; then
             icon="󰁻"
-            notify-send -u critical "Battery Low" "Connect Charger"
         else
             echo 󰂎 && exit
         fi
@@ -67,7 +65,7 @@ echo "$icon"
 
 
 get_info() {
-acpi -b | cut -d: -f2- 
+acpi -b | cut -d: -f2-
 }
 
 jq -n --arg info "$(get_info)" --arg icon "$(get_icon)" '{info: $info, icon: $icon}'

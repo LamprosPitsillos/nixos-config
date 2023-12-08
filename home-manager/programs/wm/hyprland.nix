@@ -45,8 +45,8 @@
                   kb_options = caps:escape
                   kb_rules =
                   numlock_by_default=true
-                  repeat_rate=50
-                  repeat_delay=250
+                  repeat_rate=30
+                  repeat_delay=300
                   follow_mouse = 1
 
                   touchpad {
@@ -132,8 +132,9 @@
               windowrulev2 = nofocus,class:^(com-eteks-sweethome3d-SweetHome3DBootstrap)$,title:^(win1)$
 
               # Example windowrule v2
-              windowrulev2 = fullscreen,class:^(Waydroid)$
+              windowrulev2 = fakefullscreen,workspace special:music_player,class:^(mpv)$
               windowrulev2 = float,class:nm-connection-editor
+
               # windowrulev2 = dimaround,fullscreen:1
               # windowrulev2 = bordersize 8,fullscreen:1
               # windowrulev2 = move %100 %100,class:nm-connection-editor
@@ -162,11 +163,11 @@
               bind = $mainMod ALT, X, exec , eww open --toggle bar && eww open --toggle powermenu
               bind = $mainMod SHIFT, q, exit,
               bind = $mainMod, E, exec, thunar
-              # bind = $mainMod, comma , exec,[stayfocused;dimaround;float;size 50% 40%;center(1) ] kitty vifm
               bind = $mainMod, comma , exec, $hyprscripts/scratchpads file_manager "kitty --class file_manager ${pkgs.yazi}/bin/yazi"
               bind = $mainMod, M , exec, $hyprscripts/scratchpads music_player "kitty $SCRIPTS/music-player/mpv-music-sh"
               bind = $mainMod, T, togglefloating,
               bind = $mainMod, F , fullscreen,0
+              bind = $mainMod SHIFT, F, fakefullscreen,
               bind = $mainMod, space, exec, $( tofi-drun )
               bind = $mainMod, P, pseudo
               bind = $mainMod, s,layoutmsg, togglesplit

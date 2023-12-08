@@ -34,39 +34,6 @@
       size = 9999999;
     };
     defaultKeymap = "emacs";
-    shellAliases = {
-      nup = "sudo nixos-rebuild switch --flake /home/inferno/.nixos-config";
-      hup = "home-manager switch -b backup --flake /home/inferno/.nixos-config\#inferno";
-      nconf = "nv /home/inferno/.nixos-config/nixos/configuration.nix";
-      hconf = "nv /home/inferno/.nixos-config/home-manager/home.nix";
-
-      btd = "bluetoothctl power off";
-      btc = "bluetoothctl power on && bluetoothctl connect $(bluetoothctl devices | fzf --tac --reverse --height=30% --border | cut -d ' ' -f2)";
-      ip = "ip -color=auto";
-      # gtu = "cd ~/UoC/4ο\ Εξαμηνο";
-      ls = "ls --sort time --color=auto -h";
-      la = "eza --icons --long --accessed --all";
-      lar = "eza --icons --long --accessed --all --tree --level ";
-      tree = "eza --icons --tree --accessed";
-      nv = "nvim";
-      q = "exit";
-      fm = "vifm .";
-      se = "sudoedit";
-      ytmp3 = ''
-        ${lib.getExe pkgs.yt-dlp} -x --continue --add-metadata --embed-thumbnail --audio-format mp3 --audio-quality 0 --metadata-from-title="%(artist)s - %(title)s" --prefer-ffmpeg -o "%(title)s.%(ext)s"
-      '';
-      ".." = "cd ..";
-      "..." = "cd ../../";
-      "...." = "cd ../../../";
-
-      # GIT
-      gco = "git checkout";
-      gcl = "git clone";
-      gdf = "git diff";
-      gst = "git status";
-      # Network
-      nmqr = "nmcli dev wifi show-password";
-    };
     shellGlobalAliases = {
       CP = " ${pkgs.wl-clipboard}/bin/wl-copy ";
       CPp = " ${pkgs.wl-clipboard}/bin/wl-copy --primary ";
@@ -143,7 +110,7 @@
             AUTO_PARAM_SLASH AUTO_PUSHD  \
             ALWAYS_TO_END COMPLETE_IN_WORD CORRECT \
             INTERACTIVE_COMMENTS MENU_COMPLETE NO_NOMATCH PUSHD_IGNORE_DUPS \
-            PUSHD_TO_HOME PUSHD_SILENT 
+            PUSHD_TO_HOME PUSHD_SILENT
             unsetopt CORRECT_ALL HIST_BEEP MENU_COMPLETE
 
       function uzip() {unzip "$1" -d "$1%.*" }
