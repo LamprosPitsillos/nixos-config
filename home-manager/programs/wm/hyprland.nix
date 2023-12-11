@@ -1,15 +1,23 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
+
   wayland.windowManager.hyprland = {
     xwayland.enable = true;
 
     enable = true;
-    # settings = rec {
-    #     MOD = "SUPER";
-    #
-    #
-    #
-    #     };
+
     extraConfig =
+    let
+      zoom = pkgs.writeScript "hypr_zoom"
+      ''
+      #!${pkgs.dash}/bin/dash
+
+      if [ "$(hyprctl getoption misc:cursor_zoom_factor -j |${lib.getExe pkgs.jq} '.float')" = "1.00000" ]; then
+          hyprctl keyword misc:cursor_zoom_factor 4
+      else
+          hyprctl keyword misc:cursor_zoom_factor 1
+      fi
+      '';
+    in
       /* hypr */
       ''
         #--------------------------------------------------------------------#
@@ -45,12 +53,13 @@
                   kb_options = caps:escape
                   kb_rules =
                   numlock_by_default=true
-                  repeat_rate=30
-                  repeat_delay=300
+                  repeat_rate=20
+                  repeat_delay=400
                   follow_mouse = 1
 
                   touchpad {
                       natural_scroll = true
+                      disable_while_typing = true
                   }
 
                   sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
@@ -61,6 +70,8 @@
 
                   gaps_in = 3
                   gaps_out = 10
+                  gaps_workspaces = 40
+
                   border_size = 2
                   col.active_border = rgba(FFB53AEE) rgba(EF990EEE) 45deg
                   col.inactive_border = rgba(595959aa)
@@ -89,7 +100,6 @@
 
               animations {
                   enabled = true
-
                   # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
 
                   bezier = myBezier, 0.05, 0.9, 0.1, 1.05
@@ -107,11 +117,13 @@
                   # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
                   pseudotile = true # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
                   preserve_split = true # you probably want this
+                  special_scale_factor = 0.8
               }
 
               master {
                   # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
                   new_is_master = true
+                  special_scale_factor = 0.8
               }
 
               gestures {
@@ -160,6 +172,7 @@
 
               #grim -g "$(slurp)" - | swappy -f - -o $HOME/pics/Screenshot/"$(date +'%Y-%m-%d_%H-%M-%S')_$(echo | tofi --prompt-text="Name: " --require-match=false --height=8% | tr " " "_")"
               bind = $mainMod, W, killactive,
+              bind = $mainMod, Z,exec, ${zoom}
               bind = $mainMod ALT, X, exec , eww open --toggle bar && eww open --toggle powermenu
               bind = $mainMod SHIFT, q, exit,
               bind = $mainMod, E, exec, thunar

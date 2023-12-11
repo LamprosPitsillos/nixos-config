@@ -146,6 +146,12 @@
     TERMINAL = "kitty";
 
     NIXOS_CONFIG_PATH = "$HOME/.nixos-config";
+
+    # Home cleanup
+    NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history";
+    PYTHONHISTFILE = "$XDG_DATA_HOME/python_history";
+    CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv";
+    MYSQL_HISTFILE="$XDG_DATA_HOME/mysql_history";
   };
 
   services.xserver = {
@@ -254,12 +260,7 @@
     initialPassword = "1234";
 
     packages = with pkgs; [
-# Markup formats
-    pandoc
-    texliveMedium
-
-qrencode
-
+      qrencode
       delta
       docker-compose
       calibre
@@ -411,7 +412,7 @@ qrencode
       python311Packages.pylsp-rope
       lua-language-server
       ruff-lsp
-      clang-tools_16
+      clang-tools_17
       nodePackages_latest.bash-language-server
       nodePackages_latest.vscode-langservers-extracted
       nodePackages_latest.typescript-language-server
@@ -445,7 +446,6 @@ qrencode
       enable = true;
       defaultApplications = {
         "inode/directory" = "thunar.desktop";
-        # wtf zathura registers itself to open archives
         "application/zip" = "thunar.desktop";
         "application/vnd.rar" = "thunar.desktop";
         "application/x-7z-compressed" = "thunar.desktop";

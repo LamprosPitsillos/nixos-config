@@ -127,7 +127,7 @@
     # bb10bright, bb10dark, cde, cleanlooks,
     # gtk2, motif, plastique
 
-    style.package = pkgs.adwaita-qt6;
+    # style.package = pkgs.adwaita-qt6;
   };
 
   gtk = {
@@ -198,6 +198,7 @@
 
         bind v split-window -h -c "#{pane_current_path}"
         bind x split-window -v -c "#{pane_current_path}"
+        bind c new-window -a -c "#{pane_current_path}"
 
         unbind r
         bind r command-prompt "rename-window '%%'"
