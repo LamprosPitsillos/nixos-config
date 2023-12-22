@@ -7,16 +7,7 @@
 
     extraConfig =
     let
-      zoom = pkgs.writeScript "hypr_zoom"
-      ''
-      #!${pkgs.dash}/bin/dash
-
-      if [ "$(hyprctl getoption misc:cursor_zoom_factor -j |${lib.getExe pkgs.jq} '.float')" = "1.00000" ]; then
-          hyprctl keyword misc:cursor_zoom_factor 4
-      else
-          hyprctl keyword misc:cursor_zoom_factor 1
-      fi
-      '';
+      scripts = (pkgs.callPackage  ./scripts.nix {});
     in
       /* hypr */
       ''
@@ -124,6 +115,14 @@
                   # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
                   new_is_master = true
                   special_scale_factor = 0.8
+
+
+                  # bind=$mainMod SHIFT,j,layoutmsg,swapnext
+                  # bind=$mainMod SHIFT,k,layoutmsg,swapprev
+                  # bind=$mainMod SHIFT,h,layoutmsg,addmaster
+                  # bind=$mainMod SHIFT,l,layoutmsg,removemaster
+                  # bind=$mainMod SHIFT,m,layoutmsg,swapwithmaster
+
               }
 
               gestures {
@@ -155,29 +154,30 @@
 
               # See https://wiki.hyprland.org/Configuring/Keywords/ for more
               $mainMod = SUPER
-              $hyprscripts= ${./scripts}
               $scripts= $SCRIPTS
 
               # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
               bind = $mainMod,return, exec, kitty -1
               #bind = $mainMod, period , exec,[workspace special:terminal] kitty
-              bind = $mainMod, period , exec, $hyprscripts/scratchpads terminal kitty
+              bind = $mainMod, period , exec, ${scripts.scratchpads} terminal kitty
               bind =,Menu ,exec, hyprctl switchxkblayout kanata next
               bind =,Print ,exec, $scripts/screenshot-sh full
               bind =SHIFT,Print ,exec, $scripts/screenshot-sh
               bind =$mainMod,Print ,exec,$scripts/screen-rec.sh
               bind =$mainMod SHIFT,Print ,exec,$scripts/screen-rec.sh area
               bind =$mainMod,B ,exec,eww open --toggle bar
-              bind =$mainMod SHIFT,s , exec, $hyprscripts/hyprctl.sh toggle misc:enable_swallow
+              # bind =$mainMod SHIFT,s , exec, $hyprscripts/hyprctl.sh toggle misc:enable_swallow
 
               #grim -g "$(slurp)" - | swappy -f - -o $HOME/pics/Screenshot/"$(date +'%Y-%m-%d_%H-%M-%S')_$(echo | tofi --prompt-text="Name: " --require-match=false --height=8% | tr " " "_")"
               bind = $mainMod, W, killactive,
-              bind = $mainMod, Z,exec, ${zoom}
+              bind = $mainMod SHIFT, P ,pin
+
+              bind = $mainMod, Z,exec, ${scripts.zoom}
               bind = $mainMod ALT, X, exec , eww open --toggle bar && eww open --toggle powermenu
               bind = $mainMod SHIFT, q, exit,
               bind = $mainMod, E, exec, thunar
-              bind = $mainMod, comma , exec, $hyprscripts/scratchpads file_manager "kitty --class file_manager ${pkgs.yazi}/bin/yazi"
-              bind = $mainMod, M , exec, $hyprscripts/scratchpads music_player "kitty $SCRIPTS/music-player/mpv-music-sh"
+              bind = $mainMod, comma , exec, ${scripts.scratchpads} file_manager "kitty --class file_manager ${pkgs.yazi}/bin/yazi"
+              bind = $mainMod, M , exec, ${scripts.scratchpads} music_player "kitty $SCRIPTS/music-player/mpv-music-sh"
               bind = $mainMod, T, togglefloating,
               bind = $mainMod, F , fullscreen,0
               bind = $mainMod SHIFT, F, fakefullscreen,
