@@ -166,7 +166,7 @@
         set -g set-clipboard on      # use system clipboard
         set -g status-interval 3     # update the status bar every 3 seconds
         set -g status-left "#[fg=blue,bold,bg=#1e1e2e]#{?client_prefix,#[reverse]  #[noreverse],  }  #S  "
-        set -g status-right "#[fg=white,bold,bg=#1e1e2e] #[fg=#b4befe,bold,bg=#1e1e2e]%a %Y-%m-%d #[fg=white,bold,bg=#1e1e2e]󱑒 #[fg=#b4befe,bold,bg=#1e1e2e]%l:%M %p"
+        set -g status-right "#[fg=white,bold,bg=#1e1e2e]  #[fg=#b4befe,bold,bg=#1e1e2e]%a %Y-%m-%d #[fg=white,bold,bg=#1e1e2e]󱑒 #[fg=#b4befe,bold,bg=#1e1e2e]%l:%M %p"
         # set -ga status-right "#($HOME/.config/tmux/scripts/cal.sh)"
         set -g status-justify left
         set -g status-left-length 200    # increase length (from 10)

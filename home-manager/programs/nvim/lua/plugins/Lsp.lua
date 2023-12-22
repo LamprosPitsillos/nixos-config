@@ -5,7 +5,7 @@ return {
         event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         dependencies = {
             { "folke/neodev.nvim", opts = {} },
-            { dev = true,          "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {}, },
+            { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {}, },
             "hrsh7th/cmp-nvim-lsp"
         },
         config = function()
@@ -93,7 +93,7 @@ return {
             vim.diagnostic.config({
                 underline = true,
                 virtual_text = {
-                    prefix = "", -- Could be '●', '▎', 'x'
+                    prefix = " ", -- Could be '●', '▎', 'x'
                     spacing = 4,
                 },
                 -- virtual_text = false ,
