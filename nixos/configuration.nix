@@ -25,6 +25,20 @@
     package = pkgs.mariadb;
   };
 
+  services.auto-cpufreq = {
+      enable = true;
+      settings = {
+          battery = {
+              governor = "powersave";
+              turbo = "never";
+          };
+          charger = {
+              governor = "performance";
+              turbo = "auto";
+          };
+      };
+  };
+
   services.syncthing = {
     enable = true;
   };
@@ -385,8 +399,10 @@
       texlab
       lxappearance
       nil
+      # Browsers
       qutebrowser
       firefox
+      brave
       tealdeer
 
       exfat
@@ -404,7 +420,7 @@
 
       marksman
       typstfmt
-      typst-lsp
+      # typst-lsp
       typst-live
       cmake-language-server
       python311Packages.python-lsp-ruff
@@ -418,6 +434,7 @@
       nodePackages_latest.typescript-language-server
       nodePackages_latest."@tailwindcss/language-server"
       nodePackages_latest."@prisma/language-server"
+      # nodePackages_latest."dot-language-server"
       nodePackages_latest.svelte-language-server
       typescript
       quick-lint-js
@@ -426,6 +443,7 @@
       rlwrap
       hyperfine
       shellcheck
+      tokei
       ## Build Tools
       gdb
       gf
