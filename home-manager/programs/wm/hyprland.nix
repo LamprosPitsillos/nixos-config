@@ -6,10 +6,10 @@
     enable = true;
 
     extraConfig =
-    let
-      scripts = (pkgs.callPackage  ./scripts.nix {});
-    in
-      /* hypr */
+      let
+        scripts = (pkgs.callPackage ./scripts.nix { });
+      in
+        /* hypr */
       ''
         #--------------------------------------------------------------------#
         #                                Docs                                #
@@ -130,7 +130,6 @@
                   workspace_swipe = false
               }
 
-              # Example per-device config
               # See https://wiki.hyprland.org/Configuring/Keywords/#executing for more
               device:epic mouse V1 {
                   sensitivity = -0.5
@@ -142,9 +141,12 @@
               windowrulev2 = noinitialfocus,class:^(com-eteks-sweethome3d-SweetHome3DBootstrap)$
               windowrulev2 = nofocus,class:^(com-eteks-sweethome3d-SweetHome3DBootstrap)$,title:^(win1)$
 
+
               # Example windowrule v2
               windowrulev2 = fakefullscreen,workspace special:music_player,class:^(mpv)$
               windowrulev2 = float,class:nm-connection-editor
+              # windowrulev2 = workspace +1 ,onworkspace:1,workspace special:music_player
+              windowrulev2 = pin,class:swappy
 
               # windowrulev2 = dimaround,fullscreen:1
               # windowrulev2 = bordersize 8,fullscreen:1
@@ -157,9 +159,9 @@
               $scripts= $SCRIPTS
 
               # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-              bind = $mainMod,return, exec, kitty -1
+              bind = $mainMod,return, exec, kitty
               #bind = $mainMod, period , exec,[workspace special:terminal] kitty
-              bind = $mainMod, period , exec, ${scripts.scratchpads} terminal kitty
+              bind = $mainMod, period , exec, ${scripts.scratchpads} terminal "kitty "
               bind =,Menu ,exec, hyprctl switchxkblayout kanata next
               bind =,Print ,exec, $scripts/screenshot-sh full
               bind =SHIFT,Print ,exec, $scripts/screenshot-sh

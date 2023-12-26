@@ -4,7 +4,7 @@ return {
 
         event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         dependencies = {
-            { "folke/neodev.nvim", opts = {} },
+            { "folke/neodev.nvim",            opts = {} },
             { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {}, },
             "hrsh7th/cmp-nvim-lsp"
         },
@@ -206,6 +206,15 @@ return {
                     map("n", "<leader>ca", lsp_b.code_action, { desc = "code action", buffer = ev.buf })
                     map("v", "<leader>ca", lsp_b.code_action, { desc = "code action", buffer = ev.buf })
                     map("n", "<leader>ce", diagnostic.open_float, { desc = "show line diagnostics", buffer = ev.buf })
+                    map("n", "<leader>dt", function()
+                        if vim.b.diagnostics == true then
+                            vim.b.diagnostics = false
+                            diagnostic.disable()
+                        else
+                            vim.b.diagnostics = true
+                            diagnostic.enable()
+                        end
+                    end, { desc = "show line diagnostics", buffer = 0 })
                     map("n", "<leader>cs", lsp_b.signature_help, { desc = "signature help", buffer = ev.buf })
                     map("n", "K", lsp_b.hover, { desc = "hover", buffer = ev.buf })
                     map("n", "<space>=", function() lsp_b.format({ async = true }) end,

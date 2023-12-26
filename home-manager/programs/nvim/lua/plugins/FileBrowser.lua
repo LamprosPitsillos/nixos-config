@@ -43,6 +43,7 @@ return {
                 conceallevel = 3,
                 concealcursor = "niv",
             },
+            constrain_cursor = "name",
             -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
             delete_to_trash = true,
             -- Selecting a new/moved/renamed file or directory will prompt you to save changes first

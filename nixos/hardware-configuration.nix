@@ -10,8 +10,41 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
-  hardware.bluetooth.enable = true;
 
+  hardware = {
+    bluetooth.enable = true;
+    nvidia = {
+      # Modesetting is needed for most Wayland compositors
+      modesetting.enable = true;
+      # # Use the open source version of the kernel module
+      # # Only available on driver 515.43.04+
+      open = false;
+      #
+      powerManagement.enable = true;
+      # # Enable the nvidia settings menu
+      nvidiaSettings = true;
+      prime = {
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
+    };
+    opengl = {
+      enable = true;
+      driSupport32Bit = true;
+      driSupport = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+        vaapiIntel
+        vaapiVdpau
+        libvdpau-va-gl
+        nvidia-vaapi-driver
+      ];
+    };
+  };
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "sr_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
@@ -36,12 +69,12 @@
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp4s0f1.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
-  networking.nftables.enable =true;
+  networking.nftables.enable = true;
 
   networking.firewall = {
-      enable = true;
-      allowedTCPPorts = [ 4200 4201 4202 80 443 ];
-      allowedUDPPorts = [ 4200 8088 ];
+    enable = true;
+    allowedTCPPorts = [ 4200 4201 4202 80 443 ];
+    allowedUDPPorts = [ 4200 8088 ];
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

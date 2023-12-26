@@ -5,7 +5,7 @@
     enableZshIntegration = true;
     enableFishIntegration = true;
     keymap = {
-        completion.keymap = [
+      completion.keymap = [
         { on = [ "<C-q>" ]; exec = "close"; desc = "Cancel completion"; }
         { on = [ "<Tab>" ]; exec = "close --submit"; desc = "Submit the completion"; }
         { on = [ "<A-k>" ]; exec = "arrow -1"; desc = "Move cursor up"; }
@@ -13,8 +13,8 @@
         { on = [ "<Up>" ]; exec = "arrow -1"; desc = "Move cursor up"; }
         { on = [ "<Down>" ]; exec = "arrow 1"; desc = "Move cursor down"; }
         { on = [ "g" "?" ]; exec = "help"; desc = "Open help"; }
-        ];
-        help.keymap = [
+      ];
+      help.keymap = [
         { on = [ "<Esc>" ]; exec = "escape"; desc = "Clear the filter, or hide the help"; }
         { on = [ "q" ]; exec = "close"; desc = "Exit the process"; }
         { on = [ "<C-q>" ]; exec = "close"; desc = "Hide the help"; }
@@ -27,8 +27,8 @@
         { on = [ "<S-Up>" ]; exec = "arrow -5"; desc = "Move cursor up 5 lines"; }
         { on = [ "<S-Down>" ]; exec = "arrow 5"; desc = "Move cursor down 5 lines"; }
         { on = [ "/" ]; exec = "filter"; desc = "Apply a filter for the help items"; }
-        ];
-        input.keymap = [
+      ];
+      input.keymap = [
         { on = [ "<C-q>" ]; exec = "close"; desc = "Cancel input"; }
         { on = [ "<Enter>" ]; exec = "close --submit"; desc = "Submit the input"; }
         { on = [ "<Esc>" ]; exec = "escape"; desc = "Go back the normal mode, or cancel input"; }
@@ -37,7 +37,7 @@
         { on = [ "I" ]; exec = [ "move -999" "insert" ]; desc = "Move to the BOL, and enter insert mode"; }
         { on = [ "A" ]; exec = [ "move 999" "insert --append" ]; desc = "Move to the EOL, and enter append mode"; }
         { on = [ "v" ]; exec = "visual"; desc = "Enter visual mode"; }
-        { on = [ "V" ];  exec = [ "move -999" "visual" "move 999" ]; desc = "Enter visual mode and select all"; }
+        { on = [ "V" ]; exec = [ "move -999" "visual" "move 999" ]; desc = "Enter visual mode and select all"; }
         { on = [ "h" ]; exec = "move -1"; desc = "Move back a character"; }
         { on = [ "l" ]; exec = "move 1"; desc = "Move forward a character"; }
         { on = [ "<Left>" ]; exec = "move -1"; desc = "Move back a character"; }
@@ -71,8 +71,8 @@
         { on = [ "u" ]; exec = "undo"; desc = "Undo the last operation"; }
         { on = [ "<C-r>" ]; exec = "redo"; desc = "Redo the last operation"; }
         { on = [ "g" "?" ]; exec = "help"; desc = "Open help"; }
-        ];
-        manager.keymap = [
+      ];
+      manager.keymap = [
         { on = [ "<Esc>" ]; exec = "escape"; desc = "Exit visual mode, clear selected, or cancel search"; }
         { on = [ "q" ]; exec = "quit"; desc = "Exit the process"; }
         { on = [ "Q" ]; exec = "quit --no-cwd-file"; desc = "Exit the process without writing cwd-file"; }
@@ -142,7 +142,7 @@
         { on = [ "c" "f" ]; exec = "copy filename"; desc = "Copy the name of the file"; }
         { on = [ "c" "n" ]; exec = "copy name_without_ext"; desc = "Copy the name of the file without the extension"; }
         { on = [ "/" ]; exec = "find --smart"; }
-        { on = [ "?" ]; exec = "find --previous --smart";}
+        { on = [ "?" ]; exec = "find --previous --smart"; }
         { on = [ "n" ]; exec = "find_arrow"; }
         { on = [ "N" ]; exec = "find_arrow --previous"; }
         { on = [ "," "m" ]; exec = "sort modified --dir_first"; desc = "Sort by modified time"; }
@@ -178,8 +178,8 @@
         { on = [ "g" "t" ]; exec = "cd /tmp"; desc = "Go to the temporary directory"; }
         { on = [ "g" "<Space>" ]; exec = "cd --interactive"; desc = "Go to a directory interactively"; }
         { on = [ "g" "?" ]; exec = "help"; desc = "Open help"; }
-        ];
-        select.keymap = [
+      ];
+      select.keymap = [
         { on = [ "<C-q>" ]; exec = "close"; desc = "Cancel selection"; }
         { on = [ "<Esc>" ]; exec = "close"; desc = "Cancel selection"; }
         { on = [ "<Enter>" ]; exec = "close --submit"; desc = "Submit the selection"; }
@@ -192,8 +192,8 @@
         { on = [ "<S-Up>" ]; exec = "arrow -5"; desc = "Move cursor up 5 lines"; }
         { on = [ "<S-Down>" ]; exec = "arrow 5"; desc = "Move cursor down 5 lines"; }
         { on = [ "g" "?" ]; exec = "help"; desc = "Open help"; }
-        ];
-        tasks.keymap = [
+      ];
+      tasks.keymap = [
         { on = [ "<Esc>" ]; exec = "close"; desc = "Hide the task manager"; }
         { on = [ "<C-q>" ]; exec = "close"; desc = "Hide the task manager"; }
         { on = [ "w" ]; exec = "close"; desc = "Hide the task manager"; }
@@ -204,8 +204,8 @@
         { on = [ "<Enter>" ]; exec = "inspect"; desc = "Inspect the task"; }
         { on = [ "x" ]; exec = "cancel"; desc = "Cancel the task"; }
         { on = [ "~" ]; exec = "help"; desc = "Open help"; }
-        ];
-        };
+      ];
+    };
     settings = {
       manager =
         {
