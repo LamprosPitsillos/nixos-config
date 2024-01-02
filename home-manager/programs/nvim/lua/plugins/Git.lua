@@ -187,9 +187,9 @@ return {
     cmd = "Neogit",
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     dependencies = {
-        "nvim-lua/plenary.nvim",     -- required
+        "nvim-lua/plenary.nvim",         -- required
         "nvim-telescope/telescope.nvim", -- optional
-        "sindrets/diffview.nvim",    -- optional
+        "sindrets/diffview.nvim",        -- optional
     },
     opts = {
         disable_signs = false,

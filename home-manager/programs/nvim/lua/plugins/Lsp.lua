@@ -99,12 +99,6 @@ return {
                 -- virtual_text = false ,
                 update_in_insert = true,
             })
-            -- LSP settings
-            --
-            --
-            --
-
-
             local servers = {
                 jsonls = {},
                 bashls = {},
@@ -150,6 +144,8 @@ return {
                     }
                 },
                 nil_ls = {},
+                zls = {},
+                rust_analyzer = {},
                 sqlls = {},
                 clangd = {},
                 tailwindcss = {

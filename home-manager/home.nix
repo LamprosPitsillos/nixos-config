@@ -280,7 +280,7 @@
       srgb = false
       idle = true
       neovim-bin = "/usr/bin/env nvim" # in reality found dynamically on $PATH if unset
-      frame = "Full"
+      frame = "full"
     '';
 
   };

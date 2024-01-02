@@ -30,7 +30,12 @@
   nix.settings.auto-optimise-store = true;
   documentation = {
     dev.enable = true;
+    nixos= {
+        enable = true;
+        includeAllModules =true;
+    };
     man = {
+      enable = true;
       generateCaches = true;
     };
   };
@@ -130,6 +135,24 @@
     (final: prev: { nerdfonts = prev.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }; })
     (final: prev: { qutebrowser = prev.qutebrowser.override { enableWideVine = true; }; })
     (final: prev: { nwg-displays = prev.nwg-displays.override { hyprlandSupport = true; }; })
+    (final: prev: { auto-cpufreq = prev.auto-cpufreq.overrideAttrs
+     rec {
+        _version = "1.9.9";
+        version =  lib.warnIf (prev.auto-cpufreq.version != _version ) "Seems like auto-cpufreq has been updated!" _version;
+        postInstall = ''
+        # copy script manually
+        cp scripts/cpufreqctl.sh $out/bin/cpufreqctl.auto-cpufreq
+
+        # systemd service
+        mkdir -p $out/lib/systemd/system
+        cp scripts/auto-cpufreq.service $out/lib/systemd/system
+        '';
+        postPatch = ''
+        substituteInPlace auto_cpufreq/core.py --replace '/opt/auto-cpufreq/override.pickle' /var/run/override.pickle
+        '';
+     };
+
+    })
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -211,6 +234,7 @@
       hyprpaper
       hyprpicker
       jq
+      fq
       socat
       wl-clipboard
       libreoffice
@@ -246,7 +270,6 @@
             '';
         }
       )
-      localsend
       unzip
       parallel
       file
@@ -281,30 +304,6 @@
       gimp-with-plugins
       # Secrets
       pass-wayland
-
-      # LSPs
-
-      nil
-      marksman
-      typstfmt
-      # typst-lsp
-      typst-live
-      cmake-language-server
-      python311Packages.python-lsp-ruff
-      python311Packages.python-lsp-server
-      python311Packages.pylsp-rope
-      lua-language-server
-      ruff-lsp
-      clang-tools_17
-      nodePackages_latest.bash-language-server
-      nodePackages_latest.vscode-langservers-extracted
-      nodePackages_latest.typescript-language-server
-      nodePackages_latest."@tailwindcss/language-server"
-      nodePackages_latest."@prisma/language-server"
-      # nodePackages_latest."dot-language-server"
-      nodePackages_latest.svelte-language-server
-      typescript
-      quick-lint-js
 
       # Programming Utils
       rlwrap

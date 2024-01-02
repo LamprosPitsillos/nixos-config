@@ -74,7 +74,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
 if vim.g.neovide then
-    vim.o.guifont = "JetBrainsMono NF Regular:h14"
+    vim.o.guifont = "JetBrainsMono Nerd Font:h14"
 
     vim.g.neovide_scale_factor = 1.0
 
