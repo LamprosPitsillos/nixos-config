@@ -8,8 +8,8 @@
       completion.keymap = [
         { on = [ "<C-q>" ]; exec = "close"; desc = "Cancel completion"; }
         { on = [ "<Tab>" ]; exec = "close --submit"; desc = "Submit the completion"; }
-        { on = [ "<A-k>" ]; exec = "arrow -1"; desc = "Move cursor up"; }
-        { on = [ "<A-j>" ]; exec = "arrow 1"; desc = "Move cursor down"; }
+        { on = [ "<C-k>" ]; exec = "arrow -1"; desc = "Move cursor up"; }
+        { on = [ "<C-j>" ]; exec = "arrow 1"; desc = "Move cursor down"; }
         { on = [ "<Up>" ]; exec = "arrow -1"; desc = "Move cursor up"; }
         { on = [ "<Down>" ]; exec = "arrow 1"; desc = "Move cursor down"; }
         { on = [ "g" "?" ]; exec = "help"; desc = "Open help"; }

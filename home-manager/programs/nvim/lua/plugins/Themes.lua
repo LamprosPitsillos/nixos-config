@@ -33,7 +33,8 @@ return {
             -- Custom Highlights --
             colors = {}, -- Override default colors
             highlights = {
-            },           -- Override highlight groups
+                FloatBorder = { bg = "cleared" }
+            }, -- Override highlight groups
 
             -- Plugins Config --
             diagnostics = {
