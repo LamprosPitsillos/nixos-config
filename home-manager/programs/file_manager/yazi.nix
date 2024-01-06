@@ -5,13 +5,13 @@
     enableZshIntegration = true;
     enableFishIntegration = true;
 
-       theme = {
-           which = {
-               mask = { bg = "#404145";};
-           };
+    theme = {
+      which = {
+        mask = { bg = "#404145"; };
+      };
 
-       };
-    keymap = let leader="<Space>"; in {
+    };
+    keymap = let leader = "<Space>"; in {
       completion.keymap = [
         { on = [ "<C-q>" ]; exec = "close"; desc = "Cancel completion"; }
         { on = [ "<Tab>" ]; exec = "close --submit"; desc = "Submit the completion"; }
@@ -81,7 +81,7 @@
       ];
       manager.keymap = [
         { on = [ "<Esc>" ]; exec = "escape"; desc = "Exit visual mode, clear selected, or cancel search"; }
-        {on= [ leader "d" ];exec=''shell 'ripdrag -x -n -i "''$@"' --confirm''; desc="Drag n Drop Selection"; }
+        { on = [ leader "d" ]; exec = ''shell 'ripdrag -x -n -i "''$@"' --confirm''; desc = "Drag n Drop Selection"; }
         { on = [ "q" ]; exec = "quit"; desc = "Exit the process"; }
         { on = [ "Q" ]; exec = "quit --no-cwd-file"; desc = "Exit the process without writing cwd-file"; }
         { on = [ "<C-q>" ]; exec = "close"; desc = "Close the current tab, or quit if it is last tab"; }
