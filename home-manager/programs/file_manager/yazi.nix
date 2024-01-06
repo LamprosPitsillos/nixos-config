@@ -4,7 +4,14 @@
     enable = true;
     enableZshIntegration = true;
     enableFishIntegration = true;
-    keymap = {
+
+       theme = {
+           which = {
+               mask = { bg = "#404145";};
+           };
+
+       };
+    keymap = let leader="<Space>"; in {
       completion.keymap = [
         { on = [ "<C-q>" ]; exec = "close"; desc = "Cancel completion"; }
         { on = [ "<Tab>" ]; exec = "close --submit"; desc = "Submit the completion"; }
@@ -74,6 +81,7 @@
       ];
       manager.keymap = [
         { on = [ "<Esc>" ]; exec = "escape"; desc = "Exit visual mode, clear selected, or cancel search"; }
+        {on= [ leader "d" ];exec=''shell 'ripdrag -x -n -i "''$@"' --confirm''; desc="Drag n Drop Selection"; }
         { on = [ "q" ]; exec = "quit"; desc = "Exit the process"; }
         { on = [ "Q" ]; exec = "quit --no-cwd-file"; desc = "Exit the process without writing cwd-file"; }
         { on = [ "<C-q>" ]; exec = "close"; desc = "Close the current tab, or quit if it is last tab"; }
@@ -106,7 +114,7 @@
         { on = [ "<Right>" ]; exec = "enter"; desc = "Enter the child directory"; }
         { on = [ "g" "g" ]; exec = "arrow -99999999"; desc = "Move cursor to the top"; }
         { on = [ "G" ]; exec = "arrow 99999999"; desc = "Move cursor to the bottom"; }
-        { on = [ "<Space>" ]; exec = [ "select --state=none" "arrow 1" ]; desc = "Toggle the current selection state"; }
+        { on = [ "t" ]; exec = [ "select --state=none" "arrow 1" ]; desc = "Toggle the current selection state"; }
         { on = [ "v" ]; exec = "visual_mode"; desc = "Enter visual mode (selection mode)"; }
         { on = [ "V" ]; exec = "visual_mode --unset"; desc = "Enter visual mode (unset mode)"; }
         { on = [ "<C-a>" ]; exec = "select_all --state=true"; desc = "Select all files"; }
@@ -157,7 +165,7 @@
         { on = [ "," "N" ]; exec = "sort natural --reverse --dir_first"; desc = "Sort naturally (reverse)"; }
         { on = [ "," "s" ]; exec = "sort size --dir_first"; desc = "Sort by size"; }
         { on = [ "," "S" ]; exec = "sort size --reverse --dir_first"; desc = "Sort by size (reverse)"; }
-        { on = [ "t" ]; exec = "tab_create --current"; desc = "Create a new tab using the current path"; }
+        { on = [ "<C-t>" ]; exec = "tab_create --current"; desc = "Create a new tab using the current path"; }
         { on = [ "1" ]; exec = "tab_switch 0"; desc = "Switch to the first tab"; }
         { on = [ "2" ]; exec = "tab_switch 1"; desc = "Switch to the second tab"; }
         { on = [ "3" ]; exec = "tab_switch 2"; desc = "Switch to the third tab"; }

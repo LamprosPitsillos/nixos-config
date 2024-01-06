@@ -11,14 +11,14 @@
     (list_marker_star)
     (list_marker_plus)
     (list_marker_minus)
-  ]) @markdown_list_marker
-  (#offset! @markdown_list_marker 0 0 0 -1)
+  ]) @punctuation.special
+  (#offset! @punctuation.special 0 0 0 -1)
   (#set! conceal "•")
 )
 
 ; checkboxes
-((task_list_marker_unchecked) @markdown_check_undone (#set! conceal ""))
-((task_list_marker_checked) @markdown_check_done (#set! conceal ""))
+((task_list_marker_unchecked) @text.todo.unchecked (#set! conceal ""))
+((task_list_marker_checked) @text.todo.checked (#set! conceal ""))
 
 ; box drawing characters for tables
 (pipe_table_header ("|") @punctuation.special @conceal (#set! conceal "│"))

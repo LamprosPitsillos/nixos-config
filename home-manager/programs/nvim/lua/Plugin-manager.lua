@@ -26,7 +26,7 @@ require("lazy").setup(
         },
         dev = {
             -- directory where you store your local plugin projects
-            path = "~/docs/Programming/Projects/NEOVIM_PLUGS",
+            path = "~/docs/Programming/NEOVIM/Plugins",
             ---@type string[] plugins that match these patterns will use your local versions instead of being fetched from GitHub
             patterns = {},    -- For example {"folke"}
             fallback = false, -- Fallback to git when local plugin doesn't exist
