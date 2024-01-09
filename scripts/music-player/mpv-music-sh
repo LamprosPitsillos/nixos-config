@@ -1,9 +1,0 @@
-#!/bin/sh
-while true ;do
-	song="$(fd . --base-directory="/home/inferno/music" --color=always --strip-cwd-prefix | fzf  --ansi --border --height=100% --preview="ffprobe -hide_banner ~/music/{} || exa ~/music/{}" )" # 
-	mpv --input-ipc-server=/tmp/mpvsocket \
-		--shuffle ~/music/"$song" \
-		--msg-module \
-		--term-title='󰎈 Playing: ${filename} 󰎈'
-	notify-send "MPV music" "Playlist has finished."
-done
