@@ -1,27 +1,54 @@
 { pkgs
 , lib
 }: {
-
   #--------------------------------------------------------------------#
-  #                      A simple zoom "toggler"                       #
+  #                  A naive hyprland option toggler                   #
   #--------------------------------------------------------------------#
-  zoom = pkgs.writeScript "hypr_zoom" /* sh */
+  toggle = pkgs.writeScript "hypr_toggle" /* sh */
     ''
       #!${pkgs.dash}/bin/dash
+      notify(){
+          header="Hyprland:: $1"
+          context="$2"
+          notify-send "$header" "$context"
+      }
+      opt="$1"
+      type=".$2"
+      from="$3"
+      to="$4"
+      case "$type" in
+          (.int|.str|.data|.set)
+              ;;
+          (.float)
+              if [ ''${#from} -ne 7 ]; then
+                  notify "Invalid length" ".float type length must be 7"
+                  exit 1
+              fi
+              ;;
+          (*)
+              notify "Invalid type" "Type must be one of: (.int|.float|.str|.data|.set)"
+              exit 1
+              ;;
+      esac
 
-      if [ "$(hyprctl getoption misc:cursor_zoom_factor -j |${lib.getExe pkgs.jq} '.float')" = "1.00000" ]; then
-          hyprctl keyword misc:cursor_zoom_factor 4
+      current="$(hyprctl getoption "$opt" -j | ${lib.getExe pkgs.jq} "$type")"
+
+      if [ "$current" = "$from" ]; then final="$to"; else final="$from"; fi
+
+      ret="$( hyprctl keyword "$opt" "$final" )"
+
+      if [ "$ret" = "ok" ];then
+          notify "Toggled \"$opt\"" "Toggled from \"$current\" to \"$final\""
       else
-          hyprctl keyword misc:cursor_zoom_factor 1
+          notify "ERROR:: Toggle" "\"$ret\" | $opt $type $from $to"
       fi
     '';
-
   #--------------------------------------------------------------------#
   #               Create and populate special workspaces               #
   #                     with a single application                      #
   #              if it's already active , switch to it                 #
   #--------------------------------------------------------------------#
-  scratchpads = pkgs.writeScript "scratchpads" /* sh */
+  scratchpad = pkgs.writeScript "scratchpad" /* sh */
     ''
       #!${pkgs.dash}/bin/dash
 
