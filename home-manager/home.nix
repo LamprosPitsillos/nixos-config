@@ -147,7 +147,10 @@
     };
   };
 
-  programs.tmux = {
+  programs.tmux =
+  let
+     primary_clipboard = "${pkgs.wl-clipboard}/bin/wl-copy --primary";
+  in {
     enable = true;
     baseIndex = 1;
     keyMode = "vi";
@@ -158,8 +161,8 @@
     mouse = true;
 
     extraConfig = /* tmux */ ''
-      set-option -g terminal-overrides ',xterm-256color:RGB'
-      set-option -g focus-events on # TODO: learn how this works
+      set -g terminal-overrides ',xterm-256color:RGB'
+      set -g focus-events on # TODO: learn how this works
 
       set -g detach-on-destroy off # don't exit from tmux when closing a session
       set -g renumber-windows on   # renumber all windows when any window is closed
@@ -208,7 +211,6 @@
       bind k kill-pane
       bind K kill-window
 
-
       #--------------------------------------------------------------------#
       #                                nvim                                #
       #--------------------------------------------------------------------#
@@ -216,33 +218,34 @@
       is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
           | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
 
-      bind-key -n 'M-h' if-shell "$is_vim" 'send-keys M-h' 'select-pane -L'
-      bind-key -n 'M-j' if-shell "$is_vim" 'send-keys M-j' 'select-pane -D'
-      bind-key -n 'M-k' if-shell "$is_vim" 'send-keys M-k' 'select-pane -U'
-      bind-key -n 'M-l' if-shell "$is_vim" 'send-keys M-l' 'select-pane -R'
+      bind -n 'M-h' if-shell "$is_vim" 'send-keys M-h' 'select-pane -L'
+      bind -n 'M-j' if-shell "$is_vim" 'send-keys M-j' 'select-pane -D'
+      bind -n 'M-k' if-shell "$is_vim" 'send-keys M-k' 'select-pane -U'
+      bind -n 'M-l' if-shell "$is_vim" 'send-keys M-l' 'select-pane -R'
 
       tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
 
       if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
-          "bind-key -n 'M-\\' if-shell \"$is_vim\" 'send-keys M-\\'  'select-pane -l'"
+          "bind -n 'M-\\' if-shell \"$is_vim\" 'send-keys M-\\'  'select-pane -l'"
       if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
-          "bind-key -n 'M-\\' if-shell \"$is_vim\" 'send-keys M-\\\\'  'select-pane -l'"
+          "bind -n 'M-\\' if-shell \"$is_vim\" 'send-keys M-\\\\'  'select-pane -l'"
 
-      bind-key -n 'M-Space' if-shell "$is_vim" 'send-keys M-Space' 'select-pane -t:.+'
+      bind -n 'M-Space' if-shell "$is_vim" 'send-keys M-Space' 'select-pane -t:.+'
 
-      bind-key -T copy-mode-vi 'M-h' select-pane -L
-      bind-key -T copy-mode-vi 'M-j' select-pane -D
-      bind-key -T copy-mode-vi 'M-k' select-pane -U
-      bind-key -T copy-mode-vi 'M-l' select-pane -R
-      bind-key -T copy-mode-vi 'M-\' select-pane -l
-      bind-key -T copy-mode-vi 'M-Space' select-pane -t:.+
+      bind -T copy-mode-vi 'M-h' select-pane -L
+      bind -T copy-mode-vi 'M-j' select-pane -D
+      bind -T copy-mode-vi 'M-k' select-pane -U
+      bind -T copy-mode-vi 'M-l' select-pane -R
+      bind -T copy-mode-vi 'M-\' select-pane -l
+      bind -T copy-mode-vi 'M-Space' select-pane -t:.+
 
       unbind h
       unbind [
       bind h copy-mode
 
       bind -T copy-mode-vi v send-keys -X begin-selection
-      bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "${pkgs.wl-clipboard}/bin/wl-copy --primary"
+      bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "${primary_clipboard}"
+      bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "${primary_clipboard}"
     '';
   };
 

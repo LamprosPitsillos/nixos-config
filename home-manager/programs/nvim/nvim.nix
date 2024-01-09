@@ -26,7 +26,8 @@
 
         # LSPs
         # typst-lsp
-        clang-tools_17
+        # clang-tools_17
+        # clang-tools
         cmake-language-server
         lua-language-server
         marksman

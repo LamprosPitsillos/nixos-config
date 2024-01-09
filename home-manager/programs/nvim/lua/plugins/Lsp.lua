@@ -147,7 +147,17 @@ return {
                 zls = {},
                 rust_analyzer = {},
                 sqlls = {},
-                clangd = {},
+                clangd = {
+                    cmd = {
+                        vim.env.CLANGD_PATH or "clangd",
+                        "--background-index",
+                        "--clang-tidy",
+                        "--header-insertion=iwyu",
+                        "--completion-style=detailed",
+                        "--function-arg-placeholders",
+                        "--fallback-style=llvm",
+                    },
+                },
                 tailwindcss = {
                     filetypes = { "javascriptreact", "typescriptreact" }
                 },
