@@ -6,21 +6,7 @@ return {
         event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
         dependencies = {
             "windwp/nvim-ts-autotag",
-            {
-                "luckasRanarison/tree-sitter-hypr",
-                config = function(_, opts)
-                    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-                    parser_config.hypr = {
-                        install_info = {
-                            url = "https://github.com/luckasRanarison/tree-sitter-hypr",
-                            files = { "src/parser.c" },
-                            branch = "master",
-                        },
-                        filetype = "hypr",
-                    }
-                end
-            },
-            -- "https://gitlab.com/HiPhish/nvim-ts-rainbow2",
+            { "luckasRanarison/tree-sitter-hyprlang", }, -- "https://gitlab.com/HiPhish/nvim-ts-rainbow2",
             "nvim-treesitter/nvim-treesitter-textobjects",
         },
         opts = {
@@ -182,7 +168,7 @@ return {
     dependencies = "nvim-treesitter",
     opts = {
         enable = true,        -- Enable this plugin (Can be enabled/disabled later via commands)
-        max_lines = 0,        -- How many lines the window should span. Values <= 0 mean no limit.
+        max_lines = 2,        -- How many lines the window should span. Values <= 0 mean no limit.
         trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
         patterns = {
             -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
@@ -216,7 +202,7 @@ return {
         --     you can safely ignore them.
 
         zindex = 20,     -- The Z-index of the context window
-        mode = "cursor", -- Line used to calculate context. Choices: 'cursor', 'topline'
+        mode = "topline", -- Line used to calculate context. Choices: 'cursor', 'topline'
         separator = nil, -- Separator between context and content. Should be a single character string, like '-'.
     }
 },

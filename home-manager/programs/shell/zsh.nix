@@ -39,6 +39,7 @@
       CPp = " ${pkgs.wl-clipboard}/bin/wl-copy --primary ";
       PT = " ${pkgs.wl-clipboard}/bin/wl-paste ";
       PTp = " ${pkgs.wl-clipboard}/bin/wl-paste --primary ";
+      hmmmm = "echo '${config.xdg.dataHome}/zsh/zsh_history'";
     };
     completionInit = ''
       autoload -U compinit

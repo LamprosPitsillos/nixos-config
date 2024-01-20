@@ -67,5 +67,7 @@ echo "$icon"
 get_info() {
 acpi -b | cut -d: -f2-
 }
-
+if [ "$1" = "-p" ]; then
+    echo "$(get_icon)$(get_info)"
+fi
 jq -n --arg info "$(get_info)" --arg icon "$(get_icon)" '{info: $info, icon: $icon}'

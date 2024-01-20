@@ -23,11 +23,14 @@
   };
   virtualisation.oci-containers.backend = "docker";
 
-  nixpkgs.config.allowUnfree = true;
 
-  # programs.home-manager.enable = true;
+  nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.auto-optimise-store = true;
+  nix.registry.nixpkgs.flake = inputs.nixpkgs;
+  nix.channel.enable = false;
+  nix.nixPath = [ "nixpkgs=flake:nixpkgs" ];
+
   documentation = {
     dev.enable = true;
     nixos = {
@@ -80,7 +83,6 @@
   #   keyMap = "us";
   #   useXkbConfig = true; # use xkbOptions in tty.
   # };
-
   environment.sessionVariables = {
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_CONFIG_HOME = "$HOME/.config";
@@ -88,9 +90,7 @@
     XDG_STATE_HOME = "$HOME/.local/state";
     ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
     HISTFILE = "$XDG_CONFIG_HOME/zsh/.zsh_history";
-    STARSHIP_CONFIG = "$XDG_CONFIG_HOME/starship/starship.toml";
     FLAKE_PATH = "$HOME/.nixos-config";
-    SCRIPTS = "$FLAKE_PATH/scripts";
 
     GDK_BACKEND = "wayland";
     EDITOR = "nvim";
@@ -105,11 +105,12 @@
     PYTHONHISTFILE = "$XDG_DATA_HOME/python_history";
     CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
     MYSQL_HISTFILE = "$XDG_DATA_HOME/mysql_history";
+    STARSHIP_CONFIG = "$XDG_CONFIG_HOME/starship/starship.toml";
   };
 
   programs.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     xwayland.enable = true;
   };
 
@@ -157,13 +158,19 @@
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-
   users.users.inferno = {
     isNormalUser = true;
     extraGroups = [ "docker" "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
     initialPassword = "1234";
 
-    packages = with pkgs; [
+    packages = with pkgs;let
+        ollamagpu = ( pkgs.ollama.override { llama-cpp = (pkgs.llama-cpp.override {cudaSupport = true; blasSupport = false; }); } );
+in
+    [
+      man-pages
+      man-pages-posix
+      ollamagpu
+
       qrencode
       delta
       docker-compose
@@ -285,7 +292,8 @@
       bc
       # Images
       imv
-      rclip
+#https://github.com/NixOS/nixpkgs/pull/281048/files
+      # rclip
       realesrgan-ncnn-vulkan
 
       # Browsers
@@ -347,6 +355,7 @@
     vimix-gtk-themes
     vimix-icon-theme
     ripgrep
+    ripgrep-all
     qt5ct
     fzf
     ripdrag

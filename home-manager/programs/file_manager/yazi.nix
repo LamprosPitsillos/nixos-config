@@ -182,7 +182,7 @@
         { on = [ "w" ]; exec = "tasks_show"; desc = "Show the tasks manager"; }
         { on = [ "g" "h" ]; exec = "cd ~"; desc = "Go to the home directory"; }
         { on = [ "g" "c" ]; exec = "cd ~/.config"; desc = "Go to the config directory"; }
-        { on = [ "g" "d" ]; exec = "cd ~/Downloads"; desc = "Go to the downloads directory"; }
+        { on = [ "g" "d" ]; exec = "cd ~/downs"; desc = "Go to the downloads directory"; }
         { on = [ "g" "t" ]; exec = "cd /tmp"; desc = "Go to the temporary directory"; }
         { on = [ "g" "<Space>" ]; exec = "cd --interactive"; desc = "Go to a directory interactively"; }
         { on = [ "g" "?" ]; exec = "help"; desc = "Open help"; }

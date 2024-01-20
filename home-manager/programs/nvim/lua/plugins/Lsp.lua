@@ -208,7 +208,7 @@ return {
                         { desc = "remove workspace folder", buffer = ev.buf })
                     map("n", "<leader>li", lsp_b.implementation, { desc = "Show implementation", buffer = ev.buf })
                     map("n", "<leader>lh", "<cmd>Ouroboros<cr>", { desc = "Switch header", buffer = ev.buf })
-                    map("n", "<leader>cR", lsp_b.rename, { desc = "rename", buffer = ev.buf })
+                    map("n", "<leader>cr", lsp_b.rename, { desc = "rename", buffer = ev.buf })
                     map("n", "<leader>ca", lsp_b.code_action, { desc = "code action", buffer = ev.buf })
                     map("v", "<leader>ca", lsp_b.code_action, { desc = "code action", buffer = ev.buf })
                     map("n", "<leader>ce", diagnostic.open_float, { desc = "show line diagnostics", buffer = ev.buf })

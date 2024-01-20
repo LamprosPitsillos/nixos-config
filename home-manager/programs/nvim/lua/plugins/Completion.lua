@@ -71,8 +71,8 @@ return {
                     ghost_text = false -- this feature conflict with copilot.vim's preview.
                 },
                 sources = cmp.config.sources({
-                        { name = 'nvim_lua' },
-                        { name = "nvim_lsp" },
+                        { name = 'nvim_lua',max_item_count = 10 },
+                        { name = "nvim_lsp",max_item_count = 10 },
                         { name = "luasnip" }, -- For luasnip users.
                         { name = "nvim_lsp_signature_help" },
                         -- { name = "treesitter" },

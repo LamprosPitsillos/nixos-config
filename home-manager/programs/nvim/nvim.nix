@@ -23,9 +23,9 @@
 
         ripgrep
         fd
+        gcc
 
         # LSPs
-        # typst-lsp
         # clang-tools_17
         # clang-tools
         cmake-language-server
@@ -47,6 +47,7 @@
         typescript
         typst-live
         typstfmt
+        typst-lsp
         zls
       ];
     };

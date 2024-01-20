@@ -2,7 +2,7 @@ return {
     {
         "windwp/nvim-autopairs",
         event = { 'InsertEnter' },
-        enabled = true,
+        enabled = false,
         config = function(_, opts)
             local npairs = require 'nvim-autopairs'
             local Rule = require 'nvim-autopairs.rule'
