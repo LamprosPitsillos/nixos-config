@@ -8,6 +8,7 @@
   imports = [
     ./hardware-configuration.nix
     ./services.nix
+    ./nix.nix
   ];
 
   environment.pathsToLink = [ "/share/zsh" ];
@@ -124,9 +125,9 @@
     extraGroups = [ "docker" "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
     initialPassword = "1234";
 
-    packages = with pkgs;let
-        ollamagpu = ( pkgs.ollama.override { llama-cpp = (pkgs.llama-cpp.override {cudaSupport = true; blasSupport = false; }); } );
-in
+    packages = with pkgs; let
+      ollamagpu = (pkgs.ollama.override { llama-cpp = (pkgs.llama-cpp.override { cudaSupport = true; blasSupport = false; }); });
+    in
     [
       man-pages
       man-pages-posix
