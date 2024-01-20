@@ -1,6 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running `nixos-help`).
 { config
 , pkgs
 , inputs
@@ -22,14 +19,6 @@
     enable = true;
   };
   virtualisation.oci-containers.backend = "docker";
-
-
-  nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nix.settings.auto-optimise-store = true;
-  nix.registry.nixpkgs.flake = inputs.nixpkgs;
-  nix.channel.enable = false;
-  nix.nixPath = [ "nixpkgs=flake:nixpkgs" ];
 
   documentation = {
     dev.enable = true;
@@ -127,35 +116,7 @@
       '';
   };
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  nixpkgs.overlays = [
-    (final: prev: { nerdfonts = prev.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }; })
-    (final: prev: { qutebrowser = prev.qutebrowser.override { enableWideVine = true; }; })
-    (final: prev: { nwg-displays = prev.nwg-displays.override { hyprlandSupport = true; }; })
-    (final: prev: {
-      auto-cpufreq = prev.auto-cpufreq.overrideAttrs
-        rec {
-          _version = "1.9.9";
-          version = lib.warnIf (prev.auto-cpufreq.version != _version) "Seems like auto-cpufreq has been updated!" _version;
-          postInstall = ''
-            # copy script manually
-            cp scripts/cpufreqctl.sh $out/bin/cpufreqctl.auto-cpufreq
-
-            # systemd service
-            mkdir -p $out/lib/systemd/system
-            cp scripts/auto-cpufreq.service $out/lib/systemd/system
-          '';
-          postPatch = ''
-            substituteInPlace auto_cpufreq/core.py --replace '/opt/auto-cpufreq/override.pickle' /var/run/override.pickle
-          '';
-        };
-
-    })
-  ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.inferno = {
@@ -195,16 +156,6 @@ in
       gtklock
       # Displays
       nwg-displays
-      # Nix
-      nix-tree
-      nix-du
-      nix-info
-      nix-index
-      prefetch-npm-deps
-      nix-prefetch-git
-      nix-prefetch
-      nurl
-      home-manager
 
       # Screenshot - Screenrecord
       grim
@@ -292,8 +243,10 @@ in
       bc
       # Images
       imv
-#https://github.com/NixOS/nixpkgs/pull/281048/files
+      # https://github.com/NixOS/nixpkgs/pull/281048/files
       # rclip
+
+      python312Packages.bpython
       realesrgan-ncnn-vulkan
 
       # Browsers
