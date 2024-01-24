@@ -1,6 +1,29 @@
 { pkgs, inputs, lib, ... }:
 let
-    nix_from = lang : pkgs.writeShellApplication {
+    pr-track = pkgs.writeShellApplication {
+        name = "pr-track";
+        runtimeInputs = with pkgs; [ htmlq curl ];
+        text = ''
+            [ $# != 1 ] && echo "No PR number given." && exit 1
+            pr="$1"
+            if [ -t 1 ] ; then
+                yes="\x1b[32mY\x1b[0m"
+                no="\x1b[31mN\x1b[0m"
+            else
+                yes="Y"
+                no="N"
+            fi
+            curl "https://nixpk.gs/pr-tracker.html?pr=$pr" -s |
+                htmlq 'ol' -t |
+                sed --expression '/^ *$/d' |
+                paste - - |
+                sed -e '1s/.*\(".*"\).*/\1/g' \
+                    -e '3s/  /  |-/' \
+                    -e "s/⚪/$no/" \
+                    -e "s/✅/$yes/"
+        '';
+    };
+    nix-from = lang : pkgs.writeShellApplication {
         name = "${lang}2nix";
         runtimeInputs = with pkgs; [ alejandra ];
         text = ''
@@ -22,8 +45,8 @@ let
         fi
     '';
     };
-  json2nix = nix_from "json" ;
-  toml2nix = nix_from "toml" ;
+  json2nix = nix-from "json" ;
+  toml2nix = nix-from "toml" ;
   # yaml2nix = nix_from "yaml" ;
 in
 {
@@ -44,7 +67,7 @@ in
 
     overlays = [
       (final: prev: { vaapiIntel = prev.vaapiIntel.override { enableHybridCodec = true; }; })
-      (final: prev: { nerdfonts = prev.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }; })
+      (final: prev: { nerdfonts = prev.nerdfonts.override { fonts = [ "JetBrainsMono" "Lekton" "Mononoki" ]; }; })
       (final: prev: { qutebrowser = prev.qutebrowser.override { enableWideVine = true; }; })
       (final: prev: { nwg-displays = prev.nwg-displays.override { hyprlandSupport = true; }; })
       (final: prev: {
@@ -76,6 +99,7 @@ in
     json2nix
     toml2nix
     # yaml2nix
+    pr-track
 
 
     nix-tree
