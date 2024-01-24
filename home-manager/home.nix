@@ -20,7 +20,7 @@
   ];
 
   nixpkgs.overlays = [
-    (final: prev: { nerdfonts = prev.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }; })
+    (final: prev: { nerdfonts = prev.nerdfonts.override { fonts = [ "JetBrainsMono" "Lekton" "Mononoki" ]; }; })
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -29,7 +29,7 @@
   home.shellAliases = {
     nup = "sudo nixos-rebuild switch --flake /home/inferno/.nixos-config";
     nupb = "sudo nixos-rebuild boot --flake /home/inferno/.nixos-config";
-    hup = "home-manager switch -b backup --flake /home/inferno/.nixos-config\#inferno";
+    hup = "home-manager switch -b backup -I nixpkgs=flake:nixpkgs --flake /home/inferno/.nixos-config\#inferno";
     nconf = "nv /home/inferno/.nixos-config/nixos/configuration.nix";
     hconf = "nv /home/inferno/.nixos-config/home-manager/home.nix";
 

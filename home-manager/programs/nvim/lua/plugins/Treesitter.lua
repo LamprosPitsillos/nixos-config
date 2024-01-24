@@ -117,6 +117,7 @@ return {
                 enable = true, disable = { "python" }
             },
             ensure_installed = {
+                "norg","norg_meta",
                 "bash",
                 "c",
                 "cmake",

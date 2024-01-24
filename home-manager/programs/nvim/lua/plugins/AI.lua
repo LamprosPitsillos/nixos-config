@@ -25,7 +25,6 @@ return {
         },
     },
 
-    ---@type Ollama.Config
     opts = {
         model = "codellama",
         url = "http://127.0.0.1:11434",

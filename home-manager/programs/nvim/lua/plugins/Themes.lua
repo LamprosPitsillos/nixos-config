@@ -7,7 +7,7 @@ return {
     },
     {
         "navarasu/onedark.nvim",
-        dev = true,
+        -- dev = true,
         enabled = true,
         lazy = false,
         priority = 1000,

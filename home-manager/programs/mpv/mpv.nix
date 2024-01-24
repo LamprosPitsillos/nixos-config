@@ -26,9 +26,24 @@
       osc = "no";
       osd-bar = "no";
       border = "no";
-      ytdl-format = "bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best";
+      ytdl-format = "bestvideo[height<=?1080][fps<=?60][vcodec!=?vp9]+bestaudio/best";
       cache = "yes";
       gpu-context = "wayland";
     };
   };
+  programs.yt-dlp = {
+      enable=true;
+      settings = {
+                 embed-thumbnail = true;
+                 audio-quality = 0;
+                 embed-metadata = true;
+                 embed-subs = true;
+                 sub-langs = "all";
+                 embed-chapters = true;
+                 downloader = "aria2c";
+                 downloader-args = "aria2c:'-c -x8 -s8 -k1M'";
+                 format = "bestvideo[height<=?1080][fps<=?60][vcodec!=?vp9]+bestaudio/best";
+      };
+
+};
 }

@@ -12,9 +12,8 @@
       DEFAULT = "https://duckduckgo.com/?q={}";
       y = "https://www.youtube.com/results?search_query={}";
       n = "https://search.nixos.org/packages?channel=23.05&from=0&size=50&sort=relevance&type=packages&query={} ";
-      gt = "https://github.com/search?q={}";
+      gh = "https://github.com/search?q={}";
       g = "https://www.google.com/search?q={}";
-      st = "https://stackoverflow.com/search?q={}";
       CPP = "https://duckduckgo.com/?sites=cppreference.com&q={}";
     };
 
@@ -63,20 +62,25 @@
       {
         normal = {
           "${leader}D" = "open -t https://www.dictionary.com/browse/{primary}";
-          "${leader}M" = "spawn --detach --verbose mpv --ytdl --no-video --force-window=immediate {url}";
-          "${leader}P" = "open -p";
           "${leader}T" = "open -t https://translate.google.com/?sl=en&tl=el&text={primary}%0A&op=translate";
-          "${leader}V" = "spawn --detach --verbose mpv --ytdl --force-window=immediate {url}";
-          "${leader}c" = "spawn --userscript credentials.sh";
-          "${leader}dM" = ''spawn --verbose yt-dlp -x {url} --embed-thumbnail --embed-metadata --audio-format mp3 --audio-quality 0 -o "$HOME/music/%(artist)s/%(title)s.%(ext)s"'';
-          "${leader}dV" = "spawn --verbose yt-dlp {url} --embed-thumbnail -o ~/vids/%(title)s.%(ext)s";
-          "${leader}dm" = ''hint links spawn --verbose yt-dlp -x {hint-url} --embed-thumbnail --embed-metadata --audio-format mp3 --audio-quality 0 -o "$HOME/music/%(artist)s/%(title)s.%(ext)s" '';
-          "${leader}dp" = "spawn git clone {url} ~/docs/Packages/";
-          "${leader}dv" = "hint links spawn --verbose yt-dlp {hint-url} --embed-thumbnail -o ~/vids/%(title)s.%(ext)s";
+
           "${leader}m" = "hint links spawn --detach mpv --ytdl --no-video --force-window=immediate {hint-url}";
-          "${leader}p" = "hint links run open -p {hint-url}";
+          "${leader}dm" = ''hint links spawn --verbose yt-dlp -x {hint-url} --embed-thumbnail --embed-metadata --audio-format mp3 --audio-quality 0 -o "$HOME/music/%(artist)s/%(title)s.%(ext)s" '';
+          "${leader}M" = "spawn --detach --verbose mpv --ytdl --no-video --force-window=immediate {url}";
+          "${leader}dM" = ''spawn --verbose yt-dlp -x {url} --embed-thumbnail --embed-metadata --audio-format mp3 --audio-quality 0 -o "$HOME/music/%(artist)s/%(title)s.%(ext)s"'';
+
           "${leader}v" = "hint links spawn --detach mpv --ytdl --force-window=immediate {hint-url}";
+          "${leader}dv" = "hint links spawn --verbose yt-dlp {hint-url} --embed-thumbnail -o ~/vids/%(title)s.%(ext)s";
+          "${leader}V" = "spawn --detach --verbose mpv --ytdl --force-window=immediate {url}";
+          "${leader}dV" = "spawn --verbose yt-dlp {url} --embed-thumbnail -o ~/vids/%(title)s.%(ext)s";
+
+          "${leader}P" = "open -p";
+          "${leader}p" = "hint links run open -p {hint-url}";
+
+          "${leader}c" = "spawn --userscript credentials.sh";
           "${leader}y" = "open -t -- y {primary}";
+
+
           "<Alt+h>" = "tab-prev";
           "<Alt+l>" = "tab-next";
           "<Ctrl+o>f" = "open -t www.facebook.com/messages/";
@@ -84,13 +88,14 @@
           "<Ctrl+o>y" = "open -t www.youtube.com";
           "?" = "search {primary}";
           "I" = "hint inputs";
-          "PY" = "open -t -- y {primary}";
           "W" = "hint all window";
           "cb" = "set colors.webpage.bg white";
           "dd" = "tab-close";
+
           "ec" = "config-edit";
           "es" = "spawn kitty nvim /tmp/qute_sel -c 'norm p'";
           "eu" = "edit-url";
+
           "py" = "open -- y {primary}";
           "sp" = "set-cmd-text :print --pdf ~/downs/";
           "yY" = "yank";

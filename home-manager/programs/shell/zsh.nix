@@ -113,7 +113,7 @@
             PUSHD_TO_HOME PUSHD_SILENT
             unsetopt CORRECT_ALL HIST_BEEP MENU_COMPLETE
 
-      function uzip() {unzip "$1" -d "$1%.*" }
+      function uzip() { unzip "$1" -d "$1%.*" }
       function mkcd () { mkdir -p $1 && cd ./$1 }
       function cwd () { echo -ne "\"$(pwd)\"" | wl-copy }
 

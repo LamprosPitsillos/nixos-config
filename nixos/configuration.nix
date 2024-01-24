@@ -131,27 +131,23 @@
     [
       man-pages
       man-pages-posix
-      ollamagpu
 
-      qrencode
       delta
       docker-compose
       calibre
       easyeffects
-      ast-grep
+
       graphviz
 
       qemu
       wallust
-      distrobox
       ledger
       typst
-      p7zip
+
       # linuxKernel.packages.linux_6_4.perf
       inkscape
       sddm-chili-theme
       transmission-gtk
-      ffmpeg
       tesseract
       neovide
       gtklock
@@ -162,17 +158,37 @@
       grim
       slurp
       swappy
-      wf-recorder
       wl-screenrec
 
       # Desktop UX
       tofi
+      ripdrag
+      brightnessctl
+      hyprpaper
+      hyprpicker
 
       # Networking
       bluetuith
       bluez
       iw
       networkmanagerapplet
+
+      # Shell Utils
+      p7zip
+      qrencode
+      ast-grep
+      ffmpeg
+      jq htmlq fq
+      unzip
+      parallel
+      file
+      bc
+      tealdeer
+      eza
+      fd
+      rlwrap
+      hyperfine
+      # python312Packages.bpython
 
       # System Info
       acpi
@@ -185,94 +201,56 @@
 
       # Communication
       discord
+      thunderbird
 
       # Uni Notes Utils
-      ## Math
-      # mathpix-snipping-tool
       python311Packages.art
-      brightnessctl
-      hyprpaper
-      hyprpicker
-      jq
-      fq
       socat
       wl-clipboard
       libreoffice
-      thunderbird
-      eww-wayland
+
+      # Media Editing
       darktable
-      yazi
-      # File Space
-      ncdu
+      gimp-with-plugins
 
-      (writeShellApplication {
-        name = "dmenu";
-
-        runtimeInputs = [ tofi ];
-
-        text = ''
-          tofi "$@"
-        '';
-      })
-      (
-        writeShellApplication {
-          name = "screenshot_sh";
-
-          runtimeInputs = [ hyprpicker tofi grim slurp swappy ];
-          text =
-            /*
-            sh
-            */
-            ''
-              name=$(echo | tofi --prompt-text="Name: " --require-match=false --height=8% | tr " " "_")
-              [ -z "$name" ] && exit
-              grim -g "$(slurp)" - | swappy -f - -o "$HOME/pics/Screenshot/$(date +'%Y-%m-%d_%H-%M-%S')_$name".png
-            '';
-        }
-      )
-      unzip
-      parallel
-      file
       xplr
       libsForQt5.qtstyleplugins
       libsForQt5.qt5.qtwayland
-      ripdrag
+
       # File System Managment
       xfce.thunar
       xfce.thunar-volman
       swaynotificationcenter
-      bc
+      ncdu
+      yazi
+
       # Images
       imv
+
+      ### AI
       # https://github.com/NixOS/nixpkgs/pull/281048/files
       # rclip
-
-      python312Packages.bpython
       realesrgan-ncnn-vulkan
+      ollamagpu
 
       # Browsers
       qutebrowser
       firefox
       tor-browser
 
-      tealdeer
-
       exfat
       usbutils
 
-      eza
-      fd
       zathura
       dash
-      gimp-with-plugins
+
       # Secrets
       pass-wayland
 
       # Programming Utils
-      rlwrap
-      hyperfine
       shellcheck
       tokei
+
       ## Dev Tools
       gdb
       gf
@@ -326,9 +304,7 @@
   };
 
   fonts = {
-    packages = with pkgs; [
-      pkgs.nerdfonts
-    ];
+    packages = [ pkgs.nerdfonts ];
   };
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;

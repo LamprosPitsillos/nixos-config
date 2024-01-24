@@ -54,6 +54,11 @@
       '';
 
   });
+  screen_to_text = lib.getExe (pkgs.writeShellApplication {
+      name="screen2text";
+      runtimeInputs = with pkgs; [ grim slurp tesseract wl-clipboard ];
+      text= ''grim -g "$(slurp)" - | tesseract stdin stdout | wl-copy --primary '';
+   });
   mpv_music_player = lib.getExe (pkgs.writeShellApplication {
     name = "sh_mpv_music_player"; /* sh */
     runtimeInputs = with pkgs; [ fd mpv libnotify fzf ];
