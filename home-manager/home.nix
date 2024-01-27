@@ -28,6 +28,7 @@
   home.homeDirectory = "/home/inferno";
   home.shellAliases = {
     nup = "sudo nixos-rebuild switch --flake /home/inferno/.nixos-config";
+    nut = "sudo nixos-rebuild test --fast --flake /home/inferno/.nixos-config";
     nupb = "sudo nixos-rebuild boot --flake /home/inferno/.nixos-config";
     hup = "home-manager switch -b backup -I nixpkgs=flake:nixpkgs --flake /home/inferno/.nixos-config\#inferno";
     nconf = "nv /home/inferno/.nixos-config/nixos/configuration.nix";
@@ -109,7 +110,8 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
+  home.packages = with pkgs; [
+    drawing
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

@@ -34,6 +34,8 @@ vim.opt.diffopt:append("linematch:60")
 vim.opt.virtualedit = "onemore"
 vim.opt.linebreak = true
 
+vim.opt.list = false
+vim.opt.listchars:append("space:~")
 -- vim.o.foldcolumn = '1'
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99

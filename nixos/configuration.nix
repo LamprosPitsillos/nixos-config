@@ -132,6 +132,8 @@
       man-pages
       man-pages-posix
 
+      miniserve
+
       delta
       docker-compose
       calibre
@@ -241,7 +243,6 @@
       exfat
       usbutils
 
-      zathura
       dash
 
       # Secrets
@@ -252,6 +253,7 @@
       tokei
 
       ## Dev Tools
+      gef
       gdb
       gf
     ];

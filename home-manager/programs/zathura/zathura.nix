@@ -52,4 +52,8 @@
       first-page-column = "1:1";
     };
   };
+
+  programs.sioyek = {
+      enable=true;
+  };
 }
