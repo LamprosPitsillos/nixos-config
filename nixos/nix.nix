@@ -47,7 +47,39 @@ let
     };
   json2nix = nix-from "json" ;
   toml2nix = nix-from "toml" ;
-  # yaml2nix = nix_from "yaml" ;
+
+# ====================================================
+# ====================================================
+
+  nix-diff = pkgs.writeShellApplication {
+      name = "nix-diff";
+      runtimeInputs = with pkgs; [ fd fzf ];
+      text = ''
+          from="$(fd 'system-' /nix/var/nix/profiles/ -j 1 | sort --reverse --version-sort | fzf)"
+          base_from="$(basename "$from")"
+          to="/nix/var/nix/profiles/system"
+          sep=" ("
+
+          printf "\033[1mFROM: %s\033[0m\n\n" "$base_from"
+          nix store diff-closures "$from" "$to"  | column -t -s ':' -o "$sep"
+      '';
+
+  };
+  hm-diff = pkgs.writeShellApplication {
+      name = "hm-diff";
+      runtimeInputs = with pkgs; [ fd fzf ];
+      text = ''
+          curr_user="$(whoami)"
+          from="$(fd 'profile-' /nix/var/nix/profiles/per-user/"$curr_user" -j 1 | sort --version-sort --reverse | fzf)"
+          base_from="$(basename "$from")"
+          to="/nix/var/nix/profiles/per-user/$curr_user/profile"
+          sep=" ("
+
+          printf "\033[1mFROM: %s\033[0m\n\n" "$base_from"
+          nix store diff-closures "$from" "$to" | column -t -s ':' -o "$sep"
+      '';
+
+  };
 in
 {
 
@@ -98,8 +130,11 @@ in
 
     json2nix
     toml2nix
-    # yaml2nix
+
     pr-track
+
+    hm-diff
+    nix-diff
 
 
     nix-tree
@@ -110,6 +145,7 @@ in
     nix-prefetch-git
     nix-prefetch
     nurl
+    nvd
     home-manager
   ];
 

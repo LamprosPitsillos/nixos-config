@@ -232,7 +232,7 @@
       ### AI
       # https://github.com/NixOS/nixpkgs/pull/281048/files
       # rclip
-      realesrgan-ncnn-vulkan
+      # realesrgan-ncnn-vulkan
       ollamagpu
 
       # Browsers
