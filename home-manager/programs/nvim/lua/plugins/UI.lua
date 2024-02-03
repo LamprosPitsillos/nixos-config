@@ -2,6 +2,7 @@ return {
     {
         'Sam-programs/cmdline-hl.nvim',
         event = 'UiEnter',
+        dev = false,
         opts = {
             -- table used for prefixes
             type_signs = {
@@ -26,6 +27,7 @@ return {
                 -- pat is checked against s/foo/bar
                 -- you could also use the 'code' function to extract the part that needs highlighting
                 ["lua"] = { icon = " ", icon_hl = "FloatFooter", lang = "lua" },
+                ["="] = { icon = " ", icon_hl = "FloatFooter", lang = "lua" },
                 ["help"] = { icon = "? ", icon_hl = "FloatFooter" },
                 ["substitute"] = { pat = "%w(.*)", lang = "regex", show_cmd = true },
             },

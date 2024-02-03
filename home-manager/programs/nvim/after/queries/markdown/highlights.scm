@@ -39,71 +39,76 @@
 ;   (#as_devicon! @devicon))
 
 (
-  fenced_code_block (fenced_code_block_delimiter) @markdown_code_block_marker
+  fenced_code_block (fenced_code_block_delimiter) @markup.raw.delimiter
   (#set! conceal "")
 )
 (
-  [(info_string (language))] @markdown_code_block_lang_javascript
-  (#eq? @markdown_code_block_lang_javascript "javascript")
+  [(info_string (language))] @label
+  (#eq? @label "javascript")
   (#set! conceal "")
 )
 (
-  [(info_string (language))] @markdown_code_block_lang_typescript
-  (#eq? @markdown_code_block_lang_typescript "typescript")
+  [(info_string (language))] @label
+  (#eq? @label "typescript")
   (#set! conceal "")
 )
 (
-  [(info_string (language))] @markdown_code_block_lang_json
-  (#eq? @markdown_code_block_lang_json "json")
+  [(info_string (language))] @label
+  (#eq? @label "json")
   (#set! conceal "")
 )
 (
-  [(info_string (language))] @markdown_code_block_lang_bash
-  (#eq? @markdown_code_block_lang_bash "bash")
+  [(info_string (language))] @label
+  (#eq? @label "bash")
   (#set! conceal "")
 )
 (
-  [(info_string (language))] @markdown_code_block_lang_bash
-  (#eq? @markdown_code_block_lang_bash "sh")
+  [(info_string (language))] @label
+  (#eq? @label "sh")
   (#set! conceal "")
 )
 (
-  [(info_string (language))] @markdown_code_block_lang_lua
-  (#eq? @markdown_code_block_lang_lua "lua")
+  [(info_string (language))] @label
+  (#eq? @label "lua")
   (#set! conceal "")
 )
 (
-  [(info_string (language))] @markdown_code_block_lang_diff
-  (#eq? @markdown_code_block_lang_diff "diff")
+  [(info_string (language))] @label
+  (#eq? @label "diff")
   (#set! conceal "")
 )
 (
-  [(info_string (language))] @markdown_code_block_lang_vim
-  (#eq? @markdown_code_block_lang_vim "vim")
+  [(info_string (language))] @label
+  (#eq? @label "vim")
   (#set! conceal "")
 )
 (
-  [(info_string (language))] @markdown_code_block_lang_yaml
-  (#eq? @markdown_code_block_lang_yaml "yaml")
+  [(info_string (language))] @label
+  (#eq? @label "yaml")
   (#set! conceal "")
 )
 (
-  [(info_string (language))] @markdown_code_block_lang_java
-  (#eq? @markdown_code_block_lang_java "java")
+  [(info_string (language))] @label
+  (#eq? @label "java")
   (#set! conceal "")
 )
 (
-  [(info_string (language))] @markdown_code_block_lang_html
-  (#eq? @markdown_code_block_lang_html "html")
+  [(info_string (language))] @label
+  (#eq? @label "html")
   (#set! conceal "")
 )
 (
-  [(info_string (language))] @markdown_code_block_lang_css
-  (#eq? @markdown_code_block_lang_css "css")
+  [(info_string (language))] @label
+  (#eq? @label "css")
   (#set! conceal "")
 )
 (
-  [(info_string (language))] @markdown_code_block_lang_sql
-  (#eq? @markdown_code_block_lang_sql "sql")
+  [(info_string (language))] @label
+  (#eq? @label "sql")
   (#set! conceal "")
 )
+; (
+;   [(info_string (language))] @markdown_code_block_lang_sql
+;   (#eq? @markdown_code_block_lang_sql "sql")
+;   (#set! conceal "")
+; )

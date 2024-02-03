@@ -190,7 +190,7 @@
       fd
       rlwrap
       hyperfine
-      # python312Packages.bpython
+      python311Packages.bpython
 
       # System Info
       acpi
