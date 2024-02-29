@@ -109,6 +109,8 @@ const BatteryLabel = () => Widget.Box({
     children: [
         Widget.Icon({
             icon: Battery.bind('percent').transform(p => {
+                print(p)
+                print(Math.floor(p / 10) * 10)
                 return `battery-level-${Math.floor(p / 10) * 10}-symbolic`;
             }),
         }),

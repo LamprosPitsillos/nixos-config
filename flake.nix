@@ -13,14 +13,14 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
+    # hyprland.url = "github:hyprwm/Hyprland";
     ags.url = "github:Aylur/ags";
 
   };
   outputs =
     { nixpkgs
     , home-manager
-    , hyprland
+    # , hyprland
     , ...
     } @ inputs:
     let

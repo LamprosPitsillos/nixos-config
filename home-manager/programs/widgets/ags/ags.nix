@@ -11,6 +11,7 @@
 
     # additional packages to add to gjs's runtime
     extraPackages = with pkgs; [
+      upower
       gtksourceview
       webkitgtk
       accountsservice

@@ -8,7 +8,7 @@
     ./programs/tofi/tofi.nix
     ./programs/starship/starship.nix
     ./programs/widgets/ags/ags.nix
-    # ./programs/widgets/eww/eww.nix
+    ./programs/widgets/eww/eww.nix
     ./programs/shell/zsh.nix
     ./programs/shell/fish.nix
     ./programs/wm/hyprland.nix

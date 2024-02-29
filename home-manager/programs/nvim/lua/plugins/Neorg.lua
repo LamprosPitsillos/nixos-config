@@ -8,7 +8,7 @@ return {
             load = {
                 ["core.defaults"] = {},
                 ["core.export"] = {},
-                ["core.esupports.metagen"] = { config = { type = "auto", update_date = true } },
+                -- ["core.esupports.metagen"] = { config = { type = "auto", update_date = true } },
                 ["core.qol.toc"] = {},
                 ["core.qol.todo_items"] = {},
                 ["core.summary"] = {},

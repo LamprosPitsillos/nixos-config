@@ -43,6 +43,7 @@
     efiSysMountPoint = "/boot";
     # canTouchEfiVariables = true ;
   };
+  boot.supportedFilesystems = [ "ntfs" ];
   #
   #
   # Define on which hard drive you want to install Grub.
@@ -129,6 +130,7 @@
       ollamagpu = (pkgs.ollama.override { llama-cpp = (pkgs.llama-cpp.override { cudaSupport = true; blasSupport = false; }); });
     in
     [
+      godot_4
       man-pages
       man-pages-posix
 
@@ -174,6 +176,7 @@
       bluez
       iw
       networkmanagerapplet
+      wget
 
       # Shell Utils
       p7zip
@@ -228,10 +231,11 @@
 
       # Images
       imv
+      vimiv-qt
 
       ### AI
       # https://github.com/NixOS/nixpkgs/pull/281048/files
-      # rclip
+      rclip
       # realesrgan-ncnn-vulkan
       ollamagpu
 
@@ -256,6 +260,7 @@
       gef
       gdb
       gf
+
     ];
   };
 
@@ -297,6 +302,7 @@
 
     xdg-user-dirs
     git
+    ntfs3g
   ];
 
   programs.mtr.enable = true;

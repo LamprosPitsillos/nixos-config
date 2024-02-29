@@ -5,6 +5,9 @@
 , ...
 }: {
   services = {
+      upower = {
+          enable = true;
+      };
     mysql = {
       enable = true;
       package = pkgs.mariadb;
@@ -73,8 +76,10 @@
 
     xserver = {
       enable = true;
-      layout = "us";
-      xkbOptions = "caps:escape";
+      xkb = {
+          layout = "us";
+          options = "caps:escape";
+      };
       displayManager = {
         sddm = {
           enable = true;

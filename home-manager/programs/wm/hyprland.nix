@@ -83,6 +83,7 @@
 
             blur {
 
+                special = true
                 enabled = true
                 size = 3
                 passes = 1

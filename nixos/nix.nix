@@ -147,6 +147,8 @@ in
     nurl
     nvd
     home-manager
+
+    alejandra
   ];
 
 }

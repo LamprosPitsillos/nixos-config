@@ -1,4 +1,5 @@
-{ lib , pkgs,... }:{
+{ lib , pkgs,... }:
+{
 programs.tmux =
     let
       primary_clipboard = "${pkgs.wl-clipboard}/bin/wl-copy --primary";

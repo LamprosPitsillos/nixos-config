@@ -43,6 +43,10 @@ return {
                 undercurl = true,  -- use undercurl instead of underline for diagnostics
                 background = true, -- use background color for virtual text
             },
-        }
+        },
+        config = function(_, opts)
+            require('onedark').setup(opts)
+            require('onedark').load()
+        end
     },
 }

@@ -6,7 +6,6 @@ return {
         event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
         dependencies = {
             "windwp/nvim-ts-autotag",
-            { "luckasRanarison/tree-sitter-hyprlang", }, -- "https://gitlab.com/HiPhish/nvim-ts-rainbow2",
             "nvim-treesitter/nvim-treesitter-textobjects",
         },
         opts = {
@@ -118,6 +117,7 @@ return {
             },
             ensure_installed = {
                 "norg","norg_meta",
+                "hyprlang",
                 "bash",
                 "c",
                 "cmake",
@@ -131,8 +131,7 @@ return {
                 "jsdoc",
                 "json",
                 "lua",
-                "markdown",
-                "markdown_inline",
+                "markdown", "markdown_inline","typst",
                 "nix",
                 "prisma",
                 "python",
