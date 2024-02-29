@@ -106,17 +106,17 @@
   };
 
 
-  environment.etc = {
-    "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = /* lua */
-      ''
-        bluez_monitor.properties = {
-            ["bluez5.enable-sbc-xq"] = true,
-            ["bluez5.enable-msbc"] = true,
-            ["bluez5.enable-hw-volume"] = true,
-            ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-        }
-      '';
-  };
+  # environment.etc = {
+  #   "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = /* lua */
+  #     ''
+  #       bluez_monitor.properties = {
+  #           ["bluez5.enable-sbc-xq"] = true,
+  #           ["bluez5.enable-msbc"] = true,
+  #           ["bluez5.enable-hw-volume"] = true,
+  #           ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+  #       }
+  #     '';
+  # };
 
 
 
@@ -130,6 +130,9 @@
       ollamagpu = (pkgs.ollama.override { llama-cpp = (pkgs.llama-cpp.override { cudaSupport = true; blasSupport = false; }); });
     in
     [
+      steam
+      rare
+
       godot_4
       man-pages
       man-pages-posix
@@ -147,6 +150,7 @@
       wallust
       ledger
       typst
+      typst-preview
 
       # linuxKernel.packages.linux_6_4.perf
       inkscape
@@ -154,7 +158,7 @@
       transmission-gtk
       tesseract
       neovide
-      gtklock
+      # gtklock
       # Displays
       nwg-displays
 
@@ -185,6 +189,7 @@
       ffmpeg
       jq htmlq fq
       unzip
+      zip
       parallel
       file
       bc
@@ -237,7 +242,7 @@
       # https://github.com/NixOS/nixpkgs/pull/281048/files
       rclip
       # realesrgan-ncnn-vulkan
-      ollamagpu
+      # ollamagpu
 
       # Browsers
       qutebrowser
@@ -303,6 +308,10 @@
     xdg-user-dirs
     git
     ntfs3g
+
+
+    hyprlock
+    hypridle
   ];
 
   programs.mtr.enable = true;

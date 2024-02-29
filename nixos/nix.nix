@@ -136,7 +136,7 @@ in
     hm-diff
     nix-diff
 
-
+    nix-update
     nix-tree
     nix-du
     nix-info

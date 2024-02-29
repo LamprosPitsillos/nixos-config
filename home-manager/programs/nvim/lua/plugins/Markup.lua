@@ -6,8 +6,13 @@ return {
     },
     {
         'chomosuke/typst-preview.nvim',
+        dev = true,
         ft = 'typst',
         version = '0.1.*',
-        build = function() require 'typst-preview'.update() end,
+        opts = {
+            executable = "typst-preview",
+            debug = true,
+            open_cmd = "firefox %s -P typst-preview --class typst-preview",
+        },
     }
 }

@@ -14,7 +14,7 @@ programs.tmux =
       historyLimit = 100000;
       mouse = true;
 
-      extraConfig = /* sh */ ''
+      extraConfig = /* tmux */ ''
         set -g terminal-overrides ',xterm-256color:RGB'
         set -g focus-events on # TODO: learn how this works
 

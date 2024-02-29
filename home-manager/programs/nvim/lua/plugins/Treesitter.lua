@@ -32,18 +32,25 @@ return {
                     keymaps = {
                         -- You can use the capture groups defined in textobjects.scm
                         ["af"]  = "@function.outer",
+                        ["if"]  = "@function.inner",
+
                         ["ib"]  = "@block.inner",
                         ["ab"]  = "@block.outer",
-                        ["if"]  = "@function.inner",
+
                         ["acl"] = "@class.outer",
                         ["icl"] = "@class.inner",
+
                         ["al"]  = "@loop.outer",
                         ["il"]  = "@loop.inner",
+
                         ["icm"] = "@comment.outer",
+
                         ["ip"]  = "@parameter.inner",
                         ["ap"]  = "@parameter.outer",
+
                         ["ica"] = "@call.inner",
                         ["aca"] = "@call.outer",
+
                     },
                 },
                 swap = {
@@ -60,7 +67,7 @@ return {
                     set_jumps = true, -- whether to set jumps in the jumplist
                     goto_next_start = {
                         ["]m"] = "@function.outer",
-                        -- ["]]"] = { query = "@class.outer", desc = "Next class start" },
+                        ["]c"] = { query = "@class.outer", desc = "Next class start" },
                         --
                         -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
                         -- ["]o"] = "@loop.*",
@@ -73,15 +80,15 @@ return {
                     },
                     goto_next_end = {
                         ["]M"] = "@function.outer",
-                        -- ["]["] = "@class.outer",
+                        ["]C"] = "@class.outer",
                     },
                     goto_previous_start = {
                         ["[m"] = "@function.outer",
-                        -- ["[["] = "@class.outer",
+                        ["[c"] = "@class.outer",
                     },
                     goto_previous_end = {
                         ["[M"] = "@function.outer",
-                        -- ["[]"] = "@class.outer",
+                        ["[C"] = "@class.outer",
                     },
                     -- Below will go to either the start or the end, whichever is closer.
                     -- Use if you want more granular movements
@@ -118,7 +125,7 @@ return {
             ensure_installed = {
                 "norg","norg_meta",
                 "hyprlang",
-                "bash",
+                "bash","tmux",
                 "c",
                 "cmake",
                 "cpp",

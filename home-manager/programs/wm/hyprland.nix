@@ -133,6 +133,7 @@
         }
 
         # See https://wiki.hyprland.org/Configuring/Keywords/#executing for more
+
         device:epic mouse V1 {
             sensitivity = -0.5
         }
@@ -142,6 +143,9 @@
 
         windowrulev2 = noinitialfocus,class:^(com-eteks-sweethome3d-SweetHome3DBootstrap)$
         windowrulev2 = nofocus,class:^(com-eteks-sweethome3d-SweetHome3DBootstrap)$,title:^(win1)$
+
+        # windowrulev2 = noinitialfocus,class:^(steam)$
+        # windowrulev2 = nofocus,class:^(steam)$
 
 
         # Example windowrule v2

@@ -16,6 +16,7 @@ return {
             "f3fora/cmp-spell",
             "saadparwaiz1/cmp_luasnip",
             "amarakon/nvim-cmp-buffer-lines",
+            "ray-x/cmp-treesitter",
             {
                 "roobert/tailwindcss-colorizer-cmp.nvim",
                 opts = { color_square_width = 2 }
@@ -41,6 +42,19 @@ return {
                         mode = "symbol_text",
                         maxwidth = 60,
                         ellipsis_char = "...",
+                        -- menu = {
+                        --     -- buffer = '',
+                        --     -- nvim_lsp = ' ',
+                        --     -- luasnip = ' 🐍',
+                        --     treesitter = ' 󱘎 ',
+                        --     -- nvim_lua = ' ',
+                        --     -- spell = '󰓆',
+                        --     -- emoji = '󰞅',
+                        --     -- latex_symbols = '󰿉',
+                        --     -- copilot = '🤖',
+                        --     -- cmp_tabnine = '🤖',
+                        --     -- look = '',
+                        -- },
                         -- before = function(entry, vim_item)
                         -- local item = entry:get_completion_item()
                         --     log.debug(item)
@@ -71,11 +85,11 @@ return {
                     ghost_text = false -- this feature conflict with copilot.vim's preview.
                 },
                 sources = cmp.config.sources({
-                        { name = 'nvim_lua',max_item_count = 10 },
-                        { name = "nvim_lsp",max_item_count = 10 },
+                        { name = 'nvim_lua',               max_item_count = 10 },
+                        { name = "nvim_lsp",               max_item_count = 10 },
                         { name = "luasnip" }, -- For luasnip users.
                         { name = "nvim_lsp_signature_help" },
-                        -- { name = "treesitter" },
+                        { name = "treesitter",             max_item_count = 10 },
                         {
                             name = "spell",
                             option = {
