@@ -1,5 +1,7 @@
 return {
-    { "uga-rosa/ccc.nvim", event = { "BufReadPost", "BufNewFile", "BufWritePre" }, lazy = true },
+    { "uga-rosa/ccc.nvim", config=function (_,opts)
+        require("ccc").setup({})
+    end},
     {
         "utilyre/sentiment.nvim",
         version = "*",

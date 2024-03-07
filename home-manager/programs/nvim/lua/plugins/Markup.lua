@@ -6,13 +6,16 @@ return {
     },
     {
         'chomosuke/typst-preview.nvim',
-        dev = true,
+        dev = false,
         ft = 'typst',
-        version = '0.1.*',
         opts = {
-            executable = "typst-preview",
-            debug = true,
-            open_cmd = "firefox %s -P typst-preview --class typst-preview",
+            dependencies_bin = {
+                ['typst-preview'] = 'typst-preview',
+                ['websocat'] = 'websocat'
+            },
+            invert_colors = "auto",
+            debug = false,
+            open_cmd = "firefox %s --class firefox-typst-preview --name firefox-typst-preview",
         },
     }
 }

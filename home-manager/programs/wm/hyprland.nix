@@ -17,7 +17,7 @@
         #               https://wiki.hyprland.org/Configuring                #
         #--------------------------------------------------------------------#
 
-        monitor=eDP-1,1920x1080,0x0 ,1
+        monitor= eDP-1, 1920x1080, 0x0 ,1
         monitor=,preferred,auto,1
 
         env = XCURSOR_SIZE,20
@@ -26,7 +26,7 @@
 
         exec-once =  hyprpaper &
         exec-once =  swaync &
-        exec-once = eww open bar & # hyprpaper & firefox
+        exec-once = eww open bar &
         exec-once = hyprctl setcursor "Bibata-Modern-Ice" 8
 
         misc {
@@ -67,8 +67,21 @@
             border_size = 2
             col.active_border = rgba(FFB53AEE) rgba(EF990EEE) 45deg
             col.inactive_border = rgba(595959aa)
-            cursor_inactive_timeout=5
+            cursor_inactive_timeout = 5
             layout = dwindle
+        }
+
+        group {
+
+                col.border_active = rgba(FFB53AEE) rgba(EF990EEE) 45deg
+                col.border_inactive = rgba(595959aa)
+            groupbar {
+                height = 30
+                gradients = false
+                font_family = "JetBrainsMono NF"
+                col.active = rgba(FFB53AEE) rgba(EF990EEE) 45deg
+                col.inactive = rgba(595959aa)
+            }
         }
 
         decoration {
@@ -85,12 +98,21 @@
 
                 special = true
                 enabled = true
-                size = 3
-                passes = 1
+                size = 8
+                passes = 2
+                xray = true
                 new_optimizations = true
+                vibrancy = 0.6
+                vibrancy_darkness = 0.6
+                contrast = 1.0
+                popups = true
             }
         }
-
+        debug {
+                disable_logs = false
+                disable_time = false
+                watchdog_timeout = 2
+        }
         animations {
             enabled = true
             # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
@@ -108,8 +130,8 @@
 
         dwindle {
             # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-            pseudotile = true # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-            preserve_split = true # you probably want this
+            pseudotile = true
+            preserve_split = true
             special_scale_factor = 0.8
         }
 
@@ -134,7 +156,8 @@
 
         # See https://wiki.hyprland.org/Configuring/Keywords/#executing for more
 
-        device:epic mouse V1 {
+        device {
+            name = epic mouse V1
             sensitivity = -0.5
         }
 
@@ -150,6 +173,11 @@
 
         # Example windowrule v2
         windowrulev2 = fakefullscreen,workspace special:music_player,class:^(mpv)$
+
+        # windowrulev2 = nomaximizerequest,class:^(mpv)$
+        windowrulev2 = suppressevent maximize,class:^(mpv)$
+
+        windowrulev2 = fakefullscreen,class:^(firefox-typst-preview)$
         windowrulev2 = float,class:nm-connection-editor
         # windowrulev2 = workspace +1 ,onworkspace:1,workspace special:music_player
         windowrulev2 = pin,class:swappy
@@ -169,7 +197,7 @@
         bind = $mainMod, period , exec, ${scripts.scratchpad} terminal "kitty "
         bind =,Menu ,exec, hyprctl switchxkblayout kanata next
         bind =,Print ,exec, ${system_scripts.screen_shot} full
-        bind =SHIFT,Print ,exec, ${system_scripts.screen_shot} area
+        bind = SHIFT,Print ,exec, ${system_scripts.screen_shot} area
         bind =$mainMod,Print ,exec,${system_scripts.screen_rec} full
         bind =$mainMod SHIFT,Print ,exec,${system_scripts.screen_rec} area
         bind =$mainMod,B ,exec,eww open --toggle bar
@@ -193,6 +221,10 @@
         bind = $mainMod, s,layoutmsg, togglesplit
         # bind = $mainMod, I , exec, [workspace 1;] kitty
 
+
+# GROUP
+        bind = $mainMod, G, togglegroup
+        bind = $mainMod SHIFT, G, moveoutofgroup
         #
         # bind = $mainMod SHIFT, I , movetoworkspace,special:fullscreen
         # bind = $mainMod CTRL, I , movetoworkspace,

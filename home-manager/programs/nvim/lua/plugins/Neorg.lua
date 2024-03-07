@@ -1,6 +1,12 @@
 return {
+    -- {
+    --     "vhyrro/luarocks.nvim",
+    --     branch = "more-fixes",
+    -- },
     {
         "nvim-neorg/neorg",
+        -- branch = "luarocks",
+        -- dependencies = { "luarocks.nvim" },
         enabled = true,
         ft = "norg",
         cmd = "Neorg",

@@ -14,12 +14,17 @@
       enable = true;
       defaultEditor = true;
       package = neovim-nightly;
+
+      withPython3 = true;
       # package = pkgs.neovim-unwrapped;
 
       vimAlias = true;
       viAlias = true;
 
       extraPackages = with pkgs; [
+
+        typst-preview
+        websocat
 
         ripgrep
         fd

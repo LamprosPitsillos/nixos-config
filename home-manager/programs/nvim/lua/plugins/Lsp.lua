@@ -4,7 +4,12 @@ return {
 
         event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         dependencies = {
-            { "folke/neodev.nvim",            opts = {} },
+            {
+                "folke/neodev.nvim",
+                opts = {
+                    library = { plugins = { "nvim-dap-ui" }, types = true },
+                }
+            },
             { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {}, },
             "hrsh7th/cmp-nvim-lsp"
         },
@@ -208,7 +213,7 @@ return {
                         { desc = "remove workspace folder", buffer = ev.buf })
                     map("n", "<leader>li", lsp_b.implementation, { desc = "Show implementation", buffer = ev.buf })
                     map("n", "<leader>lh", "<cmd>Ouroboros<cr>", { desc = "Switch header", buffer = ev.buf })
-                    map("n", "<leader>cr" , lsp_b.rename, { desc = "rename", buffer = ev.buf })
+                    map("n", "<leader>cr", lsp_b.rename, { desc = "rename", buffer = ev.buf })
                     map("n", "<leader>ca", lsp_b.code_action, { desc = "code action", buffer = ev.buf })
                     map("v", "<leader>ca", lsp_b.code_action, { desc = "code action", buffer = ev.buf })
                     map("n", "<leader>ce", diagnostic.open_float, { desc = "show line diagnostics", buffer = ev.buf })

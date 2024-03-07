@@ -150,7 +150,8 @@
       wallust
       ledger
       typst
-      typst-preview
+
+      qalculate-gtk
 
       # linuxKernel.packages.linux_6_4.perf
       inkscape
@@ -221,7 +222,10 @@
 
       # Media Editing
       darktable
+      hugin
       gimp-with-plugins
+      obs-studio
+
 
       xplr
       libsForQt5.qtstyleplugins
@@ -233,6 +237,7 @@
       swaynotificationcenter
       ncdu
       yazi
+      fswatch
 
       # Images
       imv
