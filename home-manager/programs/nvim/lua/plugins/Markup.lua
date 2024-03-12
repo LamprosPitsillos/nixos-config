@@ -1,9 +1,9 @@
 return {
-    {
-        'kaarmu/typst.vim',
-        ft = 'typst',
-        lazy = false,
-    },
+    -- {
+    --     'kaarmu/typst.vim',
+    --     ft = 'typst',
+    --     lazy = false,
+    -- },
     {
         'chomosuke/typst-preview.nvim',
         dev = false,
@@ -15,7 +15,7 @@ return {
             },
             invert_colors = "auto",
             debug = false,
-            open_cmd = "firefox %s --class firefox-typst-preview --name firefox-typst-preview",
+            open_cmd = "firefox %s --class firefox-typst-preview --name firefox-typst-preview --kiosk",
         },
     }
 }

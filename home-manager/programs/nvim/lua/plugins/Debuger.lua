@@ -1,7 +1,7 @@
 return {
     {
         "mfussenegger/nvim-dap",
-        enabled = false,
+        enabled = true,
         lazy = true,
         dependencies = { "rcarriga/nvim-dap-ui", 'jbyuki/one-small-step-for-vimkind' },
         config = function()
@@ -59,6 +59,28 @@ return {
             -- dap.configurations.c = dap.configurations.cpp
             -- dap.configurations.rust = dap.configurations.cpp
             --
+            --
+            dap.configurations.c = {
+                {
+                    name = "Launch",
+                    type = "gdb",
+                    request = "launch",
+                    program = function()
+                        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+                    end,
+                    cwd = "${workspaceFolder}",
+                    stopAtBeginningOfMainSubprogram = false,
+                },
+            }
+            dap.configurations.cpp = dap.configurations.c
+            dap.configurations.rust = dap.configurations.c
+
+            local dap = require("dap")
+            dap.adapters.gdb = {
+                type = "executable",
+                command = "gdb",
+                args = { "-i", "dap" }
+            }
 
             dap.configurations.lua = {
                 {
@@ -101,7 +123,7 @@ return {
     },
     {
         "rcarriga/nvim-dap-ui",
-        enabled = false,
+        enabled = true,
         lazy = true,
         opts = {
             icons = { expanded = "", collapsed = "", current_frame = "" },

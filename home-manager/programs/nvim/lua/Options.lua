@@ -75,9 +75,9 @@ vim.g.no_man_maps = 1
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
-if vim.g.neovide then
-    vim.o.guifont = "JetBrainsMono Nerd Font:h14"
+vim.opt.guifont = "JetBrainsMono Nerd Font:h14"
 
+if vim.g.neovide then
     vim.g.neovide_scale_factor = 1.0
 
     local function change_scale_factor(delta)

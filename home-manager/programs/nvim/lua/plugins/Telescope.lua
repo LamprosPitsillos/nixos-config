@@ -4,6 +4,7 @@ return {
         "nvim-telescope/telescope.nvim",
         cmd = "Telescope",
         lazy = true,
+        dev = true,
         event = "VeryLazy",
         dependencies = {
             -- { "nvim-telescope/telescope-ui-select.nvim" },
@@ -17,7 +18,6 @@ return {
 
         },
         config = function()
-            -- local actions = require("telescope.actions")
             local layout = require("telescope.actions.layout")
             local previewers = require("telescope.previewers")
             local sorters = require("telescope.sorters")
@@ -42,6 +42,12 @@ return {
                     sorting_strategy = "ascending",
                     layout_strategy = "horizontal",
                     layout_config = {
+                        cursor = {
+                            height = 0.4,
+                            preview_cutoff = 40,
+                            width = 0.3,
+                            prompt_position = "top"
+                        },
                         horizontal = {
                             mirror = false,
                             height = 20,
@@ -180,7 +186,16 @@ return {
                             },
                         }
 
-                    }
+                    },
+                    spell_suggest = {
+                        theme = "cursor",
+                        mappings = {
+                            -- i = {
+                            --     ["<cr>"] = actions.edit_command_line
+                            -- },
+                        }
+
+                    },
 
                 },
             })
@@ -228,8 +243,8 @@ return {
 
             map_utils.nmap('<leader>"', "<cmd>Telescope registers theme=cursor<CR>", { desc = "[\"] registers" })
             -- map_utils.imap("<C-s>", telescope.symbols, { desc = "symbols" })
-            map_utils.nmap("z=", telescope.spell_suggest, { desc = "spell" })
-            map_utils.nmap("<leader>bs", telescope.buffers, { desc = "[b]uffer [s]elect" })
+            map_utils.nmap("z=", "<cmd>Telescope spell_suggest<cr>", { desc = "spell" })
+            map_utils.nmap("<leader>bs", "<cmd>Telescope buffers<cr>", { desc = "[b]uffer [s]elect" })
             map_utils.nmap("<leader>sf", function() telescope.current_buffer_fuzzy_find({ skip_empty_lines = true }) end,
                 { desc = "[s]earch [f]uzzy" })
             map_utils.imap("<C-r>", "<cmd>Telescope registers theme=cursor<CR>", { desc = "registers" })
@@ -265,6 +280,6 @@ return {
                 end, { desc = "[f]iles [b]rowser" })
             map_utils.nmap("<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "[f]iles [r]ecent" })
             map_utils.nmap("<space>to", "<cmd>Telescope builtin include_extensions=true<cr>", { desc = "Telescope Open" })
-            -- map_utils.cmap("<C-f>", "<cmd>Telescope command_history<cr>", {})
+            map_utils.cmap("<C-f>", "<cmd>Telescope command_history<cr>", {})
         end
     } }

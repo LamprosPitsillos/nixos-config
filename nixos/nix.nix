@@ -136,6 +136,7 @@ in
     hm-diff
     nix-diff
 
+    nixpkgs-review
     nix-update
     nix-tree
     nix-du

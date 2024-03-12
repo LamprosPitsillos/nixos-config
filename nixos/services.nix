@@ -85,6 +85,13 @@
           enable = true;
           autoNumlock = true;
           theme = "chili";
+          extraPackages = with pkgs;[
+              elegant-sddm
+              sddm-chili-theme
+
+              libsForQt5.qt5.qtquickcontrols
+
+          ];
         };
       };
     };

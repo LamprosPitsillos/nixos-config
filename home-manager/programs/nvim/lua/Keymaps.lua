@@ -86,6 +86,7 @@ M.nmap("<C-S-t>", function()
     end,
     { desc = "New File" })
 
+vim.opt.cedit = ""
 -- Windows>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 M.nmap("<leader>wH", "<cmd>wincmd H<cr>", { desc = "move window to the far left" })

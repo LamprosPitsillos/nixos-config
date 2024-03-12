@@ -146,16 +146,19 @@
 
       graphviz
 
+      hplip
+
       qemu
       wallust
       ledger
+      # (typst.overrideAttrs {
+      #     version = "0.11-rc1";
+      # })
       typst
-
       qalculate-gtk
 
       # linuxKernel.packages.linux_6_4.perf
       inkscape
-      sddm-chili-theme
       transmission-gtk
       tesseract
       neovide
@@ -223,7 +226,7 @@
       # Media Editing
       darktable
       hugin
-      gimp-with-plugins
+      gimp
       obs-studio
 
 
@@ -296,6 +299,21 @@
     };
   };
 
+
+  qt = {
+    enable = true;
+    platformTheme = "lxqt";
+    style = "adwaita";
+
+    # detected automatically:
+    # adwaita, adwaita-dark, adwaita-highcontrast,
+    # adwaita-highcontrastinverse, breeze,
+    # bb10bright, bb10dark, cde, cleanlooks,
+    # gtk2, motif, plastique
+
+    # style.package = pkgs.adwaita-qt6;
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -309,6 +327,8 @@
     fzf
     ripdrag
     xcb-util-cursor
+
+    sddm-chili-theme
 
     xdg-user-dirs
     git

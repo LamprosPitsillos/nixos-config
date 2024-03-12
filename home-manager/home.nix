@@ -120,19 +120,19 @@
   # plain files is through 'home.file'.
   home.file = { };
 
-  qt = {
-    platformTheme = "gtk";
-    enable = true;
-    style.name = "adwaita";
-
-    # detected automatically:
-    # adwaita, adwaita-dark, adwaita-highcontrast,
-    # adwaita-highcontrastinverse, breeze,
-    # bb10bright, bb10dark, cde, cleanlooks,
-    # gtk2, motif, plastique
-
-    # style.package = pkgs.adwaita-qt6;
-  };
+  # qt = {
+  #   platformTheme = "gtk";
+  #   enable = true;
+  #   style.name = "adwaita";
+  #
+  #   # detected automatically:
+  #   # adwaita, adwaita-dark, adwaita-highcontrast,
+  #   # adwaita-highcontrastinverse, breeze,
+  #   # bb10bright, bb10dark, cde, cleanlooks,
+  #   # gtk2, motif, plastique
+  #
+  #   # style.package = pkgs.adwaita-qt6;
+  # };
 
   gtk = {
     enable = true;

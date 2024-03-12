@@ -109,7 +109,14 @@ local function tex_to_pdf()
         vim.notify("Error Compiling Latex :: ")
     end
 end
+local function buf_to_pdf()
+    local name = vim.fn.tempname()
+    vim.cmd.TOhtml(name)
 
+
+    -- local html_lines = require("tohtml").tohtml(0, {number_lines=true})
+
+end
 vim.api.nvim_create_user_command("ToPDF", md_to_pdf, {})
 -- vim.api.nvim_create_user_command("WriteGreek", function()
 --     local current_layout = vim.fn.system("setxkbmap -query"):match("layout:%s+(%a+)")

@@ -118,14 +118,23 @@
             # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
 
             bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+            bezier=easeInSine, 0.12, 0, 0.39, 0
+            bezier=easeOutSine, 0.61, 1, 0.88, 1
+            bezier=easeInOutSine, 0.37, 0, 0.63, 1
+            bezier=easeInCubic,0.32, 0, 0.67, 0
+            bezier=easeOutCubic,0.33, 1, 0.68, 1
+            bezier=easeInOutCubic,0.65, 0, 0.35, 1
 
-            animation = windows, 1, 2, myBezier
-            animation = windowsOut, 1, 2, default, popin 80%
+            animation = windows, 1, 2, myBezier, popin
+            animation = windowsOut, 1, 2, easeOutCubic, popin 80%
             animation = border, 1, 10, default
             animation = borderangle, 1, 8, default
-            animation = fade, 1 , 1, default
+            animation = fade, 1, 1, default
+            animation = layers, 1, 1.5, myBezier, fade
+            # animation = layers, 1, 1.5, myBezier, popin
             animation = workspaces, 1, 4, default
             animation = specialWorkspace, 1, 4, default, fade
+
         }
 
         dwindle {

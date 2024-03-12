@@ -30,6 +30,8 @@
         fd
         gcc
 
+        gdb
+
         # LSPs
         # clang-tools_17
         # clang-tools
