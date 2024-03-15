@@ -13,6 +13,7 @@
     ./programs/shell/fish.nix
     ./programs/wm/hyprland.nix
     ./programs/mpv/mpv.nix
+    ./programs/media/image/ipqv.nix
     ./programs/qutebrowser/qutebrowser.nix
     ./programs/file_manager/yazi.nix
     ./programs/zathura/zathura.nix
@@ -153,8 +154,6 @@
 
   programs.fzf = {
     enable = true;
-    enableZshIntegration = true;
-    enableFishIntegration = true;
     defaultCommand = "${pkgs.fd}/bin/fd --type f";
     defaultOptions = [
       "--height 40%"
