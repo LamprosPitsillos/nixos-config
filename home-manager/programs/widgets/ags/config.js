@@ -16,7 +16,7 @@ const Workspaces = () => Widget.Box({
     class_name: 'workspaces',
     children: Hyprland.bind('workspaces').transform(ws => {
         return ws.map(({ id }) => Widget.Button({
-            on_clicked: () => Hyprland.sendMessage(`dispatch workspace ${id}`),
+            on_clicked: () => Hyprland.message(`dispatch workspace ${id}`),
             child: Widget.Label(`${id}`),
             class_name: Hyprland.active.workspace.bind('id')
                 .transform(i => `${i === id ? 'focused' : ''}`),
@@ -109,8 +109,6 @@ const BatteryLabel = () => Widget.Box({
     children: [
         Widget.Icon({
             icon: Battery.bind('percent').transform(p => {
-                print(p)
-                print(Math.floor(p / 10) * 10)
                 return `battery-level-${Math.floor(p / 10) * 10}-symbolic`;
             }),
         }),
@@ -186,7 +184,7 @@ monitorFile(
 );
 
 // exporting the config so ags can manage the windows
-export default {
+App.config({
     style: App.configDir + '/style.css',
     windows: [
         Bar(),
@@ -195,4 +193,4 @@ export default {
         // Bar(0),
         // Bar(1)
     ],
-};
+}) ;
