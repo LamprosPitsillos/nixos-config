@@ -11,7 +11,7 @@
     ./nix.nix
   ];
 
-  environment.pathsToLink = [ "/share/zsh" ];
+  environment.pathsToLink = [ "/share/zsh" "/share/fish"  ];
 
   virtualisation.docker = {
     enable = true;
@@ -106,19 +106,6 @@
   };
 
 
-  # environment.etc = {
-  #   "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = /* lua */
-  #     ''
-  #       bluez_monitor.properties = {
-  #           ["bluez5.enable-sbc-xq"] = true,
-  #           ["bluez5.enable-msbc"] = true,
-  #           ["bluez5.enable-hw-volume"] = true,
-  #           ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-  #       }
-  #     '';
-  # };
-
-
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.inferno = {
@@ -151,11 +138,10 @@
       qemu
       wallust
       ledger
-      # (typst.overrideAttrs {
-      #     version = "0.11-rc1";
-      # })
       typst
       qalculate-gtk
+
+      # hyprcursor
 
       # linuxKernel.packages.linux_6_4.perf
       inkscape

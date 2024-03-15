@@ -3,6 +3,9 @@
 , lib
 , ...
 }: {
+
+  programs.starship.enableZshIntegration = true;
+  programs.fzf.enableZshIntegration = true;
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
@@ -119,4 +122,5 @@
 
     '';
   };
+
 }
