@@ -216,7 +216,7 @@
         bind = $mainMod, W, killactive,
         bind = $mainMod SHIFT, P ,pin
 
-        bind = $mainMod, Z,exec, ${scripts.toggle} "misc:cursor_zoom_factor" "float" "1.00000" "4.00000"
+        bind = $mainMod, Z,exec, ${scripts.toggle} "misc:cursor_zoom_factor" "float" "1.000000" "4.000000"
         bind = $mainMod ALT, X, exec , eww open --toggle bar && eww open --toggle powermenu
         bind = $mainMod SHIFT, q, exit,
         bind = $mainMod, E, exec, thunar

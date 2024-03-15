@@ -20,8 +20,8 @@
           (.int|.str|.data|.set)
               ;;
           (.float)
-              if [ ''${#from} -ne 7 ]; then
-                  notify "Invalid length" ".float type length must be 7"
+              if [ ''${#from} -ne 8 ]; then
+                  notify "Invalid length" ".float type length must be 8"
                   exit 1
               fi
               ;;
