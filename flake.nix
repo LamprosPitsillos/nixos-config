@@ -10,8 +10,7 @@
 
 
     neovim-nightly-overlay = {
-      # url = "github:nix-community/neovim-nightly-overlay/ac8c103";
-      url = "github:nix-community/neovim-nightly-overlay";
+      url = "github:nix-community/neovim-nightly-overlay/7f2502d";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

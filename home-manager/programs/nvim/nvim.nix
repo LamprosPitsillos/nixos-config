@@ -16,6 +16,7 @@
       package = neovim-nightly;
 
       withPython3 = true;
+      withNodeJs = true;
       # package = pkgs.neovim-unwrapped;
 
       vimAlias = true;

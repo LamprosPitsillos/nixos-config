@@ -1,43 +1,71 @@
 return {
     {
         'Sam-programs/cmdline-hl.nvim',
-        event = 'UiEnter',
-        dev = false,
-        opts = {
-            -- table used for prefixes
-            type_signs = {
-                [":"] = { ":", "FloatFooter" },
-                ["/"] = { "/", "FloatFooter" },
-                ["?"] = { "? ", "FloatFooter" },
-                ["="] = { "=", "FloatFooter" },
-            },
-            custom_types = {
-                -- ["command-name"] = {
-                -- [icon],[icon_hl], default to `:` icon and highlight
-                -- [lang], defaults to vim
-                -- [showcmd], defaults to false
-                -- [pat], defaults to "%w*%s*(.*)"
-                -- [code], defaults to nil
-                -- }
-                -- lang is the treesitter language to use for the commands
-                -- showcmd is true if the command should be displayed or to only show the icon
-                -- pat is used to extract the part of the command that needs highlighting
-                -- the part is matched against the raw command you don't need to worry about ranges
-                -- e.g. in 's,>'s/foo/bar/
-                -- pat is checked against s/foo/bar
-                -- you could also use the 'code' function to extract the part that needs highlighting
-                ["lua"] = { icon = " ", icon_hl = "FloatFooter", lang = "lua" },
-                ["="] = { icon = " ", icon_hl = "FloatFooter", lang = "lua" },
-                ["help"] = { icon = "? ", icon_hl = "FloatFooter" },
-                ["substitute"] = { pat = "%w(.*)", lang = "regex", show_cmd = true },
-            },
-            input_hl = "FloatFooter",
-            -- used to highlight the range in the command e.g. '<,>' in '<,>'s
-            range_hl = "FloatBorder",
-        },
-        -- highlight used for vim.input
-        input_hl = "FloatFooter",
-    },
+        event = 'VimEnter',
+        config = function()
+            local cmdline_hl = require('cmdline-hl')
+            cmdline_hl.setup({
+                -- custom prefixes for builtin-commands
+                --
+                type_signs = {
+                    [":"] = { ":", "Title" },
+                    ["/"] = { "/", "Title" },
+                    ["?"] = { "?", "Title" },
+                    ["="] = { "=", "Title" },
+                },
+                -- custom formatting/highlight for commands
+                custom_types = {
+                    -- ["command-name"] = {
+                    -- [icon],[icon_hl], default to `:` icon and highlight
+                    -- [lang], defaults to vim
+                    -- [showcmd], defaults to false
+                    -- [pat], defaults to "%w*%s*(.*)"
+                    -- [code], defaults to nil
+                    -- }
+                    -- lang is the treesitter language to use for the commands
+                    -- showcmd is true if the command should be displayed or to only show the icon
+                    -- pat is used to extract the part of the command that needs highlighting
+                    -- the part is matched against the raw command you don't need to worry about ranges
+                    -- e.g. in '<,>'s/foo/bar/
+                    -- pat is checked against s/foo/bar
+                    -- you could also use the 'code' function to extract the part that needs highlighting
+                    ["lua"] = {
+                        pat = "lua[%s=](.*)",
+                        icon = " ",
+                        lang = "lua",
+                    },
+                    ["Exec"] = {
+                        icon = "!",
+                        lang = "bash",
+                        show_cmd = false,
+                    },
+                    ["="] = { pat = "=(.*)", lang = "lua", show_cmd = true },
+                    ["help"] = { icon = "? " },
+                    ["substitute"] = { pat = "%w(.*)", lang = "regex", show_cmd = true },
+                    --["lua"] = false, -- set an option  to false to disable it
+                },
+                aliases = {
+                    -- str is unmapped keys do with that knowledge what you will
+                    -- read aliases.md for examples
+                    -- ["cd"] = { str = "Cd" },
+                },
+                -- vim.ui.input() vim.fn.input etc
+                input_hl = "Title",
+                -- you can use this to format input like the type_signs table
+                input_format = function(input) return input end,
+                -- used to highlight the range in the command e.g. '<,>' in '<,>'s
+                range_hl = "Constant",
+                ghost_text = true,
+                ghost_text_hl = "Comment",
+                inline_ghost_text = false,
+                -- history works like zsh-autosuggest you can complete it by pressing <up>
+                ghost_text_provider = require("cmdline-hl.ghost_text").history,
+                -- you can also use this to get the wildmenu(default completion)'s suggestion
+                -- ghost_text_provider = require("cmdline-hl.ghost_text").history,
+            })
+        end
+    }
+    ,
     {
         "stevearc/dressing.nvim",
         enabled = true,

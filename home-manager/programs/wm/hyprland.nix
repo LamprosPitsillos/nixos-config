@@ -21,12 +21,15 @@
         monitor=,preferred,auto,1
 
         env = XCURSOR_SIZE,20
+        env = _JAVA_OPTIONS,'-Dawt.useSystemAAFontSettings=lcd -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 
         source = ~/.config/hypr/monitors.conf
 
         exec-once =  hyprpaper &
         exec-once =  swaync &
         exec-once = eww open bar &
+
+        # exec-once = ags &
         exec-once = hyprctl setcursor "Bibata-Modern-Ice" 8
 
         misc {
@@ -174,7 +177,9 @@
         # windowrule = float, ^(kitty)$
 
         windowrulev2 = noinitialfocus,class:^(com-eteks-sweethome3d-SweetHome3DBootstrap)$
-        windowrulev2 = nofocus,class:^(com-eteks-sweethome3d-SweetHome3DBootstrap)$,title:^(win1)$
+        windowrulev2 = tile,class:^(com-eteks-sweethome3d-SweetHome3DBootstrap)$
+        windowrulev2 = nofocus,class:^(com-eteks-sweethome3d-SweetHome3DBootstrap)$,title:^(win\d+)$
+        windowrulev2 = float,class:^(com-eteks-sweethome3d-SweetHome3DBootstrap)$,title:^(win\d+)$
 
         # windowrulev2 = noinitialfocus,class:^(steam)$
         # windowrulev2 = nofocus,class:^(steam)$
@@ -185,11 +190,13 @@
 
         # windowrulev2 = nomaximizerequest,class:^(mpv)$
         windowrulev2 = suppressevent maximize,class:^(mpv)$
+        windowrulev2 = float,class:^(qalculate-gtk)$
 
         windowrulev2 = fakefullscreen,class:^(firefox-typst-preview)$
         windowrulev2 = float,class:nm-connection-editor
         # windowrulev2 = workspace +1 ,onworkspace:1,workspace special:music_player
         windowrulev2 = pin,class:swappy
+        windowrulev2 = pin,class:com.gabm.satty
 
         # windowrulev2 = dimaround,fullscreen:1
         # windowrulev2 = bordersize 8,fullscreen:1

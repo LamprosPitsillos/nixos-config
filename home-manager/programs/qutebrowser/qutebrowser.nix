@@ -12,7 +12,7 @@
       csd-drive = "https://drive.google.com/drive/folders/0BxJ7tJ9gxdDdMzVhRVZ6X3hyTG8";
       elearn = "https://elearn.uoc.gr/?";
       csd = "https://www.csd.uoc.gr/";
-      youtube = "https://www.youtube.com/";
+      yt = "https://www.youtube.com/";
       facebook = "https://www.facebook.com/messages/";
       search = "https://www.google.com/";
       gh = "https://github.com/";
@@ -28,7 +28,7 @@
     };
     searchEngines = {
       DEFAULT = "https://duckduckgo.com/?q={}";
-      y = "https://www.youtube.com/results?search_query={}";
+      yt = "https://www.youtube.com/results?search_query={}";
       n = "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query={} ";
       gh = "https://github.com/search?q={}";
       g = "https://www.google.com/search?q={}";

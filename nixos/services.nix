@@ -36,7 +36,7 @@
       keyboards = {
         "homerow" = {
           devices = [ ];
-          config = ''
+          config = /* clojure */ ''
             (defsrc
              esc     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12 prnt slck del home pgup pgdn end
              `       1    2    3    4    5    6    7    8    9    0    -    =    bspc
@@ -63,9 +63,9 @@
             (deflayer nums
              _     _   _   _   _   _   _   _   _   _   _  _  _ _ _ _ _ _ _ _
              _   _    _    _    _    _    _    _    _    _    _     _    _    _
-             _   _    _    -    =    _    _    [    ]    \    _    _    _    _
+             _   S-1    S-2    S-3    S-4    S-5    S-6    S-7    S-8    S-9    S-0    _    _    _
              _   1    2    3    4    5    6    7    8    9    0   _    _
-             _   _    _    _    _    _    _    _    _    _    _    _       _
+             _   _    _    _    _    _    _    -    =    _    _        _       _
              _    _  bspc                 ret              _ _  _        _ _ _
 
             )

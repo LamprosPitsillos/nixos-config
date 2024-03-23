@@ -170,7 +170,7 @@ M.nmap("<leader>se", toCursor([[/\<{}\>]]), { desc = "search exact" })
 -- Quality of Life >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 -- M.nmap("<leader>sc","<cmd>nohl<cr>",{desc="Clear screen"})
 M.vmap("x", [["_d]], {})
-M.vmap("p", [["_dhp]], {})
+-- M.vmap("p", [["_dhp]], {})
 M.vmap("y", "y`]", { desc = "yank" })
 M.nmap("zh", "zH", {})
 M.nmap("zl", "zL", {})

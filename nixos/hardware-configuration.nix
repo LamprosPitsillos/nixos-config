@@ -38,10 +38,10 @@
       driSupport = true;
       extraPackages = with pkgs; [
         intel-media-driver
-        vaapiIntel
         vaapiVdpau
         libvdpau-va-gl
         nvidia-vaapi-driver
+        (intel-vaapi-driver.override { enableHybridCodec = true; })
       ];
     };
   };

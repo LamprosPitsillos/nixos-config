@@ -4,7 +4,7 @@ return {
         "nvim-telescope/telescope.nvim",
         cmd = "Telescope",
         lazy = true,
-        dev = true,
+        dev = false,
         event = "VeryLazy",
         dependencies = {
             -- { "nvim-telescope/telescope-ui-select.nvim" },

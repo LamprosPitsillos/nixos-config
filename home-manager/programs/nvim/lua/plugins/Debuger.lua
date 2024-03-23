@@ -3,7 +3,7 @@ return {
         "mfussenegger/nvim-dap",
         enabled = true,
         lazy = true,
-        dependencies = { "rcarriga/nvim-dap-ui", 'jbyuki/one-small-step-for-vimkind' },
+        dependencies = { "nvim-neotest/nvim-nio", "rcarriga/nvim-dap-ui", 'jbyuki/one-small-step-for-vimkind' },
         config = function()
             local dap = require("dap")
             local dapui = require("dapui")

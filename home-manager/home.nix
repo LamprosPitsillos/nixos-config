@@ -14,6 +14,7 @@
     ./programs/wm/hyprland.nix
     ./programs/mpv/mpv.nix
     ./programs/media/image/ipqv.nix
+    ./programs/media/record/obs.nix
     ./programs/qutebrowser/qutebrowser.nix
     ./programs/file_manager/yazi.nix
     ./programs/zathura/zathura.nix

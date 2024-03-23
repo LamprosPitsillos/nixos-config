@@ -104,20 +104,20 @@
     # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     xwayland.enable = true;
   };
-
+  programs.wireshark.enable = true;
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.inferno = {
     isNormalUser = true;
-    extraGroups = [ "docker" "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wireshark" "docker" "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
     initialPassword = "1234";
 
-    packages = with pkgs; let
-      ollamagpu = (pkgs.ollama.override { llama-cpp = (pkgs.llama-cpp.override { cudaSupport = true; blasSupport = false; }); });
-    in
-    [
-      steam
+    packages = with pkgs; [
+
+      (pkgs.ollama.override { acceleration = "cuda"; })
+
+      # steam
       rare
 
       godot_4
@@ -135,7 +135,7 @@
 
       hplip
 
-      qemu
+      # qemu
       wallust
       ledger
       typst
@@ -151,11 +151,11 @@
       # gtklock
       # Displays
       nwg-displays
-
       # Screenshot - Screenrecord
       grim
       slurp
       swappy
+      satty
       wl-screenrec
 
       # Desktop UX
@@ -176,7 +176,9 @@
       p7zip
       qrencode
       ast-grep
-      ffmpeg
+
+      ffmpeg-full
+
       jq htmlq fq
       unzip
       zip
@@ -213,8 +215,6 @@
       darktable
       hugin
       gimp
-      obs-studio
-
 
       xplr
       libsForQt5.qtstyleplugins
@@ -229,8 +229,6 @@
       fswatch
 
       # Images
-      imv
-      vimiv-qt
 
       ### AI
       # https://github.com/NixOS/nixpkgs/pull/281048/files
@@ -276,10 +274,10 @@
         "application/vnd.rar" = "thunar.desktop";
         "application/x-7z-compressed" = "thunar.desktop";
 
-        "image/jpeg" = "imv.desktop";
-        "image/gif" = "imv.desktop";
-        "image/webp" = "imv.desktop";
-        "image/png" = "imv.desktop";
+        "image/jpeg" = "pqiv.desktop";
+        "image/gif" = "pqiv.desktop";
+        "image/webp" = "pqiv.desktop";
+        "image/png" = "pqiv.desktop";
         "application/pdf" = "org.pwmt.zathura.desktop";
       };
     };
@@ -288,7 +286,7 @@
 
   qt = {
     enable = true;
-    platformTheme = "lxqt";
+    platformTheme = "qt5ct";
     style = "adwaita";
 
     # detected automatically:
@@ -303,7 +301,18 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+
+    (sweethome3d.application.overrideAttrs {
+       env.ANT_ARGS = "-DappletClassSource=8 -DappletClassTarget=8 -DclassSource=8 -DclassTarget=8";
+    })
+
+    tenki
+    # freecad
+
+    geogebra
+
     bottom
+
     libnotify
     vimix-gtk-themes
     vimix-icon-theme
@@ -316,10 +325,16 @@
 
     sddm-chili-theme
 
+    ets
+
     xdg-user-dirs
     git
     ntfs3g
 
+    wireshark
+
+
+    nv-codec-headers
 
     hyprlock
     hypridle

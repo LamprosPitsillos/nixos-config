@@ -98,7 +98,6 @@ in
     };
 
     overlays = [
-      (final: prev: { vaapiIntel = prev.vaapiIntel.override { enableHybridCodec = true; }; })
       (final: prev: { nerdfonts = prev.nerdfonts.override { fonts = [ "JetBrainsMono" "Lekton" "Mononoki" ]; }; })
       (final: prev: { qutebrowser = prev.qutebrowser.override { enableWideVine = true; }; })
       (final: prev: { nwg-displays = prev.nwg-displays.override { hyprlandSupport = true; }; })
@@ -142,9 +141,8 @@ in
     nix-du
     nix-info
     nix-index
+    nix-init
     prefetch-npm-deps
-    nix-prefetch-git
-    nix-prefetch
     nurl
     nvd
     home-manager
