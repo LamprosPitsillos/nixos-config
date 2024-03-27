@@ -6,8 +6,8 @@ return {
     {
         "nvim-neorg/neorg",
         -- branch = "luarocks",
-        -- dependencies = { "luarocks.nvim" },
-        enabled = true,
+        dependencies = { "luarocks.nvim" },
+        enabled = false,
         ft = "norg",
         cmd = "Neorg",
         opts = {

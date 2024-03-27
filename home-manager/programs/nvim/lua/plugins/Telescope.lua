@@ -14,7 +14,8 @@ return {
             { "nvim-telescope/telescope-symbols.nvim" },
             { "nvim-telescope/telescope-fzf-native.nvim",                             build = "make" },
             { "Marskey/telescope-sg" },
-            { "debugloop/telescope-undo.nvim", }
+            { "debugloop/telescope-undo.nvim", },
+            { "catgoose/telescope-helpgrep.nvim" }
 
         },
         config = function()
@@ -147,6 +148,11 @@ return {
                         -- depth = 4,
 
                     },
+                    helpgrep = {
+                        ignore_paths = {
+                            vim.fn.stdpath("state") .. "/lazy/readme",
+                        },
+                    },
                     fzf = {
                         fuzzy = true,                   -- false will only do exact matching
                         override_generic_sorter = true, -- override the generic sorter
@@ -206,6 +212,7 @@ return {
             require("telescope").load_extension("zoxide")
             require("telescope").load_extension("luasnip")
             require("telescope").load_extension("undo")
+            require("telescope").load_extension("helpgrep")
             -- require("telescope._extensions.zoxide.config").setup({
             --     mappings = {
             --         default = {
@@ -259,6 +266,9 @@ return {
             map_utils.nmap("<leader>hn", telescope.help_tags, { desc = "[h]elp [n]eovim" })
             map_utils.nmap("<leader>hm", function() telescope.man_pages({ sections = { "ALL" } }) end,
                 { desc = "[h]elp [m]an pages" })
+
+            map_utils.nmap("<leader>hnl", "<cmd>Telescope helpgrep live_grep<cr>", { desc = "[h]elp [n]eovim [l]ive" })
+
             map_utils.nmap("<leader>sl",
                 function()
                     telescope.live_grep({

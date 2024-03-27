@@ -214,8 +214,9 @@
         bind =,Menu ,exec, hyprctl switchxkblayout kanata next
         bind =,Print ,exec, ${system_scripts.screen_shot} full
         bind = SHIFT,Print ,exec, ${system_scripts.screen_shot} area
-        bind =$mainMod,Print ,exec,${system_scripts.screen_rec} full
-        bind =$mainMod SHIFT,Print ,exec,${system_scripts.screen_rec} area
+        bind = ALT,Print ,exec,${system_scripts.screen_rec} full
+        bind = ALT SHIFT,Print ,exec,${system_scripts.screen_rec} area
+        bind =$mainMod ,Print ,exec,${system_scripts.screen_to_text}
         bind =$mainMod,B ,exec,eww open --toggle bar
         bind =$mainMod SHIFT,S , exec, ${scripts.toggle} "misc:enable_swallow" "int" "1" "0"
 

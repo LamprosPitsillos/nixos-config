@@ -336,6 +336,8 @@
 
     nv-codec-headers
 
+    pv
+
     hyprlock
     hypridle
   ];
