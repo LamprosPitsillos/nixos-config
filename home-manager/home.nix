@@ -1,7 +1,7 @@
 { lib
 , config
 , pkgs
-, inputs
+# , inputs
 , ...
 }: {
   imports = [
@@ -11,6 +11,7 @@
     ./programs/widgets/eww/eww.nix
     ./programs/shell/zsh.nix
     ./programs/shell/fish.nix
+    ./programs/shell/nush.nix
     ./programs/wm/hyprland.nix
     ./programs/mpv/mpv.nix
     ./programs/media/image/ipqv.nix
@@ -64,6 +65,7 @@
     gst = "git status";
     # Network
     nmqr = "nmcli dev wifi show-password";
+    theme = ''wallust theme $(wallust theme --help | rg "possible values:" | sed -e "s/.*possible values:\(.*\)]/\1/" | tr , "\n" |fzf)'';
   };
 
 

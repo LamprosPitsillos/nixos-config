@@ -75,7 +75,6 @@ return {
             dap.configurations.cpp = dap.configurations.c
             dap.configurations.rust = dap.configurations.c
 
-            local dap = require("dap")
             dap.adapters.gdb = {
                 type = "executable",
                 command = "gdb",

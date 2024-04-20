@@ -24,7 +24,6 @@
 
       extraPackages = with pkgs; [
 
-        typst-preview
         websocat
 
         ripgrep
@@ -34,7 +33,7 @@
         gdb
 
         # LSPs
-        # clang-tools_17
+        clang-tools_17
         # clang-tools
         cmake-language-server
         lua-language-server
@@ -53,9 +52,10 @@
         ruff-lsp
         rust-analyzer
         typescript
-        typst-live
-        typstfmt
         typst-lsp
+        tinymist
+        typst-preview
+        typstfmt
         zls
       ];
     };

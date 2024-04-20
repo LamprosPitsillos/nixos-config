@@ -38,10 +38,10 @@
 ;   (info_string) @devicon
 ;   (#as_devicon! @devicon))
 
-(
-  fenced_code_block (fenced_code_block_delimiter) @markup.raw.delimiter
-  (#set! conceal "")
-)
+; (
+;   fenced_code_block (fenced_code_block_delimiter) @markup.raw.delimiter
+;   (#set! conceal "")
+; )
 (
   [(info_string (language))] @label
   (#eq? @label "javascript")

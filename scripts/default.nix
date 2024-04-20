@@ -98,11 +98,22 @@
     runtimeInputs = with pkgs; [ qutebrowser tofi ];
     text = ''
       quickmarks=$(cut -f1 -d\ < "$XDG_CONFIG_HOME/qutebrowser/quickmarks" )
-      query=$(printf "%s\n" "$quickmarks" | tofi  --text-cursor=true --prompt-text "󰜏 " --require-match=false )
+      query=$(printf "%s\n" "$quickmarks" | tofi  --text-cursor=true --prompt-text "󰜏 " --require-match=false --ascii-input=true )
       [ -z "$query" ] || qutebrowser --target window ":open -t $query"
     '';
   }
   );
+
+  history_browser = lib.getExe (pkgs.writeShellApplication {
+    name = "history_browser";
+    runtimeInputs = with pkgs; [ qutebrowser tofi sqlite ];
+    text = ''
+    history_path="$XDG_DATA_HOME/qutebrowser/history.sqlite"
+    sqlite3 "$history_path" "SELECT DISTINCT url FROM history ORDER BY atime DESC" \
+        | tofi --prompt-text=" " --fuzzy-match=false --ascii-input=true --width=60% \
+        | xargs -r -I{} qutebrowser --target window "{}"
+  '';
+  });
 
 
 }

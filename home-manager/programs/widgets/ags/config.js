@@ -5,6 +5,8 @@ const audio = await Service.import("audio")
 const battery = await Service.import("battery")
 const systemtray = await Service.import("systemtray")
 
+import { NotificationPopups } from "./notificationPopups.js"
+
 const date = Variable("", {
     poll: [1000, 'date "+%H:%M:%S %b %e."'],
 })
@@ -199,7 +201,7 @@ function Center() {
         spacing: 8,
         children: [
             Media(),
-            Notification(),
+            // Notification(),
         ],
     })
 }
@@ -237,7 +239,8 @@ App.config({
     style: "./style.css",
     windows: [
         Bar(),
-        Calendar()
+        Calendar(),
+        NotificationPopups()
         // you can call it, for each monitor
         // Bar(0),
         // Bar(1)

@@ -21,6 +21,7 @@
       hwdec = "auto-safe";
       hwdec-codecs = "all";
       vo = "gpu";
+      profile="gpu-hq";
       sub-auto = "fuzzy";
       sub-codepage = "gbk";
       osc = "no";

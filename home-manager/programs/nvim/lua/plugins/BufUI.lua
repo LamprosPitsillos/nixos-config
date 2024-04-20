@@ -1,8 +1,13 @@
 return {
     {
         "uga-rosa/ccc.nvim",
+
         config = function(_, opts)
-            require("ccc").setup({})
+            require("ccc").setup({
+                highlighter = {
+                    lsp = true,
+                },
+            })
         end
     },
     {
@@ -205,6 +210,7 @@ return {
     },
     {
         "echasnovski/mini.trailspace",
+        enabled = false,
         event = { "BufReadPost" },
         version = "*",
         config = function()

@@ -32,6 +32,9 @@
         # exec-once = ags &
         exec-once = hyprctl setcursor "Bibata-Modern-Ice" 8
 
+        $ON = 1
+        $OFF = 0
+
         misc {
         close_special_on_empty=true
         disable_splash_rendering = true
@@ -50,7 +53,7 @@
             numlock_by_default=true
             repeat_rate=20
             repeat_delay=400
-            follow_mouse = 1
+            follow_mouse = on
 
             touchpad {
                 natural_scroll = true
@@ -67,9 +70,9 @@
             gaps_out = 10
             gaps_workspaces = 40
 
-            border_size = 2
+            border_size = 3
             col.active_border = rgba(FFB53AEE) rgba(EF990EEE) 45deg
-            col.inactive_border = rgba(595959aa)
+            col.inactive_border = rgba(595959AA)
             cursor_inactive_timeout = 5
             layout = dwindle
         }
@@ -77,13 +80,13 @@
         group {
 
                 col.border_active = rgba(FFB53AEE) rgba(EF990EEE) 45deg
-                col.border_inactive = rgba(595959aa)
+                col.border_inactive = rgba(595959AA)
             groupbar {
                 height = 30
                 gradients = false
                 font_family = "JetBrainsMono NF"
                 col.active = rgba(FFB53AEE) rgba(EF990EEE) 45deg
-                col.inactive = rgba(595959aa)
+                col.inactive = rgba(595959AA)
             }
         }
 
@@ -95,7 +98,7 @@
             drop_shadow = true
             shadow_range = 6
             shadow_render_power = 3
-            col.shadow = rgba(1a1a1aee)
+            col.shadow = rgba(1A1A1AEE)
 
             blur {
 
@@ -112,29 +115,28 @@
             }
         }
         debug {
-                disable_logs = false
-                disable_time = false
+                disable_logs = true
+                disable_time = true
                 watchdog_timeout = 2
         }
         animations {
             enabled = true
             # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
 
-            bezier = myBezier, 0.05, 0.9, 0.1, 1.05
-            bezier=easeInSine, 0.12, 0, 0.39, 0
-            bezier=easeOutSine, 0.61, 1, 0.88, 1
-            bezier=easeInOutSine, 0.37, 0, 0.63, 1
-            bezier=easeInCubic,0.32, 0, 0.67, 0
-            bezier=easeOutCubic,0.33, 1, 0.68, 1
-            bezier=easeInOutCubic,0.65, 0, 0.35, 1
+            bezier =       myBezier, 0.05, 0.9,  0.1, 1.05
+            bezier =     easeInSine, 0.12,   0, 0.39,    0
+            bezier =    easeOutSine, 0.61,   1, 0.88,    1
+            bezier =  easeInOutSine, 0.37,   0, 0.63,    1
+            bezier =    easeInCubic, 0.32,   0, 0.67,    0
+            bezier =   easeOutCubic, 0.33,   1, 0.68,    1
+            bezier = easeInOutCubic, 0.65,   0, 0.35,    1
 
             animation = windows, 1, 2, myBezier, popin
             animation = windowsOut, 1, 2, easeOutCubic, popin 80%
-            animation = border, 1, 10, default
+            animation = border, 1, 5, default
             animation = borderangle, 1, 8, default
-            animation = fade, 1, 1, default
-            animation = layers, 1, 1.5, myBezier, fade
-            # animation = layers, 1, 1.5, myBezier, popin
+            animation = fade, 1, 5, default
+            animation = layers, 1, 1, myBezier, fade
             animation = workspaces, 1, 4, default
             animation = specialWorkspace, 1, 4, default, fade
 
@@ -233,7 +235,7 @@
         bind = $mainMod, T, togglefloating,
         bind = $mainMod, F , fullscreen,0
         bind = $mainMod SHIFT, F, fakefullscreen,
-        bind = $mainMod, space, exec, $( tofi-drun )
+        bind = $mainMod, space, exec, $( tofi-drun --auto-accept-single=true )
         bind = $mainMod, P, pseudo
         bind = $mainMod, s,layoutmsg, togglesplit
         # bind = $mainMod, I , exec, [workspace 1;] kitty
@@ -292,6 +294,8 @@
         submap=open
         bind=,Q,exec,${system_scripts.fuzzy_browser}
         bind=,Q,submap,reset
+        bind=,H,exec,${system_scripts.history_browser}
+        bind=,H,submap,reset
         bind=,S,exec,${pkgs.zathura}/bin/zathura /home/inferno/UoC/9ο\ Εξαμηνο/possible_courses.pdf
         bind=,S,submap,reset
 

@@ -70,6 +70,7 @@ vim.opt.langmap = {
     "οo", "πp", "qq", "ρr", "σs", "τt", "θu", "ωv", "ςw", "χx", "υy", "ζz",
 }
 vim.opt.spelllang = { 'en_us', 'el' }
+vim.opt.spellsuggest = "double"
 
 vim.g.no_man_maps = 1
 vim.g.mapleader = " "

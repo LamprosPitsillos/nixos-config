@@ -11,7 +11,7 @@
     ./nix.nix
   ];
 
-  environment.pathsToLink = [ "/share/zsh" "/share/fish"  ];
+  environment.pathsToLink = [ "/share/zsh" "/share/fish" "/share/nu" ];
 
   virtualisation.docker = {
     enable = true;
@@ -115,7 +115,7 @@
 
     packages = with pkgs; [
 
-      (pkgs.ollama.override { acceleration = "cuda"; })
+      # (pkgs.ollama.override { acceleration = "cuda"; })
 
       # steam
       rare
@@ -225,14 +225,17 @@
       xfce.thunar-volman
       swaynotificationcenter
       ncdu
+      dust
       yazi
       fswatch
+      udiskie
 
       # Images
 
       ### AI
       # https://github.com/NixOS/nixpkgs/pull/281048/files
       rclip
+      (openai-whisper-cpp.override { cudaSupport = true; })
       # realesrgan-ncnn-vulkan
       # ollamagpu
 

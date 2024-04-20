@@ -129,12 +129,18 @@ return {
                 },
                 cmake = {},
                 html = {},
-                typst_lsp = {
+                tinymist = {
                     settings = {
-                        exportPdf = "onType" -- Choose onType, onSave or never.
-                        -- serverPath = "" -- Normally, there is no need to uncomment it.
+                        -- formatterMode = "typstfmt",
+                        -- formatterPrintWidth = 90
                     }
                 },
+                -- typst_lsp = {
+                --     settings = {
+                --         exportPdf = "onType" -- Choose onType, onSave or never.
+                --         -- serverPath = "" -- Normally, there is no need to uncomment it.
+                --     }
+                -- },
                 cssls = {},
                 quick_lint_js = {},
                 prismals = {
