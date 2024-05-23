@@ -10,8 +10,8 @@
     ./programs/widgets/ags/ags.nix
     ./programs/widgets/eww/eww.nix
     ./programs/shell/zsh.nix
-    ./programs/shell/fish.nix
-    ./programs/shell/nush.nix
+    # ./programs/shell/fish.nix
+    # ./programs/shell/nush.nix
     ./programs/wm/hyprland.nix
     ./programs/mpv/mpv.nix
     ./programs/media/image/ipqv.nix
@@ -32,10 +32,10 @@
   home.username = "inferno";
   home.homeDirectory = "/home/inferno";
   home.shellAliases = {
-    nup = "sudo nixos-rebuild switch --flake /home/inferno/.nixos-config";
+    nup = "sudo nixos-rebuild switch --flake /home/inferno/.nixos-config && notify-send 'NixOs' 'System rebuilt'";
     nut = "sudo nixos-rebuild test --fast --flake /home/inferno/.nixos-config";
     nupb = "sudo nixos-rebuild boot --flake /home/inferno/.nixos-config";
-    hup = "home-manager switch -b backup -I nixpkgs=flake:nixpkgs --flake /home/inferno/.nixos-config\#inferno";
+    hup = "home-manager switch -b backup -I nixpkgs=flake:nixpkgs --flake /home/inferno/.nixos-config\#inferno && notify-send 'NixOs' 'System rebuilt'";
     nconf = "nv /home/inferno/.nixos-config/nixos/configuration.nix";
     hconf = "nv /home/inferno/.nixos-config/home-manager/home.nix";
 
@@ -101,7 +101,7 @@
     };
     extraConfig = {
       credential.helper = "store";
-      merge.conflictstyle = "diff3";
+      merge.conflictstyle = "zdiff3";
     };
   };
 
@@ -118,6 +118,7 @@
   # environment.
   home.packages = with pkgs; [
     drawing
+    freetube
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

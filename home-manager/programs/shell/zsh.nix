@@ -6,6 +6,12 @@
 
   programs.starship.enableZshIntegration = true;
   programs.fzf.enableZshIntegration = true;
+
+  programs.carapace = {
+      enable = true;
+      enableZshIntegration = true;
+  };
+
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";

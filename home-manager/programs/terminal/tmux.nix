@@ -1,20 +1,101 @@
-{ lib , pkgs,... }:
 {
-programs.tmux =
-    let
-      primary_clipboard = "${pkgs.wl-clipboard}/bin/wl-copy --primary";
-    in
-    {
-      enable = true;
-      baseIndex = 1;
-      keyMode = "vi";
-      prefix = "C-q";
-      terminal = "screen-256color";
-      escapeTime = 0;
-      historyLimit = 100000;
-      mouse = true;
+  lib,
+  pkgs,
+  ...
+}: {
+  home.packages = [
+    (pkgs.writeShellApplication {
+      name = "zt";
+      runtimeInputs = with pkgs; [tmux zoxide fzf];
+      text =
+        /*
+        bash
+        */
+        ''
+          #--------------------------------------------------------------------#
+          #                               CONFIG                               #
+          #--------------------------------------------------------------------#
 
-      extraConfig = /* tmux */ ''
+          DIR_LOOKUP_LIMIT=6
+
+          #--------------------------------------------------------------------#
+          #                                DIRS                                #
+          #--------------------------------------------------------------------#
+
+
+          # Function to check if a directory contains a .git folder
+          has_git() {
+              if [ -d "$1/.git" ]; then
+                  echo "$1"
+                  exit 0
+              fi
+          }
+
+          # Function to search N paths upwards for a .git folder
+          search_upwards() {
+              if [ !  -d "$1" ];then exit 1; fi;
+              dir="$1"
+              count="$DIR_LOOKUP_LIMIT"
+              while [ "$count" -gt 0 ]; do
+                  has_git "$dir"
+                  dir="$(dirname "$dir")"
+                  count=$((count-1))
+              done
+              # echo "No .git directory found"
+              echo "$1"
+          }
+
+          #--------------------------------------------------------------------#
+          #                                NAME                                #
+          #--------------------------------------------------------------------#
+
+          project_name() {
+              path="$1"
+              basename "$path"
+          }
+
+          dir_name() {
+              path="$1"
+              basename "$path"
+          }
+
+          #--------------------------------------------------------------------#
+          #                                MAIN                                #
+          #--------------------------------------------------------------------#
+          main() {
+              if ! selected_path="$(zoxide query --interactive)" ; then exit 1; fi
+
+              root_path="$(search_upwards "$selected_path")"
+
+              session_name="$(project_name "$root_path")"
+              window_name="$(dir_name "$selected_path")"
+
+              # if tmux has session FOO then this will fall through and create a new window named BAR
+              tmux new-session -d -s "$session_name" -n "$window_name" -c "$selected_path" || tmux new-window -t "$session_name" -n "$window_name" -c "$selected_path"
+              tmux attach-session -t "$session_name"
+          }
+
+          main
+        '';
+    })
+  ];
+  programs.tmux = let
+    primary_clipboard = "${pkgs.wl-clipboard}/bin/wl-copy --primary";
+  in {
+    enable = true;
+    baseIndex = 1;
+    keyMode = "vi";
+    prefix = "C-q";
+    terminal = "screen-256color";
+    escapeTime = 0;
+    historyLimit = 100000;
+    mouse = true;
+
+    extraConfig =
+      /*
+      tmux
+      */
+      ''
         set -g terminal-overrides ',xterm-256color:RGB'
         set -g focus-events on # TODO: learn how this works
 
@@ -101,6 +182,5 @@ programs.tmux =
         bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "${primary_clipboard}"
         bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "${primary_clipboard}"
       '';
-    };
-
-    }
+  };
+}

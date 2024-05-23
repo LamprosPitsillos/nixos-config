@@ -46,7 +46,8 @@
         c.content.javascript.clipboard = "access-paste"
         c.content.blocking.method = "both"
         c.editor.command = ["kitty", "nvim" ,"{}"]
-        c.fonts.default_family="JetBrainsMono"
+        c.fonts.default_family="JetBrainsMono NF SemiBold"
+        c.fonts.default_size="12pt"
         c.fonts.tabs.selected = "default_size default_family Bold"
         c.fonts.completion.entry = "default_size default_family Bold"
         c.fonts.tabs.unselected = "default_size default_family Bold"
@@ -129,7 +130,7 @@
     };
 
     settings = let
-      background = "#1c1c1c";
+      background = "#282C34";
       background-alt = "#161616";
       background-attention = "#181920";
       border = "#282a36";
