@@ -10,7 +10,7 @@ return {
             -- { "nvim-telescope/telescope-ui-select.nvim" },
             { "jvgrootveld/telescope-zoxide" },
             { "nvim-telescope/telescope-file-browser.nvim" --[[ branch="feat/tree" ]] },
-            { "benfowler/telescope-luasnip.nvim" },
+           { "benfowler/telescope-luasnip.nvim" },
             { "nvim-telescope/telescope-symbols.nvim" },
             { "nvim-telescope/telescope-fzf-native.nvim",                             build = "make" },
             { "Marskey/telescope-sg" },

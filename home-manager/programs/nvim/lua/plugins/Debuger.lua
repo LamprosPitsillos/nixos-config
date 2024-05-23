@@ -2,8 +2,13 @@ return {
     {
         "mfussenegger/nvim-dap",
         enabled = true,
-        lazy = true,
-        dependencies = { "nvim-neotest/nvim-nio", "rcarriga/nvim-dap-ui", 'jbyuki/one-small-step-for-vimkind' },
+        lazy = false,
+        dependencies = {
+            "nvim-neotest/nvim-nio",
+            "rcarriga/nvim-dap-ui",
+            'theHamsta/nvim-dap-virtual-text',
+            'jbyuki/one-small-step-for-vimkind'
+        },
         config = function()
             local dap = require("dap")
             local dapui = require("dapui")
@@ -25,53 +30,31 @@ return {
                 b_map(0, "t", "<A-Left>", [[<C-\><C-n><C-W>2<]], opts)
             end
 
-            vim.api.nvim_create_autocmd("FileType", {
-                pattern = "dap-repl",
-                callback = function(args)
-                    vim.api.nvim_buf_set_option(args.buf, "buflisted", false)
-                end,
-            })
+            -- vim.api.nvim_create_autocmd("FileType", {
+            --     pattern = "dap-repl",
+            --     callback = function(args)
+            --         vim.api.nvim_buf_set_option(args.buf, "buflisted", false)
+            --     end,
+            -- })
             vim.api.nvim_create_autocmd("FileType", {
                 pattern = "dapui_console",
                 callback = set_terminal_keymaps
             })
 
-            -- dap.adapters.codelldb = {
-            --     type = "server",
-            --     port = "${port}",
-            --     executable = {
-            --         command = "/home/inferno/docs/Packages/LLVMdebug/adapter/codelldb",
-            --         args = { "--port", "${port}" },
-            --     }
-            -- }
-            -- dap.configurations.cpp = {
-            --     {
-            --         name = "Launch file",
-            --         type = "codelldb",
-            --         request = "launch",
-            --         program = function()
-            --             return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-            --         end,
-            --         cwd = "${workspaceFolder}",
-            --         stopOnEntry = true,
-            --     },
-            -- }
-            -- dap.configurations.c = dap.configurations.cpp
-            -- dap.configurations.rust = dap.configurations.cpp
-            --
-            --
             dap.configurations.c = {
                 {
                     name = "Launch",
                     type = "gdb",
                     request = "launch",
                     program = function()
-                        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+                        local path_selected = require("dap.utils").pick_file({ executables = true })
+                        return path_selected
                     end,
                     cwd = "${workspaceFolder}",
                     stopAtBeginningOfMainSubprogram = false,
                 },
             }
+
             dap.configurations.cpp = dap.configurations.c
             dap.configurations.rust = dap.configurations.c
 
@@ -97,14 +80,15 @@ return {
             map("n", "<F2>", dap.step_over, { desc = "Debbuger step_over" })
             map("n", "<F3>", dap.step_into, { desc = "Debbuger step_into" })
             map("n", "<F4>", dap.step_out, { desc = "Debbuger step_out" })
+            map("n", "<F10>", dapui.toggle, { desc = "Toggle Debbuger UI" })
             map("n", "<F12>", dap.toggle_breakpoint, { desc = "Debbuger toggle_breakpoint" })
             map("n", "<Leader><F12>", function() dap.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,
                 { desc = "Debbuger breakpoint " })
             map("n", "<Leader>lp", function() dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end,
                 { desc = "Debbuger breakpoint" })
-            map("n", "<Leader>dr", function() dap.repl.open() end, { desc = "Debbuger repl.open" })
             map("n", "<Leader>dl", function() dap.run_last() end, { desc = "Debbuger run_last" })
-            map("n", "<F10>", dapui.toggle, { desc = "Toggle Debbuger UI" })
+            -- require"dap.ui.widgets".hover
+
 
             dap.listeners.before.attach.dapui_config = function()
                 dapui.open()

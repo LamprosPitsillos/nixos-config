@@ -1,5 +1,12 @@
 return {
     {
+        "ariel-frischer/bmessages.nvim",
+        event = "CmdlineEnter",
+        opts = {
+            split_type = "split",
+        }
+    },
+    {
         "uga-rosa/ccc.nvim",
 
         config = function(_, opts)

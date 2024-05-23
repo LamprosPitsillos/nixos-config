@@ -33,7 +33,7 @@
         gdb
 
         # LSPs
-        clang-tools_17
+        # clang-tools_17
         # clang-tools
         cmake-language-server
         lua-language-server
@@ -56,6 +56,7 @@
         tinymist
         typst-preview
         typstfmt
+        typstyle
         zls
       ];
     };

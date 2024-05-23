@@ -76,7 +76,7 @@ return {
                     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
                     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
                     ["<C-e>"] = cmp.mapping.abort(),
-                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+                    ["<C-y>"] = cmp.mapping.confirm({ select = true }),
                     ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
                     ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
                 },
@@ -86,7 +86,7 @@ return {
                 },
                 sources = cmp.config.sources({
                         { name = 'nvim_lua',               max_item_count = 10 },
-                        { name = "nvim_lsp",               max_item_count = 10 },
+                        { name = "nvim_lsp",               max_item_count = 30 },
                         { name = "luasnip" }, -- For luasnip users.
                         { name = "nvim_lsp_signature_help" },
                         { name = "treesitter",             max_item_count = 10 },

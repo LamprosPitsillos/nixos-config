@@ -1,7 +1,9 @@
 return {
     {
         'Sam-programs/cmdline-hl.nvim',
+        enabled = false,
         event = 'VimEnter',
+        dev = true,
         config = function()
             local cmdline_hl = require('cmdline-hl')
             cmdline_hl.setup({

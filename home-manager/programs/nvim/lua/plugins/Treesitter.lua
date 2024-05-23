@@ -187,9 +187,9 @@ return {
                 "class",
                 "function",
                 "method",
-                "for", -- These won't appear in the context
-                "while",
-                "if",
+                -- "for", -- These won't appear in the context
+                -- "while",
+                -- "if",
                 -- 'switch',
                 -- 'case',
             },

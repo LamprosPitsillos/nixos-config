@@ -1,4 +1,7 @@
 return {
-    "tani/dmacro.nvim",
-    opts = { dmacro_key = '<C-t>' } --  you need to set the dmacro_key
+    {
+        "tani/dmacro.nvim",
+        enabled = false,
+        opts = { dmacro_key = '<C-m>' } --  you need to set the dmacro_key
+    }
 }

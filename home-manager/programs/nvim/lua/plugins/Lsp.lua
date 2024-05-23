@@ -131,8 +131,8 @@ return {
                 html = {},
                 tinymist = {
                     settings = {
-                        -- formatterMode = "typstfmt",
-                        -- formatterPrintWidth = 90
+                        formatterMode = "typstfmt",
+                        formatterPrintWidth = 90
                     }
                 },
                 -- typst_lsp = {
@@ -163,9 +163,13 @@ return {
                         vim.env.CLANGD_PATH or "clangd",
                         "--background-index",
                         "--clang-tidy",
+                        "-j=4",
+                        "--clang-tidy-checks=*",
+                        "--all-scopes-completion",
+                        "--cross-file-rename",
                         "--header-insertion=iwyu",
                         "--completion-style=detailed",
-                        "--function-arg-placeholders",
+                        -- "--function-arg-placeholders",
                         "--fallback-style=llvm",
                     },
                 },
@@ -207,8 +211,9 @@ return {
                     local lsp_b             = vim.lsp.buf
                     local map               = vim.keymap.set
 
-                    map("n", "[d", diagnostic.goto_prev, { desc = "prev error", buffer = ev.buf })
-                    map("n", "]d", diagnostic.goto_next, { desc = "next error", buffer = ev.buf })
+                    -- default in neovim 0.10
+                    -- map("n", "[d", diagnostic.goto_prev, { desc = "prev error", buffer = ev.buf })
+                    -- map("n", "]d", diagnostic.goto_next, { desc = "next error", buffer = ev.buf })
                     map("n", "<leader>lD", lsp_b.declaration, { desc = "declaration", buffer = ev.buf })
                     map("n", "<leader>lt", lsp_b.type_definition, { desc = "type definition", buffer = ev.buf })
                     map("n", "<leader>lpa", lsp_b.add_workspace_folder,
