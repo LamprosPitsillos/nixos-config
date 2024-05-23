@@ -48,8 +48,8 @@
             exit
         fi
         case "$1" in
-                area) grim  -g "$(slurp)" - | swappy  -f - -o "$SCREEN_SHOT_DIR/$(date +'%Y-%m-%d_%H-%M-%S')_$name".png ;;
-                full) sleep 0.2 && grim  - | swappy -f - -o "$SCREEN_SHOT_DIR/$(date +'%Y-%m-%d_%H-%M-%S')_$name".png ;;
+                area) grim  -g "$(slurp)" - | satty  -f - --output-filename "$SCREEN_SHOT_DIR/$(date +'%Y-%m-%d_%H:%M:%S')_$name".png ;;
+                full) sleep 0.2 && grim  - | satty -f - --output-filename "$SCREEN_SHOT_DIR/$(date +'%Y-%m-%d_%H:%M:%S')_$name".png ;;
         esac
       '';
 
@@ -61,10 +61,10 @@
    });
   mpv_music_player = lib.getExe (pkgs.writeShellApplication {
     name = "sh_mpv_music_player"; /* sh */
-    runtimeInputs = with pkgs; [ fd mpv libnotify fzf ];
+    runtimeInputs = with pkgs; [ fd mpv libnotify fzf eza];
     text = ''
       while true ;do
-          song="$(fd . --base-directory="/home/inferno/music" --color=always --strip-cwd-prefix | fzf  --ansi --border --height=100% --preview="ffprobe -hide_banner ~/music/{} || exa ~/music/{}" )" #
+          song="$(fd . --base-directory="/home/inferno/music" --color=always --strip-cwd-prefix | fzf  --ansi --border --height=100% --preview="ffprobe -hide_banner ~/music/{} || eza ~/music/{} --tree  -1 --color always" )" #
           # shellcheck disable=SC2016
           mpv --input-ipc-server=/tmp/mpvsocket \
               --shuffle ~/music/"$song" \
