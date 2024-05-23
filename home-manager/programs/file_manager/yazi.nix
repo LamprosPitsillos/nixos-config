@@ -13,6 +13,9 @@
       which = {
         mask = {bg = "#404145";};
       };
+      manager = {
+        preview_hovered = { fg = "black" ; bg = "lightblue" ; underline = false; };
+      };
     };
     keymap = let
       leader = "<Space>";
@@ -145,8 +148,8 @@
         { on = ["f" "s"]; run = "search rg"; desc = "Search files by content using ripgrep"; }
         { on = ["f" "a"]; run = "search rga"; desc = "Search files by content using ripgrepall"; }
         { on = ["<C-s>"]; run = "search none"; desc = "Cancel the ongoing search"; }
-        { on = ["z"]; run = "jump zoxide"; desc = "Jump to a directory using zoxide"; }
-        { on = ["Z"]; run = "jump fzf"; desc = "Jump to a directory, or reveal a file using fzf"; }
+        { on = ["z"]; run = "plugin zoxide"; desc = "Jump to a directory using zoxide"; }
+        { on = ["Z"]; run = "plugin fzf"; desc = "Jump to a directory, or reveal a file using fzf"; }
         { on = ["m" "s"]; run = "linemode size"; desc = "Set linemode to size"; }
         { on = ["m" "p"]; run = "linemode permissions"; desc = "Set linemode to permissions"; }
         { on = ["m" "m"]; run = "linemode mtime"; desc = "Set linemode to mtime"; }
@@ -260,6 +263,7 @@
       };
       log = {enabled = false;};
       manager = {
+        # preview_hovered = { fg = "black" ; bg = "lightblue" ; underline = false; };
         linemode = "none";
         ratio = [1 2 2];
         scrolloff = 5;
@@ -389,4 +393,7 @@
       };
     };
   };
+  # xdg.configFile = {
+  #     "yazi/init.lua" =
+  #     };
 }

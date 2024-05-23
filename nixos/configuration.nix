@@ -83,7 +83,7 @@
     HISTFILE = "$XDG_CONFIG_HOME/zsh/.zsh_history";
     FLAKE_PATH = "$HOME/.nixos-config";
 
-    GDK_BACKEND = "wayland";
+    GDK_BACKEND = lib.mkForce "wayland";
     EDITOR = "nvim";
     VISUAL = "nvim";
     MANPAGER = "nvim +Man!";
@@ -115,7 +115,6 @@
 
     packages = with pkgs; [
 
-      # (pkgs.ollama.override { acceleration = "cuda"; })
 
       # steam
       rare
@@ -235,9 +234,9 @@
       ### AI
       # https://github.com/NixOS/nixpkgs/pull/281048/files
       rclip
-      (openai-whisper-cpp.override { cudaSupport = true; })
+      # (openai-whisper-cpp.override { cudaSupport = true; })
       # realesrgan-ncnn-vulkan
-      # ollamagpu
+      # (ollama.override { acceleration = "cuda" ;})
 
       # Browsers
       qutebrowser
@@ -311,6 +310,8 @@
 
     tenki
     # freecad
+    radare2
+    iaito
 
     geogebra
 
@@ -343,6 +344,8 @@
 
     hyprlock
     hypridle
+
+    fuse-overlayfs
   ];
 
   programs.mtr.enable = true;

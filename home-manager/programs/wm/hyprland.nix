@@ -73,10 +73,12 @@
             border_size = 3
             col.active_border = rgba(FFB53AEE) rgba(EF990EEE) 45deg
             col.inactive_border = rgba(595959AA)
-            cursor_inactive_timeout = 5
             layout = dwindle
         }
 
+        cursor {
+            inactive_timeout = 5
+        }
         group {
 
                 col.border_active = rgba(FFB53AEE) rgba(EF990EEE) 45deg
@@ -226,7 +228,7 @@
         bind = $mainMod, W, killactive,
         bind = $mainMod SHIFT, P ,pin
 
-        bind = $mainMod, Z,exec, ${scripts.toggle} "misc:cursor_zoom_factor" "float" "1.000000" "4.000000"
+        bind = $mainMod, Z,exec, ${scripts.toggle} "cursor:zoom_factor" "float" "1.000000" "4.000000"
         bind = $mainMod ALT, X, exec , eww open --toggle bar && eww open --toggle powermenu
         bind = $mainMod SHIFT, q, exit,
         bind = $mainMod, E, exec, thunar

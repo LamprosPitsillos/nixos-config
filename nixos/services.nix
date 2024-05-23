@@ -142,7 +142,7 @@
       #jack.enable = true;
     };
     xserver.videoDrivers = ["nvidia"];
-    xserver.libinput.enable = true;
+    libinput.enable = true;
 
     # File system browsing deps
     gvfs.enable = true;
