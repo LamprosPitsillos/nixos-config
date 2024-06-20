@@ -35,6 +35,8 @@
         # LSPs
         # clang-tools_17
         # clang-tools
+        phpactor
+        omnisharp-roslyn
         cmake-language-server
         lua-language-server
         marksman
@@ -49,7 +51,8 @@
         python311Packages.python-lsp-ruff
         python311Packages.python-lsp-server
         quick-lint-js
-        ruff-lsp
+        dot-language-server
+        ruff
         rust-analyzer
         typescript
         typst-lsp

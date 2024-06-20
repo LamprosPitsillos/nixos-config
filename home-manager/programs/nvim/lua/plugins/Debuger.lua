@@ -46,10 +46,7 @@ return {
                     name = "Launch",
                     type = "gdb",
                     request = "launch",
-                    program = function()
-                        local path_selected = require("dap.utils").pick_file({ executables = true })
-                        return path_selected
-                    end,
+                    program = "${command:pickFile}",
                     cwd = "${workspaceFolder}",
                     stopAtBeginningOfMainSubprogram = false,
                 },

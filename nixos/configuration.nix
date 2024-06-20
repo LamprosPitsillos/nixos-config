@@ -139,6 +139,7 @@
       ledger
       typst
       qalculate-gtk
+      numbat
 
       # hyprcursor
 
@@ -345,7 +346,16 @@
     hyprlock
     hypridle
 
+    libinput
+    wev
+
+    # steam
+    gephi
+
     fuse-overlayfs
+
+    brave
+    (config.boot.kernelPackages.perf)
   ];
 
   programs.mtr.enable = true;
@@ -357,8 +367,9 @@
   fonts = {
     packages = [ pkgs.nerdfonts ];
   };
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
+  # programs.zsh.enable = true;
+  programs.fish.enable= true;
+  users.defaultUserShell = pkgs.fish;
 
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).

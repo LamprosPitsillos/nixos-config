@@ -45,16 +45,18 @@
         c.confirm_quit = ["always"]
         c.content.javascript.clipboard = "access-paste"
         c.content.blocking.method = "both"
-        c.editor.command = ["kitty", "nvim" ,"{}"]
+        c.editor.command = ["kitty", "nvim" ,"{file}"]
         c.fonts.default_family="JetBrainsMono NF SemiBold"
         c.fonts.default_size="12pt"
-        c.fonts.tabs.selected = "default_size default_family Bold"
-        c.fonts.completion.entry = "default_size default_family Bold"
-        c.fonts.tabs.unselected = "default_size default_family Bold"
+        c.fonts.completion.entry = "default_size default_family"
+        c.fonts.completion.category = "bold default_size default_family"
+        c.fonts.tabs.selected = "bold default_size default_family"
+        c.fonts.tabs.unselected = "default_size default_family"
         c.scrolling.smooth = True
         c.spellcheck.languages = ["el-GR" ,"en-US"]
         c.statusbar.show = "always"
-        c.tabs.title.format = "{index}: {current_title} {audio}{private}"
+        # c.tabs.title.format = "{index}: {current_title} {audio}{private}"
+        c.tabs.title.format = "{audio}{private} {current_title}"
         c.tabs.show = "multiple"
         c.tabs.background = True
         c.zoom.mouse_divider = 10
@@ -131,7 +133,7 @@
 
     settings = let
       background = "#282C34";
-      background-alt = "#161616";
+      background-alt = "#1A1B26";
       background-attention = "#181920";
       border = "#282a36";
       gray = "#909497";
@@ -153,12 +155,12 @@
       colors = {
         completion = {
           category = {
-            bg = background;
-            border = {
-              bottom = border;
-              top = border;
-            };
+            bg = background-alt;
             fg = foreground;
+            border = {
+              bottom = gray;
+              top = gray;
+            };
           };
           even = {
             bg = background;
@@ -166,12 +168,12 @@
           fg = foreground;
           item = {
             selected = {
-              bg = selection;
+              bg = foreground;
               border = {
-                bottom = selection;
-                top = selection;
+                bottom = foreground-alt;
+                top = foreground-alt;
               };
-              fg = foreground;
+              fg = background;
             };
           };
           match = {

@@ -1,11 +1,5 @@
 return {
     {
-        "folke/tokyonight.nvim",
-        lazy = false,
-        priority = 998,
-        opts = {},
-    },
-    {
         "navarasu/onedark.nvim",
         -- dev = true,
         enabled = true,
@@ -49,4 +43,5 @@ return {
             require('onedark').load()
         end
     },
+
 }

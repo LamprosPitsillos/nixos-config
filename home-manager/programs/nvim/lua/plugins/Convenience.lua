@@ -68,5 +68,9 @@ return {
     {
         "mcauley-penney/tidy.nvim",
         config = true,
+    },
+    {
+        'stevearc/overseer.nvim',
+        opts = {},
     }
 }

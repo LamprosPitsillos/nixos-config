@@ -1,4 +1,5 @@
 { pkgs, ... }: {
+ # mpv --lavfi-complex="[vid1][vid2]hstack[vo];[aid1][aid2]amix[ao]" FOO.mkv --external-file=BAR.mkv
   programs.mpv = {
     enable = true;
     scripts = with pkgs.mpvScripts; [

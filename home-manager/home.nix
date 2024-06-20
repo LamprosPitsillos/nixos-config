@@ -7,10 +7,10 @@
   imports = [
     ./programs/tofi/tofi.nix
     ./programs/starship/starship.nix
-    ./programs/widgets/ags/ags.nix
+    # ./programs/widgets/ags/ags.nix
     ./programs/widgets/eww/eww.nix
     ./programs/shell/zsh.nix
-    # ./programs/shell/fish.nix
+    ./programs/shell/fish.nix
     # ./programs/shell/nush.nix
     ./programs/wm/hyprland.nix
     ./programs/mpv/mpv.nix
@@ -20,6 +20,10 @@
     ./programs/file_manager/yazi.nix
     ./programs/zathura/zathura.nix
     ./programs/terminal/kitty.nix
+    # ./programs/terminal/alacritty.nix
+    ./programs/terminal/wezterm.nix
+    ./programs/vcs/git.nix
+    ./programs/vcs/jujutsu.nix
     ./programs/terminal/tmux.nix
     ./programs/nvim/nvim.nix
   ];
@@ -31,11 +35,14 @@
   # manage.
   home.username = "inferno";
   home.homeDirectory = "/home/inferno";
-  home.shellAliases = {
-    nup = "sudo nixos-rebuild switch --flake /home/inferno/.nixos-config && notify-send 'NixOs' 'System rebuilt'";
+  home.shellAliases =
+  let
+     eza = lib.getExe pkgs.eza ;
+  in {
+    nup = "sudo nixos-rebuild switch --flake /home/inferno/.nixos-config#infernoPC && notify-send 'NixOs' 'System rebuilt'";
     nut = "sudo nixos-rebuild test --fast --flake /home/inferno/.nixos-config";
     nupb = "sudo nixos-rebuild boot --flake /home/inferno/.nixos-config";
-    hup = "home-manager switch -b backup -I nixpkgs=flake:nixpkgs --flake /home/inferno/.nixos-config\#inferno && notify-send 'NixOs' 'System rebuilt'";
+    hup = "home-manager switch -b backup -I nixpkgs=flake:nixpkgs --flake /home/inferno/.nixos-config\#inferno && notify-send 'NixOs' 'HomeManager rebuilt'";
     nconf = "nv /home/inferno/.nixos-config/nixos/configuration.nix";
     hconf = "nv /home/inferno/.nixos-config/home-manager/home.nix";
 
@@ -43,10 +50,11 @@
     btc = "bluetoothctl power on && bluetoothctl connect $(bluetoothctl devices | fzf --tac --reverse --height=30% --border | cut -d ' ' -f2)";
     ip = "ip -color=auto";
     # gtu = "cd ~/UoC/4ο\ Εξαμηνο";
-    ls = "ls --sort time --color=auto -h";
-    la = "eza --icons --long --accessed --all";
-    lar = "eza --icons --long --accessed --all --tree --level ";
-    tree = "eza --icons --tree --accessed";
+    ls = "${eza} --icons --git";
+    ll = "${eza} --icons --git --long";
+    la = "${eza} --icons --git --long --accessed --all";
+    lar = "${eza} --icons --git --long --accessed --all --tree --level";
+    tree = "${eza} --icons --tree --accessed";
     nv = "nvim";
     q = "exit";
     fm = "vifm .";
@@ -91,19 +99,6 @@
     nix-direnv.enable = true;
   };
 
-  programs.git = {
-    enable = true;
-    delta.enable = true;
-    userName = "Lampros Pitsillos";
-    userEmail = "hauahx@gmail.com";
-    aliases = {
-      lg = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative";
-    };
-    extraConfig = {
-      credential.helper = "store";
-      merge.conflictstyle = "zdiff3";
-    };
-  };
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -117,8 +112,10 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    drawing
+
     freetube
+
+    drawing
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

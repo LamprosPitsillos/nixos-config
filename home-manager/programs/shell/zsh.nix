@@ -8,7 +8,7 @@
   programs.fzf.enableZshIntegration = true;
 
   programs.carapace = {
-      enable = true;
+      enable = false;
       enableZshIntegration = true;
   };
 
@@ -113,7 +113,7 @@
             bindkey -M menuselect '^h' vi-backward-char
             bindkey -M menuselect '^l' vi-forward-char
 
-            setopt APPEND_HISTORY EXTENDED_HISTORY HIST_FCNTL_LOCK HIST_REDUCE_BLANKS INC_APPEND_HISTORY SHARE_HISTORY HIST_VERIFY
+            setopt APPEND_HISTORY HIST_FCNTL_LOCK HIST_REDUCE_BLANKS INC_APPEND_HISTORY SHARE_HISTORY HIST_VERIFY
 
             setopt AUTO_LIST AUTO_LIST AUTO_MENU \
             AUTO_PARAM_SLASH AUTO_PUSHD  \
@@ -125,6 +125,7 @@
       function uzip() { unzip "$1" -d "$1%.*" }
       function mkcd () { mkdir -p $1 && cd ./$1 }
       function cwd () { echo -ne "\"$(pwd)\"" | wl-copy }
+      function cd () { builtin cd "$@" && ls }
 
     '';
   };

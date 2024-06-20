@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ pkgs,inputs, lib, ... }: {
 
   wayland.windowManager.hyprland = {
     xwayland.enable = true;
@@ -66,6 +66,8 @@
         general {
             # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
+            cursor_inactive_timeout = 5
+
             gaps_in = 3
             gaps_out = 10
             gaps_workspaces = 40
@@ -75,10 +77,9 @@
             col.inactive_border = rgba(595959AA)
             layout = dwindle
         }
-
-        cursor {
-            inactive_timeout = 5
-        }
+        # cursor {
+        #     inactive_timeout = 5
+        # }
         group {
 
                 col.border_active = rgba(FFB53AEE) rgba(EF990EEE) 45deg

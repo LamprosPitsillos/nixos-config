@@ -10,6 +10,18 @@ return {
         keys = {
             { "<leader>fe", "<cmd>Oil<cr>", mode = "n", desc = "[f]iles [e]dit" }
         },
+        config = function(_, opts)
+            function OilDir() return require("oil").get_current_dir() end
+
+            vim.api.nvim_create_autocmd("BufWinEnter", {
+                callback = function(ev)
+                    if vim.bo[ev.buf].filetype == "oil" and vim.api.nvim_get_current_buf() == ev.buf then
+                        vim.api.nvim_set_option_value("winbar", "%{%v:lua.OilDir()%}", { scope = "local", win = 0 })
+                    end
+                end,
+            })
+            require("oil").setup(opts)
+        end,
         opts = {
             -- Id is automatically added at the beginning, and name at the end
             -- See :help oil-columns
@@ -43,7 +55,7 @@ return {
                 conceallevel = 3,
                 concealcursor = "niv",
             },
-            constrain_cursor = "name",
+            constrain_cursor = "editable",
             -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
             delete_to_trash = true,
             -- Selecting a new/moved/renamed file or directory will prompt you to save changes first

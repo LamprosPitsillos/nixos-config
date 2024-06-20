@@ -263,11 +263,11 @@ return {
                 { desc = "[l]SP [d]efinition" })
             map_utils.nmap("<leader>vld", "<cmd>vsplit | Telescope lsp_definitions theme=cursor<CR>",
                 { desc = "[v]split [l]SP [d]efinition" })
-            map_utils.nmap("<leader>hnt", telescope.help_tags, { desc = "[h]elp [n]eovim" })
+            map_utils.nmap("<leader>hn", telescope.help_tags, { desc = "[h]elp [n]eovim" })
             map_utils.nmap("<leader>hm", function() telescope.man_pages({ sections = { "ALL" } }) end,
                 { desc = "[h]elp [m]an pages" })
 
-            map_utils.nmap("<leader>hnl", "<cmd>Telescope helpgrep live_grep<cr>", { desc = "[h]elp [n]eovim [l]ive" })
+            map_utils.nmap("<leader>hN", "<cmd>Telescope helpgrep live_grep<cr>", { desc = "[h]elp [n]eovim [l]ive" })
 
             map_utils.nmap("<leader>sl",
                 function()
