@@ -49,8 +49,13 @@
       };
       "nixosWSL" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = {
+          inherit system;
+          inherit inputs;
+        };
         modules = [
           nixos-wsl.nixosModules.default
+          ./nixos/wsl-configuration.nix
           {
             system.stateVersion = "24.05";
             wsl.enable = true;
