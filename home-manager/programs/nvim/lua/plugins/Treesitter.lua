@@ -134,6 +134,7 @@ return {
                 "sql",
                 "go",
                 "javascript",
+                "vue",
                 "html",
                 "jsdoc",
                 "json",

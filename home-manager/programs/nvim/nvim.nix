@@ -24,11 +24,16 @@
 
       extraPackages = with pkgs; [
 
+        luajitPackages.luarocks
+        lua51Packages.lua
+
         websocat
 
         ripgrep
         fd
         gcc
+        gnumake
+
 
         gdb
 
@@ -46,6 +51,7 @@
         nodePackages_latest.bash-language-server
         nodePackages_latest.svelte-language-server
         nodePackages_latest.typescript-language-server
+        vue-language-server
         nodePackages_latest.vscode-langservers-extracted
         python311Packages.pylsp-rope
         python311Packages.python-lsp-ruff
@@ -55,9 +61,8 @@
         ruff
         rust-analyzer
         typescript
-        typst-lsp
+        # typst-lsp
         tinymist
-        typst-preview
         typstfmt
         typstyle
         zls

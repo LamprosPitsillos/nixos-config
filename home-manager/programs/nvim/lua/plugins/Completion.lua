@@ -1,6 +1,57 @@
 return {
     {
+        "max397574/care.nvim",
+        enabled = true,
+        opts = {
+            ui = {
+                ghost_text = {
+                    enabled = false,
+                    position = "overlay",
+                },
+            },
+        },
+        config = function(_, opts)
+            require("care").setup(opts)
+
+            vim.keymap.set({ "i", "s" }, "<c-l>", function()
+                vim.snippet.jump(1)
+            end)
+            vim.keymap.set({ "i", "s" }, "<c-h>", function()
+                vim.snippet.jump(-1)
+            end)
+            vim.keymap.set({ "i", }, "<c-space>", function()
+                require("care").api.complete()
+            end)
+
+            vim.keymap.set({ "i" }, "<c-y>", "<Plug>(CareConfirm)")
+
+
+            vim.keymap.set({ "i" }, "<c-e>", "<Plug>(CareClose)")
+
+            vim.keymap.set({ "i" }, "<c-j>", "<Plug>(CareSelectNext)")
+            vim.keymap.set({ "i" }, "<c-k>", "<Plug>(CareSelectPrev)")
+            vim.keymap.set({ "i" }, "<c-f>", function()
+                if require("care").api.doc_is_open() then
+                    require("care").api.scroll_docs(4)
+                else
+                    vim.api.nvim_feedkeys(vim.keycode("<c-f>"), "n", false)
+                end
+            end)
+
+            vim.keymap.set({ "i" }, "<c-d>", function()
+                if require("care").api.doc_is_open() then
+                    require("care").api.scroll_docs(-4)
+                else
+                    vim.api.nvim_feedkeys(vim.keycode("<c-f>"), "n", false)
+                end
+            end)
+        end,
+    },
+    {
         "hrsh7th/nvim-cmp",
+        -- "yioneko/nvim-cmp",
+        -- branch = "perf",
+        enabled = false,
         -- load cmp on InsertEnter
         event = { "InsertEnter", "CmdlineEnter" },
         -- these dependencies will only be loaded when cmp loads

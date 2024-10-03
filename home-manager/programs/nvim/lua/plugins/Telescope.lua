@@ -14,7 +14,6 @@ return {
             { "nvim-telescope/telescope-symbols.nvim" },
             { "nvim-telescope/telescope-fzf-native.nvim",                             build = "make" },
             { "Marskey/telescope-sg" },
-            { "debugloop/telescope-undo.nvim", },
             { "catgoose/telescope-helpgrep.nvim" }
 
         },
@@ -81,30 +80,6 @@ return {
                     -- buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
                 },
                 extensions = {
-                    undo = {
-                        use_delta = true,
-                        use_custom_command = nil, -- setting this implies `use_delta = false`. Accepted format is: { "bash", "-c", "echo '$DIFF' | delta" }
-                        side_by_side = true,
-                        -- layout_strategy = "horizontal",
-                        -- layout_config = {
-                        --     preview_height = 0.8,
-                        -- },
-                        diff_context_lines = vim.o.scrolloff,
-                        entry_format = "state #$ID, $STAT, $TIME",
-                        time_format = "",
-                        mappings = {
-                            i = {
-                                -- IMPORTANT: Note that telescope-undo must be available when telescope is configured if
-                                -- you want to replicate these defaults and use the following actions. This means
-                                -- installing as a dependency of telescope in it's `requirements` and loading this
-                                -- extension from there instead of having the separate plugin definition as outlined
-                                -- above.
-                                ["<cr>"] = require("telescope-undo.actions").yank_additions,
-                                ["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
-                                ["<C-cr>"] = require("telescope-undo.actions").restore,
-                            },
-                        },
-                    },
                     ast_grep = {
                         command = {
                             "ast-grep",
@@ -211,7 +186,6 @@ return {
             require("telescope").load_extension("file_browser")
             require("telescope").load_extension("zoxide")
             require("telescope").load_extension("luasnip")
-            require("telescope").load_extension("undo")
             require("telescope").load_extension("helpgrep")
             -- require("telescope._extensions.zoxide.config").setup({
             --     mappings = {

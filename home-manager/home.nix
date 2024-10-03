@@ -76,6 +76,7 @@
     theme = ''wallust theme $(wallust theme --help | rg "possible values:" | sed -e "s/.*possible values:\(.*\)]/\1/" | tr , "\n" |fzf)'';
   };
 
+  services.glance = {enable= false;};
 
   programs.bat = {
     enable = true;

@@ -32,10 +32,10 @@
         nvidiaBusId = "PCI:1:0:0";
       };
     };
-    opengl = {
+    graphics = {
       enable = true;
-      driSupport32Bit = true;
-      driSupport = true;
+      enable32Bit = true;
+      # driSupport = true;
       extraPackages = with pkgs; [
         intel-media-driver
         vaapiVdpau

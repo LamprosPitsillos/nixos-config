@@ -90,6 +90,14 @@
     escapeTime = 0;
     historyLimit = 100000;
     mouse = true;
+        plugins= [
+
+                 {
+                   plugin = pkgs.tmuxPlugins.resurrect;
+                   extraConfig = "set -g @resurrect-strategy-nvim 'session'";
+                 }
+
+        ];
 
     extraConfig =
       /*
@@ -125,6 +133,7 @@
         #--------------------------------------------------------------------#
         #                              Keymaps                               #
         #--------------------------------------------------------------------#
+        bind t set-window-option synchronize-panes \; display "Synchronize panes"
         unbind S
         bind S source-file "$XDG_CONFIG_HOME/tmux/tmux.conf" \; display "Reloaded tmux conf"
 

@@ -7,6 +7,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # NOTE: This will require your git SSH access to the repo.
+    #
+    # WARNING: Do NOT pin the `nixpkgs` input, as that will
+    # declare the cache useless. If you do, you will have
+    # to compile LLVM, Zig and Ghostty itself on your machine,
+    # which will take a very very long time.
+    ghostty = {
+      url = "git+ssh://git@github.com/ghostty-org/ghostty";
+      # inputs.nixpkgs-stable.follows = "nixpkgs";
+      # inputs.nixpkgs-unstable.follows = "nixpkgs";
+    };
+
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";

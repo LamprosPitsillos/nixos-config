@@ -4,8 +4,8 @@ return {
 
         event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         dependencies = {
-            { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {}, },
-            "hrsh7th/cmp-nvim-lsp"
+            -- { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {}, },
+            -- "hrsh7th/cmp-nvim-lsp"
         },
         config = function()
             local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -14,46 +14,7 @@ return {
                 lineFoldingOnly = true
             }
 
-            capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
-            require("typescript-tools").setup {
-                capabilities = capabilities,
-                settings = {
-                    -- spawn additional tsserver instance to calculate diagnostics on it
-                    separate_diagnostic_server = true,
-                    -- "change"|"insert_leave" determine when the client asks the server about diagnostic
-                    publish_diagnostic_on = "change",
-                    -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
-                    -- "remove_unused_imports"|"organize_imports") -- or string "all"
-                    -- to include all supported code actions
-                    -- specify commands exposed as code_actions
-                    expose_as_code_action = {},
-                    -- string|nil - specify a custom path to `tsserver.js` file, if this is nil or file under path
-                    -- not exists then standard path resolution strategy is applied
-                    tsserver_path = nil,
-                    -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
-                    -- (see 💅 `styled-components` support section)
-                    tsserver_plugins = {},
-                    -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
-                    -- memory limit in megabytes or "auto"(basically no limit)
-                    tsserver_max_memory = "auto",
-                    -- described below
-                    tsserver_format_options = {},
-                    tsserver_file_preferences = {},
-                    -- locale of all tsserver messages, supported locales you can find here:
-                    -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
-                    tsserver_locale = "en",
-                    -- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
-                    complete_function_calls = true,
-                    include_completions_with_insert_text = true,
-                    -- CodeLens
-                    -- possible values: ("off"|"all"|"implementations_only"|"references_only")
-                    code_lens = "off",
-                    -- by default code lenses are displayed on all referencable values and for some of you it can
-                    -- be too much this option reduce count of them by removing member references from lenses
-                    disable_member_code_lens = true,
-                },
-            }
+            -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
             local border = {
                 { "╭", "FloatBorder" },
@@ -97,6 +58,7 @@ return {
                 ruff = {},
                 phpactor = {},
                 dotls = {},
+                volar = {},
                 pylsp = {
                     settings = {
                         pylsp = {
@@ -155,54 +117,23 @@ return {
                         "--fallback-style=llvm",
                     },
                 },
-                omnisharp = {
-                    cmd = { "OmniSharp" },
-
-                    settings = {
-                        FormattingOptions = {
-                            -- Enables support for reading code style, naming convention and analyzer
-                            -- settings from .editorconfig.
-                            EnableEditorConfigSupport = true,
-                            -- Specifies whether 'using' directives should be grouped and sorted during
-                            -- document formatting.
-                            OrganizeImports = nil,
-                        },
-                        MsBuild = {
-                            -- If true, MSBuild project system will only load projects for files that
-                            -- were opened in the editor. This setting is useful for big C# codebases
-                            -- and allows for faster initialization of code navigation features only
-                            -- for projects that are relevant to code that is being edited. With this
-                            -- setting enabled OmniSharp may load fewer projects and may thus display
-                            -- incomplete reference lists for symbols.
-                            LoadProjectsOnDemand = nil,
-                        },
-                        RoslynExtensionsOptions = {
-                            -- Enables support for roslyn analyzers, code fixes and rulesets.
-                            EnableAnalyzersSupport = nil,
-                            -- Enables support for showing unimported types and unimported extension
-                            -- methods in completion lists. When committed, the appropriate using
-                            -- directive will be added at the top of the current file. This option can
-                            -- have a negative impact on initial completion responsiveness,
-                            -- particularly for the first few completion sessions after opening a
-                            -- solution.
-                            EnableImportCompletion = nil,
-                            -- Only run analyzers against open files when 'enableRoslynAnalyzers' is
-                            -- true
-                            AnalyzeOpenDocumentsOnly = nil,
-                        },
-                        Sdk = {
-                            -- Specifies whether to include preview versions of the .NET SDK when
-                            -- determining which version to use for project loading.
-                            IncludePrereleases = true,
-                        },
-                    },
-
-                },
-
                 tailwindcss = {
-                    filetypes = { "javascriptreact", "typescriptreact" }
+                    filetypes = { "vue","javascriptreact", "typescriptreact" }
                 },
                 texlab = {},
+                ts_ls = {
+                    init_options = {
+                        hostInfo = "neovim",
+                        plugins = {
+                            {
+                                name = '@vue/typescript-plugin',
+                                location = vim.fn.exepath("vue-language-server") .. '/../../lib/node_modules/@vue/language-server',
+                                languages = { 'typescript', 'javascript' ,'vue' },
+                            },
+                        },
+                    },
+                    filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+                },
                 svelte = {},
                 marksman = {},
                 lua_ls = {
@@ -221,6 +152,7 @@ return {
 
             for name, prop in pairs(servers) do
                 lsp[name].setup({
+                    init_options = prop.init_options,
                     on_attach = prop.on_attach,
                     capabilities = capabilities,
                     cmd = prop.cmd,

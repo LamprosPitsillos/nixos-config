@@ -121,6 +121,14 @@
       alsa.support32Bit = true;
       pulse.enable = true;
       wireplumber = {
+        enable = true;
+                extraConfig = {
+                    "10-disable-camera" = {
+                        "wireplumber.profiles" = {
+                            main."monitor.libcamera" = "disabled";
+                        };
+                    };
+                };
         configPackages = [
           (
             pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua"

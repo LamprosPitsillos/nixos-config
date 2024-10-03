@@ -19,6 +19,8 @@
   virtualisation.podman = {
     enable = true;
   };
+
+  virtualisation.waydroid.enable = true;
   virtualisation.oci-containers.backend = "docker";
 
   documentation = {
@@ -145,7 +147,7 @@
 
       # linuxKernel.packages.linux_6_4.perf
       inkscape
-      transmission-gtk
+      transmission_4-gtk
       tesseract
       neovide
       # gtklock
@@ -234,7 +236,7 @@
 
       ### AI
       # https://github.com/NixOS/nixpkgs/pull/281048/files
-      rclip
+      # rclip
       # (openai-whisper-cpp.override { cudaSupport = true; })
       # realesrgan-ncnn-vulkan
       # (ollama.override { acceleration = "cuda" ;})
@@ -268,6 +270,7 @@
     portal.enable = true;
     portal.extraPortals = [
       pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-hyprland
     ];
     mime = {
       enable = true;
@@ -309,13 +312,15 @@
        env.ANT_ARGS = "-DappletClassSource=8 -DappletClassTarget=8 -DclassSource=8 -DclassTarget=8";
     })
 
+    # inputs.ghostty.packages.x86_64-linux.default
+
     tenki
     # freecad
     radare2
     iaito
 
     geogebra
-
+    mongodb-compass
     bottom
 
     libnotify

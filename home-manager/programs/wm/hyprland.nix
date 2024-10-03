@@ -66,7 +66,7 @@
         general {
             # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
-            cursor_inactive_timeout = 5
+            # cursor_inactive_timeout = 5
 
             gaps_in = 3
             gaps_out = 10
@@ -77,9 +77,9 @@
             col.inactive_border = rgba(595959AA)
             layout = dwindle
         }
-        # cursor {
-        #     inactive_timeout = 5
-        # }
+        cursor {
+            inactive_timeout = 5
+        }
         group {
 
                 col.border_active = rgba(FFB53AEE) rgba(EF990EEE) 45deg
@@ -154,7 +154,7 @@
 
         master {
             # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-            new_is_master = true
+            # new_is_master = true
             special_scale_factor = 0.8
 
 
@@ -191,13 +191,13 @@
 
 
         # Example windowrule v2
-        windowrulev2 = fakefullscreen,workspace special:music_player,class:^(mpv)$
+        windowrulev2 = fullscreenstate 2,workspace special:music_player,class:^(mpv)$
 
         # windowrulev2 = nomaximizerequest,class:^(mpv)$
         windowrulev2 = suppressevent maximize,class:^(mpv)$
         windowrulev2 = float,class:^(qalculate-gtk)$
 
-        windowrulev2 = fakefullscreen,class:^(firefox-typst-preview)$
+        windowrulev2 = fullscreenstate 2,class:^(firefox-typst-preview)$
         windowrulev2 = float,class:nm-connection-editor
         # windowrulev2 = workspace +1 ,onworkspace:1,workspace special:music_player
         windowrulev2 = pin,class:swappy
@@ -237,7 +237,7 @@
         bind = $mainMod, M , exec, ${scripts.scratchpad} music_player "kitty ${system_scripts.mpv_music_player}"
         bind = $mainMod, T, togglefloating,
         bind = $mainMod, F , fullscreen,0
-        bind = $mainMod SHIFT, F, fakefullscreen,
+        bind = $mainMod SHIFT, F, fullscreenstate,0 2
         bind = $mainMod, space, exec, $( tofi-drun --auto-accept-single=true )
         bind = $mainMod, P, pseudo
         bind = $mainMod, s,layoutmsg, togglesplit
