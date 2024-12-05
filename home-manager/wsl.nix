@@ -13,9 +13,6 @@
     ./programs/nvim/nvim.nix
   ];
 
-  nixpkgs.overlays = [
-    (final: prev: { nerdfonts = prev.nerdfonts.override { fonts = [ "JetBrainsMono" "Lekton" "Mononoki" ]; }; })
-  ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "dev-wsl";

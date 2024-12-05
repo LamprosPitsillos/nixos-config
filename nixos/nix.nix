@@ -98,7 +98,6 @@ in
     };
 
     overlays = [
-      (final: prev: { nerdfonts = prev.nerdfonts.override { fonts = [ "JetBrainsMono" "Lekton" "Mononoki" ]; }; })
       (final: prev: { qutebrowser = prev.qutebrowser.override { enableWideVine = true; }; })
       (final: prev: { nwg-displays = prev.nwg-displays.override { hyprlandSupport = true; }; })
     ];

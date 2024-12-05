@@ -28,9 +28,6 @@
     ./programs/nvim/nvim.nix
   ];
 
-  nixpkgs.overlays = [
-    (final: prev: { nerdfonts = prev.nerdfonts.override { fonts = [ "JetBrainsMono" "Lekton" "Mononoki" ]; }; })
-  ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "inferno";
@@ -117,6 +114,7 @@
     freetube
 
     drawing
+        insomnia
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

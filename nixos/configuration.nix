@@ -51,6 +51,9 @@
   # Define on which hard drive you want to install Grub.
 
   networking.hostName = "infernoPC"; # Define your hostname.
+  networking.extraHosts = ''
+              127.0.0.1   serve.maestro.test react.maestro.test maestro.test
+  '';
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
@@ -129,7 +132,7 @@
 
       delta
       docker-compose
-      calibre
+      # calibre
       easyeffects
 
       graphviz
@@ -328,7 +331,7 @@
     vimix-icon-theme
     ripgrep
     ripgrep-all
-    qt5ct
+    libsForQt5.qt5ct
     fzf
     ripdrag
     xcb-util-cursor
@@ -370,7 +373,7 @@
   };
 
   fonts = {
-    packages = [ pkgs.nerdfonts ];
+    packages = [ pkgs.nerd-fonts.jetbrains-mono ];
   };
   # programs.zsh.enable = true;
   programs.fish.enable= true;

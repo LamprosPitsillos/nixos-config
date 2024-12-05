@@ -98,11 +98,12 @@
 
             rounding = 4
 
-            drop_shadow = true
-            shadow_range = 6
-            shadow_render_power = 3
-            col.shadow = rgba(1A1A1AEE)
-
+          shadow {
+              enabled = true
+              range = 6
+              render_power = 3
+              color = rgba(1A1A1AEE)
+          }
             blur {
 
                 special = true

@@ -3,10 +3,7 @@ return {
         "neovim/nvim-lspconfig",
 
         event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-        dependencies = {
-            -- { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {}, },
-            -- "hrsh7th/cmp-nvim-lsp"
-        },
+        dependencies = { 'saghen/blink.cmp' },
         config = function()
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.foldingRange = {
@@ -15,7 +12,6 @@ return {
             }
 
             -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
             local border = {
                 { "╭", "FloatBorder" },
                 { "─", "FloatBorder" },
@@ -118,7 +114,7 @@ return {
                     },
                 },
                 tailwindcss = {
-                    filetypes = { "vue","javascriptreact", "typescriptreact" }
+                    filetypes = { "vue", "javascriptreact", "typescriptreact" }
                 },
                 texlab = {},
                 ts_ls = {
@@ -127,8 +123,9 @@ return {
                         plugins = {
                             {
                                 name = '@vue/typescript-plugin',
-                                location = vim.fn.exepath("vue-language-server") .. '/../../lib/node_modules/@vue/language-server',
-                                languages = { 'typescript', 'javascript' ,'vue' },
+                                location = vim.fn.exepath("vue-language-server") ..
+                                    '/../../lib/node_modules/@vue/language-server',
+                                languages = { 'typescript', 'javascript', 'vue' },
                             },
                         },
                     },
@@ -150,14 +147,15 @@ return {
                 },
             }
 
-            for name, prop in pairs(servers) do
+            for name, config in pairs(servers) do
+                capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
                 lsp[name].setup({
-                    init_options = prop.init_options,
-                    on_attach = prop.on_attach,
+                    init_options = config.init_options,
+                    on_attach = config.on_attach,
                     capabilities = capabilities,
-                    cmd = prop.cmd,
-                    filetypes = prop.filetypes,
-                    settings = prop.settings
+                    cmd = config.cmd,
+                    filetypes = config.filetypes,
+                    settings = config.settings
                 })
             end
             vim.api.nvim_create_autocmd("LspAttach", {
