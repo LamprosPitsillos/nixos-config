@@ -1,6 +1,20 @@
 return {
 
     {
+        "danymat/neogen",
+        keys = {
+            { "<leader>cdc", ":lua require('neogen').generate({ type = 'class' })<CR>",    desc = "[c]ode [d]ocument [c]lass" },
+            { "<leader>cdf", ":lua require('neogen').generate({ type = 'func' })<CR>", desc = "[c]ode [d]ocument [f]unction" },
+            { "<leader>cdt", ":lua require('neogen').generate({ type = 'type' })<CR>",     desc = "[c]ode [d]ocument [t]ype" },
+        },
+        opts = {
+            snippet_engine = "luasnip"
+        },
+        config = true,
+        -- Uncomment next line if you want to follow only stable versions
+        -- version = "*"
+    },
+    {
         "ethanholz/nvim-lastplace",
         opts = {
             lastplace_ignore_buftype = { "quickfix", "nofile", "help", "prompt" },

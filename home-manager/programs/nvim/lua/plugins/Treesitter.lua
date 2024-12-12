@@ -123,9 +123,8 @@ return {
                 enable = true, disable = { "python" }
             },
             ensure_installed = {
-                "norg","norg_meta",
                 "hyprlang",
-                "bash","tmux",
+                "bash", "tmux",
                 "c",
                 "cmake",
                 "cpp",
@@ -135,10 +134,11 @@ return {
                 "go",
                 "javascript",
                 "html",
+                "php","php_only",
                 "jsdoc",
                 "json",
                 "lua",
-                "markdown", "markdown_inline","typst",
+                "markdown", "markdown_inline", "typst",
                 "nix",
                 "prisma",
                 "python",
@@ -167,6 +167,16 @@ return {
         },
         config = function(_, opts)
             require("nvim-treesitter.configs").setup(opts)
+
+            local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+            parser_config.blade = {
+                install_info = {
+                    url = "https://github.com/EmranMR/tree-sitter-blade",
+                    files = { "src/parser.c" },
+                    branch = "main",
+                },
+                filetype = "blade"
+            }
         end,
     }
     , {
@@ -208,9 +218,9 @@ return {
         -- [!] The options below are exposed but shouldn't require your attention,
         --     you can safely ignore them.
 
-        zindex = 20,     -- The Z-index of the context window
+        zindex = 20,      -- The Z-index of the context window
         mode = "topline", -- Line used to calculate context. Choices: 'cursor', 'topline'
-        separator = nil, -- Separator between context and content. Should be a single character string, like '-'.
+        separator = nil,  -- Separator between context and content. Should be a single character string, like '-'.
     }
 },
 }

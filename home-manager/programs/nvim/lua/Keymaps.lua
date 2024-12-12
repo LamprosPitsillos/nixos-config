@@ -169,6 +169,7 @@ M.nmap("<leader>se", toCursor([[/\<{}\>]]), { desc = "search exact" })
 
 -- Quality of Life >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 -- M.nmap("<leader>sc","<cmd>nohl<cr>",{desc="Clear screen"})
+M.nmap("gcp", "yygccp", {desc="Duplicate and Comment"})
 M.vmap("x", [["_d]], {})
 -- M.vmap("p", [["_dhp]], {})
 M.vmap("y", "y`]", { desc = "yank" })
@@ -210,5 +211,8 @@ vim.keymap.set("n", "<F11>", function()
     vim.opt.spell = not vim.opt.spell:get()
 end, { desc = "enable spelling" })
 
+
+-- Should make something to make this easier, this is awesome
+-- '<,'>s/\%V name:"\zs\(\w\+\)\ze"/\=substitute(submatch(1),'_',' ','g')
 
 return M

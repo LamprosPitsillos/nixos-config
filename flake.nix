@@ -1,6 +1,7 @@
 {
   description = "NixOS Config flake";
   inputs = {
+
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -11,7 +12,7 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
     # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
     ags.url = "github:Aylur/ags";
@@ -49,7 +50,16 @@
       };
       "nixosWSL" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = {
+          inherit system;
+          inherit inputs;
+        };
         modules = [
+        inputs.vscode-server.nixosModules.default
+        ({ config, pkgs, ... }: {
+          services.vscode-server.enable = true;
+        })
+          ./nixos/wsl-configuration.nix
           nixos-wsl.nixosModules.default
           {
             system.stateVersion = "24.05";

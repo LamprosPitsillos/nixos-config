@@ -23,6 +23,8 @@
       viAlias = true;
 
       extraPackages = with pkgs; [
+        luajitPackages.luarocks
+        lua51Packages.lua
 
         websocat
 
@@ -46,6 +48,8 @@
         nodePackages_latest.bash-language-server
         nodePackages_latest.svelte-language-server
         nodePackages_latest.typescript-language-server
+        nodePackages_latest.volar
+        # nodePackages_latest.vls
         nodePackages_latest.vscode-langservers-extracted
         python311Packages.pylsp-rope
         python311Packages.python-lsp-ruff

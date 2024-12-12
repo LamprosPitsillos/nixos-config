@@ -8,9 +8,9 @@ return {
                 ['typst-preview'] = 'typst-preview',
                 ['websocat'] = 'websocat'
             },
-            invert_colors = "auto",
+            -- invert_colors = "auto",
             debug = false,
-            open_cmd = "qutebrowser %s --target window ",
+            open_cmd = "firefox %s ",
         },
     }
 }

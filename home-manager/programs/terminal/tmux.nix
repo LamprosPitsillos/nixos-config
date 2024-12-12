@@ -90,7 +90,12 @@
     escapeTime = 0;
     historyLimit = 100000;
     mouse = true;
-
+    plugins = with pkgs; [
+            {
+                    plugin = tmuxPlugins.resurrect;
+                    extraConfig = "set -g @resurrect-strategy-nvim 'session'";
+            }
+        ];
     extraConfig =
       /*
       tmux

@@ -239,6 +239,7 @@ return {
     }
     , {
     "folke/twilight.nvim",
+    enabled = false,
     dev = true,
     opts = {
         -- your configuration comes here

@@ -2,7 +2,20 @@ vim.opt.title = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.clipboard = "unnamed"
+-- vim.opt.clipboard = "unnamed"
+
+vim.g.clipboard = {
+    name = 'WslClipboard',
+    copy = {
+        ['+'] = 'clip.exe',
+        ['*'] = 'clip.exe',
+    },
+    paste = {
+        ['+'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+        ['*'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    },
+    cache_enabled = 0,
+}
 vim.opt.cmdheight = 1
 vim.opt.compatible = false
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
@@ -27,7 +40,7 @@ vim.opt.splitright = true
 vim.opt.splitkeep = "screen"
 vim.opt.swapfile = false
 vim.opt.termguicolors = true
-vim.opt.undodir = "/home/inferno/.cache/nvim/undodir"
+vim.opt.undodir = vim.env.XDG_CACHE_HOME .. "/nvim/undodir"
 vim.opt.undofile = true
 vim.opt.wrap = false
 vim.opt.diffopt:append("linematch:60")
@@ -39,6 +52,12 @@ vim.opt.listchars:append("space:~")
 -- vim.o.foldcolumn = '1'
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
+
+vim.filetype.add({
+    pattern = {
+        ['.*%.blade%.php'] = 'blade',
+    },
+})
 
 vim.cmd.iabbr({ args = { "cosnt", "const" } })
 vim.cmd.iabbr({ args = { "csnt", "const" } })
