@@ -232,7 +232,7 @@
         cd_title = "Change directory:";
         create_offset = [0 2 50 3];
         create_origin = "top-center";
-        create_title = "Create:";
+        create_title = ["Create:" "Create (dir):"];
         delete_offset = [0 2 50 3];
         delete_origin = "top-center";
         delete_title = "Delete {n} selected file{s} permanently? (y/N)";

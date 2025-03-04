@@ -5,7 +5,7 @@ return {
         ft = 'typst',
         opts = {
             dependencies_bin = {
-                ['typst-preview'] = 'typst-preview',
+                ['tinymist'] = 'tinymist',
                 ['websocat'] = 'websocat'
             },
             invert_colors = "auto",

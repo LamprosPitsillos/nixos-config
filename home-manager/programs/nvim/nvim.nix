@@ -54,11 +54,10 @@
         vue-language-server
         nodePackages_latest.vscode-langservers-extracted
         python311Packages.pylsp-rope
-        python311Packages.python-lsp-ruff
+        # python311Packages.python-lsp-ruff
         python311Packages.python-lsp-server
         quick-lint-js
         dot-language-server
-        ruff
         rust-analyzer
         typescript
         # typst-lsp

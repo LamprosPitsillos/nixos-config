@@ -27,7 +27,7 @@ vim.opt.splitright = true
 vim.opt.splitkeep = "screen"
 vim.opt.swapfile = false
 vim.opt.termguicolors = true
-vim.opt.undodir = "/home/inferno/.cache/nvim/undodir"
+vim.opt.undodir = vim.fn.stdpath("cache") .. "/undodir"
 vim.opt.undofile = true
 vim.opt.wrap = false
 vim.opt.diffopt:append("linematch:60")

@@ -7,9 +7,9 @@
   imports = [
     ./programs/tofi/tofi.nix
     ./programs/starship/starship.nix
-    # ./programs/widgets/ags/ags.nix
+    ./programs/widgets/ags/ags.nix
     ./programs/widgets/eww/eww.nix
-    ./programs/shell/zsh.nix
+    # ./programs/shell/zsh.nix
     ./programs/shell/fish.nix
     # ./programs/shell/nush.nix
     ./programs/wm/hyprland.nix
@@ -20,10 +20,11 @@
     ./programs/file_manager/yazi.nix
     ./programs/zathura/zathura.nix
     ./programs/terminal/kitty.nix
+    ./programs/terminal/ghostty.nix
     # ./programs/terminal/alacritty.nix
-    ./programs/terminal/wezterm.nix
+    # ./programs/terminal/wezterm.nix
     ./programs/vcs/git.nix
-    ./programs/vcs/jujutsu.nix
+    # ./programs/vcs/jujutsu.nix
     ./programs/terminal/tmux.nix
     ./programs/nvim/nvim.nix
   ];
@@ -111,10 +112,9 @@
   # environment.
   home.packages = with pkgs; [
 
-    freetube
 
     drawing
-        insomnia
+    insomnia
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

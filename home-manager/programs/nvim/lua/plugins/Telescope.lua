@@ -10,7 +10,7 @@ return {
             -- { "nvim-telescope/telescope-ui-select.nvim" },
             { "jvgrootveld/telescope-zoxide" },
             { "nvim-telescope/telescope-file-browser.nvim" --[[ branch="feat/tree" ]] },
-           { "benfowler/telescope-luasnip.nvim" },
+            { "benfowler/telescope-luasnip.nvim" },
             { "nvim-telescope/telescope-symbols.nvim" },
             { "nvim-telescope/telescope-fzf-native.nvim",                             build = "make" },
             { "Marskey/telescope-sg" },
@@ -207,10 +207,17 @@ return {
             local telescope = require("telescope.builtin")
 
             map_utils.nmap("<leader>nc", function()
+                local nixos = vim.env.NIXOS_CONFIG_PATH
+                local conf_path
+                if nixos then
+                    conf_path = nixos .. "/home-manager/programs/nvim/lua/plugins"
+                else
+                    conf_path = vim.fn.stdpath("config") .. "/lua/plugins"
+                end
                 require("telescope").extensions.file_browser.file_browser(
                     {
                         prompt_title = "NEOVIM",
-                        path = "/home/inferno/.nixos-config/home-manager/programs/nvim/lua/plugins",
+                        path = conf_path,
                         hidden = true,
                         -- hide_parent_dir = true
                     }

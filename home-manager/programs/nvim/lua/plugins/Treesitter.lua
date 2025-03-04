@@ -139,6 +139,7 @@ return {
                 "jsdoc",
                 "json",
                 "lua",
+                "php","php_only",
                 "markdown", "markdown_inline","typst",
                 "nix",
                 "prisma",

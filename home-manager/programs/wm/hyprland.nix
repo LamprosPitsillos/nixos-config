@@ -41,7 +41,7 @@
         disable_hyprland_logo = true
         enable_swallow=true
         animate_manual_resizes=false
-        swallow_regex=^(kitty)$
+        swallow_regex=^(ghostty)$
         }
         # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
         input {
@@ -214,9 +214,9 @@
         $mainMod = SUPER
 
         # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-        bind = $mainMod,return, exec, kitty
+        bind = $mainMod,return, exec, ghostty
         #bind = $mainMod, period , exec,[workspace special:terminal] kitty
-        bind = $mainMod, period , exec, ${scripts.scratchpad} terminal "kitty "
+        bind = $mainMod, period , exec, ${scripts.scratchpad} terminal "ghostty "
         bind =,Menu ,exec, hyprctl switchxkblayout kanata next
         bind =,Print ,exec, ${system_scripts.screen_shot} full
         bind = SHIFT,Print ,exec, ${system_scripts.screen_shot} area
@@ -234,8 +234,8 @@
         bind = $mainMod ALT, X, exec , eww open --toggle bar && eww open --toggle powermenu
         bind = $mainMod SHIFT, q, exit,
         bind = $mainMod, E, exec, thunar
-        bind = $mainMod, comma , exec, ${scripts.scratchpad} file_manager "kitty --class file_manager ${pkgs.yazi}/bin/yazi"
-        bind = $mainMod, M , exec, ${scripts.scratchpad} music_player "kitty ${system_scripts.mpv_music_player}"
+        bind = $mainMod, comma , exec, ${scripts.scratchpad} file_manager "ghostty --class file_manager ${pkgs.yazi}/bin/yazi"
+        bind = $mainMod, M , exec, ${scripts.scratchpad} music_player "ghostty ${system_scripts.mpv_music_player}"
         bind = $mainMod, T, togglefloating,
         bind = $mainMod, F , fullscreen,0
         bind = $mainMod SHIFT, F, fullscreenstate,0 2

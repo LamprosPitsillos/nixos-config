@@ -155,7 +155,7 @@
       neovide
       # gtklock
       # Displays
-      nwg-displays
+      # nwg-displays
       # Screenshot - Screenrecord
       grim
       slurp
@@ -168,6 +168,7 @@
       ripdrag
       brightnessctl
       hyprpaper
+      hyprpolkitagent
       hyprpicker
 
       # Networking
@@ -218,7 +219,7 @@
 
       # Media Editing
       darktable
-      hugin
+      # hugin # Panorama creator
       gimp
 
       xplr
@@ -228,7 +229,7 @@
       # File System Managment
       xfce.thunar
       xfce.thunar-volman
-      swaynotificationcenter
+      # swaynotificationcenter
       ncdu
       dust
       yazi
@@ -314,8 +315,6 @@
     (sweethome3d.application.overrideAttrs {
        env.ANT_ARGS = "-DappletClassSource=8 -DappletClassTarget=8 -DclassSource=8 -DclassTarget=8";
     })
-
-    # inputs.ghostty.packages.x86_64-linux.default
 
     tenki
     # freecad

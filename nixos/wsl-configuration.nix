@@ -9,6 +9,15 @@
     ./nix.nix
   ];
 
+  networking.extraHosts = ''
+              127.0.0.1   serve.maestro.test react.maestro.test maestro.test
+  '';
+
+  wsl.defaultUser = "dev-wsl";
+  virtualisation.docker = {
+        enabled = true;
+  };
+
   environment.pathsToLink = [ "/share/fish" ];
 
   documentation = {
@@ -136,6 +145,7 @@
     ripgrep-all
     fzf
     ripdrag
+    docker-compose
 
     xdg-user-dirs
     git

@@ -15,7 +15,7 @@
     	# characters not in the chosen font will fail to render.
     	#
     	# Otherwise, fonts are interpreted in Pango format.
-        font = "${pkgs.nerd-fonts.jetbrains-mono}/share/fonts/truetype/NerdFonts/JetBrainsMonoNerdFont-Regular.ttf"
+        font = "${pkgs.nerd-fonts.jetbrains-mono}/share/fonts/truetype/NerdFonts/JetBrainsMono/JetBrainsMonoNerdFont-Regular.ttf"
 
     	# Point size of text.
     	font-size = 16
