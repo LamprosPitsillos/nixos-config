@@ -46,7 +46,6 @@
         lua-language-server
         marksman
         nil
-        nodePackages_latest."@prisma/language-server"
         nodePackages_latest."@tailwindcss/language-server"
         nodePackages_latest.bash-language-server
         nodePackages_latest.svelte-language-server

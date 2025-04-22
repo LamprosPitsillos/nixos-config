@@ -10,7 +10,7 @@ return {
             -- { 'saghen/blink.compat', version = '*',   opts = { impersonate_nvim_cmp = true } }
         },
         -- use a release tag to download pre-built binaries
-        version = 'v0.*',
+        version = '*',
         -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
         -- build = 'cargo build --release',
         -- If you use nix, you can build from source using latest nightly rust with:
@@ -52,9 +52,9 @@ return {
                 default = { 'lsp', 'path', 'snippets', 'buffer' },
                 providers = {
                     snippets = {
-                        should_show_items = function(ctx)
-                            return ctx.trigger.initial_kind == ';'
-                        end
+                        -- should_show_items = function(ctx)
+                        --     return ctx.trigger.initial_kind == ';'
+                        -- end
                     }
                 }
             },

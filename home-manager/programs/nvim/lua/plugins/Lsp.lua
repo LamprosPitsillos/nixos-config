@@ -128,7 +128,7 @@ return {
                         },
                     },
                 },
-                ts_ls = {
+                -- ts_ls = {
                     -- init_options = {
                     --     hostInfo = "neovim",
                     --     plugins = {
@@ -141,7 +141,7 @@ return {
                     --     },
                     -- },
                     -- filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-                },
+                -- },
                 svelte = {},
                 marksman = {},
                 lua_ls = {

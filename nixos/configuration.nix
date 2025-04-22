@@ -124,7 +124,7 @@
       # steam
       rare
 
-      godot_4
+      # godot_4
       man-pages
       man-pages-posix
 
@@ -147,6 +147,9 @@
       numbat
 
       # hyprcursor
+
+      ## MicroControllers
+      # esptool
 
       # linuxKernel.packages.linux_6_4.perf
       inkscape

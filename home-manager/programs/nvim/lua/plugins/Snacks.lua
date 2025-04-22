@@ -44,7 +44,8 @@ return {
             formats = {
                 icon = function(item)
                     if item.file and item.icon == "file" or item.icon == "directory" then
-                        return M.icon(item.file, item.icon)
+                        local icon, hl = require('snacks').util.icon(item.file, item.icon)
+                        return { icon, width = 2, hl = hl }
                     end
                     return { item.icon, width = 2, hl = "icon" }
                 end,
@@ -68,8 +69,8 @@ return {
             },
             sections = {
                 { section = "header" },
-                { section = "keys", gap = 1, padding = 1 },
                 { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+                { section = "keys", gap = 1, padding = 1 },
                 { section = "startup" },
             },
         }

@@ -12,6 +12,8 @@
       # bind --mode insert \cj down-or-search
       bind --mode insert \ck history-prefix-search-backward
       bind --mode insert \cj history-prefix-search-forward
+      bind --mode insert \cy accept-autosuggestion
+
       function mkcd
         mkdir -p $argv[1] && cd ./$argv[1]
       end

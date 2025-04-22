@@ -4,6 +4,7 @@
     enableFishIntegration = true;
     settings = {
         window-decoration = false;
+        gtk-single-instance = true;
     };
   };
 }
