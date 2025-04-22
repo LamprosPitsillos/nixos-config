@@ -12,8 +12,14 @@
   networking.extraHosts = ''
               127.0.0.1   serve.maestro.test react.maestro.test maestro.test
   '';
-
-  wsl.defaultUser = "dev-wsl";
+# [interop]
+# appendWindowsPath=false
+  wsl = {
+        defaultUser = "dev-wsl";
+        wslConf = {
+            interop.appendWindowsPath = false;
+        };
+  };
   virtualisation.docker = {
         enabled = true;
   };
