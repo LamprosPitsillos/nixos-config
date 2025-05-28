@@ -1,6 +1,6 @@
 #!/bin/sh
 
-bat="/sys/class/power_supply/BAT1/"
+bat="/sys/class/power_supply/BAT0/"
 per="$(cat "$bat/capacity")"
 
 icon=""

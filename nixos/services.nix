@@ -6,19 +6,26 @@
   ...
 }: {
   systemd = {
-    user.services.polkit-gnome-authentication-agent-1 = {
-      description = "polkit-gnome-authentication-agent-1";
-      wantedBy = ["graphical-session.target"];
-      wants = ["graphical-session.target"];
-      after = ["graphical-session.target"];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
+    user.services = {
+      polkit-gnome-authentication-agent-1 = {
+        description = "polkit-gnome-authentication-agent-1";
+        wantedBy = ["graphical-session.target"];
+        wants = ["graphical-session.target"];
+        after = ["graphical-session.target"];
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          Restart = "on-failure";
+          RestartSec = 1;
+          TimeoutStopSec = 10;
+        };
       };
     };
+
+  services = {
+
+      "NetworkManager-wait-online".wantedBy = lib.mkForce [];
+        };
   };
   services = {
     upower = {
@@ -94,19 +101,16 @@
       };
     };
 
-      displayManager = {
-        sddm = {
-          enable = true;
-          autoNumlock = true;
-          theme = "chili";
-          extraPackages = with pkgs; [
-            elegant-sddm
-            sddm-chili-theme
-
-            libsForQt5.qt5.qtquickcontrols
-          ];
+    displayManager = {
+      enable = true;
+      ly = {
+        enable = true;
+        settings = {
+          vi_mode = true;
+          numlock = true;
         };
       };
+    };
     xserver = {
       enable = true;
       xkb = {
@@ -122,13 +126,13 @@
       pulse.enable = true;
       wireplumber = {
         enable = true;
-                extraConfig = {
-                    "10-disable-camera" = {
-                        "wireplumber.profiles" = {
-                            main."monitor.libcamera" = "disabled";
-                        };
-                    };
-                };
+        extraConfig = {
+          "10-disable-camera" = {
+            "wireplumber.profiles" = {
+              main."monitor.libcamera" = "disabled";
+            };
+          };
+        };
         configPackages = [
           (
             pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua"

@@ -1,7 +1,7 @@
 #!/usr/bin/env dash
 
-WIRELESS_DEV="wlp3s0"
-ETHERNET_DEV="enp4s0f1"
+WIRELESS_DEV="wlo1"
+ETHERNET_DEV="lo1"
 
 ETH="$(ip -o link show | rg "${ETHERNET_DEV}.*state UP")"
 WIFI="$(ip -o link show | rg "${WIRELESS_DEV}.*state UP"  )"
@@ -12,7 +12,7 @@ if [ -n "$ETH" ]; then
     echo "Ethernet"
 elif [ -n "$WIFI" ]; then
     # WIFI_SSID
-    iw dev $WIRELESS_DEV link | rg "SSID|signal" | cut -d: -f2 | paste -d ', ' - - 
+    iw dev $WIRELESS_DEV link | rg "SSID|signal" | cut -d: -f2 | paste -d ', ' - -
     # iw dev $WIRELESS_DEV link | rg "SSID" | cut -d: -f2
 fi
 
@@ -24,7 +24,7 @@ if [ -n "$ETH" ]; then
 elif [ -n "$WIFI" ]; then
 
     #HAS_INTERNET
-    ping -c 1 8.8.8.8 > /dev/null 
+    ping -c 1 8.8.8.8 > /dev/null
     HAS_INTERNET=$?
 
     SIGNAL_STRENGTH=$(iw dev $WIRELESS_DEV link | rg "signal" | cut -d: -f2 | sed 's/ dBm//' )
@@ -50,7 +50,7 @@ elif [ -n "$WIFI" ]; then
     else
         echo "󰤠"  # Signal Icon (Very Weak)
     fi
-        
+
     fi
 
 
@@ -64,7 +64,7 @@ fi
 #     get_info
 # elif [ "$1" = "icon" ];then
 #     get_icon
-#     
+#
 # fi
 
 jq -n --arg info "$(get_info)" --arg icon "$(get_icon)" '{info: $info, icon: $icon}'

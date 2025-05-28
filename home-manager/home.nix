@@ -19,7 +19,7 @@
     ./programs/qutebrowser/qutebrowser.nix
     ./programs/file_manager/yazi.nix
     ./programs/zathura/zathura.nix
-    ./programs/terminal/kitty.nix
+    # ./programs/terminal/kitty.nix
     ./programs/terminal/ghostty.nix
     # ./programs/terminal/alacritty.nix
     # ./programs/terminal/wezterm.nix
@@ -165,6 +165,19 @@
     tmux.enableShellIntegration = true;
   };
 
+    xdg.userDirs = {
+        enable= true;
+        createDirectories= true;
+        desktop = null;
+        templates = null;
+        publicShare = null;
+        pictures = "${config.home.homeDirectory}/pics";
+        videos = "${config.home.homeDirectory}/vids";
+        music = "${config.home.homeDirectory}/music";
+        documents = "${config.home.homeDirectory}/docs";
+        download = "${config.home.homeDirectory}/downs";
+
+    };
   xdg.configFile."neovide/config.toml" = {
     enable = true;
     text = /* toml */ ''

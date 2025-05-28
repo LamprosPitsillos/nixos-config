@@ -118,7 +118,7 @@ return {
                     filetypes = { "vue", "javascriptreact", "typescriptreact" }
                 },
                 texlab = {},
-                volar = {
+                vue_ls = {
                     -- add filetypes for typescript, javascript and vue
                     filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
                     init_options = {

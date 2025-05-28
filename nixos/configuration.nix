@@ -111,6 +111,10 @@
   };
   programs.wireshark.enable = true;
 
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs.xfce; [ thunar-archive-plugin thunar-volman ];
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.inferno = {
@@ -170,7 +174,6 @@
       tofi
       ripdrag
       brightnessctl
-      hyprpaper
       hyprpolkitagent
       hyprpicker
 
@@ -229,9 +232,6 @@
       libsForQt5.qtstyleplugins
       libsForQt5.qt5.qtwayland
 
-      # File System Managment
-      xfce.thunar
-      xfce.thunar-volman
       # swaynotificationcenter
       ncdu
       dust
@@ -337,8 +337,6 @@
     fzf
     ripdrag
     xcb-util-cursor
-
-    sddm-chili-theme
 
     ets
 

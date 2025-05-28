@@ -123,7 +123,7 @@ return {
                 enable = true, disable = { "python" }
             },
             ensure_installed = {
-                "norg","norg_meta",
+                "norg",
                 "hyprlang",
                 "bash","tmux",
                 "c",

@@ -1,5 +1,8 @@
 { pkgs,inputs, lib, ... }: {
 
+services.hyprpaper ={
+enable= true;
+    };
   wayland.windowManager.hyprland = {
     xwayland.enable = true;
 
@@ -23,11 +26,9 @@
         env = XCURSOR_SIZE,20
         env = _JAVA_OPTIONS,'-Dawt.useSystemAAFontSettings=lcd -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 
-        source = ~/.config/hypr/monitors.conf
 
-        exec-once =  hyprpaper &
-        exec-once =  swaync &
         exec-once = eww open bar &
+        exec-once = ghostty &
 
         # exec-once = ags &
         exec-once = hyprctl setcursor "Bibata-Modern-Ice" 8
@@ -283,8 +284,8 @@
         binde= ,XF86AudioLowerVolume, exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.0
         binde= ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 
-        binde= ,XF86MonBrightnessDown,exec,brightnessctl set 100- -q
-        binde= ,XF86MonBrightnessUp,exec,brightnessctl set 100+ -q
+        binde= ,XF86MonBrightnessDown,exec,brightnessctl set 50- -q
+        binde= ,XF86MonBrightnessUp,exec,brightnessctl set 50+ -q
 
         bindl=,XF86AudioPlay,exec,${system_scripts.mpv_controller} toggle
         bindl=,XF86AudioPrev,exec,${system_scripts.mpv_controller} prev
