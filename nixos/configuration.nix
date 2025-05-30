@@ -119,7 +119,7 @@
       # steam
       rare
 
-      godot_4
+      # godot_4
       man-pages
       man-pages-posix
 

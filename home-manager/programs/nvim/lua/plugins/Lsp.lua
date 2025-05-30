@@ -34,6 +34,7 @@ return {
                     -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
                     -- (see 💅 `styled-components` support section)
                     tsserver_plugins = {
+                        '@vue/typescript-plugin',
                         -- {
                         --     name = '@vue/typescript-plugin',
                         --     location = vim.fn.exepath("vue-language-server"),
@@ -104,10 +105,21 @@ return {
 
                 volar = {
                     init_options = {
+                        vue = {
+                            -- disable hybrid mode
+                            hybridMode = false,
+                        },
                         typescript = {
                             tsdk = vim.fn.exepath("tsserver") .. "/../../lib/node_modules/typescript/lib"
                         }
-                    }
+                    },
+                    on_new_config = function(new_config, new_root_dir)
+                        local lib_path = vim.fs.find('node_modules/typescript/lib',
+                            { path = new_root_dir, upward = true })[1]
+                        if lib_path then
+                            new_config.init_options.typescript.tsdk = lib_path
+                        end
+                    end
                 },
                 -- vuels = {
                 --     init_options = {

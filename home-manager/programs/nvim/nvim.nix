@@ -43,25 +43,22 @@
         lua-language-server
         marksman
         nil
-        nodePackages_latest."@prisma/language-server"
         nodePackages_latest."@tailwindcss/language-server"
         nodePackages_latest.bash-language-server
         nodePackages_latest.svelte-language-server
         nodePackages_latest.typescript-language-server
-        nodePackages_latest.volar
-        # nodePackages_latest.vls
+        vue-language-server
         nodePackages_latest.vscode-langservers-extracted
         python311Packages.pylsp-rope
-        python311Packages.python-lsp-ruff
+        # python311Packages.python-lsp-ruff
         python311Packages.python-lsp-server
         quick-lint-js
         dot-language-server
-        ruff
+        # ruff
         rust-analyzer
+        typescript-language-server
         typescript
-        typst-lsp
         tinymist
-        typst-preview
         typstfmt
         typstyle
         zls

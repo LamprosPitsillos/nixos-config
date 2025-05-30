@@ -8,8 +8,10 @@
     ./nix.nix
   ];
 
-  wsl.defaultUser = "dev-wsl";
-
+  wsl = {
+        defaultUser = "dev-wsl";
+        wslConf = {interop.appendWindowsPath = false;};
+    };
   virtualisation.docker = {
     enable = true;
   };
