@@ -1,7 +1,7 @@
 #!/usr/bin/env dash
 
 WIRELESS_DEV="wlo1"
-ETHERNET_DEV="lo1"
+ETHERNET_DEV="eno1"
 
 ETH="$(ip -o link show | rg "${ETHERNET_DEV}.*state UP")"
 WIFI="$(ip -o link show | rg "${WIRELESS_DEV}.*state UP"  )"

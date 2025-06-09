@@ -124,6 +124,8 @@
 
     packages = with pkgs; [
 
+            chromium
+        freecad-wayland
 
       # steam
       rare

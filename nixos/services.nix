@@ -106,7 +106,6 @@
       ly = {
         enable = true;
         settings = {
-          vi_mode = true;
           numlock = true;
         };
       };

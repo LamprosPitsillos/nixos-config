@@ -13,6 +13,7 @@
     ./programs/shell/fish.nix
     # ./programs/shell/nush.nix
     ./programs/wm/hyprland.nix
+    ./programs/wm/hyprpaper.nix
     ./programs/mpv/mpv.nix
     ./programs/media/image/ipqv.nix
     ./programs/media/record/obs.nix

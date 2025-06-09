@@ -1,8 +1,5 @@
 { pkgs,inputs, lib, ... }: {
 
-services.hyprpaper ={
-enable= true;
-    };
   wayland.windowManager.hyprland = {
     xwayland.enable = true;
 
@@ -122,7 +119,6 @@ enable= true;
         debug {
                 disable_logs = true
                 disable_time = true
-                watchdog_timeout = 2
         }
         animations {
             enabled = true
