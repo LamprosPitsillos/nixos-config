@@ -1,0 +1,5 @@
+{ nix-index-database, ... }:
+{
+  imports = [
+  ];
+}

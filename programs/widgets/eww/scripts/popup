@@ -1,0 +1,11 @@
+#!/usr/bin/env dash
+calendar(){
+ eww open --toggle calendar    
+}
+
+if [ "$1" = "calendar" ];then
+    calendar
+elif [ "$1" = "wifi" ];then
+    nm-connection-editor
+fi
+

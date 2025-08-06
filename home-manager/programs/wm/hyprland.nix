@@ -1,6 +1,9 @@
 { pkgs,inputs, lib, ... }: {
 
+  services.hyprpolkitagent.enable =true;
   wayland.windowManager.hyprland = {
+    # set to false to enable .withUWSM
+    systemd.enable = false;
     xwayland.enable = true;
 
     enable = true;
@@ -17,7 +20,7 @@
         #               https://wiki.hyprland.org/Configuring                #
         #--------------------------------------------------------------------#
 
-        monitor= eDP-1, 1920x1080, 0x0 ,1
+        monitor= eDP-1, 1920x1080@60, 0x0 ,1
         monitor=,preferred,auto,1
 
         env = XCURSOR_SIZE,20
@@ -26,6 +29,10 @@
 
         exec-once = eww open bar &
         exec-once = ghostty &
+
+        # https://github.com/nix-community/home-manager/issues/7242#issuecomment-2959253475
+        exec-once= systemctl --user start hyprpaper
+        exec-once= systemctl --user start hyprpolkitagent
 
         # exec-once = ags &
         exec-once = hyprctl setcursor "Bibata-Modern-Ice" 8

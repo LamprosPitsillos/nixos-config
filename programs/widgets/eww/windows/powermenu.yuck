@@ -1,0 +1,144 @@
+(defvar profile_image "/home/inferno/pics/login_icon.png")
+
+(defwidget powermenu-close []
+  (box
+   :class "close-box"
+   :valign "start"
+   :halign "end"
+   (eventbox
+    :cursor "pointer"
+    (button
+     :class "powermenu-close"
+     :tooltip "close"
+     :onclick "${EWW_CMD} close powermenu && ${EWW_CMD} open bar"
+     ""))))
+
+(defwidget powermenu-clock []
+  (box
+   :class "powermenu-today"
+   :space-evenly false
+   :halign "center"
+   :spacing 10
+   (label
+    :class "time"
+    :text "${time_json.hour}")
+
+   (box
+    :class "timeboxes"
+    :space-evenly false
+    :valign "center"
+    :orientation "v"
+    :spacing 5
+    (label
+     :class "clock_time_sep"
+     :text "󰇙"))
+   (label
+    :class "time"
+    :text "${time_json.minute}")))
+
+(defwidget powermenu-profile []
+  (box
+   :class "powermenu-profile-box"
+   :space-evenly false
+   :orientation "v"
+   (box
+    :space-evenly false
+    :orientation "v"
+    :spacing 20
+    (box
+     :space-evenly false
+     :halign "center"
+     (box
+          :class "powermenu-profile-img"
+          :style "background-image: url('${profile_image}');"
+                ))
+    (box
+     :class "powermenu-profile-info"
+     :space-evenly false
+     :orientation "v"
+     :spacing 5
+     (label
+          :class "powermenu-profile-name"
+          :text "Inferno"
+          :halign "center")))))
+
+;; (defwidget powermenu-button [btn-class tooltip cmd icon]
+;;    (eventbox
+;;     :cursor "pointer"
+;;     (button
+;;      :class "${btn-class}"
+;;      :tooltip "${tooltip}"
+;;      :onclick "${cmd}"
+;;      "${icon}"))
+;; )
+(defwidget powermenu-buttons []
+  (box
+   :class "buttons-box"
+   :spacing 50
+   :halign "center"
+   (eventbox
+    :cursor "pointer"
+    (button
+     :class "shutdown"
+     :tooltip "shutdown"
+     :onclick "systemctl poweroff -i"
+     "󰐥"))
+
+   (eventbox
+    :cursor "pointer"
+    (button
+     :class "reboot"
+     :tooltip "reboot"
+     :onclick "systemctl reboot -i"
+     "󰑧"))
+
+   (eventbox
+    :cursor "pointer"
+    (button
+     :class "lock"
+     :tooltip "lock"
+     :onclick "${EWW_CMD} close powermenu && gtklock"
+     "󰌾"))
+
+   (eventbox
+    :cursor "pointer"
+    (button
+     :class "suspend"
+     :tooltip "suspend"
+     :onclick "${EWW_CMD} close powermenu && systemctl suspend"
+     "󰤄"))
+
+ (eventbox
+    :cursor "pointer"
+    (button
+     :class "hibernate"
+     :tooltip "hibernate"
+     :onclick "${EWW_CMD} close powermenu && systemctl hibernate"
+     "󰒲"))
+
+   (eventbox
+    :cursor "pointer"
+    (button
+     :class "logout"
+     :tooltip "logout"
+     :onclick "hyprctl dispatch exit "
+     "󰍃"))))
+
+(defwidget powermenu []
+   (eventbox
+       :onrightclick "${EWW_CMD} close powermenu"
+       :onmiddleclick "${EWW_CMD} close powermenu"
+      (box
+       :class "powermenu-box"
+       :space-evenly false
+      :orientation "v"
+           (powermenu-close)
+           (powermenu-clock)
+           (powermenu-profile)
+           (powermenu-buttons))))
+
+(defwindow powermenu
+:monitor 0
+  :stacking "overlay"
+  :geometry (geometry :width "100%" :height "100%")
+  (powermenu))

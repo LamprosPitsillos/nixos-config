@@ -6,92 +6,90 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     ags.url = "github:aylur/ags";
-
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+
   };
-  outputs = {
-    nixpkgs,
-    home-manager,
-    nixos-wsl,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {inherit system;};
-  in {
-    # formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-    formatter."${system}" = pkgs.nixpkgs-fmt;
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      nixos-wsl,
+      nix-index-database,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
+      namesFromDirs =
+        path: builtins.attrNames (nixpkgs.lib.filterAttrs (n: v: v == "directory") (builtins.readDir path));
+      users = namesFromDirs ./users;
+      hosts = namesFromDirs ./hosts;
+    in
+    {
+      formatter."${system}" = pkgs.nixpkgs-fmt;
 
-    templates = {
-      default = {
-        path = ./templates/default;
-
-        description = "A very basic starter flake";
+      templates = {
+        default = {
+          path = ./nix/templates/default;
+          description = "A very basic starter flake";
+        };
       };
-    };
-    nixosConfigurations = {
-      "infernoPC" = nixpkgs.lib.nixosSystem {
-        specialArgs = {
+      nixosConfigurations = nixpkgs.lib.genAttrs hosts (
+        host:
+        nixpkgs.lib.nixosSystem {
           inherit system;
-          inherit inputs;
-        };
-        modules = [
-          ./nixos/configuration.nix
-        ];
-      };
-      "nixosWSL" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit system;
-          inherit inputs;
-        };
-        modules = [
-          nixos-wsl.nixosModules.default
-          ./nixos/wsl-configuration.nix
-          {
-            system.stateVersion = "24.05";
-            wsl.enable = true;
-          }
-        ];
-      };
+          specialArgs = {
+            inherit system;
+            inherit inputs;
+            hostName = host;
+          };
+
+          modules = [
+
+            (nixos-wsl.nixosModules.default)
+            (home-manager.nixosModules.home-manager)
+            ({
+              home-manager = {
+                extraSpecialArgs = {
+                  inherit inputs;
+                  hostName = host;
+                };
+              };
+            })
+
+            ./share/hosts.nix
+            ./modules/system_properties
+            ./hosts/${host}
+          ];
+        }
+      );
+
+      homeConfigurations = nixpkgs.lib.genAttrs users (
+        user:
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+
+          extraSpecialArgs = {
+            inherit inputs;
+            userName = user;
+          };
+          modules = [
+            (nix-index-database.homeModules.nix-index)
+
+            ./share/users.nix
+            ./modules/user_preferences
+            ./users/${user}
+          ];
+        }
+      );
     };
-
-    homeConfigurations = {
-      "inferno" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          {
-            nix.registry.nixpkgs.flake = nixpkgs;
-          }
-          # inputs.hyprland.homeManagerModules.default
-          ./home-manager/home.nix
-        ];
-      };
-      "dev-wsl" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          {
-            nix.registry.nixpkgs.flake = nixpkgs;
-          }
-          ./home-manager/wsl.nix
-        ];
-      };
-    };
-  };
 }

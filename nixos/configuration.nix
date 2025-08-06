@@ -11,16 +11,18 @@
     ./nix.nix
   ];
 
+
   environment.pathsToLink = [ "/share/zsh" "/share/fish" "/share/nu" ];
 
   virtualisation.docker = {
+    enableOnBoot = false;
     enable = true;
   };
   virtualisation.podman = {
     enable = true;
   };
 
-  virtualisation.waydroid.enable = true;
+  virtualisation.waydroid.enable = false;
   virtualisation.oci-containers.backend = "docker";
 
   documentation = {
@@ -40,6 +42,7 @@
     efiSupport = true;
     device = "nodev"; # or "nodev" for efi only
     efiInstallAsRemovable = true;
+    configurationLimit = 10;
   };
   boot.loader.efi = {
     efiSysMountPoint = "/boot";
@@ -104,8 +107,11 @@
     STARSHIP_CONFIG = "$XDG_CONFIG_HOME/starship/starship.toml";
   };
 
+  programs.command-not-found.enable = false;
+
   programs.hyprland = {
     enable = true;
+    withUWSM = false;
     # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     xwayland.enable = true;
   };
@@ -170,8 +176,7 @@
       slurp
       swappy
       satty
-      wl-screenrec
-
+kooha
       # Desktop UX
       tofi
       ripdrag
@@ -360,7 +365,6 @@
     wev
 
     # steam
-    gephi
 
     fuse-overlayfs
 

@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+is_muted() {
+wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -f 3 -d ' '
+}
+
+set_volume() {
+wpctl set-volume @DEFAULT_AUDIO_SINK@ "$1"% -l 1.0
+}
+get_json(){
+volume="$(wpctl get-volume @DEFAULT_AUDIO_SINK@)"
+volume_perc="$(echo "$volume" | cut -f 2 -d ' ' |tr -d .)"
+icon="X"
+case "$volume" in
+    *"[MUTED]") icon="󰝟"
+        ;;
+    *)
+        if [ "$volume_perc" -gt 70 ];then
+            icon=""
+        elif [ "$volume_perc" -gt 30 ];then
+            icon=""
+        elif [ "$volume_perc" -ge 0 ];then
+            icon=""
+        fi
+esac
+
+jq -n --arg volume "$volume_perc" --arg icon "$icon" '{volume: $volume, icon: $icon}'
+
+}
+
+toggle_mute() {
+wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle 
+eww update volume_json="$(get_json)"
+}
+
+
+if [ -z "$1" ];then
+    get_json
+elif [ "$1" = "set" ];then
+    set_volume "$2"
+elif [ "$1" = "mute" ];then
+    toggle_mute
+fi
+

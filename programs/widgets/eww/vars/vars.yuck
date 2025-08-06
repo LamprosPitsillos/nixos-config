@@ -1,0 +1,28 @@
+;; WM - Hyprland>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(deflisten window_l :initial "..." "scripts/get-window-title")
+(deflisten workspaces_l :initial "[]" "scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "scripts/get-active-workspace")
+;; WM - Hyprland<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+(defvar bright_v false)
+(defvar volume_v false)
+(defvar visible_v true)
+
+(defpoll brightness_p  :interval "1s" "scripts/brightness get" )
+
+(defpoll notification_icon_p :interval "1s" "scripts/notification icon" )
+
+(defpoll volume_json  :interval "1s" "scripts/volume"  )
+;; (defvar volume_json  "{icon : \"x\" , volume : 100 }"  )
+
+(defpoll time_json	:interval "1s"	"date +'{\"hour\": \"%I\", \"minute\": \"%M\"}'")
+
+(defpoll wifi_json :interval "1s" "scripts/wifi")
+
+(defpoll battery_json :interval "1s"	"scripts/battery")
+
+(defpoll calendar_day :interval "20s" "date '+%d'")
+(defpoll calendar_month :interval "10h" "date '+%m'")
+(defpoll calendar_year :interval "10h" "date '+%Y'")
+
+(defpoll calendar_json :interval "20s" "date +'{\"day\": %-d ,\"month\": %-m ,\"year\" : %Y }'")

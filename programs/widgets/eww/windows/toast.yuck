@@ -1,0 +1,20 @@
+(defwidget w_toast [icon text ?bar]
+    (box 
+        :orientation "h"
+        :class "toast"
+        :halign "center"
+        (label :text icon )
+        (label :text text )
+    )
+)
+(defwindow toast
+    :monitor 0
+    :geometry (geometry 
+        :x "0%"
+        :y "10%"
+        :width "20%"
+        :height "5%"
+        :anchor "bottom center")
+    :namespace "toast"
+(w_toast :icon "󰃠" :text "Brightness" ) )
+

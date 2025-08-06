@@ -119,16 +119,8 @@ return {
                 },
                 texlab = {},
                 vue_ls = {
-                    -- add filetypes for typescript, javascript and vue
-                    filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-                    init_options = {
-                        vue = {
-                            -- disable hybrid mode
-                            hybridMode = false,
-                        },
-                    },
                 },
-                -- ts_ls = {
+                ts_ls = {
                     -- init_options = {
                     --     hostInfo = "neovim",
                     --     plugins = {
@@ -141,7 +133,7 @@ return {
                     --     },
                     -- },
                     -- filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-                -- },
+                },
                 svelte = {},
                 marksman = {},
                 lua_ls = {

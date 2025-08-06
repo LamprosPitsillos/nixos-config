@@ -1,8 +1,9 @@
-{ lib
-, config
-, pkgs
-# , inputs
-, ...
+{
+  lib,
+  config,
+  pkgs,
+  # , inputs
+  ...
 }: {
   imports = [
     ./programs/tofi/tofi.nix
@@ -34,9 +35,8 @@
   # manage.
   home.username = "inferno";
   home.homeDirectory = "/home/inferno";
-  home.shellAliases =
-  let
-     eza = lib.getExe pkgs.eza ;
+  home.shellAliases = let
+    eza = lib.getExe pkgs.eza;
   in {
     nup = "sudo nixos-rebuild switch --flake /home/inferno/.nixos-config#infernoPC && notify-send 'NixOs' 'System rebuilt'";
     nut = "sudo nixos-rebuild test --fast --flake /home/inferno/.nixos-config";
@@ -75,30 +75,7 @@
     theme = ''wallust theme $(wallust theme --help | rg "possible values:" | sed -e "s/.*possible values:\(.*\)]/\1/" | tr , "\n" |fzf)'';
   };
 
-  services.glance = {enable= false;};
-
-  programs.bat = {
-    enable = true;
-    config = {
-      theme = "OneHalfDark";
-    };
-  };
-
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
-    # options = [
-    #   "--cmd"
-    #   "cd"
-    # ];
-  };
-
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true; # see note on other shells below
-    nix-direnv.enable = true;
-  };
-
+  services.glance = {enable = false;};
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -112,15 +89,13 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-
-
     drawing
     insomnia
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
-  home.file = { };
+  home.file = {};
 
   # qt = {
   #   platformTheme = "gtk";
@@ -162,36 +137,39 @@
     ];
 
     changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type d --max-depth 2";
-    changeDirWidgetOptions = [ "--preview '${pkgs.eza}/bin/eza --icons --tree --accessed {} | head -200'" ];
+    changeDirWidgetOptions = ["--preview '${pkgs.eza}/bin/eza --icons --tree --accessed {} | head -200'"];
     tmux.enableShellIntegration = true;
   };
 
-    xdg.userDirs = {
-        enable= true;
-        createDirectories= true;
-        desktop = null;
-        templates = null;
-        publicShare = null;
-        pictures = "${config.home.homeDirectory}/pics";
-        videos = "${config.home.homeDirectory}/vids";
-        music = "${config.home.homeDirectory}/music";
-        documents = "${config.home.homeDirectory}/docs";
-        download = "${config.home.homeDirectory}/downs";
-
-    };
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
+    desktop = null;
+    templates = null;
+    publicShare = null;
+    pictures = "${config.home.homeDirectory}/pics";
+    videos = "${config.home.homeDirectory}/vids";
+    music = "${config.home.homeDirectory}/music";
+    documents = "${config.home.homeDirectory}/docs";
+    download = "${config.home.homeDirectory}/downs";
+  };
+# TODO: homemanager module now available
   xdg.configFile."neovide/config.toml" = {
     enable = true;
-    text = /* toml */ ''
-      wsl = false
-      no-multigrid = false
-      vsync = true
-      maximized = false
-      srgb = false
-      idle = true
-      neovim-bin = "/usr/bin/env nvim" # in reality found dynamically on $PATH if unset
-      frame = "full"
-    '';
-
+    text =
+      /*
+      toml
+      */
+      ''
+        wsl = false
+        no-multigrid = false
+        vsync = true
+        maximized = false
+        srgb = false
+        idle = true
+        neovim-bin = "/usr/bin/env nvim" # in reality found dynamically on $PATH if unset
+        frame = "full"
+      '';
   };
   xdg.configFile."newt/newt_colors" = {
     enable = true;

@@ -158,7 +158,6 @@
     pv
 
     # steam
-    gephi
 
     fuse-overlayfs
 
