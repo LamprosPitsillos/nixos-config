@@ -243,7 +243,8 @@ in
       libreoffice
 
       # Media Editing
-      darktable
+      # TODO: Fails at build due to libsoup
+      # darktable
       # hugin # Panorama creator
       gimp
 

@@ -113,7 +113,6 @@
           "Dockerfile"
         ];
       };
-      detect_folders = [ ];
 
       fill = {
         style = "bold black";

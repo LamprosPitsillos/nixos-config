@@ -9,6 +9,8 @@ imports = [
     ./nvim/nvim.nix
     ./qutebrowser/qutebrowser.nix
 
+    ./terminal
+
     ./tofi/tofi.nix
     ./vcs/git.nix
     ./vcs/jujutsu.nix

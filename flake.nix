@@ -73,23 +73,23 @@
         }
       );
 
-      homeConfigurations = nixpkgs.lib.genAttrs users (
-        user:
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-
-          extraSpecialArgs = {
-            inherit inputs;
-            userName = user;
-          };
-          modules = [
-            (nix-index-database.homeModules.nix-index)
-
-            ./share/users.nix
-            ./modules/user_preferences
-            ./users/${user}
-          ];
-        }
-      );
+      # homeConfigurations = nixpkgs.lib.genAttrs users (
+      #   user:
+      #   home-manager.lib.homeManagerConfiguration {
+      #     inherit pkgs;
+      #
+      #     extraSpecialArgs = {
+      #       inherit inputs;
+      #       userName = user;
+      #     };
+      #     modules = [
+      #       (nix-index-database.homeModules.nix-index)
+      #
+      #       ./share/users.nix
+      #       ./modules/user_preferences
+      #       ./users/${user}
+      #     ];
+      #   }
+      # );
     };
 }
