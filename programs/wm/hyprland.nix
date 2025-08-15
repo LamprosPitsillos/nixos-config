@@ -24,6 +24,13 @@ in
 {
 
   services.hyprpolkitagent.enable = !isHeadless;
+
+  home = {
+    packages = with pkgs; [
+      rose-pine-hyprcursor
+    ];
+  };
+
   wayland.windowManager.hyprland = {
 
     enable = !isHeadless;
@@ -48,6 +55,8 @@ in
 
                 monitor= eDP-1, 1920x1080@60, 0x0 ,1
                 monitor=,preferred,auto,1
+
+                env = HYPRCURSOR_THEME,rose-pine-hyprcursor
 
                 env = XCURSOR_SIZE,20
                 env = _JAVA_OPTIONS,'-Dawt.useSystemAAFontSettings=lcd -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'

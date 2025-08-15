@@ -32,10 +32,10 @@
         format = "[$symbol$percentage]($style) ";
       };
 
-      battery.display = {
-        threshold = 10;
-        style = "red bold";
-      };
+      # battery.display = {
+      #   threshold = 10;
+      #   style = "red bold";
+      # };
 
       # c={
       # format = "via [$symbol($version(-$name) )]($style)";
@@ -113,7 +113,6 @@
           "Dockerfile"
         ];
       };
-      detect_folders = [ ];
 
       fill = {
         style = "bold black";
@@ -167,7 +166,7 @@
       };
 
       git_status = {
-        format = "([\[$all_status$ahead_behind\]]($style) )";
+        # format = "([\[$all_status$ahead_behind\]]($style) )";
         style = "red bold";
         stashed = "\$";
         ahead = "⇡";

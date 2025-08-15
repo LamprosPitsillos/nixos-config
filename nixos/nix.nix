@@ -125,7 +125,7 @@ in
     prefetch-npm-deps
     nurl
     nvd
-    home-manager
+    # home-manager
 
     alejandra
   ];
