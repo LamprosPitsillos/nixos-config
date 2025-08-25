@@ -72,9 +72,6 @@ vim.opt.langmap = {
 vim.opt.spelllang = { 'en_us', 'el' }
 vim.opt.spellsuggest = "double"
 
-vim.g.no_man_maps = 1
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
 
 vim.opt.guifont = "JetBrainsMono Nerd Font:h14"
 
