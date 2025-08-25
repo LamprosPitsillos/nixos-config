@@ -9,6 +9,8 @@
 }:
 let
   isHeadless = osConfig.custom.hostProps.isHeadless;
+  cursor = pkgs.rose-pine-hyprcursor;
+  cursor_name = "rose-pine-hyprcursor";
   monitors = (
     map (
       m:
@@ -26,8 +28,8 @@ in
   services.hyprpolkitagent.enable = !isHeadless;
 
   home = {
-    packages = with pkgs; [
-      rose-pine-hyprcursor
+    packages = [
+      (cursor)
     ];
   };
 
@@ -56,9 +58,9 @@ in
                 monitor= eDP-1, 1920x1080@60, 0x0 ,1
                 monitor=,preferred,auto,1
 
-                env = HYPRCURSOR_THEME,rose-pine-hyprcursor
+                # env = HYPRCURSOR_THEME,rose-pine-hyprcursor
 
-                env = XCURSOR_SIZE,20
+                # env = XCURSOR_SIZE,20
                 env = _JAVA_OPTIONS,'-Dawt.useSystemAAFontSettings=lcd -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 
 
@@ -66,11 +68,12 @@ in
                 exec-once = ghostty &
 
                 # https://github.com/nix-community/home-manager/issues/7242#issuecomment-2959253475
-                exec-once= systemctl --user start hyprpaper
-                exec-once= systemctl --user start hyprpolkitagent
+                exec-once = systemctl --user start hyprpaper
+                exec-once = systemctl --user start hyprpolkitagent
 
                 # exec-once = ags &
-                exec-once = hyprctl setcursor "Bibata-Modern-Ice" 8
+                # exec-once = hyprctl setcursor "Bibata-Modern-Ice" 8
+                exec-once = hyprctl setcursor "${cursor_name}" 24
 
                 $ON = 1
                 $OFF = 0
