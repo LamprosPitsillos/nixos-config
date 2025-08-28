@@ -80,7 +80,10 @@
     })
   ];
   programs.tmux = let
-    primary_clipboard = "${pkgs.wl-clipboard}/bin/wl-copy --primary";
+    clipboard_copy = "${pkgs.wl-clipboard}/bin/wl-copy";
+    clipboard_copy_primary = "${clipboard_copy} --primary";
+    clipboard_paste = "${pkgs.wl-clipboard}/bin/wl-paste";
+    clipboard_paste_primary = "${clipboard_paste} --primary";
   in {
     enable = true;
     baseIndex = 1;
@@ -188,8 +191,10 @@
         bind h copy-mode
 
         bind -T copy-mode-vi v send-keys -X begin-selection
-        bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "${primary_clipboard}"
-        bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "${primary_clipboard}"
+        bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "${clipboard_copy_primary}"
+        bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "${clipboard_copy_primary}"
+
+        bind -n MouseDown2Pane run "${clipboard_paste_primary} -n | tmux load-buffer - && tmux paste-buffer"
       '';
   };
 }
