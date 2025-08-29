@@ -49,11 +49,6 @@
           #                                NAME                                #
           #--------------------------------------------------------------------#
 
-          project_name() {
-              path="$1"
-              basename "$path"
-          }
-
           dir_name() {
               path="$1"
               basename "$path"
@@ -67,7 +62,7 @@
 
               root_path="$(search_upwards "$selected_path")"
 
-              session_name="$(project_name "$root_path")"
+              session_name="$(dir_name "$root_path")"
               window_name="$(dir_name "$selected_path")"
 
               # if tmux has session FOO then this will fall through and create a new window named BAR
