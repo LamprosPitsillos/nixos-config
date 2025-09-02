@@ -64,6 +64,7 @@
         typstfmt
         typstyle
         zls
+vtsls
       ];
     };
 }

@@ -7,40 +7,41 @@ return {
             { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {}, },
             'saghen/blink.cmp' },
         config = function()
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities.textDocument.foldingRange = {
-                dynamicRegistration = false,
-                lineFoldingOnly = true
+
+
+local vue_language_server_path = vim.fs.dirname(vim.fn.exepath("vue-language-server")) ..
+"/../lib/language-tools/packages/language-server/node_modules/@vue/typescript-plugin"
+-- local vue_language_server_path = vim.fs.dirname(vim.fn.exepath("vue-language-server")) ..
+-- "/../lib/language-tools/packages/typescript-plugin/"
+            local vue_plugin = {
+                name = '@vue/typescript-plugin',
+                location = vue_language_server_path,
+                languages = { 'vue' },
+                configNamespace = 'typescript',
+  enableForWorkspaceTypeScriptVersions = true,
             }
 
+            local tsserver_filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' }
+local vtsls_config = {
+  settings = {
+    vtsls = {
+      tsserver = {
+        globalPlugins = {
+          vue_plugin,
+        },
+      },
+    },
+  },
+  filetypes = tsserver_filetypes,
+}
+local vue_ls_config = {}
+vim.lsp.config('vtsls', vtsls_config)
+vim.lsp.config('vue_ls', vue_ls_config)
 
-            local border = {
-                { "╭", "FloatBorder" },
-                { "─", "FloatBorder" },
-                { "╮", "FloatBorder" },
-                { "│", "FloatBorder" },
-                { "╯", "FloatBorder" },
-                { "─", "FloatBorder" },
-                { "╰", "FloatBorder" },
-                { "│", "FloatBorder" },
-            }
+vim.lsp.enable({'vtsls', 'vue_ls'}) -- If using `ts_ls` replace `vtsls` to `ts_ls`
 
-            local lsp = require("lspconfig")
-            lsp.util.default_config = vim.tbl_extend(
-                "force",
-                lsp.util.default_config,
-                {
-                    autostart = true,
-                    handlers = {
-                        ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-                            border = border,
-                        }),
-                        ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-                            border = border,
-                        })
-                    }
-                }
-            )
+            local lsp = vim.lsp
+
             vim.diagnostic.config({
                 underline = true,
                 virtual_text = {
@@ -118,30 +119,29 @@ return {
                     filetypes = { "vue", "javascriptreact", "typescriptreact" }
                 },
                 texlab = {},
-                vue_ls = {
-                    -- add filetypes for typescript, javascript and vue
-                    filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-                    init_options = {
-                        vue = {
-                            -- disable hybrid mode
-                            hybridMode = false,
-                        },
-                    },
-                },
-                ts_ls = {
-                    -- init_options = {
-                    --     hostInfo = "neovim",
-                    --     plugins = {
-                    --         {
-                    --             name = '@vue/typescript-plugin',
-                    --             location = vim.fn.exepath("vue-language-server") ..
-                    --                 '/../../lib/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin',
-                    --             languages = { 'typescript', 'javascript', 'vue' },
-                    --         },
-                    --     },
-                    -- },
-                    -- filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-                },
+                -- vtsls = {
+                --
+                --     settings = {
+                --         vtsls = {
+                --             tsserver = {
+                --                 globalPlugins = {
+                --                     vue_plugin,
+                --                 },
+                --             },
+                --         },
+                --     },
+                --     filetypes = tsserver_filetypes,
+                -- },
+                -- vue_ls = {
+                -- },
+                -- ts_ls = {
+                --     init_options = {
+                --         plugins = {
+                --             vue_plugin,
+                --         },
+                --     },
+                --     filetypes = tsserver_filetypes,
+                -- },
                 svelte = {},
                 marksman = {},
                 lua_ls = {
@@ -159,58 +159,59 @@ return {
             }
 
             for name, config in pairs(servers) do
-                capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
-                lsp[name].setup({
+                lsp.config(name, {
                     init_options = config.init_options,
                     on_attach = config.on_attach,
-                    capabilities = capabilities,
                     cmd = config.cmd,
                     filetypes = config.filetypes,
                     settings = config.settings
                 })
+                lsp.enable(name)
             end
 
-            require("typescript-tools").setup {
-                capabilities = require('blink.cmp').get_lsp_capabilities(),
-                settings = {
-                    -- spawn additional tsserver instance to calculate diagnostics on it
-                    separate_diagnostic_server = true,
-                    -- "change"|"insert_leave" determine when the client asks the server about diagnostic
-                    publish_diagnostic_on = "change",
-                    -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
-                    -- "remove_unused_imports"|"organize_imports") -- or string "all"
-                    -- to include all supported code actions
-                    -- specify commands exposed as code_actions
-                    expose_as_code_action = {},
-                    -- string|nil - specify a custom path to `tsserver.js` file, if this is nil or file under path
-                    -- not exists then standard path resolution strategy is applied
-                    tsserver_path = nil,
-                    -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
-                    -- (see 💅 `styled-components` support section)
-                    tsserver_plugins = {
-                        "@vue/typescript-plugin"
-                    },
-                    -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
-                    -- memory limit in megabytes or "auto"(basically no limit)
-                    tsserver_max_memory = "auto",
-                    -- described below
-                    tsserver_format_options = {},
-                    tsserver_file_preferences = {},
-                    -- locale of all tsserver messages, supported locales you can find here:
-                    -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
-                    tsserver_locale = "en",
-                    -- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
-                    complete_function_calls = true,
-                    include_completions_with_insert_text = true,
-                    -- CodeLens
-                    -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
-                    -- possible values: ("off"|"all"|"implementations_only"|"references_only")
-                    code_lens = "off",
-                    -- by default code lenses are displayed on all referencable values and for some of you it can
-                    -- be too much this option reduce count of them by removing member references from lenses
-                    disable_member_code_lens = true,
-                },
-            }
+            -- require("typescript-tools").setup {
+            --     filetypes= tsserver_filetypes,
+            --     capabilities = require('blink.cmp').get_lsp_capabilities(),
+            --     settings = {
+            --         -- spawn additional tsserver instance to calculate diagnostics on it
+            --         separate_diagnostic_server = true,
+            --         -- "change"|"insert_leave" determine when the client asks the server about diagnostic
+            --         publish_diagnostic_on = "change",
+            --         -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
+            --         -- "remove_unused_imports"|"organize_imports") -- or string "all"
+            --         -- to include all supported code actions
+            --         -- specify commands exposed as code_actions
+            --         expose_as_code_action = {},
+            --         -- string|nil - specify a custom path to `tsserver.js` file, if this is nil or file under path
+            --         -- not exists then standard path resolution strategy is applied
+            --         tsserver_path = nil,
+            --         -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
+            --         -- (see 💅 `styled-components` support section)
+            --         tsserver_plugins = {
+            --             "@vue/typescript-plugin",
+            --             "@vue/language-server",
+            --         },
+            --         -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
+            --         -- memory limit in megabytes or "auto"(basically no limit)
+            --         tsserver_max_memory = "auto",
+            --         -- described below
+            --         tsserver_format_options = {},
+            --         tsserver_file_preferences = {},
+            --         -- locale of all tsserver messages, supported locales you can find here:
+            --         -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
+            --         tsserver_locale = "en",
+            --         -- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
+            --         complete_function_calls = true,
+            --         include_completions_with_insert_text = true,
+            --         -- CodeLens
+            --         -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
+            --         -- possible values: ("off"|"all"|"implementations_only"|"references_only")
+            --         code_lens = "off",
+            --         -- by default code lenses are displayed on all referencable values and for some of you it can
+            --         -- be too much this option reduce count of them by removing member references from lenses
+            --         disable_member_code_lens = true,
+            --     },
+            -- }
 
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("UserLspConfig", {}),
