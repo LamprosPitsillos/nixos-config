@@ -14,7 +14,7 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ags.url = "github:aylur/ags";
+    # ags.url = "github:aylur/ags";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
   };
