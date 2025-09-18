@@ -1,44 +1,80 @@
 return {
     {
         "neovim/nvim-lspconfig",
-
-        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+        enabled = true,
         dependencies = {
             { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {}, },
             'saghen/blink.cmp' },
         config = function()
-
-
-local vue_language_server_path = vim.fs.dirname(vim.fn.exepath("vue-language-server")) ..
-"/../lib/language-tools/packages/language-server/node_modules/@vue/typescript-plugin"
--- local vue_language_server_path = vim.fs.dirname(vim.fn.exepath("vue-language-server")) ..
--- "/../lib/language-tools/packages/typescript-plugin/"
+            local vue_language_server_path = vim.fs.dirname(vim.fn.exepath("vue-language-server")) ..
+                "/../lib/language-tools/packages/language-server/node_modules/@vue/typescript-plugin"
+            -- local vue_language_server_path = vim.fs.dirname(vim.fn.exepath("vue-language-server")) ..
+            -- "/../lib/language-tools/packages/typescript-plugin/"
             local vue_plugin = {
                 name = '@vue/typescript-plugin',
                 location = vue_language_server_path,
                 languages = { 'vue' },
                 configNamespace = 'typescript',
-  enableForWorkspaceTypeScriptVersions = true,
+                enableForWorkspaceTypeScriptVersions = true,
+            }
+            require("typescript-tools").setup {
+                settings = {
+                    -- spawn additional tsserver instance to calculate diagnostics on it
+                    separate_diagnostic_server = true,
+                    -- "change"|"insert_leave" determine when the client asks the server about diagnostic
+                    publish_diagnostic_on = "change",
+                    -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
+                    -- "remove_unused_imports"|"organize_imports") -- or string "all"
+                    -- to include all supported code actions
+                    -- specify commands exposed as code_actions
+                    expose_as_code_action = {},
+                    -- string|nil - specify a custom path to `tsserver.js` file, if this is nil or file under path
+                    -- not exists then standard path resolution strategy is applied
+                    tsserver_path = nil,
+                    -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
+                    -- (see 💅 `styled-components` support section)
+                    tsserver_plugins = {},
+                    -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
+                    -- memory limit in megabytes or "auto"(basically no limit)
+                    tsserver_max_memory = "auto",
+                    -- described below
+                    tsserver_format_options = {},
+                    tsserver_file_preferences = {},
+                    -- locale of all tsserver messages, supported locales you can find here:
+                    -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
+                    tsserver_locale = "en",
+                    -- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
+                    complete_function_calls = false,
+                    include_completions_with_insert_text = true,
+                    -- CodeLens
+                    -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
+                    -- possible values: ("off"|"all"|"implementations_only"|"references_only")
+                    code_lens = "off",
+                    -- by default code lenses are displayed on all referencable values and for some of you it can
+                    -- be too much this option reduce count of them by removing member references from lenses
+                    disable_member_code_lens = true,
+                },
             }
 
             local tsserver_filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' }
-local vtsls_config = {
-  settings = {
-    vtsls = {
-      tsserver = {
-        globalPlugins = {
-          vue_plugin,
-        },
-      },
-    },
-  },
-  filetypes = tsserver_filetypes,
-}
-local vue_ls_config = {}
-vim.lsp.config('vtsls', vtsls_config)
-vim.lsp.config('vue_ls', vue_ls_config)
+            local vtsls_config = {
+                settings = {
+                    vtsls = {
+                        tsserver = {
+                            globalPlugins = {
+                                vue_plugin,
+                            },
+                        },
+                    },
+                },
+                filetypes = tsserver_filetypes,
+            }
 
-vim.lsp.enable({'vtsls', 'vue_ls'}) -- If using `ts_ls` replace `vtsls` to `ts_ls`
+            local vue_ls_config = {}
+            vim.lsp.config('vtsls', vtsls_config)
+            vim.lsp.config('vue_ls', vue_ls_config)
+
+            vim.lsp.enable({ 'vtsls', 'vue_ls' }) -- If using `ts_ls` replace `vtsls` to `ts_ls`
 
             local lsp = vim.lsp
 
@@ -46,11 +82,22 @@ vim.lsp.enable({'vtsls', 'vue_ls'}) -- If using `ts_ls` replace `vtsls` to `ts_l
                 underline = true,
                 virtual_text = {
                     prefix = " ", -- Could be '●', '▎', 'x'
+                    source = "if_many",
                     spacing = 4,
+                    severity_sort = true,
                 },
                 -- virtual_text = false ,
                 update_in_insert = true,
+                signs = {
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = " ",
+                        [vim.diagnostic.severity.WARN] = " ",
+                        [vim.diagnostic.severity.HINT] = "󰋗 ",
+                        [vim.diagnostic.severity.INFO] = " ",
+                    },
+                },
             })
+
             local servers = {
                 jsonls = {},
                 bashls = {},
@@ -169,49 +216,6 @@ vim.lsp.enable({'vtsls', 'vue_ls'}) -- If using `ts_ls` replace `vtsls` to `ts_l
                 lsp.enable(name)
             end
 
-            -- require("typescript-tools").setup {
-            --     filetypes= tsserver_filetypes,
-            --     capabilities = require('blink.cmp').get_lsp_capabilities(),
-            --     settings = {
-            --         -- spawn additional tsserver instance to calculate diagnostics on it
-            --         separate_diagnostic_server = true,
-            --         -- "change"|"insert_leave" determine when the client asks the server about diagnostic
-            --         publish_diagnostic_on = "change",
-            --         -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
-            --         -- "remove_unused_imports"|"organize_imports") -- or string "all"
-            --         -- to include all supported code actions
-            --         -- specify commands exposed as code_actions
-            --         expose_as_code_action = {},
-            --         -- string|nil - specify a custom path to `tsserver.js` file, if this is nil or file under path
-            --         -- not exists then standard path resolution strategy is applied
-            --         tsserver_path = nil,
-            --         -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
-            --         -- (see 💅 `styled-components` support section)
-            --         tsserver_plugins = {
-            --             "@vue/typescript-plugin",
-            --             "@vue/language-server",
-            --         },
-            --         -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
-            --         -- memory limit in megabytes or "auto"(basically no limit)
-            --         tsserver_max_memory = "auto",
-            --         -- described below
-            --         tsserver_format_options = {},
-            --         tsserver_file_preferences = {},
-            --         -- locale of all tsserver messages, supported locales you can find here:
-            --         -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
-            --         tsserver_locale = "en",
-            --         -- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
-            --         complete_function_calls = true,
-            --         include_completions_with_insert_text = true,
-            --         -- CodeLens
-            --         -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
-            --         -- possible values: ("off"|"all"|"implementations_only"|"references_only")
-            --         code_lens = "off",
-            --         -- by default code lenses are displayed on all referencable values and for some of you it can
-            --         -- be too much this option reduce count of them by removing member references from lenses
-            --         disable_member_code_lens = true,
-            --     },
-            -- }
 
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -224,7 +228,6 @@ vim.lsp.enable({'vtsls', 'vue_ls'}) -- If using `ts_ls` replace `vtsls` to `ts_l
                     local diagnostic        = vim.diagnostic
                     local lsp_b             = vim.lsp.buf
                     local map               = vim.keymap.set
-
                     -- default in neovim 0.10
                     -- map("n", "[d", diagnostic.goto_prev, { desc = "prev error", buffer = ev.buf })
                     -- map("n", "]d", diagnostic.goto_next, { desc = "next error", buffer = ev.buf })
@@ -269,10 +272,11 @@ vim.lsp.enable({'vtsls', 'vue_ls'}) -- If using `ts_ls` replace `vtsls` to `ts_l
         ft = "lua", -- only load on lua files
         opts = {
             library = {
-                -- vim.env.LAZY .. "/luvit-meta/library", -- see below
-                -- You can also add plugins you always want to have loaded.
-                -- Useful if the plugin has globals or types you want to use
-                -- vim.env.LAZY .. "/LazyVim", -- see below
+                "nvim-dap-ui",
+                "snacks",
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
             },
         },
     },

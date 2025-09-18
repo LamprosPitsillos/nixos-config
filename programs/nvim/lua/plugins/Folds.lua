@@ -3,7 +3,7 @@ return {
         "kevinhwang91/nvim-ufo",
         lazy = true,
         event = "BufReadPost",
-        enabled = true,
+        enabled = false,
         dependencies = { "kevinhwang91/promise-async", {
             "luukvbaal/statuscol.nvim",
             config = function(_, opts)
