@@ -10,8 +10,8 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
-
   hardware = {
+    nvidia-container-toolkit.enable= true;
     bluetooth.enable = true;
     nvidia = {
       # Modesetting is needed for most Wayland compositors
@@ -73,11 +73,11 @@
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 4200 4201 4202 80 443 ];
-    allowedUDPPorts = [ 4200 8088 ];
+    # allowedTCPPorts = [ 4200 4201 4202 80 443 ];
+    # allowedUDPPorts = [ 4200 8088 ];
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

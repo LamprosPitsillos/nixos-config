@@ -17,7 +17,7 @@ in
   environment.pathsToLink = [ "/share/zsh" "/share/fish" "/share/nu" ];
 
   virtualisation.docker = {
-    enableOnBoot = false;
+    enableOnBoot = true;
     enable = true;
   };
   virtualisation.podman = {
