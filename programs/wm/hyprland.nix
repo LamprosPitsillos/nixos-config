@@ -259,7 +259,7 @@ in
                 bind = $mainMod,return, exec, ghostty
                 #bind = $mainMod, period , exec,[workspace special:terminal] kitty
                 bind = $mainMod, period , exec, ${scripts.scratchpad} terminal "ghostty "
-                bind =,Menu ,exec, hyprctl switchxkblayout kanata next
+                bind = SHIFT,space ,exec, hyprctl switchxkblayout kanata next
                 bind =,Print ,exec, ${system_scripts.screen_shot} full
                 bind = SHIFT,Print ,exec, ${system_scripts.screen_shot} area
                 bind = ALT,Print ,exec,${system_scripts.screen_rec} full

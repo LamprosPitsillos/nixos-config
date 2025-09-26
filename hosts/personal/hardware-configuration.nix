@@ -28,8 +28,16 @@
       powerManagement.enable = true;
       # # Enable the nvidia settings menu
       nvidiaSettings = true;
+            prime={
+ offload.enable = true;
+offload.enableOffloadCmd=true;
+    nvidiaBusId = "PCI:1:0:0";
+    amdgpuBusId = "PCI:6:0:0";
+            };
     };
   };
+
+  powerManagement.enable = true;
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "usb_storage" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = ["nvidia"];
