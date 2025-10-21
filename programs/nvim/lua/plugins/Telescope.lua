@@ -210,7 +210,7 @@ return {
                 local nixos = vim.env.NIXOS_CONFIG_PATH
                 local conf_path
                 if nixos then
-                    conf_path = nixos .. "/home-manager/programs/nvim/lua/plugins"
+                    conf_path = nixos .. "/programs/nvim/lua/plugins"
                 else
                     conf_path = vim.fn.stdpath("config") .. "/lua/plugins"
                 end

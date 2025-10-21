@@ -4,24 +4,26 @@ local permission_hlgroups = {
     ['w'] = 'DiagnosticSignError',
     ['x'] = 'DiagnosticSignOk',
 }
+-- Declare a global function to retrieve the current directory
+function _G.get_oil_winbar()
+    local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
+    local dir = require("oil").get_current_dir(bufnr)
+    if dir then
+        return vim.fn.fnamemodify(dir, ":~")
+    else
+        -- If there is no current directory (e.g. over ssh), just show the buffer name
+        return vim.api.nvim_buf_get_name(0)
+    end
+end
+
 return {
     {
         "stevearc/oil.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        lazy = false,
         keys = {
             { "<leader>fe", "<cmd>Oil<cr>", mode = "n", desc = "[f]iles [e]dit" }
         },
-        config = function(_, opts)
-            function OilDir() return require("oil").get_current_dir() end
-
-            vim.api.nvim_create_autocmd("BufWinEnter", {
-                callback = function(ev)
-                    if vim.bo[ev.buf].filetype == "oil" and vim.api.nvim_get_current_buf() == ev.buf then
-                        vim.api.nvim_set_option_value("winbar", "%{%v:lua.OilDir()%}", { scope = "local", win = 0 })
-                    end
-                end,
-            })
-            require("oil").setup(opts)
-        end,
         opts = {
             -- Id is automatically added at the beginning, and name at the end
             -- See :help oil-columns
@@ -54,6 +56,7 @@ return {
                 list = false,
                 conceallevel = 3,
                 concealcursor = "niv",
+                winbar = "%!v:lua.get_oil_winbar()",
             },
             constrain_cursor = "editable",
             -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
@@ -64,6 +67,15 @@ return {
             -- You can set the delay to false to disable cleanup entirely
             -- Note that the cleanup process only starts when none of the oil buffers are currently displayed
             cleanup_delay_ms = 2000,
+            lsp_file_methods = {
+                -- Enable or disable LSP file operations
+                enabled = true,
+                -- Time to wait for LSP file operations to complete before skipping
+                timeout_ms = 1000,
+                -- Set to true to autosave buffers that are updated with LSP willRenameFiles
+                -- Set to "unmodified" to only save unmodified buffers
+                autosave_changes = false,
+            },
             -- Keymaps in oil buffer. Can be any value that `vim.keymap.set` accepts OR a table of keymap
             -- options with a `callback` (e.g. { callback = function() ... end, desc = "", mode = "n" })
             -- Additionally, if it is a string that matches "actions.<name>",
@@ -75,27 +87,28 @@ return {
             -- Skip the confirmation popup for simple operations
             skip_confirm_for_simple_edits = true,
             -- Keymaps in oil buffer. Can be any value that `vim.keymap.set` accepts OR a table of keymap
-            -- options with a `callback` (e.g. { callback = function() ... end, desc = "", nowait = true })
-            -- Additionally, if it is a string that matches "action.<name>",
-            -- it will use the mapping at require("oil.action").<name>
+            -- options with a `callback` (e.g. { callback = function() ... end, desc = "", mode = "n" })
+            -- Additionally, if it is a string that matches "actions.<name>",
+            -- it will use the mapping at require("oil.actions").<name>
             -- Set to `false` to remove a keymap
+            -- See :help oil-actions for a list of all available actions
             keymaps = {
-                ["g?"] = "actions.show_help",
                 ["<CR>"] = "actions.select",
-                ["<C-s>"] = "actions.select_vsplit",
-                ["<C-h>"] = "actions.select_split",
-                ["<C-t>"] = "actions.select_tab",
+                ["<S-CR>"] = { "actions.select", opts = { vertical = true } },
+                ["<C-x>"] = { "actions.select", opts = { horizontal = true } },
+                ["<C-t>"] = { "actions.select", opts = { tab = true } },
                 ["<C-p>"] = "actions.preview",
-                ["<C-c>"] = "actions.close",
+                ["<C-c>"] = { "actions.close", mode = "n" },
                 ["<C-l>"] = "actions.refresh",
-                ["-"] = "actions.parent",
-                ["_"] = "actions.open_cwd",
-                ["`"] = "actions.cd",
-                ["~"] = "actions.tcd",
-                ["gs"] = "actions.change_sort",
+                ["-"] = { "actions.parent", mode = "n" },
+                ["_"] = { "actions.open_cwd", mode = "n" },
+                ["`"] = { "actions.cd", mode = "n" },
+                ["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
+                ["gs"] = { "actions.change_sort", mode = "n" },
                 ["gx"] = "actions.open_external",
-                ["g."] = "actions.toggle_hidden",
-                ["g\\"] = "actions.toggle_trash",
+                ["g."] = { "actions.toggle_hidden", mode = "n" },
+                ["g?"] = { "actions.show_help", mode = "n" },
+                ["g\\"] = { "actions.toggle_trash", mode = "n" },
             },
             view_options = {
                 -- Show files and directories that start with "."

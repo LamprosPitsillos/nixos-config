@@ -1,7 +1,9 @@
-{ inputs
-, pkgs
-, ...
-}: {
+{
+  inputs,
+  pkgs,
+  ...
+}:
+{
   xdg.configFile."nvim" = {
     source = ./.;
     recursive = true;
@@ -13,7 +15,7 @@
     {
       enable = true;
       defaultEditor = true;
-      package = neovim-nightly;
+      # package = neovim-nightly;
 
       withPython3 = true;
       withNodeJs = true;
@@ -24,6 +26,8 @@
 
       extraPackages = with pkgs; [
 
+        sqlite
+
         luajitPackages.luarocks
         lua51Packages.lua
 
@@ -33,7 +37,6 @@
         fd
         gcc
         gnumake
-
 
         gdb
 
@@ -52,9 +55,9 @@
         nodePackages_latest.typescript-language-server
         vue-language-server
         nodePackages_latest.vscode-langservers-extracted
-   #     python311Packages.pylsp-rope
+        #     python311Packages.pylsp-rope
         # python311Packages.python-lsp-ruff
-  #      python311Packages.python-lsp-server
+        #      python311Packages.python-lsp-server
         quick-lint-js
         dot-language-server
         rust-analyzer
@@ -64,7 +67,8 @@
         typstfmt
         typstyle
         zls
-vtsls
+        vtsls
+        vscode-js-debug
       ];
     };
 }

@@ -1,12 +1,5 @@
 return {
     {
-        "ariel-frischer/bmessages.nvim",
-        event = "CmdlineEnter",
-        opts = {
-            split_type = "split",
-        }
-    },
-    {
         "uga-rosa/ccc.nvim",
 
         config = function(_, opts)
@@ -18,19 +11,7 @@ return {
         end
     },
     {
-        "utilyre/sentiment.nvim",
-        version = "*",
-        event = "VeryLazy", -- keep for lazy loading
-        opts = {
-            -- config
-        },
-        init = function()
-            -- `matchparen.vim` needs to be disabled manually in case of lazy loading
-            vim.g.loaded_matchparen = 1
-        end,
-    },
-    {
-        "echasnovski/mini.align",
+        "nvim-mini/mini.align",
         event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         opts = {
             -- Module mappings. Use `''` (empty string) to disable one.
@@ -84,71 +65,43 @@ return {
         end
     },
     -- {
-    --     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    --     enabled = true,
-    --     config = function()
-    --         require("lsp_lines").setup()
-    --         vim.keymap.set(
-    --             "n",
-    --             "<leader>lt",
-    --             function()
-    --                 vim.diagnostic.config({ virtual_text = false })
-    --                 vim.diagnostic.config({ virtual_lines = { highlight_whole_line = false } })
-    --                 require("lsp_lines").toggle()
+    --     "nvim-mini/mini.indentscope",
+    --     event = { "BufReadPre", "BufNewFile" },
+    --     version = '*',
+    --     opts = {
+    --         -- symbol = "│",
+    --         symbol = "▎",
+    --
+    --         -- symbol = "║",
+    --         -- symbol = "┃",
+    --         -- symbol = "┇",
+    --         -- symbol = "┋",
+    --         -- symbol = "┊",
+    --
+    --         -- symbol = "▌",
+    --         -- symbol = "▎",
+    --         -- symbol = "▏",
+    --         -- symbol = "░",
+    --         options = {
+    --             try_as_border = true
+    --         },
+    --     },
+    --     config = function(_, opts)
+    --         vim.api.nvim_create_autocmd("FileType", {
+    --             pattern = { "help", "alpha", "dashboard", "lazy" },
+    --             callback = function()
+    --                 vim.b.miniindentscope_disable = true
     --             end,
-    --             { desc = "Toggle lsp_lines" }
-    --         )
+    --         })
+    --         opts.draw = {
+    --             animation = require('mini.indentscope').gen_animation.none()
+    --         }
+    --         require("mini.indentscope").setup(opts)
     --     end,
     -- },
-
-    -- {
-    --     'laytan/tailwind-sorter.nvim',
-    --     enabled = true,
-    --     dev = true,
-    --     ft = { "javascriptreact", "typescriptreact" },
-    --     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim' },
-    --     -- build = 'cd formatter && npm i && npm run build',
-    --     config = true,
-    -- },
-    {
-        "echasnovski/mini.indentscope",
-        version = false, -- wait till new 0.7.0 release to put it back on semver
-        event = { "BufReadPre", "BufNewFile" },
-        opts = {
-            draw = {
-                animation = function()
-                    return 0
-                end
-            },
-            -- symbol = "│",
-            symbol = "▎",
-
-            -- symbol = "║",
-            -- symbol = "┃",
-            -- symbol = "┇",
-            -- symbol = "┋",
-            -- symbol = "┊",
-
-            -- symbol = "▌",
-            -- symbol = "▎",
-            -- symbol = "▏",
-            -- symbol = "░",
-            options = { try_as_border = true },
-        },
-        config = function(_, opts)
-            vim.api.nvim_create_autocmd("FileType", {
-                pattern = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason", "norg" },
-                callback = function()
-                    vim.b.miniindentscope_disable = true
-                end,
-            })
-            require("mini.indentscope").setup(opts)
-        end,
-    },
-    -- { "lukas-reineke/indent-blankline.nvim" },
     {
         "folke/todo-comments.nvim",
-        cmd = { "TodoTrouble", "TodoTelescope" },
+        cmd = { "TodoTelescope" },
         event = { "BufReadPost", "BufNewFile" },
         config = true,
         opts = {
@@ -216,36 +169,9 @@ return {
         }
     },
     {
-        "echasnovski/mini.trailspace",
-        enabled = false,
+        'nvim-mini/mini.trailspace',
+        enabled = true,
         event = { "BufReadPost" },
-        version = "*",
-        config = function()
-            require('mini.trailspace').setup()
-        end
-    },
-    {
-        "luckasRanarison/nvim-devdocs",
-        lazy = true,
-        keys = {
-            { "<leader>hd", "<cmd>DevdocsOpen<cr>", desc = "[h]elp [d]ocs", mode = { "n" } },
-        },
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope.nvim",
-            "nvim-treesitter/nvim-treesitter",
-        },
-        opts = {}
+        version = "*"
     }
-    , {
-    "folke/twilight.nvim",
-        enabled= false ,
-    dev = true,
-    opts = {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-    }
-}
-
 }

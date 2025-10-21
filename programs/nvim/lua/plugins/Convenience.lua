@@ -1,13 +1,4 @@
 return {
-
-    {
-        "ethanholz/nvim-lastplace",
-        opts = {
-            lastplace_ignore_buftype = { "quickfix", "nofile", "help", "prompt" },
-            lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit", "TelescopePrompt" },
-            lastplace_open_folds = true,
-        }
-    },
     {
 
         "echasnovski/mini.bufremove",
@@ -63,11 +54,6 @@ return {
                 },
             }
         end
-    },
-    -- { dir = "/home/inferno/docs/Programming/Projects/NEOVIM_PLUGS/ouroboros.nvim" },
-    {
-        "mcauley-penney/tidy.nvim",
-        config = true,
     },
     {
         'stevearc/overseer.nvim',

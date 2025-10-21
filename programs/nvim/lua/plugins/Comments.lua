@@ -1,9 +1,10 @@
 return {
     {
         "s1n7ax/nvim-comment-frame",
+        opts={},
         keys = {
             { "gcl", ":lua require('nvim-comment-frame').add_comment()<CR>",           desc = "[c]omment [l]ine" },
-            { "gcf", ":lua require('nvim-comment-frame').add_multiline_comment()<CR>", desc = "[c]omment [f]rame" }
+            { "gcm", ":lua require('nvim-comment-frame').add_multiline_comment()<CR>", desc = "[c]omment [f]rame" }
         },
         dependencies = { "nvim-treesitter" }
     },

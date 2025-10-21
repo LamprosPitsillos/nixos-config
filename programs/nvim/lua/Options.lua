@@ -36,9 +36,11 @@ vim.opt.linebreak = true
 
 vim.opt.list = false
 vim.opt.listchars:append("space:~")
--- vim.o.foldcolumn = '1'
-vim.o.foldlevel = 99
+vim.o.foldcolumn = "1"             -- '0' is not bad
+vim.o.foldlevel = 99               -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 
 vim.cmd.iabbr({ args = { "cosnt", "const" } })
 vim.cmd.iabbr({ args = { "csnt", "const" } })
@@ -75,35 +77,3 @@ vim.opt.spellsuggest = "double"
 vim.g.no_man_maps = 1
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
-
-vim.opt.guifont = "JetBrainsMono Nerd Font:h14"
-
-if vim.g.neovide then
-    vim.g.neovide_scale_factor = 1.0
-
-    local function change_scale_factor(delta)
-        vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
-    end
-
-    vim.keymap.set("n", "<C-+>", function() change_scale_factor(1.25) end)
-    vim.keymap.set("n", "<C-_>", function() change_scale_factor(1 / 1.25) end)
-
-    local function alpha()
-        return string.format("%x", math.floor(255 * (vim.g.neovide_transparency_point or 0.8)))
-    end
-    -- Set transparency and background color (title bar color)
-    vim.g.neovide_transparency = 1.0
-    vim.g.neovide_transparency_point = 0.8
-    vim.g.neovide_background_color = "#0f1117" .. alpha()
-    -- Add keybinds to change transparency
-    local function change_transparency(delta)
-        vim.g.neovide_transparency_point = vim.g.neovide_transparency_point + delta
-        vim.g.neovide_background_color = "#0f1117" .. alpha()
-    end
-    vim.keymap.set({ "n", "v", "o" }, "<C-}>", function()
-        change_transparency(0.01)
-    end)
-    vim.keymap.set({ "n", "v", "o" }, "<C-{>", function()
-        change_transparency(-0.01)
-    end)
-end
