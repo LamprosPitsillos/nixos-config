@@ -161,7 +161,7 @@
 
     fuse-overlayfs
 
-    (config.boot.kernelPackages.perf)
+    perf
   ];
 
   programs.mtr.enable = true;

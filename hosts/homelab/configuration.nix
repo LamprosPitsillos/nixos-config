@@ -154,7 +154,6 @@ in
       ## MicroControllers
       # esptool
 
-      # linuxKernel.packages.linux_6_4.perf
       inkscape
       transmission_4-gtk
       tesseract
@@ -361,7 +360,7 @@ in
     fuse-overlayfs
 
     brave
-    (config.boot.kernelPackages.perf)
+    perf
   ];
 
   programs.mtr.enable = true;
