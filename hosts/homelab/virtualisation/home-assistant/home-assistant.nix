@@ -29,7 +29,7 @@
 
       # If you want privileged mode, add
       # "--privileged"
-      "--restart=always"
+      # "--restart=always"
     ];
 
     # If you want to specify ports (only needed if not using --network=host)
