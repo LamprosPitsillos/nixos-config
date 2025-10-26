@@ -32,6 +32,7 @@
       "--cap-add=NET_ADMIN"
       "--cap-add=SYS_TIME"
       "--cap-add=SYS_NICE"
+      "--restart=always"
     ];
 
     # Ports (only needed if not using `--network=host`)
@@ -46,7 +47,6 @@
       # "123:123/udp"
     ];
 
-    restartPolicy = "unless-stopped";
   };
   # Firewall rules if your firewall is enabled
   networking.firewall.allowedTCPPorts = [

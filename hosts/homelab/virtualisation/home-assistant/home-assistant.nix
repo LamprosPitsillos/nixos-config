@@ -29,14 +29,12 @@
 
       # If you want privileged mode, add
       # "--privileged"
+      "--restart=always"
     ];
 
     # If you want to specify ports (only needed if not using --network=host)
     # ports = [ "8123:8123" ];
 
-    # Optionally dependencies, restart policy
-    # If you want container to restart on failure
-    restartPolicy = "always";
   };
   # Open needed firewall ports if firewall is enabled
   networking.firewall.allowedTCPPorts = [ 80 ];
