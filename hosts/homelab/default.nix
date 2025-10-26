@@ -2,7 +2,10 @@
 {
   imports = [
     ./services.nix
-    ./configuration.nix
     ./hardware-configuration.nix
+    ./configuration.nix
+    ./users.nix
+
+    ./virtualisation
   ];
 }

@@ -1,20 +1,35 @@
-{ config
-, pkgs
-, inputs
-, lib
-, ...
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
 }:
 let
   host = builtins.baseNameOf ./.;
 in
 {
 
-  imports = [
-    ./services
-    ./hardware-configuration.nix
+  custom.hostProps.monitors = [
+    {
+      name = "eDP-1";
+      primary = true;
+      width = 1920;
+      height = 1080;
+      refreshRate = 60; # up to 144
+    }
+    {
+      name = "HDMI-A-1";
+      primary = false;
+      width = 1920;
+      height = 1080;
+      refreshRate = 60; # up to 144
+    }
   ];
-
-  environment.pathsToLink = [ "/share/zsh" "/share/fish" "/share/nu" ];
+  environment.pathsToLink = [
+    "/share/fish"
+    "/share/nu"
+  ];
 
   virtualisation.docker = {
     enableOnBoot = true;
@@ -44,9 +59,9 @@ in
   #
   # Define on which hard drive you want to install Grub.
 
-  networking.hostName = host ; # Define your hostname.
+  networking.hostName = host; # Define your hostname.
   networking.extraHosts = ''
-              127.0.0.1   serve.maestro.test react.maestro.test maestro.test
+    127.0.0.1   serve.maestro.test react.maestro.test maestro.test
   '';
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -62,8 +77,7 @@ in
   # Select internationalisation properties.
   i18n = {
     defaultLocale = "en_US.UTF-8";
-    supportedLocales = [
-      "en_US.UTF-8/UTF-8"
+    extraLocales = [
       "el_GR.UTF-8/UTF-8"
     ];
   };
@@ -110,19 +124,27 @@ in
 
   programs.thunar = {
     enable = true;
-    plugins = with pkgs.xfce; [ thunar-archive-plugin thunar-volman ];
+    plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.inferno = {
     isNormalUser = true;
-    extraGroups = [ "wireshark" "docker" "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wireshark"
+      "docker"
+      "wheel"
+      "networkmanager"
+    ]; # Enable ‘sudo’ for the user.
     initialPassword = "1234";
 
     packages = with pkgs; [
 
-            chromium
-        freecad-wayland
+      chromium
+      freecad-wayland
 
       # steam
       rare
@@ -189,7 +211,9 @@ in
 
       ffmpeg-full
 
-      jq htmlq fq
+      jq
+      htmlq
+      fq
       unzip
       zip
       parallel
@@ -294,7 +318,6 @@ in
     };
   };
 
-
   qt = {
     enable = true;
     platformTheme = "qt5ct";
@@ -314,7 +337,7 @@ in
   environment.systemPackages = with pkgs; [
 
     (sweethome3d.application.overrideAttrs {
-       env.ANT_ARGS = "-DappletClassSource=8 -DappletClassTarget=8 -DclassSource=8 -DclassTarget=8";
+      env.ANT_ARGS = "-DappletClassSource=8 -DappletClassTarget=8 -DclassSource=8 -DclassTarget=8";
     })
 
     tenki
@@ -344,7 +367,6 @@ in
 
     wireshark
 
-
     nv-codec-headers
 
     pv
@@ -373,7 +395,7 @@ in
     packages = [ pkgs.nerd-fonts.jetbrains-mono ];
   };
   # programs.zsh.enable = true;
-  programs.fish.enable= true;
+  programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
   # Before changing this value read the documentation for this option

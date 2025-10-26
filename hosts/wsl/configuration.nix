@@ -63,14 +63,6 @@ in
 
   programs.mtr.enable = true;
 
-  #
-  #
-  ##
-
-  ##
-  # Default shell
-  #
-
   environment.sessionVariables = {
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_CONFIG_HOME = "$HOME/.config";

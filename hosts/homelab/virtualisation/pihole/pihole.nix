@@ -11,9 +11,9 @@
     image = "pihole/pihole:latest";
 
     environment = {
-      TZ = "Europe/London";
+      TZ = "Europe/Athens";
       # Sets the admin password. If not set, Pi-hole generates a random one
-      FTLCONF_webserver_api_password = "correct horse battery staple";
+      FTLCONF_webserver_api_password = "init_password_1234";
       # Important for bridge networking: listen on all interfaces
       FTLCONF_dns_listeningMode = "all";
       # If using custom dnsmasq config, enable this

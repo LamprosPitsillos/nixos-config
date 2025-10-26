@@ -35,6 +35,7 @@ in
 
         wallpaper = [
           "eDP-1,${grass_field}"
+          "HDMI-A-1,${sea}"
         ];
       };
   };

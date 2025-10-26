@@ -18,10 +18,16 @@ in
       height = 1080;
       refreshRate = 60; # up to 144
     }
+    {
+      name = "HDMI-A-1";
+      primary = false;
+      width = 1920;
+      height = 1080;
+      refreshRate = 60; # up to 144
+    }
   ];
 
   environment.pathsToLink = [
-    "/share/zsh"
     "/share/fish"
     "/share/nu"
   ];
@@ -72,12 +78,10 @@ in
   # Select internationalisation properties.
   i18n = {
     defaultLocale = "en_US.UTF-8";
-    supportedLocales = [
-      "en_US.UTF-8/UTF-8"
+    extraLocales = [
       "el_GR.UTF-8/UTF-8"
     ];
   };
-
   # console = {
   #   font = "Lat2-Terminus16";
   #   keyMap = "us";
