@@ -32,7 +32,6 @@
       "--cap-add=NET_ADMIN"
       "--cap-add=SYS_TIME"
       "--cap-add=SYS_NICE"
-      "--restart=always"
     ];
 
     # Ports (only needed if not using `--network=host`)
