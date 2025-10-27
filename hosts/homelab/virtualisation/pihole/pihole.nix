@@ -6,6 +6,7 @@
   ...
 }:
 {
+  # https://docs.pi-hole.net/docker/
   virtualisation.oci-containers.containers."pihole" = {
     autoStart = true;
     image = "pihole/pihole:latest";
@@ -22,16 +23,20 @@
 
     volumes = [
       # Persist Pi-hole configs
-      "/var/lib/pihole:/etc/pihole"
+      "${config.environment.variables.XDG_CONFIG_HOME}/pihole:/etc/pihole"
       # Enable if you have custom dnsmasq configs
       # "/var/lib/dnsmasq:/etc/dnsmasq.d"
     ];
 
+    capabilities = {
+      NET_ADMIN = true;
+      SYS_TIME = true;
+      SYS_NIC = true;
+      NET_BIND_SERVICE = true;
+      CHOWN = true;
+    };
     # Container capabilities
     extraOptions = [
-      "--cap-add=NET_ADMIN"
-      "--cap-add=SYS_TIME"
-      "--cap-add=SYS_NICE"
     ];
 
     # Ports (only needed if not using `--network=host`)
