@@ -23,7 +23,7 @@
 
     volumes = [
       # Persist Pi-hole configs
-      "${config.environment.variables.XDG_CONFIG_HOME}/pihole:/etc/pihole"
+      "/var/lib/pihole:/etc/pihole"
       # Enable if you have custom dnsmasq configs
       # "/var/lib/dnsmasq:/etc/dnsmasq.d"
     ];
@@ -31,7 +31,7 @@
     capabilities = {
       NET_ADMIN = true;
       SYS_TIME = true;
-      SYS_NIC = true;
+      SYS_NICE = true;
       NET_BIND_SERVICE = true;
       CHOWN = true;
     };

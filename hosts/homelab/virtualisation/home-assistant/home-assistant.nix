@@ -12,7 +12,7 @@
     image = "ghcr.io/home-assistant/home-assistant:stable";
     privileged = true;
     volumes = [
-      "${config.environment.variables.XDG_CONFIG_HOME}/home-assistant:/config"
+      "/var/lib/home-assistant:/config"
       "/etc/localtime:/etc/localtime:ro"
       "/run/dbus:/run/dbus:ro"
     ];
