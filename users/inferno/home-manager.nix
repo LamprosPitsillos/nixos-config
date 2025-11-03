@@ -1,4 +1,9 @@
-{ pkgs, config,osConfig, ... }:
+{
+  pkgs,
+  config,
+  osConfig,
+  ...
+}:
 let
   username = builtins.baseNameOf ./.;
 in
@@ -13,6 +18,7 @@ in
     homeDirectory = "/home/${username}";
     stateVersion = "22.11";
     packages = with pkgs; [
+      hyprpicker
       man-pages
       man-pages-posix
 

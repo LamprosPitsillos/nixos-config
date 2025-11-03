@@ -1,7 +1,11 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./../nix/nix.nix
+  ];
+
+  environment.systemPackages = with pkgs; [
+    powertop
   ];
 
   documentation = {

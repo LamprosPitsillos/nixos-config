@@ -4,10 +4,11 @@
   inputs,
   lib,
   ...
-}: {
+}:
+{
   systemd = {
     services = {
-      "NetworkManager-wait-online".wantedBy = lib.mkForce [];
+      "NetworkManager-wait-online".wantedBy = lib.mkForce [ ];
     };
   };
   services = {
@@ -41,7 +42,7 @@
       enable = true;
       keyboards = {
         "homerow" = {
-          devices = [];
+          devices = [ ];
           config = ''
             (defsrc
              esc     f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12 prnt slck del home pgup pgdn end
@@ -86,6 +87,7 @@
         enable = true;
         settings = {
           numlock = true;
+          bigclock = true;
         };
       };
     };
@@ -112,26 +114,20 @@
           };
         };
         configPackages = [
-          (
-            pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua"
-            /*
-            lua
-            */
-            ''
-              bluez_monitor.properties = {
-                  ["bluez5.enable-sbc-xq"] = true,
-                  ["bluez5.enable-msbc"] = true,
-                  ["bluez5.enable-hw-volume"] = true,
-                  ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-              }
-            ''
-          )
+          (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" /* lua */ ''
+            bluez_monitor.properties = {
+                ["bluez5.enable-sbc-xq"] = true,
+                ["bluez5.enable-msbc"] = true,
+                ["bluez5.enable-hw-volume"] = true,
+                ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+            }
+          '')
         ];
       };
       # If you want to use JACK applications, uncomment this
       #jack.enable = true;
     };
-    xserver.videoDrivers = ["nvidia"];
+    xserver.videoDrivers = [ "nvidia" ];
     libinput.enable = true;
 
     # File system browsing deps
@@ -148,7 +144,7 @@
       enable = true;
     };
 
-    pam.services.gtklock = {};
+    pam.services.gtklock = { };
     rtkit.enable = true;
   };
 }
