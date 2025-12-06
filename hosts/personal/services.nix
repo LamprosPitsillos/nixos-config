@@ -12,6 +12,7 @@
     };
   };
   services = {
+    fwupd.enable = true;
     upower = {
       enable = false;
     };

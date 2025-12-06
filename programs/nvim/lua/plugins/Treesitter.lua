@@ -2,7 +2,8 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        version = false,
+        branch = 'master',
+        lazy = false,
         event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
         dependencies = {
             "windwp/nvim-ts-autotag",
@@ -101,31 +102,22 @@ return {
                     }
                 },
             },
-            rainbow = {
-                enable = true,
-                -- list of languages you want to disable the plugin for
-                -- disable = { "jsx", "cpp" },
-                -- Which query to use for finding delimiters
-                query = 'rainbow-parens',
-                -- Highlight the entire buffer all at once
-                -- strategy = require 'ts-rainbow.strategy.global',
-            },
             incremental_selection = {
                 enable = true,
                 keymaps = {
                     init_selection = "<CR>",
                     node_incremental = "<CR>",
+                    node_decremental = "<S-CR>",
                     scope_incremental = "<Tab>",
-                    node_decremental = "<S-Tab>",
                 },
             },
             indent = {
-                enable = true, disable = { "python" }
+                enable = true,
             },
             ensure_installed = {
                 "norg",
                 "hyprlang",
-                "bash","tmux",
+                "bash", "tmux",
                 "c",
                 "cmake",
                 "cpp",
@@ -139,8 +131,8 @@ return {
                 "jsdoc",
                 "json",
                 "lua",
-                "php","php_only",
-                "markdown", "markdown_inline","typst",
+                "php", "php_only",
+                "markdown", "markdown_inline", "typst",
                 "nix",
                 "prisma",
                 "python",
@@ -156,8 +148,14 @@ return {
             highlight = {
                 enable = true,
                 use_languagetree = true,
-                disable = { "latex", "tex" },
-                additional_vim_regex_highlighting = { "latex", "tex" },
+                -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
+                disable = function(lang, buf)
+                    local max_filesize = 100 * 1024 -- 100 KB
+                    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                    if ok and stats and stats.size > max_filesize then
+                        return true
+                    end
+                end,
             },
             query_linter = {
                 enable = true,
@@ -211,9 +209,9 @@ return {
         -- [!] The options below are exposed but shouldn't require your attention,
         --     you can safely ignore them.
 
-        zindex = 20,     -- The Z-index of the context window
+        zindex = 20,      -- The Z-index of the context window
         mode = "topline", -- Line used to calculate context. Choices: 'cursor', 'topline'
-        separator = nil, -- Separator between context and content. Should be a single character string, like '-'.
+        separator = nil,  -- Separator between context and content. Should be a single character string, like '-'.
     }
 },
 }

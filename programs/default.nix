@@ -16,8 +16,7 @@ imports = [
     ./vcs/jujutsu.nix
     # ./widgets/ags/ags.nix
     ./widgets/eww/eww.nix
-    ./wm/hyprland.nix
-    ./wm/hyprpaper.nix
+    ./wm
     ./zathura/zathura.nix
     ];
 

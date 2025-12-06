@@ -35,13 +35,13 @@ in
 
   wayland.windowManager.hyprland = {
 
-    enable = !isHeadless;
+    enable = !osConfig.custom.hostProps.isHeadless;
 
     # set to false to enable .withUWSM
     systemd.enable = false;
     xwayland.enable = true;
     settings = {
-      monitor = monitors;
+      # monitor = monitors;
     };
     extraConfig =
       let
@@ -266,6 +266,7 @@ in
                 bind = ALT SHIFT,Print ,exec,${system_scripts.screen_rec} area
                 bind =$mainMod ,Print ,exec,${system_scripts.screen_to_text}
                 bind =$mainMod,B ,exec,eww open --toggle bar
+                bind =$mainMod CTRL, L ,exec, ${lib.getExe pkgs.hyprlock}
                 bind =$mainMod SHIFT,S , exec, ${scripts.toggle} "misc:enable_swallow" "int" "1" "0"
 
                 #grim -g "$(slurp)" - | swappy -f - -o $HOME/pics/Screenshot/"$(date +'%Y-%m-%d_%H-%M-%S')_$(echo | tofi --prompt-text="Name: " --require-match=false --height=8% | tr " " "_")"

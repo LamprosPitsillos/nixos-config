@@ -1,5 +1,0 @@
-(include "vars/vars.yuck")
-
-(include "windows/bar.yuck")
-(include "windows/powermenu.yuck")
-(include "windows/toast.yuck")

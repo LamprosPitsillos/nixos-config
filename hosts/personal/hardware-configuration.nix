@@ -7,7 +7,8 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
@@ -16,7 +17,6 @@
     bluetooth.enable = true;
     graphics = {
       enable = true;
-      extraPackages = [pkgs.libva];
     };
 
     nvidia = {
@@ -28,21 +28,27 @@
       powerManagement.enable = true;
       # # Enable the nvidia settings menu
       nvidiaSettings = true;
-            prime={
- offload.enable = true;
-offload.enableOffloadCmd=true;
-    nvidiaBusId = "PCI:1:0:0";
-    amdgpuBusId = "PCI:6:0:0";
-            };
+      # prime = {
+      #   offload.enable = true;
+      #   offload.enableOffloadCmd = true;
+      #   nvidiaBusId = "PCI:1:0:0";
+      #   amdgpuBusId = "PCI:6:0:0";
+      # };
     };
   };
 
   powerManagement.enable = true;
 
-  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "usb_storage" "sd_mod" "sdhci_pci"];
-  boot.initrd.kernelModules = ["nvidia"];
-  boot.kernelModules = ["kvm-amd"];
-  boot.extraModulePackages = [];
+  boot.initrd.availableKernelModules = [
+    "nvme"
+    "xhci_pci"
+    "usb_storage"
+    "sd_mod"
+    "sdhci_pci"
+  ];
+  boot.initrd.kernelModules = [ "nvidia" ];
+  boot.kernelModules = [ "kvm-amd" ];
+  boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/118ca107-5369-4e83-8d6e-d7d4767df4e3";
@@ -52,10 +58,13 @@ offload.enableOffloadCmd=true;
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/6AF8-2C92";
     fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
   };
 
-  swapDevices = [];
+  swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

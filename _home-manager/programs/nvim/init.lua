@@ -1,8 +1,0 @@
-vim.loader.enable()
-require("Options")
-require("Plugin-manager")
-require("Optimisations")
-require("Commands")
-require("Keymaps")
-require("MyUtils")
-vim.cmd.colorscheme("onedark")

@@ -16,7 +16,8 @@
     };
     man = {
       enable = true;
-      generateCaches = true;
+      # really slow for some reason...
+      generateCaches = false;
     };
   };
 

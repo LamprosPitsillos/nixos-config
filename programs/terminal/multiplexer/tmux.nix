@@ -75,6 +75,7 @@
     })
   ];
   programs.tmux = let
+    prefix = "C-q";
     clipboard_copy = "${pkgs.wl-clipboard}/bin/wl-copy";
     clipboard_copy_primary = "${clipboard_copy} --primary";
     clipboard_paste = "${pkgs.wl-clipboard}/bin/wl-paste";
@@ -83,7 +84,7 @@
     enable = true;
     baseIndex = 1;
     keyMode = "vi";
-    prefix = "C-q";
+    prefix = prefix;
     terminal = "screen-256color";
     escapeTime = 0;
     historyLimit = 100000;
@@ -188,6 +189,8 @@
         bind -T copy-mode-vi v send-keys -X begin-selection
         bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "${clipboard_copy_primary}"
         bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "${clipboard_copy_primary}"
+
+        bind ${prefix} send-prefix
 
         bind -n MouseDown2Pane run "${clipboard_paste_primary} -n | tmux load-buffer - && tmux paste-buffer"
       '';
