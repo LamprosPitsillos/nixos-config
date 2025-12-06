@@ -14,6 +14,7 @@
     ./zsh.nix
 
     ./bat.nix
+    ./fzf.nix
     ./direnv.nix
     ./zoxide.nix
     ./starship.nix
