@@ -9,7 +9,7 @@
   # https://docs.pi-hole.net/docker/
   virtualisation.oci-containers.containers."pihole" = {
     autoStart = true;
-    image = "pihole/pihole:latest";
+    image = "pihole/pihole:2025.11.1";
 
     environment = {
       TZ = "Europe/Athens";

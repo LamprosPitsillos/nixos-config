@@ -11,6 +11,7 @@ imports = [
 
     ./terminal
 
+    ./picker/vicinae.nix
     ./tofi/tofi.nix
     ./vcs/git.nix
     ./vcs/jujutsu.nix

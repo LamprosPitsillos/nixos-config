@@ -5,6 +5,9 @@
   ...
 }:
 {
-  imports = [ ./definition.nix ./modules.nix ];
+  imports = [
+    ./definition.nix
+    ./modules.nix
+  ];
 
 }

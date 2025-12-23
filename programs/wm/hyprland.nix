@@ -70,6 +70,7 @@ in
                 # https://github.com/nix-community/home-manager/issues/7242#issuecomment-2959253475
                 exec-once = systemctl --user start hyprpaper
                 exec-once = systemctl --user start hyprpolkitagent
+                exec-once = systemctl --user restart hypridle
 
                 # exec-once = ags &
                 # exec-once = hyprctl setcursor "Bibata-Modern-Ice" 8
@@ -122,6 +123,7 @@ in
                 }
                 cursor {
                     inactive_timeout = 5
+                    zoom_disable_aa	= true
                 }
                 group {
 
@@ -266,7 +268,7 @@ in
                 bind = ALT SHIFT,Print ,exec,${system_scripts.screen_rec} area
                 bind =$mainMod ,Print ,exec,${system_scripts.screen_to_text}
                 bind =$mainMod,B ,exec,eww open --toggle bar
-                bind =$mainMod CTRL, L ,exec, ${lib.getExe pkgs.hyprlock}
+                bind =,XF86Launch2 ,exec, ${lib.getExe pkgs.hyprlock}
                 bind =$mainMod SHIFT,S , exec, ${scripts.toggle} "misc:enable_swallow" "int" "1" "0"
 
                 #grim -g "$(slurp)" - | swappy -f - -o $HOME/pics/Screenshot/"$(date +'%Y-%m-%d_%H-%M-%S')_$(echo | tofi --prompt-text="Name: " --require-match=false --height=8% | tr " " "_")"
@@ -326,8 +328,8 @@ in
                 binde= ,XF86AudioLowerVolume, exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.0
                 binde= ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 
-                binde= ,XF86MonBrightnessDown,exec,brightnessctl set 50- -q
-                binde= ,XF86MonBrightnessUp,exec,brightnessctl set 50+ -q
+                binde= ,XF86MonBrightnessDown,exec,brightnessctl -e4 -n2 set 5%-
+                binde= ,XF86MonBrightnessUp,exec,brightnessctl -e4 -n2 set 5%+
 
                 bindl=,XF86AudioPlay,exec,${system_scripts.mpv_controller} toggle
                 bindl=,XF86AudioPrev,exec,${system_scripts.mpv_controller} prev

@@ -31,8 +31,8 @@
             font_size = 100;
 
             halign = "center";
-            valign = "top";
-            position = " 0 ,-10 ";
+            valign = "center";
+            position = " 0 ,200 ";
           }
 
           {

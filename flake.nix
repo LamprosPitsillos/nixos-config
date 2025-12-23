@@ -42,6 +42,10 @@
           path = ./nix/templates/default;
           description = "A very basic starter flake";
         };
+        python = {
+          path = ./nix/templates/python;
+          description = "A very basic python starter flake";
+        };
       };
       nixosConfigurations = nixpkgs.lib.genAttrs hosts (
         host:

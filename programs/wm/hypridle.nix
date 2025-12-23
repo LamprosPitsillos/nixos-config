@@ -1,35 +1,45 @@
-{ pkgs, lib, osConfig, ... }:
 {
+  pkgs,
+  lib,
+  osConfig,
+  ...
+}:
+{
+
   services.hypridle = {
     enable = !osConfig.custom.hostProps.isHeadless;
-    settings = {
+    settings =
+      let
+        time = pkgs.callPackage ../../utils/time.nix {};
+      in
+      {
 
-      general = {
-        lock_cmd = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
-        before_sleep_cmd = "loginctl lock-session"; # lock before suspend.
-        after_sleep_cmd = "hyprctl dispatch dpms on"; # to avoid having to press a key twice to turn on the display.
+        general = {
+          lock_cmd = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
+          before_sleep_cmd = "loginctl lock-session"; # lock before suspend.
+          after_sleep_cmd = "hyprctl dispatch dpms on"; # to avoid having to press a key twice to turn on the display.
+        };
+
+        listener = [
+          {
+            timeout = time.toSec 1 "min" ; 
+            on-timeout = "brightnessctl -s -e4 -n2 set 10"; # set monitor backlight to minimum, avoid 0 on OLED monitor.
+            on-resume = "brightnessctl -r"; # monitor backlight restore.
+          }
+          {
+            timeout = time.toSec 2 "min" ; 
+            on-timeout = "loginctl lock-session"; # lock screen when timeout has passed
+          }
+          {
+            timeout = time.toSec 3 "min"; 
+            on-timeout = "hyprctl dispatch dpms off"; # screen off when timeout has passed
+            on-resume = "hyprctl dispatch dpms on && brightnessctl -r"; # screen on when activity is detected after timeout has fired.
+          }
+          # {
+          #   timeout = time.toSec 30 "min";
+          #   on-timeout = "systemctl suspend"; # suspend pc
+          # }
+        ];
       };
-
-      listener = [
-        {
-          timeout = 150; # 2.5min.
-          on-timeout = "brightnessctl -s set 10"; # set monitor backlight to minimum, avoid 0 on OLED monitor.
-          on-resume = "brightnessctl -r"; # monitor backlight restore.
-        }
-        {
-          timeout = 300; # 5min
-          on-timeout = "loginctl lock-session"; # lock screen when timeout has passed
-        }
-        {
-          timeout = 330; # 5.5min
-          on-timeout = "hyprctl dispatch dpms off"; # screen off when timeout has passed
-          on-resume = "hyprctl dispatch dpms on && brightnessctl -r"; # screen on when activity is detected after timeout has fired.
-        }
-        {
-          timeout = 1800; # 30min
-          on-timeout = "systemctl suspend"; # suspend pc
-        }
-      ];
-    };
   };
 }

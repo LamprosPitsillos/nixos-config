@@ -64,7 +64,6 @@
         typescript
         # typst-lsp
         tinymist
-        typstfmt
         typstyle
         zls
         vtsls

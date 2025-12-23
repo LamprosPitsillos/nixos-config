@@ -1,44 +1,24 @@
 {
+  description = "...";
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    systems.url = "github:nix-systems/default";
-    devenv.url = "github:cachix/devenv";
   };
 
   outputs =
-    { self
-    , nixpkgs
-    , devenv
-    , systems
-    , ...
-    } @ inputs:
+    { nixpkgs, ... }:
     let
-      forEachSystem = nixpkgs.lib.genAttrs (import systems);
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      devShells =
-        forEachSystem
-          (system:
-            let
-              pkgs = nixpkgs.legacyPackages.${system};
-            in
-            {
-              default = devenv.lib.mkShell {
-                inherit inputs pkgs;
-                modules = [
-                  {
-                    # https://devenv.sh/reference/options/
-                    packages = with pkgs; [
-                      python3.pkgs.flake8
-                      python3.pkgs.black
-                    ];
+      devShells.${system}.default = pkgs.mkShell {
+        packages = with pkgs; [
+          (python3.withPackages (python-pkgs: [
 
-                    dotenv.disableHint = true;
-                    languages.python.enable = true;
-                    languages.python.venv.enable = true;
-                  }
-                ];
-              };
-            });
+          ]))
+        ];
+      };
     };
+
 }
