@@ -14,7 +14,13 @@ return {
             { "nvim-telescope/telescope-symbols.nvim" },
             { "nvim-telescope/telescope-fzf-native.nvim",                             build = "make" },
             { "Marskey/telescope-sg" },
-            { "catgoose/telescope-helpgrep.nvim" }
+            { "catgoose/telescope-helpgrep.nvim" },
+            {
+                "nvim-telescope/telescope-live-grep-args.nvim",
+                -- This will not install any breaking changes.
+                -- For major updates, this must be adjusted manually.
+                version = "^1.0.0",
+            },
 
         },
         config = function()
@@ -22,6 +28,7 @@ return {
             local previewers = require("telescope.previewers")
             local sorters = require("telescope.sorters")
             local actions = require("telescope.actions");
+            local lga_actions = require("telescope-live-grep-args.actions")
 
             require("telescope").setup({
                 defaults = {
@@ -87,6 +94,22 @@ return {
                         },                      -- must have --json=stream
                         grep_open_files = true, -- search in opened files
                         lang = nil,             -- string value, specify language for ast-grep `nil` for default
+                    },
+                    live_grep_args = {
+                        auto_quoting = true, -- enable/disable auto-quoting
+                        -- define mappings, e.g.
+                        mappings = {         -- extend mappings
+                            i = {
+                                ["<C-k>"] = lga_actions.quote_prompt(),
+                                ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+                                -- freeze the current list and start a fuzzy search in the frozen list
+                                ["<C-space>"] = lga_actions.to_fuzzy_refine,
+                            },
+                        },
+                        -- ... also accepts theme settings, for example:
+                        -- theme = "dropdown", -- use dropdown theme
+                        -- theme = { }, -- use own theme spec
+                        -- layout_config = { mirror=true }, -- mirror preview pane
                     },
                     zoxide = {
                         mappings = {
@@ -187,6 +210,7 @@ return {
             require("telescope").load_extension("zoxide")
             require("telescope").load_extension("luasnip")
             require("telescope").load_extension("helpgrep")
+            require("telescope").load_extension("live_grep_args")
             -- require("telescope._extensions.zoxide.config").setup({
             --     mappings = {
             --         default = {
@@ -250,13 +274,12 @@ return {
 
             map_utils.nmap("<leader>hN", "<cmd>Telescope helpgrep live_grep<cr>", { desc = "[h]elp [n]eovim [l]ive" })
 
-            map_utils.nmap("<leader>sl",
-                function()
-                    telescope.live_grep({
-                        cwd = vim.lsp.buf.list_workspace_folders()[1],
-                        glob_pattern = "!ThirdParty"
-                    })
-                end, { desc = "[s]earch [l]ive" })
+
+            map_utils.nmap("<leader>sl", function()
+                require("telescope").extensions.live_grep_args.live_grep_args({
+                    cwd = vim.lsp.buf.list_workspace_folders()[1]
+                })
+            end, { desc = "[s]earch [l]ive" })
             map_utils.nmap("<leader>sw",
                 function() telescope.grep_string({ cwd = vim.lsp.buf.list_workspace_folders()[1] }) end,
                 { desc = "[s]earch [w]ord under cursor" })

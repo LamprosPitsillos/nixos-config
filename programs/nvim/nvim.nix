@@ -62,6 +62,8 @@
         dot-language-server
         rust-analyzer
         typescript
+
+        inputs.mcphub-nvim.packages.${pkgs.system}.default
         # typst-lsp
         tinymist
         typstyle

@@ -13,7 +13,7 @@
       which = {
         mask = {bg = "#404145";};
       };
-      manager = {
+      mgr = {
         preview_hovered = { fg = "black" ; bg = "lightblue" ; underline = false; };
       };
     };
@@ -87,7 +87,7 @@
         { on = ["<C-r>"]; run = "redo"; desc = "Redo the last operation"; }
         { on = ["g" "?"]; run = "help"; desc = "Open help"; }
       ];
-      manager.keymap = [
+      mgr.keymap = [
         { on = ["<Esc>"]; run = "escape"; desc = "Exit visual mode, clear selected, or cancel search"; }
         { on = [leader "d"]; run = ''shell 'ripdrag -x -n -i "''$@"' --confirm''; desc = "Drag n Drop Selection"; }
         { on = ["q"]; run = "quit"; desc = "Exit the process"; }
@@ -225,7 +225,7 @@
     };
 
     settings = {
-      headsup = {};
+      # headsup = {};
       input = {
         cd_offset = [0 2 50 3];
         cd_origin = "top-center";
@@ -262,7 +262,7 @@
         trash_title = "Move {n} selected file{s} to trash? (y/N)";
       };
       log = {enabled = false;};
-      manager = {
+      mgr = {
         # preview_hovered = { fg = "black" ; bg = "lightblue" ; underline = false; };
         linemode = "none";
         ratio = [1 2 2];
@@ -317,13 +317,6 @@
       plugin = {
         preloaders = [
           {
-            cond = "!mime";
-            multi = true;
-            name = "*";
-            prio = "high";
-            run = "mime";
-          }
-          {
             mime = "image/vnd.djvu";
             run = "noop";
           }
@@ -363,15 +356,15 @@
         ];
       };
       preview = {
-        cache_dir = "";
+        # cache_dir = "";
         image_filter = "triangle";
         image_quality = 75;
         max_height = 900;
         max_width = 600;
         sixel_fraction = 15;
         tab_size = 5;
-        ueberzug_offset = [0 0 0 0];
-        ueberzug_scale = 1;
+        # ueberzug_offset = [0 0 0 0];
+        # ueberzug_scale = 1;
       };
       select = {
         open_offset = [0 1 50 7];
@@ -381,7 +374,7 @@
       tasks = {
         bizarre_retry = 5;
         image_alloc = 536870912;
-        image_bound = [0 0];
+        # image_bound = [0 0];
         macro_workers = 25;
         micro_workers = 10;
         suppress_preload = false;

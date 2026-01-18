@@ -12,9 +12,9 @@
     };
   };
   services = {
-    fwupd.enable = true;
+    fwupd.enable = false;
     upower = {
-      enable = false;
+      enable = true;
     };
     mysql = {
       enable = false;

@@ -34,8 +34,14 @@ in
         ];
 
         wallpaper = [
-          "eDP-1,${grass_field}"
-          "HDMI-A-1,${sea}"
+          {
+            monitor = "eDP-1";
+            path = "${grass_field}";
+          }
+          {
+            monitor = "HDMI-A-1";
+            path = "${sea}";
+          }
         ];
       };
   };
