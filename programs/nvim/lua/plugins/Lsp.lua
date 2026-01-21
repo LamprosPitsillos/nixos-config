@@ -166,6 +166,7 @@ return {
                     filetypes = { "vue", "javascriptreact", "typescriptreact" }
                 },
                 texlab = {},
+                qmlls = {},
                 -- vtsls = {
                 --
                 --     settings = {

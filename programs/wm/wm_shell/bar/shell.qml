@@ -3,7 +3,7 @@ import Quickshell.Wayland
 import Quickshell.Io
 import Quickshell.Hyprland
 import QtQuick
-import Quickshell.Widgets  
+import Quickshell.Widgets
 import QtQuick.Layouts
 import Quickshell.Services.SystemTray
 
@@ -31,15 +31,16 @@ PanelWindow {
         command: ["sh", "-c", "head -1 /proc/stat"]
         stdout: SplitParser {
             onRead: data => {
-                if (!data) return
-                var p = data.trim().split(/\s+/)
-                var idle = parseInt(p[4]) + parseInt(p[5])
-                var total = p.slice(1, 8).reduce((a, b) => a + parseInt(b), 0)
+                if (!data)
+                    return;
+                var p = data.trim().split(/\s+/);
+                var idle = parseInt(p[4]) + parseInt(p[5]);
+                var total = p.slice(1, 8).reduce((a, b) => a + parseInt(b), 0);
                 if (lastCpuTotal > 0) {
-                    cpuUsage = Math.round(100 * (1 - (idle - lastCpuIdle) / (total - lastCpuTotal)))
+                    cpuUsage = Math.round(100 * (1 - (idle - lastCpuIdle) / (total - lastCpuTotal)));
                 }
-                lastCpuTotal = total
-                lastCpuIdle = idle
+                lastCpuTotal = total;
+                lastCpuIdle = idle;
             }
         }
         Component.onCompleted: running = true
@@ -51,11 +52,12 @@ PanelWindow {
         command: ["sh", "-c", "free | grep Mem"]
         stdout: SplitParser {
             onRead: data => {
-                if (!data) return
-                var parts = data.trim().split(/\s+/)
-                var total = parseInt(parts[1]) || 1
-                var used = parseInt(parts[2]) || 0
-                memUsage = Math.round(100 * used / total)
+                if (!data)
+                    return;
+                var parts = data.trim().split(/\s+/);
+                var total = parseInt(parts[1]) || 1;
+                var used = parseInt(parts[2]) || 0;
+                memUsage = Math.round(100 * used / total);
             }
         }
         Component.onCompleted: running = true
@@ -67,8 +69,8 @@ PanelWindow {
         running: true
         repeat: true
         onTriggered: {
-            cpuProc.running = true
-            memProc.running = true
+            cpuProc.running = true;
+            memProc.running = true;
         }
     }
     anchors.top: true
@@ -97,85 +99,107 @@ PanelWindow {
         //         }
         //     }
         // }
-        // Repeater {  
-        //            model: SystemTray.items  
-        //              
-        //            Item {  
-        //                width: 32  
-        //                height: 32  
-        //                  
-        //                // Background rectangle for hover effect  
-        //                Rectangle {  
-        //                    anchors.fill: parent  
-        //                    color: {  
-        //                        if (modelData.onlyMenu) return "transparent"  
-        //                        if (mouseArea.pressed) return Qt.rgba(0.3, 0.3, 0.3, 0.8)  
-        //                        if (mouseArea.containsMouse) return Qt.rgba(0.2, 0.2, 0.2, 0.6)  
-        //                        return "transparent"  
-        //                    }  
-        //                    radius: 4  
-        //                      
-        //                    // Only show hover effect for non-menu-only items  
-        //                    visible: !modelData.onlyMenu  
-        //                }  
-        //                  
-        //                IconImage {  
-        //                    anchors.centerIn: parent  
-        //                    source: modelData.icon  
-        //                    implicitSize: 24  
-        //                }  
-        //                    MouseArea {  
-        //                    id: mouseArea  
-        //                    anchors.fill: parent  
-        //                    hoverEnabled: !modelData.onlyMenu  
-        //                      
-        //                    onClicked: function(mouse) {  
-        //                        if (mouse.button === Qt.LeftButton) {  
-        //                            if (!modelData.onlyMenu) {  
-        //                                modelData.activate()  
-        //                            } else if (modelData.hasMenu) {  
-        //                                modelData.display(parent, width/2, height)  
-        //                            }  
-        //                        } else if (mouse.button === Qt.RightButton && modelData.hasMenu) {  
-        //                            modelData.display(parent, mouse.x, mouse.y)  
-        //                        }  
-        //                    }  
-        //                      
-        //                    onPressed: function(mouse) {  
-        //                        if (mouse.button === Qt.MiddleButton && !modelData.onlyMenu) {  
-        //                            modelData.secondaryActivate()  
-        //                        }  
-        //                    }  
-        //                }  
-        //  
-        //            }  
-        //        }  
+        // Repeater {
+        //            model: SystemTray.items
+        //
+        //            Item {
+        //                width: 32
+        //                height: 32
+        //
+        //                // Background rectangle for hover effect
+        //                Rectangle {
+        //                    anchors.fill: parent
+        //                    color: {
+        //                        if (modelData.onlyMenu) return "transparent"
+        //                        if (mouseArea.pressed) return Qt.rgba(0.3, 0.3, 0.3, 0.8)
+        //                        if (mouseArea.containsMouse) return Qt.rgba(0.2, 0.2, 0.2, 0.6)
+        //                        return "transparent"
+        //                    }
+        //                    radius: 4
+        //
+        //                    // Only show hover effect for non-menu-only items
+        //                    visible: !modelData.onlyMenu
+        //                }
+        //
+        //                IconImage {
+        //                    anchors.centerIn: parent
+        //                    source: modelData.icon
+        //                    implicitSize: 24
+        //                }
+        //                    MouseArea {
+        //                    id: mouseArea
+        //                    anchors.fill: parent
+        //                    hoverEnabled: !modelData.onlyMenu
+        //
+        //                    onClicked: function(mouse) {
+        //                        if (mouse.button === Qt.LeftButton) {
+        //                            if (!modelData.onlyMenu) {
+        //                                modelData.activate()
+        //                            } else if (modelData.hasMenu) {
+        //                                modelData.display(parent, width/2, height)
+        //                            }
+        //                        } else if (mouse.button === Qt.RightButton && modelData.hasMenu) {
+        //                            modelData.display(parent, mouse.x, mouse.y)
+        //                        }
+        //                    }
+        //
+        //                    onPressed: function(mouse) {
+        //                        if (mouse.button === Qt.MiddleButton && !modelData.onlyMenu) {
+        //                            modelData.secondaryActivate()
+        //                        }
+        //                    }
+        //                }
+        //
+        //            }
+        //        }
 
-        Item { Layout.fillWidth: true }
+        Item {
+            Layout.fillWidth: true
+        }
 
         // CPU
         Text {
             text: "CPU: " + cpuUsage + "%"
             color: root.colYellow
-            font { family: root.fontFamily; pixelSize: root.fontSize; bold: true }
+            font {
+                family: root.fontFamily
+                pixelSize: root.fontSize
+                bold: true
+            }
         }
 
-        Rectangle { width: 1; height: 16; color: root.colMuted }
+        Rectangle {
+            width: 1
+            height: 16
+            color: root.colMuted
+        }
 
         // Memory
         Text {
             text: "Mem: " + memUsage + "%"
             color: root.colCyan
-            font { family: root.fontFamily; pixelSize: root.fontSize; bold: true }
+            font {
+                family: root.fontFamily
+                pixelSize: root.fontSize
+                bold: true
+            }
         }
 
-        Rectangle { width: 1; height: 16; color: root.colMuted }
+        Rectangle {
+            width: 1
+            height: 16
+            color: root.colMuted
+        }
 
         // Clock
         Text {
             id: clock
             color: root.colBlue
-            font { family: root.fontFamily; pixelSize: root.fontSize; bold: true }
+            font {
+                family: root.fontFamily
+                pixelSize: root.fontSize
+                bold: true
+            }
             text: Qt.formatDateTime(new Date(), "ddd, MMM dd - HH:mm")
             Timer {
                 interval: 1000

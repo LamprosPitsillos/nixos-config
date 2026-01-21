@@ -58,7 +58,7 @@ return {
                         if success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
                             return { 'spell', 'buffer', 'path', 'ripgrep' }
                         else
-                            return { 'lsp', 'snippets' , 'path', 'buffer', 'ripgrep', 'lazydev' }
+                            return { 'lsp', 'snippets', 'path', 'buffer', 'ripgrep', 'lazydev' }
                         end
                     end,
                 providers = {
@@ -139,10 +139,8 @@ return {
                                         if dev_icon then
                                             icon = dev_icon
                                         end
-                                    -- else
-                                    --     icon = require("lspkind").symbolic(ctx.kind, {
-                                    --         mode = "symbol",
-                                    --     })
+                                    else
+                                        icon = require("lspkind").symbol_map[ctx.kind] or ""
                                     end
 
                                     return icon .. ctx.icon_gap

@@ -64,6 +64,8 @@
         typescript
 
         inputs.mcphub-nvim.packages.${pkgs.system}.default
+        kdePackages.qtdeclarative # qmlls
+
         # typst-lsp
         tinymist
         typstyle

@@ -25,7 +25,8 @@ in
   networking.hostName = host; # Define your hostname.
 
   networking.extraHosts = ''
-    127.0.0.1   serve.maestro.test react.maestro.test maestro.test
+    127.0.0.1   app.maestro.dev chat.maestro.dev map.maestro.dev analytics.maestro.dev 
+    127.0.0.1   chat-server.maestro.dev db.maestro.dev socket.maestro.dev notification-socket.maestro.dev  
   '';
 
   fonts = {

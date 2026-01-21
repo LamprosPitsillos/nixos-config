@@ -61,8 +61,10 @@ in
   # Define on which hard drive you want to install Grub.
 
   networking.hostName = host; # Define your hostname.
+
   networking.extraHosts = ''
-    127.0.0.1   serve.maestro.test react.maestro.test maestro.test
+    127.0.0.1   app.maestro.dev chat.maestro.dev map.maestro.dev analytics.maestro.dev 
+    127.0.0.1   chat-server.maestro.dev db.maestro.dev socket.maestro.dev notification-socket.maestro.dev  
   '';
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -124,7 +126,7 @@ in
 
   programs.thunar = {
     enable = true;
-    plugins = with pkgs.xfce; [
+    plugins = with pkgs; [
       thunar-archive-plugin
       thunar-volman
     ];
@@ -342,7 +344,7 @@ in
     })
 
     tenki
-    # freecad
+    freecad
     radare2
     iaito
 

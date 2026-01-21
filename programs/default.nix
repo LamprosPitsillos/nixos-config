@@ -3,8 +3,8 @@ imports = [
 
 
     ./file_manager/yazi.nix
-    ./media/image/ipqv.nix
-    ./media/record/obs.nix
+    ./media/image
+    ./media/record
     ./mpv/mpv.nix
     ./nvim/nvim.nix
     ./qutebrowser/qutebrowser.nix
