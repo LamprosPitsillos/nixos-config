@@ -5,5 +5,5 @@
     ./obs.nix
   ];
 
-  packages = with pkgs; [ ];
+  home.packages = with pkgs; [ ];
 }

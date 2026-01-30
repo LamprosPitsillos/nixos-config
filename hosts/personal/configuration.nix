@@ -63,8 +63,8 @@ in
   networking.hostName = host; # Define your hostname.
 
   networking.extraHosts = ''
-    127.0.0.1   app.maestro.dev chat.maestro.dev map.maestro.dev analytics.maestro.dev 
-    127.0.0.1   chat-server.maestro.dev db.maestro.dev socket.maestro.dev notification-socket.maestro.dev  
+    127.0.0.1   app.maestro.test chat.maestro.test map.maestro.test analytics.maestro.test 
+    127.0.0.1   chat-server.maestro.test db.maestro.test socket.maestro.test notification-socket.maestro.test  
   '';
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.

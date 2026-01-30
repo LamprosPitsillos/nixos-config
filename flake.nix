@@ -16,7 +16,7 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    mcphub-nvim.url = "github:ravitemer/mcphub.nvim";
+    mcphub.url = "github:ravitemer/mcp-hub";
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 

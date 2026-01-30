@@ -63,7 +63,7 @@
         rust-analyzer
         typescript
 
-        inputs.mcphub-nvim.packages.${pkgs.system}.default
+        inputs.mcphub.packages.${pkgs.system}.default
         kdePackages.qtdeclarative # qmlls
 
         # typst-lsp

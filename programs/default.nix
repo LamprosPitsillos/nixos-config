@@ -11,6 +11,8 @@ imports = [
 
     ./terminal
 
+    ./AI
+
     ./picker/vicinae.nix
     ./tofi/tofi.nix
     ./vcs/git.nix

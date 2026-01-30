@@ -5,5 +5,5 @@
     ./ipqv.nix
   ];
 
-  packages = with pkgs; [ darktable ];
+  home.packages = with pkgs; [ darktable ];
 }

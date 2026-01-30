@@ -5,7 +5,9 @@ import Quickshell.Hyprland
 import QtQuick
 import Quickshell.Widgets
 import QtQuick.Layouts
+import "./battery"    
 import Quickshell.Services.SystemTray
+import Quickshell.Services.UPower
 
 PanelWindow {
     id: root
@@ -208,5 +210,14 @@ PanelWindow {
                 onTriggered: clock.text = Qt.formatDateTime(new Date(), "ddd, MMM dd - HH:mm")
             }
         }
+
+        Rectangle {
+            width: 1
+            height: 16
+            color: root.colMuted
+        }
+
+        Battery{ }
+
     }
 }

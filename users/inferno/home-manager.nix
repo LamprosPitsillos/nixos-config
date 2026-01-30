@@ -13,6 +13,9 @@ in
     homeDirectory = "/home/${username}";
     stateVersion = "22.11";
     packages = with pkgs; [
+
+        jetbrains.phpstorm
+jetbrains.idea
       tty-clock
       man-pages
       man-pages-posix
