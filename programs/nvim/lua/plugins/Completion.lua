@@ -13,8 +13,15 @@ return {
                 version = "*", -- use the latest stable version
             },
             { 'ribru17/blink-cmp-spell' },
-            -- lock compat to tagged versions, if you've also locked blink.cmp to tagged versions
-            -- { 'saghen/blink.compat', version = '*',   opts = { impersonate_nvim_cmp = true } }
+            {
+                'saghen/blink.compat',
+                -- use v2.* for blink.cmp v1.*
+                version = '2.*',
+                -- lazy.nvim will automatically load the plugin when it's required by blink.cmp
+                lazy = true,
+                -- make sure to set opts so that lazy.nvim calls blink.compat's setup
+                opts = {},
+            },
         },
         -- use a release tag to download pre-built binaries
         version = '*',
@@ -56,37 +63,42 @@ return {
                     function(ctx)
                         local success, node = pcall(vim.treesitter.get_node)
                         if success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
-                            return { 'spell', 'buffer', 'path', 'ripgrep' }
+                            return { --[[ 'spell', ]] 'buffer', 'path', 'ripgrep' }
                         else
                             return { 'lsp', 'snippets', 'path', 'buffer', 'ripgrep', 'lazydev' }
                         end
                     end,
                 providers = {
-                    spell = {
-                        name = 'Spell',
-                        module = 'blink-cmp-spell',
-                        opts = {
-                            use_cmp_spell_sorting = true,
-                            -- EXAMPLE: Only enable source in `@spell` captures, and disable it
-                            -- in `@nospell` captures.
-                            enable_in_context = function()
-                                local curpos = vim.api.nvim_win_get_cursor(0)
-                                local captures = vim.treesitter.get_captures_at_pos(
-                                    0,
-                                    curpos[1] - 1,
-                                    curpos[2] - 1
-                                )
-                                local in_spell_capture = false
-                                for _, cap in ipairs(captures) do
-                                    if cap.capture == 'spell' then
-                                        in_spell_capture = true
-                                    elseif cap.capture == 'nospell' then
-                                        return false
-                                    end
-                                end
-                                return in_spell_capture
-                            end,
-                        },
+                    -- spell = {
+                    --     name = 'Spell',
+                    --     module = 'blink-cmp-spell',
+                    --     opts = {
+                    --         use_cmp_spell_sorting = true,
+                    --         -- EXAMPLE: Only enable source in `@spell` captures, and disable it
+                    --         -- in `@nospell` captures.
+                    --         enable_in_context = function()
+                    --             local curpos = vim.api.nvim_win_get_cursor(0)
+                    --             local captures = vim.treesitter.get_captures_at_pos(
+                    --                 0,
+                    --                 curpos[1] - 1,
+                    --                 curpos[2] - 1
+                    --             )
+                    --             local in_spell_capture = false
+                    --             for _, cap in ipairs(captures) do
+                    --                 if cap.capture == 'spell' then
+                    --                     in_spell_capture = true
+                    --                 elseif cap.capture == 'nospell' then
+                    --                     return false
+                    --                 end
+                    --             end
+                    --             return in_spell_capture
+                    --         end,
+                    --     },
+                    -- },
+                    laravel = {
+                        name = "laravel",
+                        module = "blink.compat.source",
+                        score_offset = 95, -- show at a higher priority than lsp
                     },
                     lazydev = {
                         name = "LazyDev",

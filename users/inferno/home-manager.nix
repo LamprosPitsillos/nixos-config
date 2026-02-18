@@ -1,4 +1,9 @@
-{ pkgs, config,osConfig, ... }:
+{
+  pkgs,
+  config,
+  osConfig,
+  ...
+}:
 let
   username = builtins.baseNameOf ./.;
 in
@@ -14,8 +19,6 @@ in
     stateVersion = "22.11";
     packages = with pkgs; [
 
-        jetbrains.phpstorm
-jetbrains.idea
       tty-clock
       man-pages
       man-pages-posix
@@ -77,17 +80,19 @@ jetbrains.idea
     ];
 
   };
-
-  xdg.userDirs = {
+  xdg = {
     enable = true;
-    createDirectories = true;
-    desktop = null;
-    templates = null;
-    publicShare = null;
-    pictures = "${config.home.homeDirectory}/pics";
-    videos = "${config.home.homeDirectory}/vids";
-    music = "${config.home.homeDirectory}/music";
-    documents = "${config.home.homeDirectory}/docs";
-    download = "${config.home.homeDirectory}/downs";
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+      desktop = null;
+      templates = null;
+      publicShare = null;
+      pictures = "${config.home.homeDirectory}/pics";
+      videos = "${config.home.homeDirectory}/vids";
+      music = "${config.home.homeDirectory}/music";
+      documents = "${config.home.homeDirectory}/docs";
+      download = "${config.home.homeDirectory}/downs";
+    };
   };
 }

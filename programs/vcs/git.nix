@@ -14,17 +14,10 @@
       };
     };
     includes = [
-      # {
-      #   condition = "gitdir:~/docs/WORK/";
-      #   contents = {
-      #     user = {
-      #       email = "l.pitsillos@ianus-technologies.com";
-      #     };
-      #     core = {
-      #       sshCommand = "ssh -i ~/.ssh/id_ed25519_work";
-      #     };
-      #   };
-      # }
+      {
+        condition = "gitdir:~/dev/WORK/";
+        path = "~/.config/git/work-config";
+      }
     ];
   };
   programs.delta = {

@@ -223,35 +223,21 @@ in
                     sensitivity = -0.5
                 }
 
-                # Example windowrule v1
-                # windowrule = float, ^(kitty)$
+                windowrule = float on,match:class ^(com-eteks-sweethome3d-SweetHome3DBootstrap)$,match:title ^(win\d+)$
+                windowrule = float on,match:class ^(qalculate-gtk)$
+                windowrule = float on,match:class nm-connection-editor
 
-                windowrulev2 = noinitialfocus,class:^(com-eteks-sweethome3d-SweetHome3DBootstrap)$
-                windowrulev2 = tile,class:^(com-eteks-sweethome3d-SweetHome3DBootstrap)$
-                windowrulev2 = nofocus,class:^(com-eteks-sweethome3d-SweetHome3DBootstrap)$,title:^(win\d+)$
-                windowrulev2 = float,class:^(com-eteks-sweethome3d-SweetHome3DBootstrap)$,title:^(win\d+)$
+                windowrule = no_initial_focus on,match:class ^(com-eteks-sweethome3d-SweetHome3DBootstrap)$
+                windowrule = tile on,match:class ^(com-eteks-sweethome3d-SweetHome3DBootstrap)$
+                windowrule = no_focus on,match:class ^(com-eteks-sweethome3d-SweetHome3DBootstrap)$,match:title ^(win\d+)$
 
-                # windowrulev2 = noinitialfocus,class:^(steam)$
-                # windowrulev2 = nofocus,class:^(steam)$
+                windowrule = fullscreen_state 2,workspace special:music_player,match:class ^(mpv)$
+                windowrule = fullscreen_state 2,match:class ^(firefox-typst-preview)$
 
+                windowrule = suppress_event maximize,match:class ^(mpv)$
 
-                # Example windowrule v2
-                windowrulev2 = fullscreenstate 2,workspace special:music_player,class:^(mpv)$
-
-                # windowrulev2 = nomaximizerequest,class:^(mpv)$
-                windowrulev2 = suppressevent maximize,class:^(mpv)$
-                windowrulev2 = float,class:^(qalculate-gtk)$
-
-                windowrulev2 = fullscreenstate 2,class:^(firefox-typst-preview)$
-                windowrulev2 = float,class:nm-connection-editor
-                # windowrulev2 = workspace +1 ,onworkspace:1,workspace special:music_player
-                windowrulev2 = pin,class:swappy
-                windowrulev2 = pin,class:com.gabm.satty
-
-                # windowrulev2 = dimaround,fullscreen:1
-                # windowrulev2 = bordersize 8,fullscreen:1
-                # windowrulev2 = move %100 %100,class:nm-connection-editor
-                # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
+                windowrule = pin on,match:class swappy
+                windowrule = pin on,match:class com.gabm.satty
 
 
                 # See https://wiki.hyprland.org/Configuring/Keywords/ for more
