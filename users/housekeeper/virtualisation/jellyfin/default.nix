@@ -7,7 +7,7 @@
 }:
 {
   imports = [
-    ./pihole.nix
-  ];
+        ./jellyfin.nix
+    ];
 
 }

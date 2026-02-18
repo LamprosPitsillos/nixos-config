@@ -5,14 +5,22 @@
   lib,
   ...
 }:
+
+let
+  username = builtins.baseNameOf ./.;
+  hm = config.home-manager.users.${username}.config;
+
+  name = "home-assistant";
+  tag = "2026.2";
+in
 {
   # https://www.home-assistant.io/installation/linux
-  virtualisation.oci-containers.containers."home-assistant" = {
+  virtualisation.oci-containers.containers.${name} = {
     autoStart = true;
-    image = "ghcr.io/home-assistant/home-assistant:stable";
+    image = "ghcr.io/home-assistant/home-assistant:${tag}";
     privileged = true;
     volumes = [
-      "/var/lib/home-assistant:/config"
+      "${hm.xdg.configHome}/${name}:/config"
       "/etc/localtime:/etc/localtime:ro"
       "/run/dbus:/run/dbus:ro"
     ];
@@ -28,16 +36,12 @@
     };
     # Extra docker / podman run options to allow hardware passthrough etc.
     extraOptions = [
-
+      "--network=host"
     ];
-
-    # If you want to specify ports (only needed if not using --network=host)
-    ports = [ "8123:8123" ];
-
   };
   #[Bluetooth - Home Assistant](https://www.home-assistant.io/integrations/bluetooth)
   services.dbus.implementation = "broker";
-  # Open needed firewall ports if firewall is enabled
-  networking.firewall.allowedTCPPorts = [ 80 ];
-  networking.firewall.allowedUDPPorts = [ 53 ];
+  networking.firewall.allowedTCPPorts = [
+    8123
+  ];
 }

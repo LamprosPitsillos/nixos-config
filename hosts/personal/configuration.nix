@@ -36,9 +36,9 @@ in
     enableOnBoot = false;
     enable = true;
   };
-  virtualisation.podman = {
-    enable = true;
-  };
+  # virtualisation.podman = {
+  #   enable = true;
+  # };
 
   virtualisation.waydroid.enable = false;
   virtualisation.oci-containers.backend = "docker";

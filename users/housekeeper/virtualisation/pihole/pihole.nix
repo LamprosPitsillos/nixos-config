@@ -5,11 +5,19 @@
   lib,
   ...
 }:
+
+let
+  username = builtins.baseNameOf ./.;
+  hm = config.home-manager.users.${username}.config;
+
+  name = "pihole";
+  tag = "2025.11.1";
+in
 {
   # https://docs.pi-hole.net/docker/
-  virtualisation.oci-containers.containers."pihole" = {
+  virtualisation.oci-containers.containers.${name} = {
     autoStart = true;
-    image = "pihole/pihole:2025.11.1";
+    image = "pihole/pihole:${tag}";
 
     environment = {
       TZ = "Europe/Athens";
@@ -23,7 +31,7 @@
 
     volumes = [
       # Persist Pi-hole configs
-      "/var/lib/pihole:/etc/pihole"
+      "${hm.xdg.configHome}/${name}:/etc/pihole"
       # Enable if you have custom dnsmasq configs
       # "/var/lib/dnsmasq:/etc/dnsmasq.d"
     ];
@@ -59,6 +67,4 @@
     443
   ];
   networking.firewall.allowedUDPPorts = [ 53 ];
-  # Add if using DHCP or NTP from Pi-hole:
-  # networking.firewall.allowedUDPPorts = [ 53 67 123 ];
 }

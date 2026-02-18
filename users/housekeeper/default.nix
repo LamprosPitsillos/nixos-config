@@ -8,6 +8,8 @@
   imports = [
     ./definition.nix
     ./modules.nix
+
+    ./virtualisation
   ];
 
 }

@@ -5,42 +5,29 @@
   lib,
   ...
 }:
-let
-  host = builtins.baseNameOf ./.;
-in
 {
 
-  custom.hostProps.monitors = [
-    {
-      name = "eDP-1";
-      primary = true;
-      width = 1920;
-      height = 1080;
-      refreshRate = 60; # up to 144
-    }
-    {
-      name = "HDMI-A-1";
-      primary = false;
-      width = 1920;
-      height = 1080;
-      refreshRate = 60; # up to 144
-    }
-  ];
+  # custom.hostProps.monitors = [
+  #   {
+  #     name = "eDP-1";
+  #     primary = true;
+  #     width = 1920;
+  #     height = 1080;
+  #     refreshRate = 60; # up to 144
+  #   }
+  #   {
+  #     name = "HDMI-A-1";
+  #     primary = false;
+  #     width = 1920;
+  #     height = 1080;
+  #     refreshRate = 60; # up to 144
+  #   }
+  # ];
+
   environment.pathsToLink = [
     "/share/fish"
     "/share/nu"
   ];
-
-  virtualisation.docker = {
-    enableOnBoot = true;
-    enable = true;
-  };
-  virtualisation.podman = {
-    enable = true;
-  };
-
-  virtualisation.waydroid.enable = false;
-  virtualisation.oci-containers.backend = "docker";
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub = {
@@ -55,17 +42,6 @@ in
     # canTouchEfiVariables = true ;
   };
   boot.supportedFilesystems = [ "ntfs" ];
-  #
-  #
-  # Define on which hard drive you want to install Grub.
-
-  networking.hostName = host; # Define your hostname.
-  networking.extraHosts = ''
-    127.0.0.1   serve.maestro.test react.maestro.test maestro.test
-  '';
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Europe/Athens";
