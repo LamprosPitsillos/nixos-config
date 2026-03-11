@@ -4,6 +4,12 @@ let
 in
 {
 
+  users.users.${host}.openssh = {
+    authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKzX5efY+WMjdQrkbVphp4RRWQVh8vypslOylE06uHA6"
+    ];
+  };
+
   networking = {
     hostName = host; # Define your hostname.
     networkmanager.enable = true; # Easiest to use and most distros use this by default.

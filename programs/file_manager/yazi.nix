@@ -301,7 +301,7 @@
           { orphan = true; desc = "$EDITOR"; for = "unix"; run = "\$TERMINAL \${EDITOR:=vi} \"$@\""; }
         ];
         extract = [
-          { desc = "Extract here"; for = "unix"; run = "7z a \"$1\""; }
+          { desc = "Extract here"; for = "unix"; run = "7z x \"$1\""; }
         ];
         open = [
           { desc = "Open"; for = "linux"; run = "xdg-open \"$@\""; }

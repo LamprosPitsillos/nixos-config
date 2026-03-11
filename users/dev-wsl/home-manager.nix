@@ -15,7 +15,7 @@ in
     packages = with pkgs; [
       man-pages
       man-pages-posix
-
+      devenv
       docker-compose
       delta
       graphviz
@@ -42,7 +42,7 @@ in
       fd
       rlwrap
       hyperfine
-      python311Packages.bpython
+      # python313Packages.bpython
 
       # System Info
       acpi

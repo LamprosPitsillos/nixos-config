@@ -9,7 +9,7 @@
     ./definition.nix
     ./modules.nix
 
-    ./virtualisation
+    ./services
   ];
 
 }

@@ -65,6 +65,8 @@ in
   networking.extraHosts = ''
     127.0.0.1   app.maestro.test chat.maestro.test map.maestro.test analytics.maestro.test 
     127.0.0.1   chat-server.maestro.test db.maestro.test socket.maestro.test notification-socket.maestro.test  
+
+    127.0.0.1   api.maestro.test
   '';
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -131,6 +133,12 @@ in
       thunar-volman
     ];
   };
+
+ # Dev env cache 
+  nix.extraOptions = ''
+    extra-substituters = https://devenv.cachix.org
+    extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
+  '';
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.inferno = {
@@ -226,7 +234,7 @@ in
       fd
       rlwrap
       hyperfine
-      python311Packages.bpython
+      # python313Packages.bpython
 
       # System Info
       acpi
@@ -344,7 +352,7 @@ in
     })
 
     tenki
-    freecad
+    # freecad
     radare2
     iaito
 

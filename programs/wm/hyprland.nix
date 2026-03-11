@@ -290,19 +290,23 @@ in
                 bind = $mainMod, k, movefocus, u
                 bind = $mainMod, j, movefocus, d
 
-                # Switch workspaces with mainMod + [0-9]
+                workspace= 1, monitor:0
                 bind = $mainMod, 1, workspace, 1
+
+                workspace= 2, monitor:0
                 bind = $mainMod, 2, workspace, 2
+
+                workspace= 3, monitor:1
                 bind = $mainMod, 3, workspace, 3
+
+                workspace= 4, monitor:1
                 bind = $mainMod, 4, workspace, 4
-                bind = $mainMod, 5, workspace, 5
 
                 # Move active window to a workspace with mainMod + SHIFT + [0-9]
                 bind = $mainMod SHIFT, 1, movetoworkspace, 1
                 bind = $mainMod SHIFT, 2, movetoworkspace, 2
                 bind = $mainMod SHIFT, 3, movetoworkspace, 3
                 bind = $mainMod SHIFT, 4, movetoworkspace, 4
-                bind = $mainMod SHIFT, 5, movetoworkspace, 5
 
                 bind = $mainMod SHIFT, h, movewindow, l
                 bind = $mainMod SHIFT, j, movewindow, d

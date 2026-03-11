@@ -119,12 +119,6 @@
 
     packages = with pkgs; [
 
-      chromium
-      freecad-wayland
-
-      # steam
-      rare
-
       # godot_4
       man-pages
       man-pages-posix
@@ -133,45 +127,12 @@
 
       delta
       docker-compose
-      # calibre
-      easyeffects
-
-      graphviz
 
       hplip
 
-      # qemu
-      wallust
-      ledger
-      typst
-      qalculate-gtk
       numbat
 
-      # hyprcursor
-
-      ## MicroControllers
-      # esptool
-
-      inkscape
-      transmission_4-gtk
-      tesseract
-      neovide
-      # gtklock
-      # Displays
-      # nwg-displays
-      # Screenshot - Screenrecord
-      grim
-      slurp
-      swappy
-      satty
-      wl-screenrec
-
-      # Desktop UX
-      tofi
-      ripdrag
-      brightnessctl
-      hyprpolkitagent
-      hyprpicker
+      esptool
 
       # Networking
       bluetuith
@@ -200,7 +161,7 @@
       fd
       rlwrap
       hyperfine
-      python311Packages.bpython
+      # python314Packages.bpython
 
       # System Info
       acpi
@@ -211,45 +172,11 @@
       # Media Fetch
       yt-dlp
 
-      # Communication
-      discord
-      thunderbird
-
-      # Uni Notes Utils
-      python311Packages.art
-      socat
-      wl-clipboard
-      libreoffice
-
-      # Media Editing
-      darktable
-      # hugin # Panorama creator
-      gimp
-
-      xplr
-      libsForQt5.qtstyleplugins
-      libsForQt5.qt5.qtwayland
-
-      # swaynotificationcenter
       ncdu
       dust
       yazi
       fswatch
       udiskie
-
-      # Images
-
-      ### AI
-      # https://github.com/NixOS/nixpkgs/pull/281048/files
-      # rclip
-      # (openai-whisper-cpp.override { cudaSupport = true; })
-      # realesrgan-ncnn-vulkan
-      # (ollama.override { acceleration = "cuda" ;})
-
-      # Browsers
-      qutebrowser
-      firefox
-      tor-browser
 
       exfat
       usbutils
@@ -262,11 +189,6 @@
       # Programming Utils
       shellcheck
       tokei
-
-      ## Dev Tools
-      gef
-      gdb
-      gf
 
     ];
   };

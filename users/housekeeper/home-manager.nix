@@ -21,8 +21,6 @@ in
       man-pages
       man-pages-posix
 
-      ripdrag
-
       docker-compose
       delta
 
@@ -44,7 +42,7 @@ in
       fd
       rlwrap
       hyperfine
-      python311Packages.bpython
+      # python313Packages.bpython
 
       # System Info
       acpi
