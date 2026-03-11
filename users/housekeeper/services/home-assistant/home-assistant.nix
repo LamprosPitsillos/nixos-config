@@ -7,13 +7,29 @@
 }:
 let
   name = "home-assistant";
-  port = config.services.${name}.port;
+  port = toString config.services.${name}.config.http.server_port;
   url = "http://local.${name}.com";
 in
 {
 
   services.${name} = {
     enable = true;
+    config = {
+      homeassistant = {
+        name = "Home";
+        # latitude = "!secret latitude";
+        # longitude = "!secret longitude";
+        # elevation = "!secret elevation";
+        unit_system = "metric";
+        time_zone = "UTC";
+      };
+      # frontend = {
+      #   themes = "!include_dir_merge_named themes";
+      # };
+      http = { };
+      # feedreader.urls = [ "https://nixos.org/blogs.xml" ];
+    };
+
   };
   services.caddy.virtualHosts."${url}" = {
     extraConfig = ''

@@ -7,7 +7,7 @@
 }:
 let
   name = "paperless";
-  port = config.services.${name}.port;
+  port = toString config.services.${name}.port;
   url = "http://local.${name}.com";
 in
 {
@@ -28,7 +28,7 @@ in
     };
   };
 
-  caddy.virtualHosts."${url}" = {
+  services.caddy.virtualHosts."${url}" = {
     extraConfig = ''
       reverse_proxy http://127.0.0.1:${port}
     '';

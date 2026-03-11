@@ -7,7 +7,7 @@
 }:
 let
   name = "immich";
-  port = config.services.${name}.port;
+  port = toString config.services.${name}.port;
 in
 {
 

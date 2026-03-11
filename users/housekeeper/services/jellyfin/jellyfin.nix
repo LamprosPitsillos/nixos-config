@@ -7,17 +7,19 @@
 }:
 let
   name = "jellyfin";
-  port = 8096;
+  port = toString 8096;
   url = "http://local.${name}.com";
 in
 {
   services.${name} = {
 
     enable = true;
-    hardwareAcceleration = {
-      enable = true;
-      type = "nvenc";
-    };
+    # hardwareAcceleration = {
+    #   enable = true;
+    #   type = "nvenc";
+    #   # ls -l /sys/class/drm/renderD*/device/driver
+    #   device = "/dev/dri/renderD128";
+    # };
   };
   services.caddy.virtualHosts."${url}" = {
     extraConfig = ''
