@@ -7,7 +7,7 @@
 }:
 {
   imports = [
-    ./pihole.nix
+    ./adguard.nix
   ];
 
 }

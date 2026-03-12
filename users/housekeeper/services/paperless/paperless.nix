@@ -12,7 +12,7 @@ let
 in
 {
 
-  services.paperless = {
+  services.${name} = {
     enable = true;
     settings = {
       PAPERLESS_URL = "${url}";

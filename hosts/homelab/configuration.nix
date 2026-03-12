@@ -28,20 +28,27 @@
     "/share/fish"
     "/share/nu"
   ];
+  boot = {
 
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub = {
-    enable = true;
-    efiSupport = true;
-    device = "nodev"; # or "nodev" for efi only
-    efiInstallAsRemovable = true;
-    configurationLimit = 10;
+    # Enable ZFS support
+    # supportedFilesystems = [ "zfs" ];
+
+    # Optional: automatically import ZFS pools at boot
+    # zfs.enable = true;
+    # Use the GRUB 2 boot loader.
+    loader.grub = {
+      enable = true;
+      efiSupport = true;
+      device = "nodev"; # or "nodev" for efi only
+      efiInstallAsRemovable = true;
+      configurationLimit = 10;
+    };
+    loader.efi = {
+      efiSysMountPoint = "/boot";
+      # canTouchEfiVariables = true ;
+    };
+    supportedFilesystems = [ "ntfs" ];
   };
-  boot.loader.efi = {
-    efiSysMountPoint = "/boot";
-    # canTouchEfiVariables = true ;
-  };
-  boot.supportedFilesystems = [ "ntfs" ];
 
   # Set your time zone.
   time.timeZone = "Europe/Athens";

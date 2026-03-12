@@ -12,7 +12,8 @@
     ./home-assistant
     ./immich
     ./paperless
-    ./pihole
+    ./adguard
+    ./mealie
     ./jellyfin
 
     ./proxy
