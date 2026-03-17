@@ -335,8 +335,6 @@ in
                 bind=,Q,submap,reset
                 bind=,H,exec,${system_scripts.history_browser}
                 bind=,H,submap,reset
-                bind=,S,exec,${pkgs.zathura}/bin/zathura /home/inferno/UoC/9ο\ Εξαμηνο/possible_courses.pdf
-                bind=,S,submap,reset
 
                 bind=,escape,submap,reset
                 submap=reset

@@ -7,7 +7,7 @@
 }:
 {
   imports = [
-    ./adguard.nix
+    ./mealie.nix
   ];
 
 }

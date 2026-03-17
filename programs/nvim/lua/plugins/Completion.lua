@@ -24,7 +24,7 @@ return {
             },
         },
         -- use a release tag to download pre-built binaries
-        version = '*',
+        version = '1.*',
         -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
         -- build = 'cargo build --release',
         -- If you use nix, you can build from source using latest nightly rust with:
@@ -121,13 +121,24 @@ return {
                         -- see the full configuration below for all available options
                         ---@module "blink-ripgrep"
                         ---@type blink-ripgrep.Options
-                        opts = {},
+                        opts = {
+                            backends = { use = "gitgrep-or-ripgrep" },
+                        },
+                        transform_items = function(ctx, items)
+                            for _, item in ipairs(items) do
+                                item.kind_icon = '󱎸'
+                                item.kind_name = 'rg'
+                            end
+                            return items
+                        end,
+                        min_keyword_length = 3,
+                        score_offset = 3,
                     },
                     snippets = {
-                        -- should_show_items = function(ctx)
-                        --     return ctx.trigger.initial_kind == ';'
-                        -- end
-                    }
+                        should_show_items = function(ctx)
+                            return ctx.trigger.initial_kind ~= 'trigger_character'
+                        end
+                    },
                 }
             },
 
@@ -142,11 +153,16 @@ return {
                 documentation = { auto_show = false },
                 menu = {
                     draw = {
+                        columns = {
+                            { "kind_icon", gap = 1 },
+                            { "label",     "label_description" },
+                            -- { "source_name" },
+                        },
                         components = {
                             kind_icon = {
                                 text = function(ctx)
                                     local icon = ctx.kind_icon
-                                    if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                                    if vim.tbl_contains({ "Path", "Ripgrep" }, ctx.source_name) then
                                         local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
                                         if dev_icon then
                                             icon = dev_icon
@@ -177,7 +193,9 @@ return {
                     }
                 }
             },
-
+            cmdline = {
+                enabled = true,
+            },
             -- experimental signature help support
             signature = { enabled = true }
         },

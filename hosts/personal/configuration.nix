@@ -159,6 +159,7 @@ in
       # steam
       rare
 
+      quickemu
       # godot_4
       man-pages
       man-pages-posix
