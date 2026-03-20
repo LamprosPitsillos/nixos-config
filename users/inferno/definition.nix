@@ -11,6 +11,7 @@ in
     isNormalUser = true;
     extraGroups = [
       "docker"
+      "dialout"
       "wheel"
     ]; # Enable ‘sudo’ for the user.
     initialPassword = "1234";
