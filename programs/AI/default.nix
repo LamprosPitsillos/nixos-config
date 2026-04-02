@@ -3,6 +3,7 @@
 
   imports = [
     ./gemini.nix
+    ./ollama.nix
   ];
 
 }

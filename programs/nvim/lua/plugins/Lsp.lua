@@ -143,6 +143,7 @@ return {
                         }
                     }
                 },
+                glsl_analyzer = {},
                 nil_ls = {},
                 zls = {},
                 rust_analyzer = {},

@@ -19,6 +19,8 @@ in
     stateVersion = "22.11";
     packages = with pkgs; [
 
+        librepcb
+
       tty-clock
       man-pages
       man-pages-posix

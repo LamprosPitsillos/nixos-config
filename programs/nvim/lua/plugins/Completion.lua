@@ -113,7 +113,8 @@ return {
                                     return vim.bo[bufnr].buftype == ''
                                 end, vim.api.nvim_list_bufs())
                             end
-                        }
+                        },
+                        score_offset = -1,
                     },
                     ripgrep = {
                         module = "blink-ripgrep",
@@ -132,12 +133,15 @@ return {
                             return items
                         end,
                         min_keyword_length = 3,
-                        score_offset = 3,
+                        score_offset = -2,
+                        max_items = 5
                     },
                     snippets = {
                         should_show_items = function(ctx)
                             return ctx.trigger.initial_kind ~= 'trigger_character'
-                        end
+                        end,
+
+                        score_offset = 100,
                     },
                 }
             },

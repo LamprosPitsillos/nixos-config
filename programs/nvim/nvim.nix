@@ -74,6 +74,7 @@
         zls
         vtsls
         vscode-js-debug
+        glsl_analyzer
       ];
     };
 }

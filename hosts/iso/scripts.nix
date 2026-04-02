@@ -7,43 +7,66 @@ in
   quick-disk-setup = pkgs.writeShellApplication {
     name = "quick-disk-setup";
     runtimeInputs = [
-      pkgs.bash
       pkgs.parted
+      pkgs.util-linux
       pkgs.dosfstools
       pkgs.e2fsprogs
-      pkgs.util-linux
-      pkgs.coreutils
+      pkgs.gnugrep
+      pkgs.gawk
     ];
     text = ''
-
       bootLabel="${bootLabel}"
       rootLabel="${rootLabel}"
+      SELECTED_DEVICE="" # Global variable to store our target
 
-      validate_device() {
-        local device="$1"
+      choose_device() {
+        echo "Please select a disk to ERASE and format:"
+        echo "-----------------------------------------------------------------------"
+        
+        # 1. Generate a list of devices with details
+        # We fetch NAME, SIZE, TYPE, and MODEL. 
+        # We filter for 'disk' to avoid showing individual partitions or read-only loops.
+        mapfile -t raw_list < <(lsblk -dnio NAME,SIZE,TYPE,MODEL | grep "disk")
 
-        if [[ -z "$device" ]]; then
-          echo "Usage: quick-disk-setup <device>"
+        if [[ ''${#raw_list[@]} -eq 0 ]]; then
+          echo "Error: No disk devices found."
           exit 1
         fi
 
-        if [[ ! -b "$device" ]]; then
-          echo "Error: $device is not a block device."
-          exit 1
-        fi
+        # 2. Present the menu
+        PS3="Enter the number of the device: "
+        select choice in "''${raw_list[@]}" "Abort"; do
+          if [[ "$choice" == "Abort" ]]; then
+            echo "Exiting."
+            exit 0
+          elif [[ -n "$choice" ]]; then
+            # 3. Extract just the device name from the selection
+            # choice looks like: "sda    223.6G disk  SAMSUNG_MZ7LN256"
+            # We take the first word and prepend /dev/
+            local dev_name
+            dev_name=$(echo "$choice" | awk '{print $1}')
+            local full_path="/dev/$dev_name"
 
-        echo "WARNING: This will ERASE ALL DATA on $device"
-        read -rp "Type 'YES' to continue: " confirm
-        if [[ "$confirm" != "YES" ]]; then
-          echo "Aborted."
-          exit 1
-        fi
-
-        echo "$device"
+            echo "-----------------------------------------------------------------------"
+            echo "SELECTED: $full_path ($choice)"
+            echo "WARNING: ALL DATA ON $full_path WILL BE DELETED."
+            read -rp "Type 'YES' to continue: " confirm
+            
+            if [[ "$confirm" == "YES" ]]; then
+              SELECTED_DEVICE="$full_path"
+              return 0
+            else
+              echo "Aborted."
+              exit 1
+            fi
+          else
+            echo "Invalid selection.Exiting."
+            exit 1
+          fi
+        done
       }
 
       detect_partition_suffix() {
-        # NVMe devices end with 'p1', SATA with '1'
         local device="$1"
         if [[ "$device" =~ nvme[0-9]+n[0-9]+$ ]]; then
           echo "p"
@@ -53,78 +76,48 @@ in
       }
 
       format_disk() {
-        local device="$1"
-
-        "${pkgs.parted}/bin/parted" "$device" mklabel gpt
-        "${pkgs.parted}/bin/parted" "$device" mkpart ESP fat32 1MiB 501MiB
-        "${pkgs.parted}/bin/parted" "$device" set 1 esp on
-        "${pkgs.parted}/bin/parted" "$device" mkpart primary 501MiB 100%
-
-        echo "Partitioning completed on $device"
+        local device="$SELECTED_DEVICE"
+        echo "Creating GPT table on $device..."
+        parted -s "$device" mklabel gpt
+        parted -s "$device" mkpart ESP fat32 1MiB 512MiB
+        parted -s "$device" set 1 esp on
+        parted -s "$device" mkpart primary 512MiB 100%
+        # Ensure kernel sees new partitions before formatting
+        udevadm settle
       }
 
       format_partitions() {
-        local device="$1"
+        local device="$SELECTED_DEVICE"
         local suffix
         suffix=$(detect_partition_suffix "$device")
-
         local part1="''${device}''${suffix}1"
         local part2="''${device}''${suffix}2"
 
-        if [[ ! -b "$part1" || ! -b "$part2" ]]; then
-          echo "Error: partitions do not exist."
-          exit 1
-        fi
-
-        echo "WARNING: Formatting $part1 and $part2"
-        read -rp "Type 'YES' to continue: " confirm
-        if [[ "$confirm" != "YES" ]]; then
-          echo "Aborted."
-          exit 1
-        fi
-
-        "${pkgs.dosfstools}/bin/mkfs.fat" -F 32 "$part1"
-        "${pkgs.dosfstools}/bin/fatlabel" "$part1" "$bootLabel"
-        "${pkgs.e2fsprogs}/bin/mkfs.ext4" -L "$rootLabel" "$part2"
-
-        echo "Formatted:"
-        echo "  $part1 → FAT32 label=$bootLabel"
-        echo "  $part2 → ext4  label=$rootLabel"
+        echo "Formatting $part1 as FAT32..."
+        mkfs.fat -F 32 -n "$bootLabel" "$part1"
+        
+        echo "Formatting $part2 as EXT4..."
+        mkfs.ext4 -L "$rootLabel" -F "$part2"
       }
 
       mount_partitions() {
-        local root_path="/dev/disk/by-label/${rootLabel}"
-        local boot_path="/dev/disk/by-label/${bootLabel}"
-
-        if [[ ! -b "$root_path" ]]; then
-          echo "Error: root label not found: $rootLabel"
-          exit 1
-        fi
-
-        if [[ ! -b "$boot_path" ]]; then
-          echo "Error: boot label not found: $bootLabel"
-          exit 1
-        fi
-
-        echo "Mounting root partition..."
-        "${pkgs.util-linux}/bin/mount" "$root_path" /mnt
-
-        echo "Creating /mnt/boot..."
-        "${pkgs.coreutils}/bin/mkdir" -p /mnt/boot
-
-        echo "Mounting boot partition..."
-        "${pkgs.util-linux}/bin/mount" "$boot_path" /mnt/boot
-
-        echo "Mount complete:"
-        echo "  root → /mnt  (label=$rootLabel)"
-        echo "  boot → /mnt/boot (label=$bootLabel)"
+        echo "Mounting..."
+        mount -L "$rootLabel" /mnt
+        mkdir -p /mnt/boot
+        mount -L "$bootLabel" /mnt/boot
+        echo "Filesystems mounted at /mnt and /mnt/boot"
       }
 
       main() {
-        local device
-        device=$(validate_device "$1")
-        format_disk "$device"
-        format_partitions "$device"
+        if [[ $EUID -ne 0 ]]; then
+           echo "Error: Please run as root (sudo)." 
+           exit 1
+        fi
+
+
+        choose_device
+        format_disk 
+        format_partitions
         mount_partitions
       }
 

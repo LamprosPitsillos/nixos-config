@@ -7,22 +7,7 @@
 }:
 {
 
-  # custom.hostProps.monitors = [
-  #   {
-  #     name = "eDP-1";
-  #     primary = true;
-  #     width = 1920;
-  #     height = 1080;
-  #     refreshRate = 60; # up to 144
-  #   }
-  #   {
-  #     name = "HDMI-A-1";
-  #     primary = false;
-  #     width = 1920;
-  #     height = 1080;
-  #     refreshRate = 60; # up to 144
-  #   }
-  # ];
+  custom.hostProps.monitors = [ ];
 
   environment.pathsToLink = [
     "/share/fish"
@@ -110,93 +95,6 @@
     plugins = with pkgs.xfce; [
       thunar-archive-plugin
       thunar-volman
-    ];
-  };
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.inferno = {
-    isNormalUser = true;
-    extraGroups = [
-      "wireshark"
-      "docker"
-      "wheel"
-      "networkmanager"
-    ]; # Enable ‘sudo’ for the user.
-    initialPassword = "1234";
-
-    packages = with pkgs; [
-
-      # godot_4
-      man-pages
-      man-pages-posix
-
-      miniserve
-
-      delta
-      docker-compose
-
-      hplip
-
-      numbat
-
-      esptool
-
-      # Networking
-      bluetuith
-      bluez
-      iw
-      networkmanagerapplet
-      wget
-
-      # Shell Utils
-      p7zip
-      qrencode
-      ast-grep
-
-      ffmpeg-full
-
-      jq
-      htmlq
-      fq
-      unzip
-      zip
-      parallel
-      file
-      bc
-      tealdeer
-      eza
-      fd
-      rlwrap
-      hyperfine
-      # python314Packages.bpython
-
-      # System Info
-      acpi
-      fastfetch
-      libva-utils
-      pciutils
-
-      # Media Fetch
-      yt-dlp
-
-      ncdu
-      dust
-      yazi
-      fswatch
-      udiskie
-
-      exfat
-      usbutils
-
-      dash
-
-      # Secrets
-      pass-wayland
-
-      # Programming Utils
-      shellcheck
-      tokei
-
     ];
   };
 

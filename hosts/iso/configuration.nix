@@ -14,13 +14,13 @@ in
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
+  programs.fish.enable = true;
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
 
   networking.networkmanager.enable = true;
-
   environment.systemPackages = with pkgs; [
     neovim
     git
