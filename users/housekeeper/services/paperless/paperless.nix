@@ -8,14 +8,14 @@
 let
   name = "paperless";
   port = toString config.services.${name}.port;
-  url = "http://local.${name}.com";
+  hostname = "${name}.lampros.home";
 in
 {
 
   services.${name} = {
     enable = true;
     settings = {
-      PAPERLESS_URL = "${url}";
+      PAPERLESS_URL = "${hostname}";
       PAPERLESS_CONSUMER_IGNORE_PATTERN = [
         ".DS_STORE/*"
         "desktop.ini"
@@ -28,7 +28,7 @@ in
     };
   };
 
-  services.caddy.virtualHosts."${url}" = {
+  services.caddy.virtualHosts."http://${hostname}" = {
     extraConfig = ''
       reverse_proxy http://127.0.0.1:${port}
     '';

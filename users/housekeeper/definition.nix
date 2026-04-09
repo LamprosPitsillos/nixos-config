@@ -7,6 +7,7 @@ in
     useGlobalPkgs = true;
     users."${username}" = ./home-manager.nix;
   };
+
   users.users."${username}" = {
     isNormalUser = true;
     extraGroups = [
@@ -15,6 +16,13 @@ in
       "wheel"
     ]; # Enable ‘sudo’ for the user.
     initialPassword = "1234";
+        
+    openssh = {
+      authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKzX5efY+WMjdQrkbVphp4RRWQVh8vypslOylE06uHA6"
+      ];
+    };
+
     packages = with pkgs; [
 
       # godot_4

@@ -5,6 +5,10 @@
   lib,
   ...
 }:
+
+let
+  host = builtins.baseNameOf ./.;
+in
 {
 
   custom.hostProps.monitors = [ ];
@@ -34,6 +38,9 @@
     };
     supportedFilesystems = [ "ntfs" ];
   };
+
+
+  networking.hostName = host; # Define your hostname.
 
   # Set your time zone.
   time.timeZone = "Europe/Athens";
@@ -82,121 +89,37 @@
 
   programs.command-not-found.enable = false;
 
-  programs.hyprland = {
-    enable = true;
-    withUWSM = false;
-    # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    xwayland.enable = true;
-  };
-  programs.wireshark.enable = true;
-
-  programs.thunar = {
-    enable = true;
-    plugins = with pkgs.xfce; [
-      thunar-archive-plugin
-      thunar-volman
-    ];
-  };
-
-  xdg = {
-    portal.enable = true;
-    portal.extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal-hyprland
-    ];
-    mime = {
-      enable = true;
-      defaultApplications = {
-        "inode/directory" = "thunar.desktop";
-        "application/zip" = "thunar.desktop";
-        "application/vnd.rar" = "thunar.desktop";
-        "application/x-7z-compressed" = "thunar.desktop";
-
-        "image/jpeg" = "pqiv.desktop";
-        "image/gif" = "pqiv.desktop";
-        "image/webp" = "pqiv.desktop";
-        "image/png" = "pqiv.desktop";
-        "application/pdf" = "org.pwmt.zathura.desktop";
-      };
-    };
-  };
-
-  qt = {
-    enable = true;
-    platformTheme = "qt5ct";
-    style = "adwaita";
-
-    # detected automatically:
-    # adwaita, adwaita-dark, adwaita-highcontrast,
-    # adwaita-highcontrastinverse, breeze,
-    # bb10bright, bb10dark, cde, cleanlooks,
-    # gtk2, motif, plastique
-
-    # style.package = pkgs.adwaita-qt6;
-  };
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
 
-    (sweethome3d.application.overrideAttrs {
-      env.ANT_ARGS = "-DappletClassSource=8 -DappletClassTarget=8 -DclassSource=8 -DclassTarget=8";
-    })
-
-    tenki
-    # freecad
-    radare2
-    iaito
-
-    geogebra
-    mongodb-compass
     bottom
 
     libnotify
-    vimix-gtk-themes
-    vimix-icon-theme
     ripgrep
     ripgrep-all
-    libsForQt5.qt5ct
     fzf
     ripdrag
-    xcb-util-cursor
 
     ets
 
-    xdg-user-dirs
     git
     ntfs3g
 
-    wireshark
-
-    nv-codec-headers
-
-    pv
-
-    hyprlock
-    hypridle
-
     libinput
-    wev
-
-    # steam
 
     fuse-overlayfs
 
-    brave
     perf
   ];
 
+  services.openssh.enable = true;
   programs.mtr.enable = true;
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
   };
 
-  fonts = {
-    packages = [ pkgs.nerd-fonts.jetbrains-mono ];
-  };
   # programs.zsh.enable = true;
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;

@@ -4,11 +4,6 @@ let
 in
 {
 
-  users.users.${host}.openssh = {
-    authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKzX5efY+WMjdQrkbVphp4RRWQVh8vypslOylE06uHA6"
-    ];
-  };
   networking = {
 
     hostName = host; # Define your hostname.
@@ -17,10 +12,10 @@ in
 
     useDHCP = false;
 
-    interfaces.eth0 = {
+    interfaces.enp4s0f1 = {
       ipv4.addresses = [
         {
-          address = "192.168.31.150";
+          address = "192.168.31.158";
           prefixLength = 24;
         }
       ];
@@ -29,8 +24,8 @@ in
     defaultGateway = "192.168.31.1";
 
     nameservers = [
-      "1.1.1.1"
-      "8.8.8.8"
+      "192.168.31.158"
+      "127.0.0.1"
     ];
 
     nftables.enable = true;

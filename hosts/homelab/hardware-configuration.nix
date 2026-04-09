@@ -12,6 +12,7 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
+  services.xserver.videoDrivers = ["nvidia"];
   hardware = {
     nvidia-container-toolkit.enable = true;
     bluetooth.enable = true;

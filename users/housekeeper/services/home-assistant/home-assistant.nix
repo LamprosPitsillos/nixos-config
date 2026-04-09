@@ -8,12 +8,23 @@
 let
   name = "home-assistant";
   port = toString config.services.${name}.config.http.server_port;
-  url = "http://local.${name}.com";
+  hostname = "${name}.lampros.home";
 in
 {
 
   services.${name} = {
     enable = true;
+    extraComponents = [
+      "esphome"
+      "wled"
+      "shopping_list"
+      "analytics"
+      "met"
+      "mobile_app"
+      "webostv"
+      "smartthings"
+
+    ];
     config = {
       homeassistant = {
         name = "Home";
@@ -26,12 +37,15 @@ in
       # frontend = {
       #   themes = "!include_dir_merge_named themes";
       # };
-      http = { };
+      http = {
+        use_x_forwarded_for = true;
+        trusted_proxies = [ "127.0.0.1" ];
+      };
       # feedreader.urls = [ "https://nixos.org/blogs.xml" ];
     };
 
   };
-  services.caddy.virtualHosts."${url}" = {
+  services.caddy.virtualHosts."http://${hostname}" = {
     extraConfig = ''
       reverse_proxy http://127.0.0.1:${port}
     '';
