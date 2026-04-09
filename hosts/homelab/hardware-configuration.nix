@@ -12,7 +12,7 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware = {
     nvidia-container-toolkit.enable = true;
     bluetooth.enable = true;
@@ -48,17 +48,20 @@
       ];
     };
   };
-  boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "ahci"
-    "usb_storage"
-    "sd_mod"
-    "sr_mod"
-    "rtsx_pci_sdmmc"
-  ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot = {
+    initrd.availableKernelModules = [
+      "xhci_pci"
+      "ahci"
+      "usb_storage"
+      "sd_mod"
+      "sr_mod"
+      "rtsx_pci_sdmmc"
+    ];
+    initrd.kernelModules = [ ];
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
+    kernelParams = [ "consoleblank=300" ];
+  };
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";

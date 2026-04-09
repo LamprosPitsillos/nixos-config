@@ -13,6 +13,7 @@ in
     useDHCP = false;
 
     interfaces.enp4s0f1 = {
+      wakeOnLan = true;
       ipv4.addresses = [
         {
           address = "192.168.31.158";
