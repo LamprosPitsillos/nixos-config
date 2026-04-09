@@ -13,7 +13,9 @@ in
     useDHCP = false;
 
     interfaces.enp4s0f1 = {
-      wakeOnLan = true;
+      wakeOnLan = {
+        enable = true;
+      };
       ipv4.addresses = [
         {
           address = "192.168.31.158";
@@ -34,15 +36,17 @@ in
     firewall = {
       enable = true;
       logRefusedConnections = true;
-      # Always allow traffic from your Tailscale network
-      trustedInterfaces = [ "tailscale0" ];
-      # Allow the Tailscale UDP port through the firewall
-      allowedUDPPorts = [ config.services.tailscale.port ];
     };
   };
 
   # 1. Enable the service and the firewall
   services.tailscale.enable = true;
+  networking.firewall = {
+    # Always allow traffic from your Tailscale network
+    trustedInterfaces = [ "tailscale0" ];
+    # Allow the Tailscale UDP port through the firewall
+    allowedUDPPorts = [ config.services.tailscale.port ];
+  };
 
   # 2. Force tailscaled to use nftables (Critical for clean nftables-only systems)
   # This avoids the "iptables-compat" translation layer issues.
