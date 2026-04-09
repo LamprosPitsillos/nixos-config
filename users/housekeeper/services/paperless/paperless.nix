@@ -14,8 +14,9 @@ in
 
   services.${name} = {
     enable = true;
+    database.createLocally = true;
     settings = {
-      PAPERLESS_URL = "${hostname}";
+      PAPERLESS_URL = "http://${hostname}";
       PAPERLESS_CONSUMER_IGNORE_PATTERN = [
         ".DS_STORE/*"
         "desktop.ini"
