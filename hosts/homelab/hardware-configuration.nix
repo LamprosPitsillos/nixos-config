@@ -60,7 +60,7 @@
     initrd.kernelModules = [ ];
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
-    kernelParams = [ "consoleblank=300" ];
+    kernelParams = [ "consoleblank=240" ];
   };
 
   fileSystems."/" = {

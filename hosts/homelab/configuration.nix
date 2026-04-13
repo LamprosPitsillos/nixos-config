@@ -39,7 +39,6 @@ in
     supportedFilesystems = [ "ntfs" ];
   };
 
-
   networking.hostName = host; # Define your hostname.
 
   # Set your time zone.
@@ -114,6 +113,13 @@ in
   ];
 
   services.openssh.enable = true;
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
+    LidSwitchIgnoreInhibit = "no";
+  };
+
   programs.mtr.enable = true;
   programs.gnupg.agent = {
     enable = true;
